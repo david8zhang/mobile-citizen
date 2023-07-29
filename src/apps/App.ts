@@ -15,12 +15,12 @@ export abstract class App {
         0xeeeeee
       )
       .setInteractive()
-      .setDepth(100)
+      .setDepth(Constants.SORT_LAYERS.APP_BG)
       .setOrigin(0)
   }
 
   public render(onComplete?: Function): void {
-    this.bgRect.setVisible(true)
+    this.bgRect.setVisible(true).setAlpha(1)
     this.scene.tweens.add({
       targets: this.bgRect,
       width: {
@@ -49,6 +49,7 @@ export abstract class App {
   }
   public abstract setVisible(isVisible: boolean): void
   public onHide(onComplete?: Function): void {
+    this.setVisible(false)
     this.bgRect.setVisible(true)
     this.scene.tweens.add({
       targets: this.bgRect,
@@ -61,16 +62,17 @@ export abstract class App {
         from: Constants.WINDOW_HEIGHT - Constants.TOP_BAR_HEIGHT,
       },
       onUpdate: (tween, target, param) => {
-        target.setPosition(
-          Constants.WINDOW_WIDTH / 2 - target.displayWidth / 2,
-          Constants.WINDOW_HEIGHT / 2 - target.displayHeight / 2 + Constants.TOP_BAR_HEIGHT / 2
-        )
+        target
+          .setPosition(
+            Constants.WINDOW_WIDTH / 2 - target.displayWidth / 2,
+            Constants.WINDOW_HEIGHT / 2 - target.displayHeight / 2 + Constants.TOP_BAR_HEIGHT / 2
+          )
+          .setAlpha(1 - tween.progress)
       },
       ease: Phaser.Math.Easing.Sine.InOut,
       duration: 500,
       onComplete: () => {
         if (onComplete) {
-          this.setVisible(false)
           onComplete()
         }
       },

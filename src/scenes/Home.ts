@@ -5,14 +5,17 @@ import { AppIconBox } from '~/core/AppIconBox'
 import { TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export class Home extends Phaser.Scene {
+  public rexUI: any
   private topBar!: TopBar
   private apps: AppIconBox[] = []
   private appRouteMapping!: {
     [key in AppRoute]?: App
   }
   private currApp: AppRoute | null = null
+  private homeButton!: Phaser.GameObjects.Text
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -21,6 +24,7 @@ export class Home extends Phaser.Scene {
     super('home')
   }
   create() {
+    this.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x444444)
     this.appRouteMapping = {
       [AppRoute.BANK]: new Bank(this),
@@ -30,18 +34,61 @@ export class Home extends Phaser.Scene {
     this.setupHomeButton()
   }
 
-  setupHomeButton() {}
+  initializeSaveData() {
+    if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
+      Save.setData(SaveKeys.BANK_BALANCE, 0)
+      Save.setData(SaveKeys.FITNESS_GRADE, 100)
+      Save.setData(SaveKeys.ENERGY_LEVEL, 100)
+      Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
+    }
+  }
+
+  goBackHome() {
+    if (this.currApp) {
+      const appToHide = this.appRouteMapping[this.currApp]
+      if (appToHide) {
+        appToHide.onHide()
+        this.homeButton.setStyle({ color: 'white' })
+        this.currApp = null
+      }
+    }
+  }
+
+  setupHomeButton() {
+    this.homeButton = this.add
+      .text(0, 0, 'Home', {
+        fontSize: '15px',
+        color: 'white',
+      })
+      .setInteractive()
+      .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.homeButton.setAlpha(0.5)
+      })
+      .on(Phaser.Input.Events.POINTER_UP, () => {
+        this.homeButton.setAlpha(1)
+        this.goBackHome()
+      })
+      .on(Phaser.Input.Events.POINTER_UP_OUTSIDE, () => {
+        this.homeButton.setAlpha(1)
+        this.goBackHome()
+      })
+      .setDepth(150)
+    this.homeButton.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.homeButton.displayWidth / 2,
+      Constants.WINDOW_HEIGHT - 30
+    )
+  }
 
   renderApp(appRoute: AppRoute) {
     const appToRender = this.appRouteMapping[appRoute]
-    if (this.currApp) {
-      const prevApp = this.appRouteMapping[this.currApp]
-      if (prevApp) {
-        prevApp.onHide()
-      }
-    }
     if (appToRender) {
-      appToRender.render()
+      appToRender.render(() => {
+        this.homeButton
+          .setStyle({
+            color: 'black',
+          })
+          .setDepth(Constants.SORT_LAYERS.APP_UI)
+      })
       this.currApp = appRoute
     }
   }

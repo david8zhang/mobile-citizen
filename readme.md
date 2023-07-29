@@ -1,3 +1,3 @@
-# Phaser 3 Typescript Boilerplate
+# Mobile Citizen
 
-- Based on Ourcade's boilerplate, with a few additional modifications to support DOM element UI out of the box, as well as some package.json version configurations to support easy deployment with Netlify
+A life sim where you manage all aspects of your life through a mobile phone. Project for [Major Jam 6](https://itch.io/jam/major-jam-6-life)

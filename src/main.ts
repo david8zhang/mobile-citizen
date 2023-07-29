@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 import { Home } from './scenes/Home'
 import { Preload } from './scenes/Preload'
 import { Constants } from './utils/Constants'
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js'
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -22,6 +23,15 @@ const config: Phaser.Types.Core.GameConfig = {
   pixelArt: true,
   scale: {
     autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+  plugins: {
+    scene: [
+      {
+        key: 'rexUI',
+        plugin: UIPlugin,
+        mapping: 'rexUI',
+      },
+    ],
   },
   scene: [Preload, Home],
 }
