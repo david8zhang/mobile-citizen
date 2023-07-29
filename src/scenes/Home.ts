@@ -40,6 +40,7 @@ export class Home extends Phaser.Scene {
       Save.setData(SaveKeys.FITNESS_GRADE, 100)
       Save.setData(SaveKeys.ENERGY_LEVEL, 100)
       Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
+      Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
     }
   }
 
@@ -52,6 +53,10 @@ export class Home extends Phaser.Scene {
         this.currApp = null
       }
     }
+  }
+
+  updateSaveData(saveKey: SaveKeys, newData: any) {
+    Save.setData(saveKey, newData)
   }
 
   setupHomeButton() {

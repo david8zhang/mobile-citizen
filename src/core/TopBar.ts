@@ -1,6 +1,16 @@
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { UIValueBar } from './UIValueBar'
+import { Save, SaveKeys } from '~/utils/Save'
+import { Utils } from '~/utils/Utils'
+
+export enum FitnessGrade {
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
+}
 
 export class TopBar {
   private scene: Home
@@ -77,5 +87,26 @@ export class TopBar {
         color: 'white',
       })
       .setOrigin(1, 0)
+  }
+
+  updateStats() {
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
+    const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+
+    this.energyValue.setText(`${energyLevel}%`)
+    this.energyLabel.setPosition(
+      this.energyValue.x - this.energyValue.displayWidth - 5,
+      this.energyLabel.y
+    )
+
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
+    this.fitnessValueText.setText(fitnessGrade)
+    this.fitnessLabel.setPosition(
+      this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5,
+      this.fitnessLabel.y
+    )
+
+    this.fullnessBar.setCurrValue(fullnessLevel)
   }
 }
