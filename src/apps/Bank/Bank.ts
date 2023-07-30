@@ -1,5 +1,5 @@
 import { Home } from '~/scenes/Home'
-import { App } from './App'
+import { App } from '../App'
 import { Navbar } from '~/core/NavBar'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
@@ -24,10 +24,6 @@ export class Bank extends App {
     this.navbar = new Navbar(this.scene, {
       appName: 'Banking',
       height: 60,
-      strokeStyle: {
-        color: 0x000000,
-        width: 1,
-      },
       fontStyle: {
         fontSize: '22px',
         color: 'black',
@@ -91,8 +87,6 @@ export class Bank extends App {
     this.transactionListDomElement = this.scene.add
       .dom(0, yPos + 65, transactionList)
       .setOrigin(0)
-      .addListener('click')
-      .on('click', () => {})
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.setupDragToScroll()
   }

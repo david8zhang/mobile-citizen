@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { App } from '~/apps/App'
-import { Bank } from '~/apps/Bank'
+import { Bank } from '~/apps/Bank/Bank'
+import { ClikClok } from '~/apps/ClikClok/ClikClok'
 import { AppIconBox } from '~/core/AppIconBox'
 import { TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
@@ -15,7 +16,7 @@ export class Home extends Phaser.Scene {
     [key in AppRoute]?: App
   }
   private currApp: AppRoute | null = null
-  private homeButton!: Phaser.GameObjects.Text
+  public homeButton!: Phaser.GameObjects.Text
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -28,6 +29,7 @@ export class Home extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0x444444)
     this.appRouteMapping = {
       [AppRoute.BANK]: new Bank(this),
+      [AppRoute.CLIK_CLOK]: new ClikClok(this),
     }
     this.setupTopBar()
     this.setupAppGrid()

@@ -28,6 +28,7 @@ export class TopBar {
     this.bgRect = this.scene.add
       .rectangle(0, 0, Constants.WINDOW_WIDTH, Constants.TOP_BAR_HEIGHT, 0x000000)
       .setOrigin(0)
+      .setAlpha(0.5)
     this.setupFullnessText()
     this.setupFitnessText()
     this.setupEnergyText()

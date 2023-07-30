@@ -1,0 +1,6 @@
+export enum ScreenTypes {
+  SELECT_SOUND = 'SELECT_SOUND',
+  EARNINGS = 'EARNINGS',
+  PROFILE = 'PROFILE',
+  RECORD_VIDEO = 'RECORD_VIDEO',
+}
