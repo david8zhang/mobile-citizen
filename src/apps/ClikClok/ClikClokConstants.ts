@@ -1,4 +1,5 @@
 import { Constants } from '~/utils/Constants'
+import { SongConfig } from './screens/SelectSound'
 
 export enum Direction {
   UP = 'up',
@@ -28,27 +29,33 @@ export class ClikClokConstants {
     [Superlative.Great]: 15,
     [Superlative.Perfect]: 20,
   }
-  public static SOUNDS_LIST = [
+  public static SOUNDS_LIST: SongConfig[] = [
     {
       name: 'Funny Dance',
+      hashtags: '#funny #dance',
       difficulty: 3,
       earningPotential: 3,
+      energyCost: 15,
       bpm: 100,
-      duration: 30000,
+      duration: 5000,
     },
     {
       name: 'Hard Dance',
+      hashtags: '#hard #dance',
       difficulty: 5,
       earningPotential: 4,
+      energyCost: 40,
       bpm: 150,
-      duration: 30000,
+      duration: 5000,
     },
     {
       name: 'Meme Dance',
+      hashtags: '#meme #dance',
       difficulty: 2,
       earningPotential: 1,
+      energyCost: 25,
       bpm: 120,
-      duration: 30000,
+      duration: 5000,
     },
   ]
 

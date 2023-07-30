@@ -43,6 +43,7 @@ export class Home extends Phaser.Scene {
       Save.setData(SaveKeys.ENERGY_LEVEL, 100)
       Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
+      Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
     }
   }
 
@@ -57,8 +58,8 @@ export class Home extends Phaser.Scene {
     }
   }
 
-  updateSaveData(saveKey: SaveKeys, newData: any) {
-    Save.setData(saveKey, newData)
+  updateTopBarStats() {
+    this.topBar.updateStats()
   }
 
   setupHomeButton() {

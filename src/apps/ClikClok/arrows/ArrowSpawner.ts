@@ -12,40 +12,15 @@ export class ArrowSpawner {
   public totalNumBeats: number = 0
   public numBeats: number = 0
   public sprite!: Phaser.GameObjects.Sprite
+  private onCompletedSong: Function
+  private lastArrowCheckEvent: Phaser.Time.TimerEvent | null = null
 
-  constructor(scene: Home) {
+  constructor(scene: Home, onCompletedSong: Function) {
     this.scene = scene
-    this.setupCheckForLastArrow()
-
-    this.scene.input.keyboard.on('keydown', (event) => {
-      if (event.code === 'Space') {
-        this.scene.scene.restart()
-      }
-    })
+    this.onCompletedSong = onCompletedSong
   }
 
-  setupCheckForLastArrow() {
-    this.scene.time.addEvent({
-      repeat: -1,
-      delay: 1000,
-      callback: () => {
-        const activeArrow = this.arrows.find((a) => a.sprite.active)
-        if (activeArrow === undefined) {
-          // this.scene.time.delayedCall(3000, () => {
-          //   this.scene.score.didFinish = true
-          //   this.scene.scene.start('gameover', {
-          //     rank: this.scene.score.getRank(),
-          //     didFinish: this.scene.score.didFinish,
-          //   })
-          // })
-        }
-      },
-    })
-  }
-
-  setSongConfig(songConfig: SongConfig) {
-    this.songConfig = songConfig
-  }
+  setupCheckForLastArrow() {}
 
   setupSong(songConfig: SongConfig) {
     this.songConfig = songConfig
@@ -62,6 +37,23 @@ export class ArrowSpawner {
       delay: songConfig.duration - 1000,
       callback: () => {
         this.arrowSpawnEvent.destroy()
+      },
+    })
+
+    this.lastArrowCheckEvent = this.scene.time.addEvent({
+      repeat: -1,
+      delay: 1000,
+      callback: () => {
+        const activeArrow = this.arrows.find((a) => a.sprite.active)
+        if (activeArrow === undefined) {
+          this.scene.time.delayedCall(3000, () => {
+            this.onCompletedSong()
+          })
+          if (this.lastArrowCheckEvent) {
+            this.lastArrowCheckEvent.destroy()
+            this.lastArrowCheckEvent = null
+          }
+        }
       },
     })
   }

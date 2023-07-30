@@ -7,6 +7,7 @@ import { Profile } from './screens/Profile'
 import { SelectSound, SongConfig } from './screens/SelectSound'
 import { SubScreen } from './screens/SubScreen'
 import { RecordVideo } from './screens/RecordVideo'
+import { CompletedVideo } from './screens/CompletedVideo'
 
 export class ClikClok extends App {
   public navbar: Navbar
@@ -32,6 +33,7 @@ export class ClikClok extends App {
       [ScreenTypes.PROFILE]: new Profile(this.scene, this),
       [ScreenTypes.SELECT_SOUND]: new SelectSound(this.scene, this),
       [ScreenTypes.RECORD_VIDEO]: new RecordVideo(this.scene, this),
+      [ScreenTypes.COMPLETED_VIDEO]: new CompletedVideo(this.scene, this),
     }
     this.bottomNav = new BottomNav(this.scene, {
       onCreateNew: () => {

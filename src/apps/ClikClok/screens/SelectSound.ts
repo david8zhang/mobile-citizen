@@ -8,9 +8,11 @@ import { ClikClokConstants } from '../ClikClokConstants'
 export interface SongConfig {
   name: string
   difficulty: number
-  earningsPotential: number
+  earningPotential: number
   bpm: number
   duration: number
+  hashtags: string
+  energyCost: number
 }
 
 export class SelectSound extends SubScreen {

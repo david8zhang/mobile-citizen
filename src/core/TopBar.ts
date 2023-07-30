@@ -35,6 +35,7 @@ export class TopBar {
   }
 
   setupFullnessText() {
+    const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     this.fullnessBar = new UIValueBar(this.scene, {
       width: 40,
       height: 12,
@@ -46,6 +47,7 @@ export class TopBar {
       borderWidth: 4,
       showBorder: true,
     })
+    this.fullnessBar.setCurrValue(fullnessLevel)
 
     this.fullnessLabel = this.scene.add.text(
       this.fullnessBar.x - this.fullnessBar.width + 10,
@@ -59,8 +61,11 @@ export class TopBar {
   }
 
   setupFitnessText() {
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
+
     this.fitnessValueText = this.scene.add
-      .text(this.fullnessLabel.x - 20, 5, 'A', {
+      .text(this.fullnessLabel.x - 20, 5, `${fitnessGrade}`, {
         fontSize: '18px',
         color: 'white',
         strokeThickness: 1,
@@ -75,8 +80,9 @@ export class TopBar {
   }
 
   setupEnergyText() {
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
     this.energyValue = this.scene.add
-      .text(this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15, 5, '100%', {
+      .text(this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15, 5, `${energyLevel}%`, {
         fontSize: '18px',
         color: 'white',
         strokeThickness: 1,
