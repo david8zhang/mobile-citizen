@@ -12,4 +12,7 @@ export abstract class SubScreen {
 
   public abstract onRender(data?: any): void
   public abstract setVisible(isVisible: boolean): void
+  public onHide(): void {
+    return
+  }
 }

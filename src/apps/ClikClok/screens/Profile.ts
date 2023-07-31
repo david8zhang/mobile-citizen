@@ -20,11 +20,11 @@ export class Profile extends SubScreen {
       .sprite(
         Constants.WINDOW_WIDTH / 2,
         parent.navbar.bgRect.y + parent.navbar.bgRect.displayHeight + 50,
-        ''
+        'circle-user-solid'
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0.5, 0)
-    this.profilePic.setDisplaySize(100, 100)
+    this.profilePic.setDisplaySize(150, 150)
     this.profileNameLabel = this.scene.add
       .text(
         this.profilePic.x,
@@ -48,5 +48,8 @@ export class Profile extends SubScreen {
     this.profilePic.setVisible(isVisible)
   }
 
-  public onRender(): void {}
+  public onRender(): void {
+    const parent = this.parent as ClikClok
+    parent.navbar.setText('ClikClok')
+  }
 }

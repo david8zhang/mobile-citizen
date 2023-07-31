@@ -2,11 +2,14 @@ import { Home } from '~/scenes/Home'
 import { ClikClok } from '../ClikClok'
 import { SubScreen } from './SubScreen'
 import { Constants } from '~/utils/Constants'
-import { BottomNav } from '../BottomNav'
+import { CC_BottomNav } from '../CCBottomNav'
 
 export interface Video {
   videoName: string
-  revenueEarned: number
+  creationDate: number
+  revenueEarnedPerDay: {
+    [key: string]: number
+  }
   totalViews: number
   totalLikes: number
   profileName: string
@@ -35,7 +38,7 @@ export class CompletedVideo extends SubScreen {
         Constants.WINDOW_WIDTH / 2,
         Constants.WINDOW_HEIGHT / 2 - 15,
         Constants.WINDOW_WIDTH,
-        Constants.WINDOW_HEIGHT - Constants.TOP_BAR_HEIGHT - BottomNav.BOTTOM_BAR_HEIGHT,
+        Constants.WINDOW_HEIGHT - Constants.TOP_BAR_HEIGHT - CC_BottomNav.BOTTOM_BAR_HEIGHT,
         0x000000
       )
       .setInteractive()
@@ -111,14 +114,24 @@ export class CompletedVideo extends SubScreen {
   public onRender(video: Video): void {
     const parent = this.parent as ClikClok
     parent.bottomNav.setVisible(true)
+    parent.navbar.setVisible(false)
     this.scene.homeButton.setStyle({ color: 'black' })
     this.updateVideoTitle(video)
     this.updateVideoStats(video)
     this.updateVideoDescription(video)
   }
 
+  public onHide() {
+    const parent = this.parent as ClikClok
+    parent.bottomNav.setVisible(true)
+    parent.navbar.setVisible(true)
+  }
+
   updateVideoStats(video: Video) {
-    this.revenueEarnedLabel.setText(`Revenue: $${video.revenueEarned.toFixed(2)}`)
+    const totalRevenueEarned = Object.values(video.revenueEarnedPerDay).reduce((acc, curr) => {
+      return acc + curr
+    }, 0)
+    this.revenueEarnedLabel.setText(`Revenue: $${totalRevenueEarned.toFixed(2)}`)
     this.revenueEarnedLabel.setPosition(
       Constants.WINDOW_WIDTH - this.revenueEarnedLabel.displayWidth - 15,
       this.revenueEarnedLabel.y

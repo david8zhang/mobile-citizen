@@ -5,6 +5,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 
 export enum FitnessGrade {
+  S = 'S',
   A = 'A',
   B = 'B',
   C = 'C',
@@ -22,6 +23,7 @@ export class TopBar {
   private fullnessBar!: UIValueBar
   private energyLabel!: Phaser.GameObjects.Text
   private energyValue!: Phaser.GameObjects.Text
+  private currDateLabel!: Phaser.GameObjects.Text
 
   constructor(scene: Home) {
     this.scene = scene
@@ -32,6 +34,7 @@ export class TopBar {
     this.setupFullnessText()
     this.setupFitnessText()
     this.setupEnergyText()
+    this.setupCurrDateLabel()
   }
 
   setupFullnessText() {
@@ -72,7 +75,7 @@ export class TopBar {
       })
       .setOrigin(1, 0)
     this.fitnessLabel = this.scene.add
-      .text(this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5, 7, '🏃', {
+      .text(this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5, 7, '❤️', {
         fontSize: '15px',
         color: 'white',
       })
@@ -94,6 +97,16 @@ export class TopBar {
         color: 'white',
       })
       .setOrigin(1, 0)
+  }
+
+  setupCurrDateLabel() {
+    const currDay = Save.getData(SaveKeys.CURR_DATE) as number
+    this.currDateLabel = this.scene.add
+      .text(15, 7, `Day ${currDay}`, {
+        fontSize: '15px',
+        color: 'white',
+      })
+      .setOrigin(0, 0)
   }
 
   updateStats() {

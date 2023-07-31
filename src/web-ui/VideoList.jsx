@@ -1,7 +1,7 @@
-export const SoundList = (sounds, height, width, onClick, energyLevel) => {
+export const VideoList = (videos, currDay, height, width, onClick) => {
   return (
     <div
-      id='sound-list'
+      id='video-list'
       style={{
         overflowY: 'scroll',
         padding: '0px 15px',
@@ -13,7 +13,7 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
         boxSizing: 'border-box',
       }}
     >
-      {sounds.map((sound) => {
+      {videos.map((video) => {
         return (
           <div
             style={{
@@ -21,11 +21,11 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
               flexDirection: 'column',
               padding: '20px',
               marginBottom: '10px',
-              backgroundColor: energyLevel >= sound.energyCost ? 'white' : '#dddddd',
-              cursor: energyLevel >= sound.energyCost ? 'pointer' : 'default',
+              backgroundColor: 'white',
+              cursor: 'pointer',
             }}
             onClick={() => {
-              onClick(sound)
+              onClick(video)
             }}
           >
             <p
@@ -34,41 +34,50 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
                 color: 'black',
                 marginTop: '0px',
                 marginBottom: '10px',
-                color: energyLevel >= sound.energyCost ? 'black' : 'gray',
               }}
             >
-              {sound.name}
+              {video.videoName}
             </p>
             <div style={{ display: 'flex', color: 'black', flexDirection: 'row' }}>
               <p
                 style={{
+                  fontSize: '12px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
-                  color: energyLevel >= sound.energyCost ? 'black' : 'gray',
                 }}
               >
-                Difficulty: {sound.difficulty}
+                Created: Day {video.creationDate}
               </p>
               <p
                 style={{
+                  fontSize: '12px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
-                  color: energyLevel >= sound.energyCost ? 'black' : 'gray',
                 }}
               >
-                Earnings Pot: {sound.earningPotential}
+                Likes: {video.totalLikes}
               </p>
               <p
                 style={{
+                  fontSize: '12px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
-                  color: energyLevel >= sound.energyCost ? 'black' : 'red',
                 }}
               >
-                Energy Cost: {sound.energyCost}
+                Views: {video.totalViews}
+              </p>
+              <p
+                style={{
+                  fontSize: '12px',
+                  marginTop: '0px',
+                  marginBottom: '0px',
+                  marginRight: '10px',
+                }}
+              >
+                Today's Earnings: ${video.revenueEarnedPerDay[currDay].toFixed(2)}
               </p>
             </div>
           </div>

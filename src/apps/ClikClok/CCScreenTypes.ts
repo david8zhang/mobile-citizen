@@ -1,4 +1,4 @@
-export enum ScreenTypes {
+export enum CC_ScreenTypes {
   SELECT_SOUND = 'SELECT_SOUND',
   EARNINGS = 'EARNINGS',
   PROFILE = 'PROFILE',

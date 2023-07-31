@@ -44,6 +44,14 @@ export class Navbar {
     )
   }
 
+  setText(text: string) {
+    this.navText.setText(text)
+    this.navText.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.navText.displayWidth / 2,
+      this.navText.y
+    )
+  }
+
   setVisible(isVisible: boolean) {
     this.bgRect.setVisible(isVisible)
     this.navText.setVisible(isVisible)

@@ -4,6 +4,9 @@ import { SubScreen } from './SubScreen'
 import { Constants } from '~/utils/Constants'
 import { SoundList } from '~/web-ui/SoundList'
 import { ClikClokConstants } from '../ClikClokConstants'
+import { Utils } from '~/utils/Utils'
+import { Save, SaveKeys } from '~/utils/Save'
+import { UINumber } from '../UINumber'
 
 export interface SongConfig {
   name: string
@@ -43,57 +46,37 @@ export class SelectSound extends SubScreen {
   }
 
   selectSound(data: SongConfig) {
-    const parent = this.parent as ClikClok
-    parent.goToRecordVideoScreen(data)
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL)
+    if (data.energyCost <= energyLevel) {
+      const parent = this.parent as ClikClok
+      parent.goToRecordVideoScreen(data)
+    }
   }
 
   setupSoundsList() {
     const yPos = this.selectSoundLabel.y
-    const transactionList = SoundList(
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL)
+    const soundsList = SoundList(
       ClikClokConstants.SOUNDS_LIST,
       520,
       Constants.WINDOW_WIDTH,
       (data) => {
         this.selectSound(data)
-      }
+      },
+      energyLevel
     )
     this.soundListDomElement = this.scene.add
-      .dom(0, yPos + 60, transactionList)
+      .dom(0, yPos + 60, soundsList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.setupDragToScroll()
+    Utils.setupDragToScroll('sound-list')
   }
 
-  private setupDragToScroll() {
-    const ele = document.getElementById('sound-list')!
-    let pos = { top: 0, left: 0, x: 0, y: 0 }
-
-    const mouseDownHandler = function (e) {
-      ele.style.userSelect = 'none'
-      pos = {
-        left: ele.scrollLeft,
-        top: ele.scrollTop,
-        x: e.clientX,
-        y: e.clientY,
-      }
-      document.addEventListener('mousemove', mouseMoveHandler)
-      document.addEventListener('mouseup', mouseUpHandler)
+  updateSoundsList() {
+    if (this.soundListDomElement) {
+      this.soundListDomElement.destroy()
     }
-
-    const mouseMoveHandler = function (e) {
-      const dx = e.clientX - pos.x
-      const dy = e.clientY - pos.y
-      ele.scrollTop = pos.top - dy
-      ele.scrollLeft = pos.left - dx
-    }
-
-    const mouseUpHandler = function () {
-      ele.style.removeProperty('user-select')
-
-      document.removeEventListener('mousemove', mouseMoveHandler)
-      document.removeEventListener('mouseup', mouseUpHandler)
-    }
-    ele.addEventListener('mousedown', mouseDownHandler)
+    this.setupSoundsList()
   }
 
   public setVisible(isVisible: boolean): void {
@@ -101,5 +84,7 @@ export class SelectSound extends SubScreen {
     this.selectSoundLabel.setVisible(isVisible)
   }
 
-  public onRender(): void {}
+  public onRender(): void {
+    this.updateSoundsList()
+  }
 }

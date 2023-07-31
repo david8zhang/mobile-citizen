@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { App } from '~/apps/App'
 import { Bank } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
+import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { AppIconBox } from '~/core/AppIconBox'
 import { TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
@@ -30,6 +31,7 @@ export class Home extends Phaser.Scene {
     this.appRouteMapping = {
       [AppRoute.BANK]: new Bank(this),
       [AppRoute.CLIK_CLOK]: new ClikClok(this),
+      [AppRoute.FIT_NESS_MONSTER]: new FitNessMonster(this),
     }
     this.setupTopBar()
     this.setupAppGrid()
@@ -39,11 +41,12 @@ export class Home extends Phaser.Scene {
   initializeSaveData() {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
       Save.setData(SaveKeys.BANK_BALANCE, 0)
-      Save.setData(SaveKeys.FITNESS_GRADE, 100)
+      Save.setData(SaveKeys.FITNESS_GRADE, 70)
       Save.setData(SaveKeys.ENERGY_LEVEL, 100)
       Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
+      Save.setData(SaveKeys.CURR_DATE, 1)
     }
   }
 

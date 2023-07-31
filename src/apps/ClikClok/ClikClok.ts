@@ -1,22 +1,23 @@
 import { Home } from '~/scenes/Home'
 import { App } from '../App'
 import { Navbar } from '~/core/NavBar'
-import { BottomNav } from '~/apps/ClikClok/BottomNav'
-import { ScreenTypes } from './ScreenTypes'
+import { CC_BottomNav } from '~/apps/ClikClok/CCBottomNav'
+import { CC_ScreenTypes } from './CCScreenTypes'
 import { Profile } from './screens/Profile'
 import { SelectSound, SongConfig } from './screens/SelectSound'
 import { SubScreen } from './screens/SubScreen'
 import { RecordVideo } from './screens/RecordVideo'
 import { CompletedVideo } from './screens/CompletedVideo'
+import { Earnings } from './screens/Earnings'
 
 export class ClikClok extends App {
   public navbar: Navbar
-  public bottomNav: BottomNav
+  public bottomNav: CC_BottomNav
 
   private screenMappings: {
-    [key in ScreenTypes]?: SubScreen
+    [key in CC_ScreenTypes]?: SubScreen
   }
-  private currSubscreen: ScreenTypes = ScreenTypes.PROFILE
+  private currSubscreen: CC_ScreenTypes = CC_ScreenTypes.PROFILE
 
   constructor(scene: Home) {
     super(scene)
@@ -30,23 +31,34 @@ export class ClikClok extends App {
       },
     })
     this.screenMappings = {
-      [ScreenTypes.PROFILE]: new Profile(this.scene, this),
-      [ScreenTypes.SELECT_SOUND]: new SelectSound(this.scene, this),
-      [ScreenTypes.RECORD_VIDEO]: new RecordVideo(this.scene, this),
-      [ScreenTypes.COMPLETED_VIDEO]: new CompletedVideo(this.scene, this),
+      [CC_ScreenTypes.PROFILE]: new Profile(this.scene, this),
+      [CC_ScreenTypes.SELECT_SOUND]: new SelectSound(this.scene, this),
+      [CC_ScreenTypes.RECORD_VIDEO]: new RecordVideo(this.scene, this),
+      [CC_ScreenTypes.COMPLETED_VIDEO]: new CompletedVideo(this.scene, this),
+      [CC_ScreenTypes.EARNINGS]: new Earnings(this.scene, this),
     }
-    this.bottomNav = new BottomNav(this.scene, {
+    this.bottomNav = new CC_BottomNav(this.scene, {
       onCreateNew: () => {
         this.goToSelectNewVideo()
+      },
+      onRoute: (route: CC_ScreenTypes) => {
+        if (route === CC_ScreenTypes.PROFILE) {
+          this.renderSubscreen(CC_ScreenTypes.PROFILE)
+        } else if (route === CC_ScreenTypes.EARNINGS) {
+          this.renderSubscreen(CC_ScreenTypes.EARNINGS)
+        }
       },
     })
     this.setVisible(false)
   }
 
-  renderSubscreen(newSubscreen: ScreenTypes, data?: any) {
+  renderSubscreen(newSubscreen: CC_ScreenTypes, data?: any) {
     if (this.currSubscreen !== newSubscreen) {
       const prevSubscreen = this.screenMappings[this.currSubscreen]
-      if (prevSubscreen) prevSubscreen.setVisible(false)
+      if (prevSubscreen) {
+        prevSubscreen.onHide()
+        prevSubscreen.setVisible(false)
+      }
     }
     this.currSubscreen = newSubscreen
     const subscreen = this.screenMappings[newSubscreen]
@@ -65,11 +77,11 @@ export class ClikClok extends App {
 
   goToRecordVideoScreen(sound: SongConfig) {
     this.scene.homeButton.setStyle({ color: 'white' })
-    this.renderSubscreen(ScreenTypes.RECORD_VIDEO, sound)
+    this.renderSubscreen(CC_ScreenTypes.RECORD_VIDEO, sound)
   }
 
   goToSelectNewVideo() {
-    this.renderSubscreen(ScreenTypes.SELECT_SOUND)
+    this.renderSubscreen(CC_ScreenTypes.SELECT_SOUND)
   }
 
   public onHide(onComplete?: Function | undefined): void {
@@ -83,7 +95,7 @@ export class ClikClok extends App {
 
   public render(onComplete?: Function | undefined): void {
     super.render(() => {
-      this.renderSubscreen(this.currSubscreen)
+      this.renderSubscreen(CC_ScreenTypes.PROFILE)
       if (onComplete) {
         onComplete()
       }

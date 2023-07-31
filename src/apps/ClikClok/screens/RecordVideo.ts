@@ -10,7 +10,7 @@ import { InputArrowZone } from '../arrows/InputArrowZone'
 import { InputArrow } from '../arrows/InputArrow'
 import { Video } from './CompletedVideo'
 import { Save, SaveKeys } from '~/utils/Save'
-import { ScreenTypes } from '../ScreenTypes'
+import { CC_ScreenTypes } from '../CCScreenTypes'
 import { Button } from '../Button'
 
 export class RecordVideo extends SubScreen {
@@ -105,6 +105,7 @@ export class RecordVideo extends SubScreen {
   }
 
   startRecording() {
+    this.scene.homeButton.setVisible(false)
     this.recordButton.setVisible(false)
     let countdownTime = 3
     this.countdownLabel
@@ -129,6 +130,13 @@ export class RecordVideo extends SubScreen {
       },
       delay: 1000,
     })
+  }
+
+  onHide() {
+    const parent = this.parent as ClikClok
+    parent.navbar.setVisible(true)
+    parent.bottomNav.setVisible(true)
+    this.scene.homeButton.setVisible(true)
   }
 
   processInputSuperlative(yDiff: number) {
@@ -174,10 +182,14 @@ export class RecordVideo extends SubScreen {
     this.completedVideoLabel.setVisible(false)
     this.postVideoButton.setVisible(false)
     if (this.selectedSound) {
+      const currDay = Save.getData(SaveKeys.CURR_DATE) as number
       const completedVideo: Video = {
         totalLikes: 0,
         totalViews: 0,
-        revenueEarned: 0,
+        creationDate: currDay,
+        revenueEarnedPerDay: {
+          [`Day ${currDay}`]: 0,
+        },
         profileName: '@User',
         hashtags: this.selectedSound.hashtags,
         videoName: `${this.selectedSound.name} video`,
@@ -192,7 +204,7 @@ export class RecordVideo extends SubScreen {
       this.scene.updateTopBarStats()
 
       const parent = this.parent as ClikClok
-      parent.renderSubscreen(ScreenTypes.COMPLETED_VIDEO, completedVideo)
+      parent.renderSubscreen(CC_ScreenTypes.COMPLETED_VIDEO, completedVideo)
     }
   }
 
