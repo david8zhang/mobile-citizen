@@ -1,1 +1,4 @@
-export enum FNM_ScreenTypes {}
+export enum FNM_ScreenTypes {
+  FITNESS_STATS = 'FITNESS_STATS',
+  CHOOSE_WORKOUT = 'CHOOSE_WORKOUT',
+}

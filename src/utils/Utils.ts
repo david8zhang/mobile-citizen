@@ -22,6 +22,29 @@ export class Utils {
     }
   }
 
+  public static getEnergyCostForFitness(grade: FitnessGrade) {
+    switch (grade) {
+      case FitnessGrade.S: {
+        return -0.6
+      }
+      case FitnessGrade.A: {
+        return -0.5
+      }
+      case FitnessGrade.B: {
+        return -0.25
+      }
+      case FitnessGrade.C: {
+        return 0
+      }
+      case FitnessGrade.D: {
+        return 0.25
+      }
+      case FitnessGrade.F: {
+        return 0.5
+      }
+    }
+  }
+
   public static setupDragToScroll(divId: string) {
     const ele = document.getElementById(divId)!
     ele.style.cursor = 'grab'

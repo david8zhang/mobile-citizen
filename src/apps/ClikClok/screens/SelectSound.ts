@@ -1,6 +1,6 @@
 import { Home } from '~/scenes/Home'
 import { ClikClok } from '../ClikClok'
-import { SubScreen } from './SubScreen'
+import { SubScreen } from '../../../core/SubScreen'
 import { Constants } from '~/utils/Constants'
 import { SoundList } from '~/web-ui/SoundList'
 import { ClikClokConstants } from '../ClikClokConstants'

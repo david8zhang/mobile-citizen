@@ -1,7 +1,7 @@
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { ClikClok } from '../ClikClok'
-import { SubScreen } from './SubScreen'
+import { SubScreen } from '../../../core/SubScreen'
 
 export class Profile extends SubScreen {
   // Profile

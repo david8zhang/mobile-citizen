@@ -1,6 +1,6 @@
 import { Home } from '~/scenes/Home'
 import { ClikClok } from '../ClikClok'
-import { SubScreen } from './SubScreen'
+import { SubScreen } from '../../../core/SubScreen'
 import { SongConfig } from './SelectSound'
 import { Constants } from '~/utils/Constants'
 import { UINumber } from '../UINumber'

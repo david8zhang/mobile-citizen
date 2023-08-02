@@ -11,7 +11,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 
 export class Home extends Phaser.Scene {
   public rexUI: any
-  private topBar!: TopBar
+  public topBar!: TopBar
   private apps: AppIconBox[] = []
   private appRouteMapping!: {
     [key in AppRoute]?: App

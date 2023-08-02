@@ -1,11 +1,10 @@
 import { Home } from '~/scenes/Home'
-import { ClikClok } from '../ClikClok'
 import { App } from '~/apps/App'
 
 export abstract class SubScreen {
   protected scene: Home
   protected parent: App
-  constructor(scene: Home, parent: ClikClok) {
+  constructor(scene: Home, parent: App) {
     this.scene = scene
     this.parent = parent
   }
