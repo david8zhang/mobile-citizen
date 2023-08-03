@@ -80,7 +80,7 @@ export class FitnessStats extends SubScreen {
   }
 
   setupFitnessStats() {
-    const energyValue = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    const energyValue = Save.getData(SaveKeys.TOTAL_ENERGY) as number
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)!
 

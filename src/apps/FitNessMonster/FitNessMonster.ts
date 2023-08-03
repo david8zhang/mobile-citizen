@@ -4,6 +4,7 @@ import { FNM_BottomNav } from './FNMBottomNav'
 import { FNM_ScreenTypes } from './FNMScreenTypes'
 import { SubScreen } from '~/core/SubScreen'
 import { FitnessStats } from './screens/FitnessStats'
+import { WorkoutSelect } from './screens/WorkoutSelect'
 
 export class FitNessMonster extends App {
   private bottomNav: FNM_BottomNav
@@ -15,10 +16,13 @@ export class FitNessMonster extends App {
   constructor(scene: Home) {
     super(scene)
     this.bottomNav = new FNM_BottomNav(this.scene, {
-      onRoute: () => {},
+      onRoute: (route: FNM_ScreenTypes) => {
+        this.renderSubscreen(route)
+      },
     })
     this.screenMappings = {
       [FNM_ScreenTypes.FITNESS_STATS]: new FitnessStats(this.scene, this),
+      [FNM_ScreenTypes.CHOOSE_WORKOUT]: new WorkoutSelect(this.scene, this),
     }
     this.bgRect.setFillStyle(0xeeeeee)
     this.setVisible(false)
@@ -40,9 +44,25 @@ export class FitNessMonster extends App {
     }
   }
 
+  hideSubscreen() {
+    const subscreen = this.screenMappings[this.currSubscreen]
+    if (subscreen) {
+      subscreen.setVisible(false)
+    }
+  }
+
   public setVisible(isVisible: boolean): void {
     this.bgRect.setVisible(isVisible)
     this.bottomNav.setVisible(isVisible)
+  }
+
+  public onHide(onComplete?: Function | undefined): void {
+    this.hideSubscreen()
+    super.onHide(() => {
+      if (onComplete) {
+        onComplete()
+      }
+    })
   }
 
   public render(onComplete?: Function | undefined): void {

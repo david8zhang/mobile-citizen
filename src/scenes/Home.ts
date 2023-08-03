@@ -4,10 +4,11 @@ import { Bank } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { AppIconBox } from '~/core/AppIconBox'
-import { TopBar } from '~/core/TopBar'
+import { FitnessGrade, TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
+import { Utils } from '~/utils/Utils'
 
 export class Home extends Phaser.Scene {
   public rexUI: any
@@ -42,11 +43,14 @@ export class Home extends Phaser.Scene {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
       Save.setData(SaveKeys.BANK_BALANCE, 0)
       Save.setData(SaveKeys.FITNESS_GRADE, 70)
-      Save.setData(SaveKeys.ENERGY_LEVEL, 100)
       Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
+
+      // Initialize energy level
+      Save.setData(SaveKeys.ENERGY_LEVEL, 100)
+      Save.setData(SaveKeys.TOTAL_ENERGY, Utils.getTotalEnergyForFitness(FitnessGrade.C))
     }
   }
 

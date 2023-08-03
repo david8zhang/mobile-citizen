@@ -22,6 +22,29 @@ export class Utils {
     }
   }
 
+  public static getTotalEnergyForFitness(grade: FitnessGrade) {
+    switch (grade) {
+      case FitnessGrade.S: {
+        return 250
+      }
+      case FitnessGrade.A: {
+        return 200
+      }
+      case FitnessGrade.B: {
+        return 150
+      }
+      case FitnessGrade.C: {
+        return 100
+      }
+      case FitnessGrade.D: {
+        return 75
+      }
+      case FitnessGrade.F: {
+        return 50
+      }
+    }
+  }
+
   public static getEnergyCostForFitness(grade: FitnessGrade) {
     switch (grade) {
       case FitnessGrade.S: {
