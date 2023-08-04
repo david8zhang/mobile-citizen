@@ -17,11 +17,11 @@ export class TopBar {
   private scene: Home
   public bgRect: Phaser.GameObjects.Rectangle
 
-  private fitnessLabel!: Phaser.GameObjects.Text
+  private fitnessLabel!: Phaser.GameObjects.Sprite
   private fitnessValueText!: Phaser.GameObjects.Text
-  private fullnessLabel!: Phaser.GameObjects.Text
+  private fullnessLabel!: Phaser.GameObjects.Sprite
   private fullnessBar!: UIValueBar
-  private energyLabel!: Phaser.GameObjects.Text
+  private energyLabel!: Phaser.GameObjects.Sprite
   private energyValue!: Phaser.GameObjects.Text
   private currDateLabel!: Phaser.GameObjects.Text
 
@@ -51,16 +51,11 @@ export class TopBar {
       showBorder: true,
     })
     this.fullnessBar.setCurrValue(fullnessLevel)
-
-    this.fullnessLabel = this.scene.add.text(
-      this.fullnessBar.x - this.fullnessBar.width + 10,
-      this.fullnessBar.y,
-      '🍗',
-      {
-        fontSize: '15px',
-        color: 'white',
-      }
-    )
+    this.fullnessLabel = this.scene.add
+      .sprite(this.fullnessBar.x - 10, 7, 'burger-solid')
+      .setDisplaySize(15, 15)
+      .setOrigin(1, 0)
+      .setTintFill(0xffffff)
   }
 
   setupFitnessText() {
@@ -68,18 +63,17 @@ export class TopBar {
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
 
     this.fitnessValueText = this.scene.add
-      .text(this.fullnessLabel.x - 20, 5, `${fitnessGrade}`, {
+      .text(this.fullnessLabel.x - 30, 5, `${fitnessGrade}`, {
         fontSize: '18px',
         color: 'white',
         strokeThickness: 1,
       })
       .setOrigin(1, 0)
     this.fitnessLabel = this.scene.add
-      .text(this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5, 7, '❤️', {
-        fontSize: '15px',
-        color: 'white',
-      })
+      .sprite(this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5, 7, 'heart-solid')
+      .setDisplaySize(15, 15)
       .setOrigin(1, 0)
+      .setTintFill(0xffffff)
   }
 
   setupEnergyText() {
@@ -92,11 +86,10 @@ export class TopBar {
       })
       .setOrigin(1, 0)
     this.energyLabel = this.scene.add
-      .text(this.energyValue.x - this.energyValue.displayWidth - 5, 7, '⚡', {
-        fontSize: '15px',
-        color: 'white',
-      })
+      .sprite(this.energyValue.x - this.energyValue.displayWidth - 5, 7, 'bolt-solid')
+      .setDisplaySize(15, 15)
       .setOrigin(1, 0)
+      .setTintFill(0xffffff)
   }
 
   setupCurrDateLabel() {
