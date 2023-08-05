@@ -9,6 +9,7 @@ interface UIValueBarConfig {
   bgColor?: number
   showBorder?: boolean
   isVertical?: boolean
+  depth?: number
 }
 
 export class UIValueBar {
@@ -49,7 +50,7 @@ export class UIValueBar {
     this.showBorder = showBorder || false
     scene.add.existing(this.bar)
     this.draw()
-    this.bar.setDepth(100)
+    this.bar.setDepth(config.depth ? config.depth : 100)
   }
 
   setVisible(visible: boolean) {

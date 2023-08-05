@@ -19,6 +19,7 @@ export class Home extends Phaser.Scene {
   }
   private currApp: AppRoute | null = null
   public homeButton!: Phaser.GameObjects.Text
+  public updateCallbacks: Function[] = []
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -141,6 +142,12 @@ export class Home extends Phaser.Scene {
         })
       )
       currX += Home.PADDING_BETWEEN_APPS + appBoxWidth
+    })
+  }
+
+  update(): void {
+    this.updateCallbacks.forEach((updateFn) => {
+      updateFn()
     })
   }
 }
