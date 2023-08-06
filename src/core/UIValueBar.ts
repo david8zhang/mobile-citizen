@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 interface UIValueBarConfig {
   x: number
   y: number
@@ -10,6 +12,7 @@ interface UIValueBarConfig {
   showBorder?: boolean
   isVertical?: boolean
   depth?: number
+  hideBg: boolean
 }
 
 export class UIValueBar {
@@ -26,6 +29,7 @@ export class UIValueBar {
   borderWidth: number
   isVertical: boolean = false
   bgColor: number = 0x000000
+  hideBg: boolean = false
 
   constructor(scene: Phaser.Scene, config: UIValueBarConfig) {
     this.bar = new Phaser.GameObjects.Graphics(scene)
@@ -40,6 +44,10 @@ export class UIValueBar {
 
     if (bgColor) {
       this.bgColor = bgColor
+    }
+
+    if (config.hideBg) {
+      this.hideBg = config.hideBg
     }
 
     if (config.isVertical) {
@@ -86,12 +94,14 @@ export class UIValueBar {
     const borderWidth = this.showBorder ? this.borderWidth : 0
     this.bar.fillStyle(this.bgColor)
 
-    this.bar.fillRect(
-      this.x - borderWidth / 2,
-      this.y - borderWidth / 2,
-      this.width + borderWidth,
-      this.height + borderWidth
-    )
+    if (!this.hideBg) {
+      this.bar.fillRect(
+        this.x - borderWidth / 2,
+        this.y - borderWidth / 2,
+        this.width + borderWidth,
+        this.height + borderWidth
+      )
+    }
 
     const percentage = this.currValue / this.maxValue
     this.bar.fillStyle(this.fillColor)

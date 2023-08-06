@@ -49,6 +49,7 @@ export class TopBar {
       y: 8,
       borderWidth: 4,
       showBorder: true,
+      hideBg: false,
     })
     this.fullnessBar.setCurrValue(fullnessLevel)
     this.fullnessLabel = this.scene.add

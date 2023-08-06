@@ -11,6 +11,12 @@ export interface Workout {
   minigameConfig: HoldAndReleaseGameConfig | TapTimingGameConfig
 }
 
+export enum RepQuality {
+  GOOD = 'GOOD',
+  AVERAGE = 'AVERAGE',
+  BAD = 'BAD',
+}
+
 export class FitNessMonsterConstants {
   public static WORKOUT_LIST: Workout[] = [
     {
@@ -22,7 +28,11 @@ export class FitNessMonsterConstants {
         headerText: 'Pushups',
         totalReps: 30,
         increasePerFrame: 2,
-        perfectMarker: 90,
+        perfectRepWidthPct: 0.75,
+        repRanges: {
+          [RepQuality.GOOD]: 4,
+          [RepQuality.AVERAGE]: 20,
+        },
         barPosY: Constants.WINDOW_HEIGHT / 2 + 100,
       },
     },
