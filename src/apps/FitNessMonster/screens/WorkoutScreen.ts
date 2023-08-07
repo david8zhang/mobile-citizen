@@ -26,7 +26,7 @@ export class WorkoutScreen extends SubScreen {
     this.selectedWorkoutType = workoutType
     const workoutMinigame = this.workoutGameMapping[workoutType]
     if (workoutMinigame) {
-      workoutMinigame.initialize(this.workoutGame.minigameConfig)
+      workoutMinigame.initialize(this.workoutGame.minigameConfig, this.workoutGame)
     }
   }
 

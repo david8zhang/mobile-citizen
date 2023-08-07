@@ -3,7 +3,9 @@ import { FitNessMonster } from '../FitNessMonster'
 import { UIValueBar } from '~/core/UIValueBar'
 import { Constants } from '~/utils/Constants'
 import { WorkoutMinigame } from './WorkoutMinigame'
-import { RepQuality } from '../FitNessMonsterConstants'
+import { FitNessMonsterConstants, RepQuality, Workout } from '../FitNessMonsterConstants'
+import { FNM_ScreenTypes } from '../FNMScreenTypes'
+import { WorkoutCompletedData } from '../screens/CompletedWorkout'
 
 export interface HoldAndReleaseGameConfig extends WorkoutMinigame {
   headerText: string
@@ -22,19 +24,23 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   private progressMarker!: Phaser.GameObjects.Sprite
   private averageRepRangeRect!: Phaser.GameObjects.Rectangle
   private goodRepRangeRect!: Phaser.GameObjects.Rectangle
-  private goodProgressLine!: Phaser.GameObjects.Line
   private repRanges!: {
     [key in RepQuality]: number
   }
   private perfectRepWidthPct: number = 0
   private isPressing: boolean = false
-
   private headerText!: Phaser.GameObjects.Text
   private subtitleText!: Phaser.GameObjects.Text
   private repText!: Phaser.GameObjects.Text
   private completedRepsValue: number = 0
+  private totalRepsToComplete: number = 0
   private increasePerFrame: number = 0
   private keyA!: Phaser.Input.Keyboard.Key
+  private totalScore: number = 0
+  private workoutMetadata!: {
+    fitnessGain: number
+    energyCost: number
+  }
 
   private static REP_QUALITY_COLOR = {
     [RepQuality.GOOD]: 0x2ecc71,
@@ -61,7 +67,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
-  setupProgressBar(config: HoldAndReleaseGameConfig) {
+  cleanupPreviousProgressBar() {
     if (this.progressBar) {
       this.progressBar.destroy()
     }
@@ -71,6 +77,19 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     if (this.progressMarker) {
       this.progressMarker.destroy()
     }
+    if (this.goodRepRangeRect) {
+      this.goodRepRangeRect.destroy()
+    }
+    if (this.averageRepRangeRect) {
+      this.averageRepRangeRect.destroy()
+    }
+    if (this.progressBarBG) {
+      this.progressBarBG.destroy()
+    }
+  }
+
+  setupProgressBar(config: HoldAndReleaseGameConfig) {
+    this.cleanupPreviousProgressBar()
     const progressBarWidth = Constants.WINDOW_WIDTH - 50
     this.progressBarBG = this.scene.add
       .rectangle(
@@ -159,9 +178,14 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     )
   }
 
-  initialize(config: HoldAndReleaseGameConfig) {
+  initialize(config: HoldAndReleaseGameConfig, workout: Workout) {
     this.completedRepsValue = 0
     this.increasePerFrame = config.increasePerFrame
+    this.totalRepsToComplete = config.totalReps
+    this.workoutMetadata = {
+      fitnessGain: workout.fitnessGain,
+      energyCost: workout.energyCost,
+    }
     this.setupHeaderText(config)
     this.setupReps(config)
     this.setupProgressBar(config)
@@ -180,14 +204,17 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     if (this.progressBar) {
       this.progressBar.setVisible(isVisible)
     }
+    if (this.progressBarBG) {
+      this.progressBarBG.setVisible(isVisible)
+    }
     if (this.progressMarker) {
       this.progressMarker.setVisible(isVisible)
     }
-    if (this.goodProgressLine) {
-      this.goodProgressLine.setVisible(isVisible)
-    }
     if (this.averageRepRangeRect) {
       this.averageRepRangeRect.setVisible(isVisible)
+    }
+    if (this.goodRepRangeRect) {
+      this.goodRepRangeRect.setVisible(isVisible)
     }
   }
 
@@ -198,7 +225,6 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     const goodRangeHigh = this.perfectRepWidthPct * 100 + this.repRanges.GOOD / 2
     const averageRangeLow = this.perfectRepWidthPct * 100 - this.repRanges.AVERAGE / 2
     const averageRangeHigh = this.perfectRepWidthPct * 100 + this.repRanges.AVERAGE / 2
-    console.log(currValue, goodRangeLow, goodRangeHigh, averageRangeLow, averageRangeHigh)
     if (currValue >= goodRangeLow && currValue <= goodRangeHigh) {
       repQuality = RepQuality.GOOD
     } else {
@@ -207,28 +233,63 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
       }
     }
     this.progressBar.setCurrValue(0)
-    const width = Constants.WINDOW_WIDTH - 50
-    const rect = this.scene.add
-      .rectangle(
-        Constants.WINDOW_WIDTH / 2 - width / 2,
-        this.progressBar.y,
-        width * (currValue / 100),
-        25,
-        HoldAndReleaseGame.REP_QUALITY_COLOR[repQuality]
+
+    // Add score for given rep to total score
+    const scoreToAdd = FitNessMonsterConstants.REP_QUALITY_TO_SCORE_AMT[repQuality]
+    this.totalScore += scoreToAdd
+    this.updateRepsOrCompleteWorkout()
+
+    // Show animation for score quality
+    if (this.completedRepsValue < this.totalRepsToComplete) {
+      const width = Constants.WINDOW_WIDTH - 50
+      const rect = this.scene.add
+        .rectangle(
+          Constants.WINDOW_WIDTH / 2 - width / 2,
+          this.progressBar.y,
+          width * (currValue / 100),
+          25,
+          HoldAndReleaseGame.REP_QUALITY_COLOR[repQuality]
+        )
+        .setDepth(Constants.SORT_LAYERS.APP_UI + 100)
+        .setOrigin(0)
+      this.scene.tweens.add({
+        targets: [rect],
+        alpha: {
+          from: 1,
+          to: 0,
+        },
+        duration: 1000,
+        onComplete: () => {
+          rect.destroy()
+        },
+      })
+    }
+  }
+
+  completeWorkout() {
+    this.keyA.enabled = false
+    this.keyA.destroy()
+    console.log(this.totalScore)
+    const averageScore = Math.round(this.totalScore / this.totalRepsToComplete)
+    const workoutCompletedData: WorkoutCompletedData = {
+      fitnessGain: this.workoutMetadata.fitnessGain,
+      energyCost: this.workoutMetadata.energyCost,
+      averageScore,
+    }
+    this.parent.renderSubscreen(FNM_ScreenTypes.COMPLETED_WORKOUT, workoutCompletedData)
+  }
+
+  updateRepsOrCompleteWorkout() {
+    this.completedRepsValue++
+    if (this.completedRepsValue == this.totalRepsToComplete) {
+      this.completeWorkout()
+    } else {
+      this.repText.setText(`${this.completedRepsValue}/${this.totalRepsToComplete}`)
+      this.repText.setPosition(
+        Constants.WINDOW_WIDTH / 2 - this.repText.displayWidth / 2,
+        this.subtitleText.y + this.subtitleText.displayHeight + 30
       )
-      .setDepth(Constants.SORT_LAYERS.APP_UI + 100)
-      .setOrigin(0)
-    this.scene.tweens.add({
-      targets: [rect],
-      alpha: {
-        from: 1,
-        to: 0,
-      },
-      duration: 1000,
-      onComplete: () => {
-        rect.destroy()
-      },
-    })
+    }
   }
 
   update() {

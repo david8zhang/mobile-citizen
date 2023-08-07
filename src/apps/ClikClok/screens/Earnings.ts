@@ -38,7 +38,7 @@ export class Earnings extends SubScreen {
       .text(
         this.dailyEarningsText.x,
         this.dailyEarningsText.y + this.dailyEarningsText.displayHeight + 20,
-        'Total Daily Earnings',
+        "Yesterday's Earnings",
         {
           fontSize: '16px',
           color: '#777777',

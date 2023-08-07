@@ -184,7 +184,6 @@ export class RecordVideo extends SubScreen {
     if (this.selectedSound) {
       const currDay = Save.getData(SaveKeys.CURR_DATE) as number
       const completedVideo: Video = {
-        totalLikes: 0,
         totalViews: 0,
         creationDate: currDay,
         revenueEarnedPerDay: {

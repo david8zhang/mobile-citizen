@@ -4,12 +4,11 @@ import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 import { Save, SaveKeys } from '~/utils/Save'
+import { FitnessGradeCircle } from '../FitnessGradeCircle'
 
 export class FitnessStats extends SubScreen {
   private headerText: Phaser.GameObjects.Text
-  private fitnessGradeLabel!: Phaser.GameObjects.Text
-  private fitnessGradeCircle!: Phaser.GameObjects.Arc
-  private fitnessGradePoints!: Phaser.GameObjects.Text
+  private fitnessGradeCircle!: FitnessGradeCircle
 
   private totalEnergyLevelLabel!: Phaser.GameObjects.Text
   private totalEnergyLevelValue!: Phaser.GameObjects.Text
@@ -35,53 +34,18 @@ export class FitnessStats extends SubScreen {
   }
 
   setupFitnessGradeCircle() {
-    this.fitnessGradeCircle = this.scene.add
-      .circle(
-        Constants.WINDOW_WIDTH / 2,
-        this.headerText.y + this.headerText.displayHeight + 150,
-        100,
-        0xffffff,
-        0
-      )
-      .setStrokeStyle(5, 0x000000)
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
-    this.fitnessGradeLabel = this.scene.add
-      .text(
-        Constants.WINDOW_WIDTH / 2,
-        this.fitnessGradeCircle.y - 25,
-        `${Utils.convertFitnessLevelToGrade(fitnessLevel)}`,
-        {
-          fontSize: '80px',
-          color: 'black',
-          fontFamily: 'Arial',
-        }
-      )
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setStroke('black', 3)
-
-    this.fitnessGradeLabel.setPosition(
-      Constants.WINDOW_WIDTH / 2 - this.fitnessGradeLabel.displayWidth / 2,
-      this.fitnessGradeCircle.y - this.fitnessGradeLabel.displayHeight / 2 - 25
-    )
-
-    this.fitnessGradePoints = this.scene.add
-      .text(0, 0, `${fitnessLevel}`, {
-        fontSize: '40px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.fitnessGradePoints.setPosition(
-      Constants.WINDOW_WIDTH / 2 - this.fitnessGradePoints.displayWidth / 2,
-      this.fitnessGradeLabel.y + this.fitnessGradeLabel.displayHeight + 5
-    )
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
+    this.fitnessGradeCircle = new FitnessGradeCircle(this.scene, {
+      fitnessGrade: fitnessGrade,
+      fitnessPoints: fitnessLevel,
+      yPos: this.headerText.y + this.headerText.displayHeight + 150,
+    })
   }
 
   setupFitnessStats() {
     const energyValue = Save.getData(SaveKeys.TOTAL_ENERGY) as number
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)!
 
     this.totalEnergyLevelLabel = this.scene.add
@@ -140,8 +104,6 @@ export class FitnessStats extends SubScreen {
   public onRender(data?: any): void {}
   public setVisible(isVisible: boolean): void {
     this.fitnessGradeCircle.setVisible(isVisible)
-    this.fitnessGradeLabel.setVisible(isVisible)
-    this.fitnessGradePoints.setVisible(isVisible)
     this.totalEnergyLevelLabel.setVisible(isVisible)
     this.totalEnergyLevelValue.setVisible(isVisible)
     this.energyCostLabel.setVisible(isVisible)

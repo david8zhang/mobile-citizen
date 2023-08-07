@@ -6,6 +6,7 @@ import { SubScreen } from '~/core/SubScreen'
 import { FitnessStats } from './screens/FitnessStats'
 import { WorkoutSelect } from './screens/WorkoutSelect'
 import { WorkoutScreen } from './screens/WorkoutScreen'
+import { CompletedWorkout } from './screens/CompletedWorkout'
 
 export class FitNessMonster extends App {
   private bottomNav: FNM_BottomNav
@@ -25,6 +26,7 @@ export class FitNessMonster extends App {
       [FNM_ScreenTypes.FITNESS_STATS]: new FitnessStats(this.scene, this),
       [FNM_ScreenTypes.CHOOSE_WORKOUT]: new WorkoutSelect(this.scene, this),
       [FNM_ScreenTypes.WORKOUT_GAME]: new WorkoutScreen(this.scene, this),
+      [FNM_ScreenTypes.COMPLETED_WORKOUT]: new CompletedWorkout(this.scene, this),
     }
     this.bgRect.setFillStyle(0xeeeeee)
     this.setVisible(false)

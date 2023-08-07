@@ -2,6 +2,7 @@ import { Home } from '~/scenes/Home'
 import { FitNessMonster } from '../FitNessMonster'
 import { TapTimingGameConfig } from './TapTimingGame'
 import { HoldAndReleaseGameConfig } from './HoldAndReleaseGame'
+import { Workout } from '../FitNessMonsterConstants'
 
 type MinigameConfig = TapTimingGameConfig | HoldAndReleaseGameConfig
 
@@ -13,6 +14,6 @@ export abstract class WorkoutMinigame {
     this.parent = parent
   }
 
-  public abstract initialize(data?: MinigameConfig): void
+  public abstract initialize(data: MinigameConfig, workout: Workout): void
   public abstract setVisible(isVisible: boolean): void
 }

@@ -60,7 +60,7 @@ export class TopBar {
   }
 
   setupFitnessText() {
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
 
     this.fitnessValueText = this.scene.add
@@ -105,7 +105,7 @@ export class TopBar {
 
   updateStats() {
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_GRADE) as number
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
 
     this.energyValue.setText(`${energyLevel}%`)

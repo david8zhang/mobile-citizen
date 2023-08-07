@@ -2,24 +2,22 @@ import { FitnessGrade } from '~/core/TopBar'
 
 export class Utils {
   public static convertFitnessLevelToGrade(level: number) {
-    if (level < 60) {
+    if (level < 600) {
       return FitnessGrade.F
     }
-    if (level >= 60 && level < 70) {
+    if (level >= 600 && level < 700) {
       return FitnessGrade.D
     }
-    if (level >= 70 && level < 80) {
+    if (level >= 700 && level < 800) {
       return FitnessGrade.C
     }
-    if (level >= 80 && level < 90) {
+    if (level >= 800 && level < 900) {
       return FitnessGrade.B
     }
-    if (level >= 90 && level < 100) {
+    if (level >= 900 && level < 1000) {
       return FitnessGrade.A
     }
-    if (level >= 100 && level < 120) {
-      return FitnessGrade.S
-    }
+    return FitnessGrade.S
   }
 
   public static getTotalEnergyForFitness(grade: FitnessGrade) {

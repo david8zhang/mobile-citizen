@@ -11,7 +11,6 @@ export interface Video {
     [key: string]: number
   }
   totalViews: number
-  totalLikes: number
   profileName: string
   hashtags: string
   songTitle: string
@@ -60,7 +59,7 @@ export class CompletedVideo extends SubScreen {
 
   setupVideoStats() {
     this.revenueEarnedLabel = this.scene.add
-      .text(Constants.WINDOW_WIDTH - 20, Constants.WINDOW_HEIGHT / 2, 'Revenue: $0', {
+      .text(Constants.WINDOW_WIDTH - 20, Constants.WINDOW_HEIGHT / 2 + 20, 'Revenue: $0', {
         fontSize: '15px',
         color: 'white',
       })
@@ -76,22 +75,11 @@ export class CompletedVideo extends SubScreen {
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.totalLikesLabel = this.scene.add
-      .text(
-        Constants.WINDOW_WIDTH - 20,
-        this.totalViewsLabel.y + this.totalViewsLabel.displayHeight + 15,
-        'Total Lakes: 0',
-        {
-          fontSize: '15px',
-          color: 'white',
-        }
-      )
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
   setupVideoDescription() {
     this.profileName = this.scene.add
-      .text(15, this.totalLikesLabel.y + this.totalLikesLabel.displayHeight + 20, '@User', {
+      .text(15, this.totalViewsLabel.y + this.totalViewsLabel.displayHeight + 20, '@User', {
         fontSize: '15px',
         color: 'white',
       })
@@ -141,11 +129,6 @@ export class CompletedVideo extends SubScreen {
       Constants.WINDOW_WIDTH - this.totalViewsLabel.displayWidth - 15,
       this.totalViewsLabel.y
     )
-    this.totalLikesLabel.setText(`Total Likes: ${video.totalLikes}`)
-    this.totalLikesLabel.setPosition(
-      Constants.WINDOW_WIDTH - this.totalLikesLabel.displayWidth - 15,
-      this.totalLikesLabel.y
-    )
   }
 
   updateVideoDescription(video: Video) {
@@ -166,7 +149,6 @@ export class CompletedVideo extends SubScreen {
 
   public setVisible(isVisible: boolean): void {
     this.videoTitleText.setVisible(isVisible)
-    this.totalLikesLabel.setVisible(isVisible)
     this.totalViewsLabel.setVisible(isVisible)
     this.revenueEarnedLabel.setVisible(isVisible)
     this.profileName.setVisible(isVisible)
