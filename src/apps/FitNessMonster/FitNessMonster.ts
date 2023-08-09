@@ -9,7 +9,7 @@ import { WorkoutScreen } from './screens/WorkoutScreen'
 import { CompletedWorkout } from './screens/CompletedWorkout'
 
 export class FitNessMonster extends App {
-  private bottomNav: FNM_BottomNav
+  public bottomNav: FNM_BottomNav
   private screenMappings: {
     [key in FNM_ScreenTypes]?: SubScreen
   }

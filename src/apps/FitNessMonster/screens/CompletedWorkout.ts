@@ -6,6 +6,8 @@ import { FitNessMonsterConstants } from '../FitNessMonsterConstants'
 import { FitnessGradeCircle } from '../FitnessGradeCircle'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
+import { Button } from '~/apps/Button'
+import { FNM_ScreenTypes } from '../FNMScreenTypes'
 
 export interface WorkoutCompletedData {
   fitnessGain: number
@@ -18,10 +20,13 @@ export class CompletedWorkout extends SubScreen {
   private workoutGradeText!: Phaser.GameObjects.Text
   private fitnessGradeCircle!: FitnessGradeCircle
   private fitnessPointIncreaseValue!: Phaser.GameObjects.Text
-  private fitnessPointBonusValue!: Phaser.GameObjects.Text
   private fitnessPointIncreaseLabel!: Phaser.GameObjects.Text
+  private fitnessPointBonusValue!: Phaser.GameObjects.Text
   private fitnessPointBonusLabel!: Phaser.GameObjects.Text
-  private totalFitnessPointIncreaseText!: Phaser.GameObjects.Text
+  private dividerLine!: Phaser.GameObjects.Line
+  private totalFitnessPointIncreaseValue!: Phaser.GameObjects.Text
+  private totalFitnessPointIncreaseLabel!: Phaser.GameObjects.Text
+  private continueButton!: Button
 
   constructor(scene: Home, parent: FitNessMonster) {
     super(scene, parent)
@@ -36,6 +41,7 @@ export class CompletedWorkout extends SubScreen {
       Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
       Constants.TOP_BAR_HEIGHT + 20
     )
+    this.setupStaticUIElements()
     this.setVisible(false)
   }
 
@@ -46,18 +52,84 @@ export class CompletedWorkout extends SubScreen {
     if (this.fitnessGradeCircle) {
       this.fitnessGradeCircle.destroy()
     }
-    if (this.fitnessPointBonusLabel) {
-      this.fitnessPointBonusLabel.destroy()
-    }
-    if (this.fitnessPointIncreaseLabel) {
-      this.fitnessPointIncreaseLabel.destroy()
+    if (this.fitnessPointIncreaseValue) {
+      this.fitnessPointIncreaseValue.destroy()
     }
     if (this.fitnessPointBonusValue) {
       this.fitnessPointBonusValue.destroy()
     }
-    if (this.fitnessPointIncreaseValue) {
-      this.fitnessPointIncreaseValue.destroy()
+    if (this.totalFitnessPointIncreaseValue) {
+      this.totalFitnessPointIncreaseValue.destroy()
     }
+  }
+
+  setupStaticUIElements() {
+    this.fitnessPointIncreaseLabel = this.scene.add
+      .text(30, 414, 'Fitness gain', {
+        fontSize: '20px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0, 0.5)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.fitnessPointBonusLabel = this.scene.add
+      .text(
+        30,
+        this.fitnessPointIncreaseLabel.y + this.fitnessPointIncreaseLabel.displayHeight + 15,
+        'Workout grade bonus',
+        {
+          fontSize: '20px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(0, 0.5)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.dividerLine = this.scene.add
+      .line(
+        0,
+        0,
+        30,
+        this.fitnessPointBonusLabel.y + 30,
+        Constants.WINDOW_WIDTH - 30,
+        this.fitnessPointBonusLabel.y + 30,
+        0xcccccc
+      )
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(0)
+    this.totalFitnessPointIncreaseLabel = this.scene.add
+      .text(
+        30,
+        this.fitnessPointBonusLabel.y + this.fitnessPointBonusLabel.displayHeight + 40,
+        'Total Gains: ',
+        {
+          fontSize: '30px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(0, 0.5)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.continueButton = new Button({
+      scene: this.scene,
+      x: Constants.WINDOW_WIDTH / 2,
+      y:
+        this.totalFitnessPointIncreaseLabel.y +
+        this.totalFitnessPointIncreaseLabel.displayHeight +
+        100,
+      width: 300,
+      height: 55,
+      text: 'Continue',
+      onClick: () => {
+        const parent = this.parent as FitNessMonster
+        parent.renderSubscreen(FNM_ScreenTypes.FITNESS_STATS)
+      },
+      backgroundColor: 0xffffff,
+      strokeColor: 0x000000,
+      strokeWidth: 1,
+      depth: Constants.SORT_LAYERS.APP_UI,
+      fontSize: '20px',
+    })
   }
 
   renderPostWorkoutData(data: WorkoutCompletedData) {
@@ -93,7 +165,7 @@ export class CompletedWorkout extends SubScreen {
       fontFamily: 'Arial',
     })
     this.fitnessPointIncreaseValue
-      .setPosition(Constants.WINDOW_WIDTH - 30, this.fitnessGradeCircle.y + 140)
+      .setPosition(Constants.WINDOW_WIDTH - 30, Math.round(this.fitnessGradeCircle.y + 140))
       .setOrigin(1, 0.5)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.fitnessPointBonusValue = this.scene.add.text(0, 0, `+${bonusFitnessGain}`, {
@@ -108,28 +180,46 @@ export class CompletedWorkout extends SubScreen {
       )
       .setOrigin(1, 0.5)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-
-    // Fitness point increase label
-    this.fitnessPointIncreaseLabel = this.scene.add
-      .text(30, this.fitnessPointIncreaseValue.y, 'Fitness gain', {
-        fontSize: '20px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setOrigin(0, 0.5)
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.fitnessPointBonusLabel = this.scene.add
-      .text(30, this.fitnessPointBonusValue.y, 'Workout grade bonus', {
-        fontSize: '20px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setOrigin(0, 0.5)
+    this.totalFitnessPointIncreaseValue = this.scene.add
+      .text(
+        Constants.WINDOW_WIDTH - 30,
+        this.totalFitnessPointIncreaseLabel.y,
+        `+${data.fitnessGain + bonusFitnessGain}`,
+        {
+          fontSize: '30px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(1, 0.5)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
   public onRender(data: WorkoutCompletedData): void {
+    const parent = this.parent as FitNessMonster
+    parent.bottomNav.setVisible(false)
     this.renderPostWorkoutData(data)
+    this.applyFitnessGain(data)
+  }
+
+  applyFitnessGain(data: WorkoutCompletedData) {
+    const workoutGradeForScore = FitNessMonsterConstants.getWorkoutGradeForScore(data.averageScore)
+    const bonusFitnessGain = Math.round(
+      data.fitnessGain * FitNessMonsterConstants.WORKOUT_GRADE_BONUS_PCT[workoutGradeForScore]
+    )
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const newFitnessLevel = fitnessLevel + data.fitnessGain + bonusFitnessGain
+
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    const newEnergyLevel = energyLevel - data.energyCost
+    Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
+    Save.setData(SaveKeys.ENERGY_LEVEL, newEnergyLevel)
+    this.scene.topBar.updateStats()
+  }
+
+  public onHide() {
+    const parent = this.parent as FitNessMonster
+    parent.bottomNav.setVisible(true)
   }
 
   public setVisible(isVisible: boolean): void {
@@ -146,8 +236,13 @@ export class CompletedWorkout extends SubScreen {
     if (this.fitnessPointBonusValue) {
       this.fitnessPointBonusValue.setVisible(isVisible)
     }
-    if (this.totalFitnessPointIncreaseText) {
-      this.totalFitnessPointIncreaseText.setVisible(isVisible)
+    if (this.totalFitnessPointIncreaseValue) {
+      this.totalFitnessPointIncreaseValue.setVisible(isVisible)
     }
+    this.fitnessPointIncreaseLabel.setVisible(isVisible)
+    this.fitnessPointBonusLabel.setVisible(isVisible)
+    this.dividerLine.setVisible(isVisible)
+    this.totalFitnessPointIncreaseLabel.setVisible(isVisible)
+    this.continueButton.setVisible(isVisible)
   }
 }

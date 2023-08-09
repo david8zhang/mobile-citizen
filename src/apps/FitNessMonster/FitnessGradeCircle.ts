@@ -34,7 +34,6 @@ export class FitnessGradeCircle {
       Constants.WINDOW_WIDTH / 2 - this.fitnessGradeLabel.displayWidth / 2,
       this.fitnessGradeCircle.y - this.fitnessGradeLabel.displayHeight / 2 - 25
     )
-
     this.fitnessGradePoints = this.scene.add
       .text(0, 0, `${config.fitnessPoints}`, {
         fontSize: '40px',
@@ -68,6 +67,19 @@ export class FitnessGradeCircle {
 
   get displayWidth() {
     return this.fitnessGradeCircle.displayWidth
+  }
+
+  updateStats(fitnessGrade: FitnessGrade, fitnessPoints: number) {
+    this.fitnessGradeLabel.setText(fitnessGrade)
+    this.fitnessGradeLabel.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.fitnessGradeLabel.displayWidth / 2,
+      this.fitnessGradeCircle.y - this.fitnessGradeLabel.displayHeight / 2 - 25
+    )
+    this.fitnessGradePoints.setText(`${fitnessPoints}`)
+    this.fitnessGradePoints.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.fitnessGradePoints.displayWidth / 2,
+      this.fitnessGradeLabel.y + this.fitnessGradeLabel.displayHeight + 5
+    )
   }
 
   destroy() {

@@ -44,33 +44,23 @@ export class FitnessStats extends SubScreen {
   }
 
   setupFitnessStats() {
-    const energyValue = Save.getData(SaveKeys.TOTAL_ENERGY) as number
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)!
-
+    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const yPos = Math.round(this.fitnessGradeCircle.y + this.fitnessGradeCircle.displayHeight / 2)
     this.totalEnergyLevelLabel = this.scene.add
-      .text(
-        30,
-        this.fitnessGradeCircle.y + this.fitnessGradeCircle.displayHeight / 2 + 40,
-        'Total Energy Level',
-        {
-          fontSize: '20px',
-          color: 'black',
-          fontFamily: 'Arial',
-        }
-      )
+      .text(30, yPos + 40, 'Total Energy Level', {
+        fontSize: '20px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.totalEnergyLevelValue = this.scene.add
-      .text(
-        Constants.WINDOW_WIDTH - 30,
-        this.fitnessGradeCircle.y + this.fitnessGradeCircle.displayHeight / 2 + 40,
-        `${energyValue}`,
-        {
-          fontSize: '20px',
-          color: 'black',
-          fontFamily: 'Arial',
-        }
-      )
+      .text(Constants.WINDOW_WIDTH - 30, yPos + 40, `${totalEnergyLevel}`, {
+        fontSize: '20px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(1, 0)
 
@@ -101,7 +91,15 @@ export class FitnessStats extends SubScreen {
       .setOrigin(1, 0)
   }
 
-  public onRender(data?: any): void {}
+  public onRender(data?: any): void {
+    const fitnessPoints = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessPoints)!
+    this.fitnessGradeCircle.updateStats(fitnessGrade, fitnessPoints)
+    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    this.totalEnergyLevelValue.setText(`${totalEnergyLevel}`)
+    this.energyCostValue.setText(`${Utils.getEnergyCostForFitness(fitnessGrade) * 100}%`)
+  }
+
   public setVisible(isVisible: boolean): void {
     this.fitnessGradeCircle.setVisible(isVisible)
     this.totalEnergyLevelLabel.setVisible(isVisible)

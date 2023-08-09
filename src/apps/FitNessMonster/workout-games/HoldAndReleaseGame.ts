@@ -48,6 +48,8 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     [RepQuality.BAD]: 0xc0392b,
   }
 
+  private isShowing: boolean = false
+
   constructor(scene: Home, parent: FitNessMonster) {
     super(scene, parent)
     this.setupSubtitleText()
@@ -179,6 +181,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   }
 
   initialize(config: HoldAndReleaseGameConfig, workout: Workout) {
+    this.isShowing = true
     this.completedRepsValue = 0
     this.increasePerFrame = config.increasePerFrame
     this.totalRepsToComplete = config.totalReps
@@ -267,15 +270,13 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   }
 
   completeWorkout() {
-    this.keyA.enabled = false
-    this.keyA.destroy()
-    console.log(this.totalScore)
     const averageScore = Math.round(this.totalScore / this.totalRepsToComplete)
     const workoutCompletedData: WorkoutCompletedData = {
       fitnessGain: this.workoutMetadata.fitnessGain,
       energyCost: this.workoutMetadata.energyCost,
       averageScore,
     }
+    this.isShowing = false
     this.parent.renderSubscreen(FNM_ScreenTypes.COMPLETED_WORKOUT, workoutCompletedData)
   }
 
@@ -293,7 +294,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   }
 
   update() {
-    if (this.keyA) {
+    if (this.keyA && this.isShowing) {
       if (this.keyA.isDown) {
         this.isPressing = true
         this.progressBar.increase(this.increasePerFrame)

@@ -11,7 +11,7 @@ import { InputArrow } from '../arrows/InputArrow'
 import { Video } from './CompletedVideo'
 import { Save, SaveKeys } from '~/utils/Save'
 import { CC_ScreenTypes } from '../CCScreenTypes'
-import { Button } from '../Button'
+import { Button } from '../../Button'
 
 export class RecordVideo extends SubScreen {
   private selectedSound: SongConfig | null = null

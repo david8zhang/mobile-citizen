@@ -79,12 +79,20 @@ export class TopBar {
 
   setupEnergyText() {
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
+    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
     this.energyValue = this.scene.add
-      .text(this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15, 5, `${energyLevel}%`, {
-        fontSize: '18px',
-        color: 'white',
-        strokeThickness: 1,
-      })
+      .text(
+        this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15,
+        5,
+        `${energyLevel}/${totalEnergyLevel}`,
+        {
+          fontSize: '18px',
+          color: 'white',
+          strokeThickness: 1,
+        }
+      )
       .setOrigin(1, 0)
     this.energyLabel = this.scene.add
       .sprite(this.energyValue.x - this.energyValue.displayWidth - 5, 7, 'bolt-solid')
@@ -107,14 +115,15 @@ export class TopBar {
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
+    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
 
-    this.energyValue.setText(`${energyLevel}%`)
+    this.energyValue.setText(`${energyLevel}/${totalEnergyLevel}`)
     this.energyLabel.setPosition(
       this.energyValue.x - this.energyValue.displayWidth - 5,
       this.energyLabel.y
     )
 
-    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
     this.fitnessValueText.setText(fitnessGrade)
     this.fitnessLabel.setPosition(
       this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5,

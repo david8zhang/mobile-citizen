@@ -51,7 +51,6 @@ export class Home extends Phaser.Scene {
 
       // Initialize energy level
       Save.setData(SaveKeys.ENERGY_LEVEL, 100)
-      Save.setData(SaveKeys.TOTAL_ENERGY, Utils.getTotalEnergyForFitness(FitnessGrade.C))
     }
   }
 
