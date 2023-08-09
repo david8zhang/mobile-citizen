@@ -6,10 +6,10 @@ import { WorkoutMinigame } from './WorkoutMinigame'
 import { FitNessMonsterConstants, RepQuality, Workout } from '../FitNessMonsterConstants'
 import { FNM_ScreenTypes } from '../FNMScreenTypes'
 import { WorkoutCompletedData } from '../screens/CompletedWorkout'
+import { Utils } from '~/utils/Utils'
 
 export interface HoldAndReleaseGameConfig extends WorkoutMinigame {
   headerText: string
-  totalReps: number
   increasePerFrame: number
   perfectRepWidthPct: number
   repRanges: {
@@ -145,13 +145,19 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     this.repRanges = config.repRanges
   }
 
-  setupReps(config: HoldAndReleaseGameConfig) {
+  setupReps(workout: Workout) {
+    const fitnessGrade = Utils.getFitnessGrade()
     this.repText = this.scene.add
-      .text(0, 0, `${this.completedRepsValue}/${config.totalReps}`, {
-        fontSize: '30px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
+      .text(
+        0,
+        0,
+        `${this.completedRepsValue}/${workout.fitnessLevelToGainMappings[fitnessGrade].requiredCompletionValue}`,
+        {
+          fontSize: '30px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
@@ -181,16 +187,18 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   }
 
   initialize(config: HoldAndReleaseGameConfig, workout: Workout) {
+    const fitnessGrade = Utils.getFitnessGrade()
     this.isShowing = true
     this.completedRepsValue = 0
     this.increasePerFrame = config.increasePerFrame
-    this.totalRepsToComplete = config.totalReps
+    this.totalRepsToComplete =
+      workout.fitnessLevelToGainMappings[fitnessGrade].requiredCompletionValue
     this.workoutMetadata = {
-      fitnessGain: workout.fitnessGain,
-      energyCost: workout.energyCost,
+      fitnessGain: workout.fitnessLevelToGainMappings[fitnessGrade].fitnessGain,
+      energyCost: workout.fitnessLevelToGainMappings[fitnessGrade].energyCost,
     }
     this.setupHeaderText(config)
-    this.setupReps(config)
+    this.setupReps(workout)
     this.setupProgressBar(config)
     this.positionElements()
     this.setVisible(true)

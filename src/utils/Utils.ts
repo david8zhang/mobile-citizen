@@ -1,23 +1,29 @@
 import { FitnessGrade } from '~/core/TopBar'
+import { Save, SaveKeys } from './Save'
 
 export class Utils {
   public static convertFitnessLevelToGrade(level: number) {
-    if (level < 600) {
+    if (level < 400) {
       return FitnessGrade.F
     }
-    if (level >= 600 && level < 700) {
+    if (level >= 400 && level < 800) {
       return FitnessGrade.D
     }
-    if (level >= 700 && level < 800) {
+    if (level >= 800 && level < 1600) {
       return FitnessGrade.C
     }
-    if (level >= 800 && level < 900) {
+    if (level >= 1600 && level < 3200) {
       return FitnessGrade.B
     }
-    if (level >= 900 && level < 1000) {
+    if (level >= 3200 && level < 6400) {
       return FitnessGrade.A
     }
     return FitnessGrade.S
+  }
+
+  public static getFitnessGrade() {
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL)
+    return Utils.convertFitnessLevelToGrade(fitnessLevel)
   }
 
   public static getTotalEnergyForFitness(grade: FitnessGrade) {

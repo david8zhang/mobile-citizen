@@ -29,8 +29,10 @@ export class WorkoutSelect extends SubScreen {
   }
 
   public setupWorkoutList() {
+    const fitnessGrade = Utils.getFitnessGrade()
     const workoutList = WorkoutList(
       FitNessMonsterConstants.WORKOUT_LIST,
+      fitnessGrade,
       Constants.WINDOW_WIDTH,
       520,
       (workout: Workout) => {

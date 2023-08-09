@@ -2,11 +2,17 @@ import { Constants } from '~/utils/Constants'
 import { WorkoutGameTypes } from './WorkoutGameTypes'
 import { HoldAndReleaseGameConfig } from './workout-games/HoldAndReleaseGame'
 import { TapTimingGameConfig } from './workout-games/TapTimingGame'
+import { FitnessGrade } from '~/core/TopBar'
 
 export interface Workout {
   name: string
-  energyCost: number
-  fitnessGain: number
+  fitnessLevelToGainMappings: {
+    [key in FitnessGrade]: {
+      energyCost: number
+      fitnessGain: number
+      requiredCompletionValue: number
+    }
+  }
   workoutGameType: WorkoutGameTypes
   minigameConfig: HoldAndReleaseGameConfig | TapTimingGameConfig
 }
@@ -45,25 +51,84 @@ export class FitNessMonsterConstants {
   public static WORKOUT_LIST: Workout[] = [
     {
       name: 'Pushups',
-      energyCost: 10,
-      fitnessGain: 10,
+      fitnessLevelToGainMappings: {
+        [FitnessGrade.F]: {
+          energyCost: 40,
+          fitnessGain: 10,
+          requiredCompletionValue: 5,
+        },
+        [FitnessGrade.D]: {
+          energyCost: 35,
+          fitnessGain: 15,
+          requiredCompletionValue: 10,
+        },
+        [FitnessGrade.C]: {
+          energyCost: 30,
+          fitnessGain: 20,
+          requiredCompletionValue: 15,
+        },
+        [FitnessGrade.B]: {
+          energyCost: 25,
+          fitnessGain: 25,
+          requiredCompletionValue: 20,
+        },
+        [FitnessGrade.A]: {
+          energyCost: 20,
+          fitnessGain: 30,
+          requiredCompletionValue: 25,
+        },
+        [FitnessGrade.S]: {
+          energyCost: 15,
+          fitnessGain: 35,
+          requiredCompletionValue: 30,
+        },
+      },
       workoutGameType: WorkoutGameTypes.HOLD_AND_RELEASE,
       minigameConfig: {
         headerText: 'Pushups',
-        totalReps: 2,
         increasePerFrame: 2,
         perfectRepWidthPct: 0.75,
         repRanges: {
-          [RepQuality.GOOD]: 4,
+          [RepQuality.GOOD]: 4, // Rectangle width in pixels
           [RepQuality.AVERAGE]: 20,
         },
         barPosY: Constants.WINDOW_HEIGHT / 2 + 100,
       },
     },
     {
-      name: 'Running',
-      energyCost: 10,
-      fitnessGain: 10,
+      name: 'Jogging',
+      fitnessLevelToGainMappings: {
+        [FitnessGrade.F]: {
+          energyCost: 40,
+          fitnessGain: 30,
+          requiredCompletionValue: 60, // seconds,
+        },
+        [FitnessGrade.D]: {
+          energyCost: 35,
+          fitnessGain: 25,
+          requiredCompletionValue: 90,
+        },
+        [FitnessGrade.C]: {
+          energyCost: 30,
+          fitnessGain: 20,
+          requiredCompletionValue: 120,
+        },
+        [FitnessGrade.B]: {
+          energyCost: 25,
+          fitnessGain: 15,
+          requiredCompletionValue: 150,
+        },
+        [FitnessGrade.A]: {
+          energyCost: 20,
+          fitnessGain: 12,
+          requiredCompletionValue: 180,
+        },
+        [FitnessGrade.S]: {
+          energyCost: 15,
+          fitnessGain: 10,
+          requiredCompletionValue: 210,
+        },
+      },
       workoutGameType: WorkoutGameTypes.TAP_TIMING,
       minigameConfig: {},
     },

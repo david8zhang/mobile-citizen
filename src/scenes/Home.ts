@@ -43,13 +43,11 @@ export class Home extends Phaser.Scene {
   initializeSaveData() {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
       Save.setData(SaveKeys.BANK_BALANCE, 0)
-      Save.setData(SaveKeys.FITNESS_LEVEL, 700)
+      Save.setData(SaveKeys.FITNESS_LEVEL, 1000)
       Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
-
-      // Initialize energy level
       Save.setData(SaveKeys.ENERGY_LEVEL, 100)
     }
   }
