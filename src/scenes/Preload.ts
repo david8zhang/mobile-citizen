@@ -17,6 +17,7 @@ export class Preload extends Phaser.Scene {
     this.load.image('heart-solid', 'icons/heart-solid.svg')
     this.load.image('burger-solid', 'icons/burger-solid.svg')
     this.load.image('caret-up-solid', 'icons/caret-up-solid.svg')
+    this.load.image('power-off-solid', 'icons/power-off-solid.svg')
   }
 
   preload() {

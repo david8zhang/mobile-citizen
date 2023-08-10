@@ -48,9 +48,11 @@ export class Home extends Phaser.Scene {
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
-      Save.setData(SaveKeys.ENERGY_LEVEL, 100)
+      Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
     }
   }
+
+  progressDay() {}
 
   goBackHome() {
     if (this.currApp) {

@@ -24,6 +24,7 @@ export class TopBar {
   private energyLabel!: Phaser.GameObjects.Sprite
   private energyValue!: Phaser.GameObjects.Text
   private currDateLabel!: Phaser.GameObjects.Text
+  private powerButton!: Phaser.GameObjects.Sprite
 
   constructor(scene: Home) {
     this.scene = scene
@@ -34,6 +35,7 @@ export class TopBar {
     this.setupFullnessText()
     this.setupFitnessText()
     this.setupEnergyText()
+    this.setupPowerButton()
     this.setupCurrDateLabel()
   }
 
@@ -104,11 +106,28 @@ export class TopBar {
   setupCurrDateLabel() {
     const currDay = Save.getData(SaveKeys.CURR_DATE) as number
     this.currDateLabel = this.scene.add
-      .text(15, 7, `Day ${currDay}`, {
-        fontSize: '15px',
+      .text(this.powerButton.x + 30, 5, `Day ${currDay}`, {
+        fontSize: '18px',
         color: 'white',
       })
+      .setStroke('#ffffff', 1)
       .setOrigin(0, 0)
+  }
+
+  setupPowerButton() {
+    this.powerButton = this.scene.add
+      .sprite(15, 7, 'power-off-solid')
+      .setOrigin(0)
+      .setDisplaySize(16, 16)
+      .setTintFill(0xffffff)
+      .setInteractive()
+      .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.powerButton.setAlpha(0.5)
+      })
+      .on(Phaser.Input.Events.POINTER_UP, () => {
+        this.powerButton.setAlpha(1)
+        this.scene.progressDay()
+      })
   }
 
   updateStats() {
