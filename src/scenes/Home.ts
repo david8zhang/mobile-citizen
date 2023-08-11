@@ -74,8 +74,16 @@ export class Home extends Phaser.Scene {
     this.progressDayOverlayScreen.show(nextDay)
   }
 
+  resetLevels() {
+    const fitnessGrade = Utils.getFitnessGrade()
+    const totalEnergyForFitnessGrade = Utils.getTotalEnergyForFitness(fitnessGrade)
+    Save.setData(SaveKeys.ENERGY_LEVEL, totalEnergyForFitnessGrade)
+    Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
+  }
+
   executeOnProgressDayCallbacks(nextDay: number) {
     Save.setData(SaveKeys.CURR_DATE, nextDay)
+    this.resetLevels()
     this.topBar.updateStats()
     this.onProgressDayCallbacks.forEach((fn) => {
       fn()
