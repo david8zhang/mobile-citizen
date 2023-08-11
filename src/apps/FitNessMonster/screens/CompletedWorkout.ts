@@ -6,7 +6,7 @@ import { FitNessMonsterConstants } from '../FitNessMonsterConstants'
 import { FitnessGradeCircle } from '../FitnessGradeCircle'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
-import { Button } from '~/apps/Button'
+import { Button } from '~/core/Button'
 import { FNM_ScreenTypes } from '../FNMScreenTypes'
 
 export interface WorkoutCompletedData {

@@ -4,6 +4,7 @@ export class Constants {
   public static TOP_BAR_HEIGHT = 30
 
   public static SORT_LAYERS = {
+    MODAL: 400,
     APP_UI: 300,
     APP_BG: 200,
     HOME: 100,

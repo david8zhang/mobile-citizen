@@ -126,7 +126,7 @@ export class TopBar {
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
         this.powerButton.setAlpha(1)
-        this.scene.progressDay()
+        this.scene.showConfirmProgressModal()
       })
   }
 
@@ -136,6 +136,7 @@ export class TopBar {
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
     const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const currDate = Save.getData(SaveKeys.CURR_DATE) as number
 
     this.energyValue.setText(`${energyLevel}/${totalEnergyLevel}`)
     this.energyLabel.setPosition(
@@ -149,6 +150,7 @@ export class TopBar {
       this.fitnessLabel.y
     )
 
+    this.currDateLabel.setText(`Day ${currDate}`)
     this.fullnessBar.setCurrValue(fullnessLevel)
   }
 }

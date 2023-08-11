@@ -4,6 +4,8 @@ import { Bank } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { AppIconBox } from '~/core/AppIconBox'
+import { ProgressDayConfirmModal } from '~/core/ProgressDayConfirmModal'
+import { ProgressDayOverlayScreen } from '~/core/ProgressDayOverlayScreen'
 import { FitnessGrade, TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
@@ -20,6 +22,9 @@ export class Home extends Phaser.Scene {
   private currApp: AppRoute | null = null
   public homeButton!: Phaser.GameObjects.Text
   public updateCallbacks: Function[] = []
+  private progressDayConfirmModal!: ProgressDayConfirmModal
+  private progressDayOverlayScreen!: ProgressDayOverlayScreen
+  private onProgressDayCallbacks: Function[] = []
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -38,6 +43,12 @@ export class Home extends Phaser.Scene {
     this.setupTopBar()
     this.setupAppGrid()
     this.setupHomeButton()
+    this.setupProgressDayUI()
+  }
+
+  setupProgressDayUI() {
+    this.progressDayConfirmModal = new ProgressDayConfirmModal(this)
+    this.progressDayOverlayScreen = new ProgressDayOverlayScreen(this)
   }
 
   initializeSaveData() {
@@ -52,7 +63,24 @@ export class Home extends Phaser.Scene {
     }
   }
 
-  progressDay() {}
+  showConfirmProgressModal() {
+    this.goBackHome()
+    this.progressDayConfirmModal.setVisible(true)
+  }
+
+  progressToNextDay() {
+    this.progressDayConfirmModal.setVisible(false)
+    const nextDay = Save.getData(SaveKeys.CURR_DATE) + 1
+    this.progressDayOverlayScreen.show(nextDay)
+  }
+
+  executeOnProgressDayCallbacks(nextDay: number) {
+    Save.setData(SaveKeys.CURR_DATE, nextDay)
+    this.topBar.updateStats()
+    this.onProgressDayCallbacks.forEach((fn) => {
+      fn()
+    })
+  }
 
   goBackHome() {
     if (this.currApp) {

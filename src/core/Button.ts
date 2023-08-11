@@ -9,6 +9,7 @@ export interface ButtonConfig {
   backgroundColor?: number
   textColor?: string
   fontSize?: string
+  fontFamily?: string
   strokeWidth?: number
   strokeColor?: number
   depth?: number
@@ -32,6 +33,7 @@ export class Button {
     this.text = this.scene.add.text(config.x, config.y, config.text, {
       fontSize: config.fontSize ? config.fontSize : '10px',
       color: config.textColor ? config.textColor : 'black',
+      fontFamily: config.fontFamily ? config.fontFamily : 'default',
     })
     this.text.setPosition(
       this.text.x - this.text.displayWidth / 2,
