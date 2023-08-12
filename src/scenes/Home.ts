@@ -4,6 +4,8 @@ import { Bank } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { AppIconBox } from '~/core/AppIconBox'
+import { Notification, NotificationListScreen } from '~/core/NotificationListScreen'
+import { OnScreenNotification } from '~/core/OnScreenNotification'
 import { ProgressDayConfirmModal } from '~/core/ProgressDayConfirmModal'
 import { ProgressDayOverlayScreen } from '~/core/ProgressDayOverlayScreen'
 import { FitnessGrade, TopBar } from '~/core/TopBar'
@@ -25,6 +27,8 @@ export class Home extends Phaser.Scene {
   private progressDayConfirmModal!: ProgressDayConfirmModal
   private progressDayOverlayScreen!: ProgressDayOverlayScreen
   private onProgressDayCallbacks: Function[] = []
+  private notificationListScreen!: NotificationListScreen
+  private onScreenNotification!: OnScreenNotification
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -42,8 +46,19 @@ export class Home extends Phaser.Scene {
     }
     this.setupTopBar()
     this.setupAppGrid()
+    this.setupNotifications()
     this.setupHomeButton()
     this.setupProgressDayUI()
+  }
+
+  showOnScreenNotification(notification: Notification) {
+    this.onScreenNotification.setVisible(true)
+    this.onScreenNotification.showNotification(notification)
+  }
+
+  setupNotifications() {
+    this.notificationListScreen = new NotificationListScreen(this)
+    this.onScreenNotification = new OnScreenNotification(this)
   }
 
   setupProgressDayUI() {
@@ -60,6 +75,49 @@ export class Home extends Phaser.Scene {
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
       Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
+      const notifications: Notification[] = [
+        {
+          appName: 'Bank 1',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 2',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 3',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 4',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 5',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 6',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 7',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+        {
+          appName: 'Bank 8',
+          message: '$1000 have been deposited into your account. Tap here to view',
+          route: AppRoute.BANK,
+        },
+      ]
+      Save.setData(SaveKeys.NOTIFICATIONS, notifications)
     }
   }
 
@@ -99,6 +157,8 @@ export class Home extends Phaser.Scene {
         this.currApp = null
       }
     }
+    this.notificationListScreen.setVisible(false)
+    this.notificationListScreen.onHide()
   }
 
   updateTopBarStats() {
@@ -142,6 +202,20 @@ export class Home extends Phaser.Scene {
       })
       this.currApp = appRoute
     }
+  }
+
+  openNotificationsList() {
+    if (this.currApp) {
+      const appToHide = this.appRouteMapping[this.currApp]
+      if (appToHide) {
+        appToHide.onHide()
+        this.homeButton.setStyle({ color: 'white' })
+        this.currApp = null
+      }
+    }
+    this.notificationListScreen.setVisible(true)
+    this.notificationListScreen.onRender()
+    this.homeButton.setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
   setupTopBar() {

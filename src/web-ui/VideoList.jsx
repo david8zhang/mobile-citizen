@@ -77,7 +77,10 @@ export const VideoList = (videos, currDay, height, width, onClick) => {
                   marginRight: '10px',
                 }}
               >
-                Today's Earnings: ${video.revenueEarnedPerDay[currDay].toFixed(2)}
+                Today's Earnings: $
+                {video.revenueEarnedPerDay[currDay]
+                  ? video.revenueEarnedPerDay[currDay].toFixed(2)
+                  : 0}
               </p>
             </div>
           </div>

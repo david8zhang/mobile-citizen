@@ -23,6 +23,7 @@ export class RecordVideo extends SubScreen {
   public inputArrowZone!: InputArrowZone
   public completedVideoLabel!: Phaser.GameObjects.Text
   public postVideoButton!: Button
+  public isShowing: boolean = false
 
   constructor(scene: Home, parent: ClikClok) {
     super(scene, parent)
@@ -137,24 +138,30 @@ export class RecordVideo extends SubScreen {
     parent.navbar.setVisible(true)
     parent.bottomNav.setVisible(true)
     this.scene.homeButton.setVisible(true)
+    this.isShowing = false
   }
 
   processInputSuperlative(yDiff: number) {
-    const superlative = ClikClokConstants.getSuperlative(yDiff)
-    if (superlative) {
-      UINumber.createNumber(superlative, this.scene, 300, 40, 'white')
-      const score = ClikClokConstants.SUPERLATIVE_SCORE[superlative]
+    if (this.isShowing) {
+      const superlative = ClikClokConstants.getSuperlative(yDiff)
+      if (superlative) {
+        UINumber.createNumber(superlative, this.scene, 300, 40, 'white')
+        const score = ClikClokConstants.SUPERLATIVE_SCORE[superlative]
+      }
     }
   }
 
   processMiss(arrow: InputArrow) {
-    UINumber.createNumber('Miss', this.scene, arrow.sprite.x, arrow.sprite.y, 'red')
+    if (this.isShowing) {
+      UINumber.createNumber('Miss', this.scene, arrow.sprite.x, arrow.sprite.y, 'red')
+    }
   }
 
   public onRender(selectedSound: SongConfig): void {
     const parent = this.parent as ClikClok
     parent.navbar.setVisible(false)
     parent.bottomNav.setVisible(false)
+    this.isShowing = true
     this.inputArrowZone.setVisible(false)
     this.selectedSound = selectedSound
     this.selectedSoundLabel.setText(this.selectedSound.name)

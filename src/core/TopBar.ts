@@ -21,10 +21,13 @@ export class TopBar {
   private fitnessValueText!: Phaser.GameObjects.Text
   private fullnessLabel!: Phaser.GameObjects.Sprite
   private fullnessBar!: UIValueBar
-  private energyLabel!: Phaser.GameObjects.Sprite
+  private energyIcon!: Phaser.GameObjects.Sprite
   private energyValue!: Phaser.GameObjects.Text
   private currDateLabel!: Phaser.GameObjects.Text
   private powerButton!: Phaser.GameObjects.Sprite
+
+  private numNotificationsText!: Phaser.GameObjects.Text
+  private envelopeButton!: Phaser.GameObjects.Sprite
 
   constructor(scene: Home) {
     this.scene = scene
@@ -37,6 +40,7 @@ export class TopBar {
     this.setupEnergyText()
     this.setupPowerButton()
     this.setupCurrDateLabel()
+    this.setupNotifications()
   }
 
   setupFullnessText() {
@@ -96,11 +100,39 @@ export class TopBar {
         }
       )
       .setOrigin(1, 0)
-    this.energyLabel = this.scene.add
+    this.energyIcon = this.scene.add
       .sprite(this.energyValue.x - this.energyValue.displayWidth - 5, 7, 'bolt-solid')
       .setDisplaySize(15, 15)
       .setOrigin(1, 0)
       .setTintFill(0xffffff)
+  }
+
+  setupNotifications() {
+    const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
+    this.numNotificationsText = this.scene.add
+      .text(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5, `${notifications.length}`, {
+        fontSize: '18px',
+        color: 'white',
+        strokeThickness: 1,
+      })
+      .setOrigin(1, 0)
+    this.envelopeButton = this.scene.add
+      .sprite(
+        this.numNotificationsText.x - this.numNotificationsText.displayWidth - 5,
+        7,
+        'envelope-solid'
+      )
+      .setDisplaySize(15, 15)
+      .setOrigin(1, 0)
+      .setTintFill(0xffffff)
+      .setInteractive()
+      .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.envelopeButton.setAlpha(0.5)
+      })
+      .on(Phaser.Input.Events.POINTER_UP, () => {
+        this.envelopeButton.setAlpha(1)
+        this.scene.openNotificationsList()
+      })
   }
 
   setupCurrDateLabel() {
@@ -137,11 +169,12 @@ export class TopBar {
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
     const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
     const currDate = Save.getData(SaveKeys.CURR_DATE) as number
+    const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
 
     this.energyValue.setText(`${energyLevel}/${totalEnergyLevel}`)
-    this.energyLabel.setPosition(
+    this.energyIcon.setPosition(
       this.energyValue.x - this.energyValue.displayWidth - 5,
-      this.energyLabel.y
+      this.energyIcon.y
     )
 
     this.fitnessValueText.setText(fitnessGrade)
@@ -152,5 +185,6 @@ export class TopBar {
 
     this.currDateLabel.setText(`Day ${currDate}`)
     this.fullnessBar.setCurrValue(fullnessLevel)
+    this.numNotificationsText.setText(`${notifications.length}`)
   }
 }
