@@ -6,6 +6,7 @@ import { Utils } from '~/utils/Utils'
 import { NotificationList } from '~/web-ui/NotificationList'
 
 export interface Notification {
+  id: string
   appName: string
   message: string
   route: AppRoute

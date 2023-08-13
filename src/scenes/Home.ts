@@ -75,49 +75,7 @@ export class Home extends Phaser.Scene {
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
       Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
-      const notifications: Notification[] = [
-        {
-          appName: 'Bank 1',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 2',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 3',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 4',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 5',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 6',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 7',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-        {
-          appName: 'Bank 8',
-          message: '$1000 have been deposited into your account. Tap here to view',
-          route: AppRoute.BANK,
-        },
-      ]
-      Save.setData(SaveKeys.NOTIFICATIONS, notifications)
+      Save.setData(SaveKeys.NOTIFICATIONS, [])
     }
   }
 
