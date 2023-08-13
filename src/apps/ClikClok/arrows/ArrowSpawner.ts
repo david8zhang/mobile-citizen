@@ -2,6 +2,7 @@ import { Home } from '~/scenes/Home'
 import { Arrow } from './Arrow'
 import { ClikClokConstants } from '../ClikClokConstants'
 import { SongConfig } from '../screens/SelectSound'
+import { RecordVideo } from '../screens/RecordVideo'
 
 export class ArrowSpawner {
   private scene: Home
@@ -14,13 +15,14 @@ export class ArrowSpawner {
   public sprite!: Phaser.GameObjects.Sprite
   private onCompletedSong: Function
   private lastArrowCheckEvent: Phaser.Time.TimerEvent | null = null
+  private parent: RecordVideo
+  public isCompleted: boolean = true
 
-  constructor(scene: Home, onCompletedSong: Function) {
+  constructor(scene: Home, parent: RecordVideo, onCompletedSong: Function) {
     this.scene = scene
+    this.parent = parent
     this.onCompletedSong = onCompletedSong
   }
-
-  setupCheckForLastArrow() {}
 
   setupSong(songConfig: SongConfig) {
     this.songConfig = songConfig
@@ -47,6 +49,7 @@ export class ArrowSpawner {
         const activeArrow = this.arrows.find((a) => a.sprite.active)
         if (activeArrow === undefined) {
           this.scene.time.delayedCall(3000, () => {
+            this.isCompleted = true
             this.onCompletedSong()
           })
           if (this.lastArrowCheckEvent) {
@@ -59,11 +62,16 @@ export class ArrowSpawner {
   }
 
   handleSpawnEvent() {
+    if (this.isCompleted) {
+      this.isCompleted = false
+    }
     const isDoubleNote = Phaser.Math.Between(1, 100) <= ClikClokConstants.DOUBLE_NOTE_CHANCE
     if (isDoubleNote) {
       this.spawnDoubleArrow()
+      this.parent.addNotes(2)
     } else {
       this.spawnArrow()
+      this.parent.addNotes(1)
     }
   }
 
@@ -78,7 +86,6 @@ export class ArrowSpawner {
         arrow.setVelocity(0, -100)
         this.arrows.push(arrow)
       })
-      // this.scene.score.totalNotes += 2
       this.numBeats++
     }
   }
@@ -93,7 +100,6 @@ export class ArrowSpawner {
       arrow.setVelocity(0, -100)
       this.numBeats++
       this.arrows.push(arrow)
-      // this.scene.score.totalNotes += 1
     }
   }
 

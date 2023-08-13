@@ -3,6 +3,7 @@ import { ClikClok } from '../ClikClok'
 import { SubScreen } from '../../../core/SubScreen'
 import { Constants } from '~/utils/Constants'
 import { CC_BottomNav } from '../CCBottomNav'
+import { SongRank } from '../ClikClokConstants'
 
 export interface Video {
   videoName: string
@@ -14,6 +15,7 @@ export interface Video {
   profileName: string
   hashtags: string
   songTitle: string
+  songRank: SongRank
 }
 
 export class CompletedVideo extends SubScreen {

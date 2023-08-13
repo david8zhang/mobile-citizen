@@ -4,7 +4,7 @@ import { SubScreen } from '../../../core/SubScreen'
 import { SongConfig } from './SelectSound'
 import { Constants } from '~/utils/Constants'
 import { UINumber } from '../UINumber'
-import { ClikClokConstants } from '../ClikClokConstants'
+import { ClikClokConstants, Superlative } from '../ClikClokConstants'
 import { ArrowSpawner } from '../arrows/ArrowSpawner'
 import { InputArrowZone } from '../arrows/InputArrowZone'
 import { InputArrow } from '../arrows/InputArrow'
@@ -18,12 +18,23 @@ export class RecordVideo extends SubScreen {
   private bgRect: Phaser.GameObjects.Rectangle
   private selectedSoundLabel: Phaser.GameObjects.Text
   private countdownLabel: Phaser.GameObjects.Text
+  public isShowing: boolean = false
+
+  // Record video buttons
   private recordButton!: Phaser.GameObjects.Arc
+  private recordButtonLabel!: Phaser.GameObjects.Text
+
+  // Arrows
   public arrowSpawner!: ArrowSpawner
   public inputArrowZone!: InputArrowZone
-  public completedVideoLabel!: Phaser.GameObjects.Text
+
+  // Post video
   public postVideoButton!: Button
-  public isShowing: boolean = false
+  public completedVideoLabel!: Phaser.GameObjects.Text
+  public songScoreLabel!: Phaser.GameObjects.Text
+  public songScoreValueText!: Phaser.GameObjects.Text
+  private songScore: number = 0
+  private numNotes: number = 0
 
   constructor(scene: Home, parent: ClikClok) {
     super(scene, parent)
@@ -83,8 +94,36 @@ export class RecordVideo extends SubScreen {
       text: 'Post Video',
       depth: Constants.SORT_LAYERS.APP_UI,
     })
+    this.songScoreValueText = this.scene.add
+      .text(
+        this.completedVideoLabel.x,
+        this.completedVideoLabel.y - this.completedVideoLabel.displayHeight - 50,
+        '',
+        {
+          fontSize: '50px',
+          color: 'white',
+        }
+      )
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.songScoreLabel = this.scene.add
+      .text(
+        Constants.WINDOW_WIDTH / 2,
+        this.songScoreValueText.y - this.songScoreValueText.displayHeight,
+        'Rank',
+        {
+          fontSize: '30px',
+          color: 'white',
+        }
+      )
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.songScoreLabel.setPosition(
+      this.songScoreLabel.x - this.songScoreLabel.displayWidth / 2,
+      this.songScoreLabel.y
+    )
+    this.songScoreLabel.setVisible(false)
     this.completedVideoLabel.setVisible(false)
     this.postVideoButton.setVisible(false)
+    this.songScoreValueText.setVisible(false)
   }
 
   setupRecordButton() {
@@ -103,11 +142,22 @@ export class RecordVideo extends SubScreen {
         this.startRecording()
         this.recordButton.setAlpha(1)
       })
+    this.recordButtonLabel = this.scene.add
+      .text(this.recordButton.x, this.recordButton.y - 75, 'Tap button to start recording!', {
+        fontSize: '15px',
+        color: 'white',
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.recordButtonLabel.setPosition(
+      this.recordButton.x - this.recordButtonLabel.displayWidth / 2,
+      this.recordButtonLabel.y
+    )
   }
 
   startRecording() {
     this.scene.homeButton.setVisible(false)
     this.recordButton.setVisible(false)
+    this.recordButtonLabel.setVisible(false)
     let countdownTime = 3
     this.countdownLabel
       .setText(countdownTime.toString())
@@ -141,18 +191,22 @@ export class RecordVideo extends SubScreen {
     this.isShowing = false
   }
 
-  processInputSuperlative(yDiff: number) {
-    if (this.isShowing) {
+  processInputSuperlative(yDiff: number, arrow: InputArrow) {
+    if (this.isShowing && !this.arrowSpawner.isCompleted) {
       const superlative = ClikClokConstants.getSuperlative(yDiff)
       if (superlative) {
-        UINumber.createNumber(superlative, this.scene, 300, 40, 'white')
-        const score = ClikClokConstants.SUPERLATIVE_SCORE[superlative]
+        UINumber.createNumber(superlative, this.scene, arrow.sprite.x, arrow.sprite.y, 'white')
+        this.songScore += ClikClokConstants.SUPERLATIVE_SCORE[superlative]
       }
     }
   }
 
+  addNotes(numNotes: number) {
+    this.numNotes += numNotes
+  }
+
   processMiss(arrow: InputArrow) {
-    if (this.isShowing) {
+    if (this.isShowing && !this.arrowSpawner.isCompleted) {
       UINumber.createNumber('Miss', this.scene, arrow.sprite.x, arrow.sprite.y, 'red')
     }
   }
@@ -173,24 +227,38 @@ export class RecordVideo extends SubScreen {
 
   setupArrowConfigs() {
     this.inputArrowZone = new InputArrowZone(this.scene, this)
-    this.arrowSpawner = new ArrowSpawner(this.scene, () => {
+    this.arrowSpawner = new ArrowSpawner(this.scene, this, () => {
       this.onCompletedVideo()
     })
     this.inputArrowZone.setVisible(false)
   }
 
   onCompletedVideo() {
+    const avgScorePerNote = this.songScore / this.numNotes
+    const songRank = ClikClokConstants.getFinalSongScore(avgScorePerNote)
+    this.songScoreValueText.setText(songRank)
+    this.songScoreValueText.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.songScoreValueText.displayWidth / 2,
+      this.songScoreValueText.y
+    )
+    this.songScoreLabel.setVisible(true)
+    this.songScoreValueText.setVisible(true)
     this.completedVideoLabel.setVisible(true)
     this.postVideoButton.setVisible(true)
     this.inputArrowZone.setVisible(false)
   }
 
   handlePostSong() {
+    const avgScorePerNote = this.songScore / this.numNotes
+    const songRank = ClikClokConstants.getFinalSongScore(avgScorePerNote)
+    this.songScoreLabel.setVisible(false)
+    this.songScoreValueText.setVisible(false)
     this.completedVideoLabel.setVisible(false)
     this.postVideoButton.setVisible(false)
     if (this.selectedSound) {
       const currDay = Save.getData(SaveKeys.CURR_DATE) as number
       const completedVideo: Video = {
+        songRank,
         totalViews: 0,
         creationDate: currDay,
         revenueEarnedPerDay: {
@@ -208,7 +276,6 @@ export class RecordVideo extends SubScreen {
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videos)
       Save.setData(SaveKeys.ENERGY_LEVEL, energy)
       this.scene.updateTopBarStats()
-
       const parent = this.parent as ClikClok
       parent.renderSubscreen(CC_ScreenTypes.COMPLETED_VIDEO, completedVideo)
     }
@@ -216,6 +283,7 @@ export class RecordVideo extends SubScreen {
 
   public setVisible(isVisible: boolean): void {
     this.recordButton.setVisible(isVisible)
+    this.recordButtonLabel.setVisible(isVisible)
     this.selectedSoundLabel.setVisible(isVisible)
     this.bgRect.setVisible(isVisible)
   }

@@ -44,7 +44,7 @@ export class InputArrow {
       }
     })
     if (overlappingArrow) {
-      this.parent.processInputSuperlative(overlappingYDiff)
+      this.parent.processInputSuperlative(overlappingYDiff, this)
       this.removeArrow(overlappingArrow)
     } else {
       this.parent.processMiss(this)

@@ -14,6 +14,15 @@ export enum Superlative {
   Perfect = 'Perfect',
 }
 
+export enum SongRank {
+  S = 'S',
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
+}
+
 export class ClikClokConstants {
   public static INITIAL_DELAY = 5680
   public static DOUBLE_NOTE_CHANCE = 10
@@ -86,5 +95,24 @@ export class ClikClokConstants {
     if (yDiff <= 25) {
       return Superlative.Good
     }
+  }
+
+  public static getFinalSongScore(avgScorePerNote: number) {
+    if (avgScorePerNote <= 5) {
+      return SongRank.F
+    }
+    if (avgScorePerNote > 5 && avgScorePerNote <= 8) {
+      return SongRank.D
+    }
+    if (avgScorePerNote > 8 && avgScorePerNote <= 12) {
+      return SongRank.C
+    }
+    if (avgScorePerNote >= 12 && avgScorePerNote < 15) {
+      return SongRank.B
+    }
+    if (avgScorePerNote >= 15 && avgScorePerNote < 20) {
+      return SongRank.A
+    }
+    return SongRank.S
   }
 }
