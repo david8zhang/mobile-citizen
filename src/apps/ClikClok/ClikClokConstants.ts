@@ -1,5 +1,6 @@
 import { Constants } from '~/utils/Constants'
 import { SongConfig } from './screens/SelectSound'
+import { Video } from './screens/CompletedVideo'
 
 export enum Direction {
   UP = 'up',
@@ -114,5 +115,33 @@ export class ClikClokConstants {
       return SongRank.A
     }
     return SongRank.S
+  }
+
+  public static getRecencyRevenueBonus(creationDate: number, currDate: number) {
+    const dateDiff = currDate - creationDate
+    return 2 - (2 * dateDiff) / 5
+  }
+
+  public static getBaseRevenueFromVideoRank(video: Video) {
+    switch (video.songRank) {
+      case SongRank.S: {
+        return 5
+      }
+      case SongRank.A: {
+        return 4
+      }
+      case SongRank.B: {
+        return 3
+      }
+      case SongRank.C: {
+        return 2
+      }
+      case SongRank.D: {
+        return 1
+      }
+      case SongRank.F: {
+        return 0.5
+      }
+    }
   }
 }

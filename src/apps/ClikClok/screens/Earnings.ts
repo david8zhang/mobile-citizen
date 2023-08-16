@@ -38,7 +38,7 @@ export class Earnings extends SubScreen {
       .text(
         this.dailyEarningsText.x,
         this.dailyEarningsText.y + this.dailyEarningsText.displayHeight + 20,
-        "Yesterday's Earnings",
+        "Today's Earnings",
         {
           fontSize: '16px',
           color: '#777777',
@@ -54,9 +54,15 @@ export class Earnings extends SubScreen {
 
   updateEarnings() {
     const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]
-    const totalEarnings = 0
-    videos.forEach((video) => {})
-    this.dailyEarningsText.setText(`$${totalEarnings}`)
+    const currDate = Save.getData(SaveKeys.CURR_DATE) as number
+    let totalEarnings = 0
+    const day = `Day ${currDate}`
+    videos.forEach((video) => {
+      if (video.revenueEarnedPerDay[day]) {
+        totalEarnings += video.revenueEarnedPerDay[day]
+      }
+    })
+    this.dailyEarningsText.setText(`$${totalEarnings.toFixed(2)}`)
     this.dailyEarningsText.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.dailyEarningsText.displayWidth / 2,
       this.dailyEarningsText.y

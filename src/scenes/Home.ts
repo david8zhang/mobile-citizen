@@ -26,7 +26,7 @@ export class Home extends Phaser.Scene {
   public updateCallbacks: Function[] = []
   private progressDayConfirmModal!: ProgressDayConfirmModal
   private progressDayOverlayScreen!: ProgressDayOverlayScreen
-  private onProgressDayCallbacks: Function[] = []
+  public onProgressDayCallbacks: Function[] = []
   private notificationListScreen!: NotificationListScreen
   private onScreenNotification!: OnScreenNotification
 

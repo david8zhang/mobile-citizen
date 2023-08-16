@@ -30,7 +30,6 @@ export class CompletedVideo extends SubScreen {
   // Video stats
   private revenueEarnedLabel!: Phaser.GameObjects.Text
   private totalViewsLabel!: Phaser.GameObjects.Text
-  private totalLikesLabel!: Phaser.GameObjects.Text
 
   constructor(scene: Home, parent: ClikClok) {
     super(scene, parent)

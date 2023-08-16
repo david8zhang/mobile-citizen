@@ -106,9 +106,18 @@ export class Bank extends App {
     this.setupRecentTransactions(bankTransactions)
   }
 
+  updateBankBalance() {
+    this.bankBalanceText.setText(`$${Save.getData(SaveKeys.BANK_BALANCE).toFixed(2)}`)
+    this.bankBalanceText.setPosition(
+      Constants.WINDOW_WIDTH / 2 - this.bankBalanceText.displayWidth / 2,
+      this.bankBalanceText.y
+    )
+  }
+
   public render(onComplete?: Function): void {
     super.render(() => {
       this.updateBankTransactions()
+      this.updateBankBalance()
       if (onComplete) {
         onComplete()
       }
