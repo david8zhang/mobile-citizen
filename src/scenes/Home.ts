@@ -100,10 +100,10 @@ export class Home extends Phaser.Scene {
   executeOnProgressDayCallbacks(nextDay: number) {
     Save.setData(SaveKeys.CURR_DATE, nextDay)
     this.resetLevels()
-    this.topBar.updateStats()
     this.onProgressDayCallbacks.forEach((fn) => {
       fn()
     })
+    this.topBar.updateStats()
   }
 
   goBackHome() {

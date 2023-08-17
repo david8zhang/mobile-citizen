@@ -268,6 +268,7 @@ export class RecordVideo extends SubScreen {
         hashtags: this.selectedSound.hashtags,
         videoName: `${this.selectedSound.name} video`,
         songTitle: this.selectedSound.name,
+        earningPotential: this.selectedSound.earningPotential,
       }
       const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS)
       let energy = Save.getData(SaveKeys.ENERGY_LEVEL)

@@ -57,16 +57,6 @@ export const VideoList = (videos, currDay, height, width, onClick) => {
                   marginRight: '10px',
                 }}
               >
-                Likes: {video.totalLikes}
-              </p>
-              <p
-                style={{
-                  fontSize: '12px',
-                  marginTop: '0px',
-                  marginBottom: '0px',
-                  marginRight: '10px',
-                }}
-              >
                 Views: {video.totalViews}
               </p>
               <p

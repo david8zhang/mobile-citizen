@@ -3,15 +3,14 @@ import { ClikClok } from '../ClikClok'
 import { SubScreen } from '../../../core/SubScreen'
 import { Constants } from '~/utils/Constants'
 import { SoundList } from '~/web-ui/SoundList'
-import { ClikClokConstants } from '../ClikClokConstants'
+import { ClikClokConstants, EarningPotential } from '../ClikClokConstants'
 import { Utils } from '~/utils/Utils'
 import { Save, SaveKeys } from '~/utils/Save'
-import { UINumber } from '../UINumber'
 
 export interface SongConfig {
   name: string
   difficulty: number
-  earningPotential: number
+  earningPotential: EarningPotential
   bpm: number
   duration: number
   hashtags: string

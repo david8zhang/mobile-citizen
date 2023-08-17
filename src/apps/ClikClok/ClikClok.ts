@@ -13,6 +13,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { ClikClokConstants } from './ClikClokConstants'
 import { BankTransactions } from '../Bank/Bank'
 import { AppRoute } from '~/utils/AppConfigs'
+import { Notification } from '~/core/NotificationListScreen'
 
 export class ClikClok extends App {
   public navbar: Navbar
@@ -83,13 +84,27 @@ export class ClikClok extends App {
       })
     })
     bankTransactions.unshift({
-      vendor: AppRoute.CLIK_CLOK,
+      vendor: 'Clik Clok, Inc.',
       amount: totalRevenueEarned,
     })
     bankBalance += totalRevenueEarned
     Save.setData(SaveKeys.BANK_BALANCE, bankBalance)
     Save.setData(SaveKeys.RECENT_TRANSACTIONS, bankTransactions)
     Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
+    this.showNotificationForEarned(totalRevenueEarned)
+  }
+
+  showNotificationForEarned(totalRevenueEarned: number) {
+    const day = Save.getData(SaveKeys.CURR_DATE) as number
+    const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
+    const newNotification: Notification = {
+      id: `clik-clok-revenue-day-${day}`,
+      appName: 'Clik Clok',
+      message: `Your videos have earned $${totalRevenueEarned.toFixed(2)}`,
+      route: AppRoute.CLIK_CLOK,
+    }
+    const newNotifications = notifications.concat(newNotification)
+    Save.setData(SaveKeys.NOTIFICATIONS, newNotifications)
   }
 
   renderSubscreen(newSubscreen: CC_ScreenTypes, data?: any) {
