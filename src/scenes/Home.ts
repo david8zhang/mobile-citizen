@@ -94,7 +94,9 @@ export class Home extends Phaser.Scene {
     const fitnessGrade = Utils.getFitnessGrade()
     const totalEnergyForFitnessGrade = Utils.getTotalEnergyForFitness(fitnessGrade)
     Save.setData(SaveKeys.ENERGY_LEVEL, totalEnergyForFitnessGrade)
-    Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
+    const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL)
+    const newFullness = Math.max(fullness - 20, 0)
+    Save.setData(SaveKeys.FULLNESS_LEVEL, newFullness)
   }
 
   executeOnProgressDayCallbacks(nextDay: number) {

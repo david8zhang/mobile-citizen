@@ -10,6 +10,7 @@ import { Button } from '~/core/Button'
 import { FNM_ScreenTypes } from '../FNMScreenTypes'
 
 export interface WorkoutCompletedData {
+  fullnessCost: number
   fitnessGain: number
   energyCost: number
   averageScore: number
@@ -203,6 +204,7 @@ export class CompletedWorkout extends SubScreen {
   }
 
   applyFitnessGain(data: WorkoutCompletedData) {
+    const fullnessLevel = Utils.getFullnessLevel()
     const workoutGradeForScore = FitNessMonsterConstants.getWorkoutGradeForScore(data.averageScore)
     const bonusFitnessGain = Math.round(
       data.fitnessGain * FitNessMonsterConstants.WORKOUT_GRADE_BONUS_PCT[workoutGradeForScore]
@@ -211,7 +213,10 @@ export class CompletedWorkout extends SubScreen {
     const newFitnessLevel = fitnessLevel + data.fitnessGain + bonusFitnessGain
 
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
-    const newEnergyLevel = energyLevel - data.energyCost
+    const energyCostForFullness = Math.round(
+      FitNessMonsterConstants.fullnessLevelToEnergyCostPct(fullnessLevel!) * data.energyCost
+    )
+    const newEnergyLevel = energyLevel - energyCostForFullness
     Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
     Save.setData(SaveKeys.ENERGY_LEVEL, newEnergyLevel)
     this.scene.topBar.updateStats()

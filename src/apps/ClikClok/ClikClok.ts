@@ -83,15 +83,17 @@ export class ClikClok extends App {
         },
       })
     })
-    bankTransactions.unshift({
-      vendor: 'Clik Clok, Inc.',
-      amount: totalRevenueEarned,
-    })
-    bankBalance += totalRevenueEarned
-    Save.setData(SaveKeys.BANK_BALANCE, bankBalance)
-    Save.setData(SaveKeys.RECENT_TRANSACTIONS, bankTransactions)
-    Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
-    this.showNotificationForEarned(totalRevenueEarned)
+    if (totalRevenueEarned > 0) {
+      bankTransactions.unshift({
+        vendor: 'Clik Clok, Inc.',
+        amount: totalRevenueEarned,
+      })
+      bankBalance += totalRevenueEarned
+      Save.setData(SaveKeys.BANK_BALANCE, bankBalance)
+      Save.setData(SaveKeys.RECENT_TRANSACTIONS, bankTransactions)
+      Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
+      this.showNotificationForEarned(totalRevenueEarned)
+    }
   }
 
   showNotificationForEarned(totalRevenueEarned: number) {

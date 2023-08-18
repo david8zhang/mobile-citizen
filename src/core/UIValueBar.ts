@@ -7,12 +7,12 @@ interface UIValueBarConfig {
   height: number
   width: number
   borderWidth: number
-  fillColor?: number
   bgColor?: number
   showBorder?: boolean
   isVertical?: boolean
   depth?: number
   hideBg: boolean
+  changeColorBasedOnPct: boolean
 }
 
 export class UIValueBar {
@@ -24,16 +24,26 @@ export class UIValueBar {
 
   height: number
   width: number
-  fillColor: number
   showBorder: boolean
   borderWidth: number
   isVertical: boolean = false
   bgColor: number = 0x000000
   hideBg: boolean = false
+  changeColorBasedOnPct: boolean = false
 
   constructor(scene: Phaser.Scene, config: UIValueBarConfig) {
     this.bar = new Phaser.GameObjects.Graphics(scene)
-    const { x, y, maxValue, width, height, fillColor, showBorder, borderWidth, bgColor } = config
+    const {
+      x,
+      y,
+      maxValue,
+      width,
+      height,
+      showBorder,
+      borderWidth,
+      bgColor,
+      changeColorBasedOnPct,
+    } = config
     this.x = x
     this.y = y
     this.maxValue = maxValue
@@ -41,6 +51,7 @@ export class UIValueBar {
     this.width = width
     this.height = height
     this.borderWidth = borderWidth
+    this.changeColorBasedOnPct = changeColorBasedOnPct
 
     if (bgColor) {
       this.bgColor = bgColor
@@ -54,7 +65,6 @@ export class UIValueBar {
       this.isVertical = config.isVertical
     }
 
-    this.fillColor = fillColor || 0x2ecc71
     this.showBorder = showBorder || false
     scene.add.existing(this.bar)
     this.draw()
@@ -104,7 +114,20 @@ export class UIValueBar {
     }
 
     const percentage = this.currValue / this.maxValue
-    this.bar.fillStyle(this.fillColor)
+
+    if (this.changeColorBasedOnPct) {
+      if (percentage >= 0 && percentage <= 0.25) {
+        this.bar.fillStyle(0xe74c3c)
+      } else if (percentage > 0.25 && percentage <= 0.5) {
+        this.bar.fillStyle(0xe67e22)
+      } else if (percentage > 0.5 && percentage <= 0.75) {
+        this.bar.fillStyle(0xf1c40f)
+      } else {
+        this.bar.fillStyle(0x2ecc71)
+      }
+    } else {
+      this.bar.fillStyle(0x2ecc71)
+    }
 
     if (this.isVertical) {
       const length = Math.round(percentage * this.height)

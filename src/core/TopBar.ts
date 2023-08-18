@@ -47,15 +47,15 @@ export class TopBar {
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     this.fullnessBar = new UIValueBar(this.scene, {
       width: 40,
-      height: 12,
-      bgColor: 0x00ff00,
-      fillColor: 0x000000,
+      height: 14,
+      bgColor: 0x555555,
       maxValue: 100,
       x: Constants.WINDOW_WIDTH - 50,
       y: 8,
-      borderWidth: 4,
-      showBorder: true,
+      borderWidth: 0,
+      showBorder: false,
       hideBg: false,
+      changeColorBasedOnPct: true,
     })
     this.fullnessBar.setCurrValue(fullnessLevel)
     this.fullnessLabel = this.scene.add

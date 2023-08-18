@@ -3,9 +3,11 @@ import { WorkoutGameTypes } from './WorkoutGameTypes'
 import { HoldAndReleaseGameConfig } from './workout-games/HoldAndReleaseGame'
 import { TapTimingGameConfig } from './workout-games/TapTimingGame'
 import { FitnessGrade } from '~/core/TopBar'
+import { FullnessLevel } from '~/utils/Utils'
 
 export interface Workout {
   name: string
+  fullnessCost: number
   fitnessLevelToGainMappings: {
     [key in FitnessGrade]: {
       energyCost: number
@@ -51,6 +53,7 @@ export class FitNessMonsterConstants {
   public static WORKOUT_LIST: Workout[] = [
     {
       name: 'Pushups',
+      fullnessCost: 20,
       fitnessLevelToGainMappings: {
         [FitnessGrade.F]: {
           energyCost: 40,
@@ -97,6 +100,7 @@ export class FitNessMonsterConstants {
     },
     {
       name: 'Jogging',
+      fullnessCost: 20,
       fitnessLevelToGainMappings: {
         [FitnessGrade.F]: {
           energyCost: 40,
@@ -151,5 +155,22 @@ export class FitNessMonsterConstants {
       return WorkoutGrade.A
     }
     return WorkoutGrade.S
+  }
+
+  public static fullnessLevelToEnergyCostPct(fullnessLevel: FullnessLevel) {
+    switch (fullnessLevel) {
+      case FullnessLevel.FULL: {
+        return 0.75
+      }
+      case FullnessLevel.SATISFIED: {
+        return 1
+      }
+      case FullnessLevel.HUNGRY: {
+        return 1.25
+      }
+      case FullnessLevel.STARVING: {
+        return 1.5
+      }
+    }
   }
 }

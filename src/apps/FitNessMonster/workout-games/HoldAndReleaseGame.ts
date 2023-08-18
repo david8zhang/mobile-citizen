@@ -38,6 +38,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   private keyA!: Phaser.Input.Keyboard.Key
   private totalScore: number = 0
   private workoutMetadata!: {
+    fullnessCost: number
     fitnessGain: number
     energyCost: number
   }
@@ -112,6 +113,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
       borderWidth: 0,
       depth: Constants.SORT_LAYERS.APP_UI + 100,
       hideBg: true,
+      changeColorBasedOnPct: false,
     })
     this.progressBar.setCurrValue(0)
     this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
@@ -194,6 +196,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     this.totalRepsToComplete =
       workout.fitnessLevelToGainMappings[fitnessGrade].requiredCompletionValue
     this.workoutMetadata = {
+      fullnessCost: workout.fullnessCost,
       fitnessGain: workout.fitnessLevelToGainMappings[fitnessGrade].fitnessGain,
       energyCost: workout.fitnessLevelToGainMappings[fitnessGrade].energyCost,
     }
@@ -280,6 +283,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   completeWorkout() {
     const averageScore = Math.round(this.totalScore / this.totalRepsToComplete)
     const workoutCompletedData: WorkoutCompletedData = {
+      fullnessCost: this.workoutMetadata.fullnessCost,
       fitnessGain: this.workoutMetadata.fitnessGain,
       energyCost: this.workoutMetadata.energyCost,
       averageScore,

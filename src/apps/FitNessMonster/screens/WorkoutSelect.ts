@@ -6,6 +6,7 @@ import { WorkoutList } from '~/web-ui/WorkoutList'
 import { FitNessMonsterConstants, Workout } from '../FitNessMonsterConstants'
 import { Utils } from '~/utils/Utils'
 import { FNM_ScreenTypes } from '../FNMScreenTypes'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export class WorkoutSelect extends SubScreen {
   private headerText: Phaser.GameObjects.Text
@@ -29,10 +30,14 @@ export class WorkoutSelect extends SubScreen {
   }
 
   public setupWorkoutList() {
+    if (this.workoutListDomElement) {
+      this.workoutListDomElement.destroy()
+    }
     const fitnessGrade = Utils.getFitnessGrade()
     const workoutList = WorkoutList(
       FitNessMonsterConstants.WORKOUT_LIST,
       fitnessGrade,
+      Utils.getFullnessLevel(),
       Constants.WINDOW_WIDTH,
       520,
       (workout: Workout) => {
@@ -48,7 +53,10 @@ export class WorkoutSelect extends SubScreen {
     Utils.setupDragToScroll('workout-list')
   }
 
-  public onRender(data?: any): void {}
+  public onRender(data?: any): void {
+    this.setupWorkoutList()
+  }
+
   public setVisible(isVisible: boolean): void {
     this.headerText.setVisible(isVisible)
     this.workoutListDomElement.setVisible(isVisible)

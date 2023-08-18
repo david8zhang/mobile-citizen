@@ -1,6 +1,13 @@
 import { FitnessGrade } from '~/core/TopBar'
 import { Save, SaveKeys } from './Save'
 
+export enum FullnessLevel {
+  FULL = 'FULL',
+  SATISFIED = 'SATISFIED',
+  HUNGRY = 'HUNGRY',
+  STARVING = 'STARVING',
+}
+
 export class Utils {
   public static convertFitnessLevelToGrade(level: number) {
     if (level < 400) {
@@ -19,6 +26,39 @@ export class Utils {
       return FitnessGrade.A
     }
     return FitnessGrade.S
+  }
+
+  public static getFullnessLevel() {
+    const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL)
+    if (fullnessLevel >= 75) {
+      return FullnessLevel.FULL
+    }
+    if (fullnessLevel >= 50 && fullnessLevel < 75) {
+      return FullnessLevel.SATISFIED
+    }
+    if (fullnessLevel >= 25 && fullnessLevel < 50) {
+      return FullnessLevel.HUNGRY
+    }
+    if (fullnessLevel < 25) {
+      return FullnessLevel.STARVING
+    }
+  }
+
+  public static getFullnessLevelHexString(fullnessLevel: FullnessLevel) {
+    switch (fullnessLevel) {
+      case FullnessLevel.FULL: {
+        return '#27ae60'
+      }
+      case FullnessLevel.SATISFIED: {
+        return 'black'
+      }
+      case FullnessLevel.HUNGRY: {
+        return '#e67e22'
+      }
+      case FullnessLevel.STARVING: {
+        return '#e74c3c'
+      }
+    }
   }
 
   public static getFitnessGrade() {
