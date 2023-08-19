@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { App } from '~/apps/App'
 import { Bank } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
+import { DashEats } from '~/apps/DashEats/DashEats'
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { AppIconBox } from '~/core/AppIconBox'
 import { Notification, NotificationListScreen } from '~/core/NotificationListScreen'
@@ -43,6 +44,7 @@ export class Home extends Phaser.Scene {
       [AppRoute.BANK]: new Bank(this),
       [AppRoute.CLIK_CLOK]: new ClikClok(this),
       [AppRoute.FIT_NESS_MONSTER]: new FitNessMonster(this),
+      [AppRoute.DASH_EATS]: new DashEats(this),
     }
     this.setupTopBar()
     this.setupAppGrid()
@@ -69,8 +71,8 @@ export class Home extends Phaser.Scene {
   initializeSaveData() {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
       Save.setData(SaveKeys.BANK_BALANCE, 0)
-      Save.setData(SaveKeys.FITNESS_LEVEL, 1000)
-      Save.setData(SaveKeys.FULLNESS_LEVEL, 100)
+      Save.setData(SaveKeys.FITNESS_LEVEL, Constants.DEFAULT_FITNESS_LEVEL)
+      Save.setData(SaveKeys.FULLNESS_LEVEL, Constants.DEFAULT_FULLNESS_LEVEL)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
@@ -94,13 +96,31 @@ export class Home extends Phaser.Scene {
     const fitnessGrade = Utils.getFitnessGrade()
     const totalEnergyForFitnessGrade = Utils.getTotalEnergyForFitness(fitnessGrade)
     Save.setData(SaveKeys.ENERGY_LEVEL, totalEnergyForFitnessGrade)
+  }
+
+  handleFullnessDecrease() {
+    // If fullness is 0, subtract fitness level points
     const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL)
+    if (fullness === 0) {
+      const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+      const newFitnessLevel = Math.max(0, fitnessLevel - Constants.EMPTY_FULLNESS_FITNESS_PENALTY)
+      Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
+      const currDate = Save.getData(SaveKeys.CURR_DATE) as number
+      const emptyFullnessFitnessPenaltyNotification: Notification = {
+        message: 'Your fitness level has gone down! Remember to eat to keep up fullness!',
+        appName: 'MyHealth',
+        route: AppRoute.FIT_NESS_MONSTER,
+        id: `fullness-penalty-day-${currDate}`,
+      }
+      Utils.addNotification(emptyFullnessFitnessPenaltyNotification)
+    }
     const newFullness = Math.max(fullness - 20, 0)
     Save.setData(SaveKeys.FULLNESS_LEVEL, newFullness)
   }
 
   executeOnProgressDayCallbacks(nextDay: number) {
     Save.setData(SaveKeys.CURR_DATE, nextDay)
+    this.handleFullnessDecrease()
     this.resetLevels()
     this.onProgressDayCallbacks.forEach((fn) => {
       fn()

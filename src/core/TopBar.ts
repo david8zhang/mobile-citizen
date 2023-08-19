@@ -186,5 +186,10 @@ export class TopBar {
     this.currDateLabel.setText(`Day ${currDate}`)
     this.fullnessBar.setCurrValue(fullnessLevel)
     this.numNotificationsText.setText(`${notifications.length}`)
+    this.numNotificationsText.setPosition(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5)
+    this.envelopeButton.setPosition(
+      this.numNotificationsText.x - this.numNotificationsText.displayWidth - 5,
+      7
+    )
   }
 }

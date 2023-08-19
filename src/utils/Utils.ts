@@ -1,5 +1,6 @@
 import { FitnessGrade } from '~/core/TopBar'
 import { Save, SaveKeys } from './Save'
+import { Notification } from '~/core/NotificationListScreen'
 
 export enum FullnessLevel {
   FULL = 'FULL',
@@ -145,5 +146,11 @@ export class Utils {
       document.removeEventListener('mouseup', mouseUpHandler)
     }
     ele.addEventListener('mousedown', mouseDownHandler)
+  }
+
+  public static addNotification(notification: Notification) {
+    const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
+    notifications.push(notification)
+    Save.setData(SaveKeys.NOTIFICATIONS, notifications)
   }
 }

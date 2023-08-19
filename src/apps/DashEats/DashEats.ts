@@ -2,6 +2,7 @@ import { Home } from '~/scenes/Home'
 import { App } from '../App'
 import { DE_ScreenTypes } from './DEScreenTypes'
 import { SubScreen } from '~/core/SubScreen'
+import { Menu } from './screens/Menu'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -11,7 +12,10 @@ export class DashEats extends App {
 
   constructor(scene: Home) {
     super(scene)
-    this.screenMappings = {}
+    this.screenMappings = {
+      [DE_ScreenTypes.MENU]: new Menu(this.scene, this),
+    }
+    this.setVisible(false)
   }
 
   public setVisible(isVisible: boolean): void {
@@ -39,5 +43,23 @@ export class DashEats extends App {
     if (subscreen) {
       subscreen.setVisible(false)
     }
+  }
+
+  public onHide(onComplete?: Function | undefined): void {
+    this.hideSubscreen()
+    super.onHide(() => {
+      if (onComplete) {
+        onComplete()
+      }
+    })
+  }
+
+  public render(onComplete?: Function | undefined): void {
+    super.render(() => {
+      this.renderSubscreen(DE_ScreenTypes.MENU)
+      if (onComplete) {
+        onComplete()
+      }
+    })
   }
 }
