@@ -115,7 +115,7 @@ export class MenuItem extends SubScreen {
       scene: this.scene,
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,
-      text: 'Order',
+      text: 'Select a delivery option',
       backgroundColor: 0xffffff,
       fontFamily: 'Arial',
       fontSize: '20px',
@@ -155,6 +155,9 @@ export class MenuItem extends SubScreen {
   }
 
   orderItem() {
+    if (this.selectedDeliveryOptionType === null) {
+      return
+    }
     const totalBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const totalCost =
       this.menuItemType.price +
@@ -174,6 +177,9 @@ export class MenuItem extends SubScreen {
         deliveryOptionType: this.selectedDeliveryOptionType,
       })
       this.selectedDeliveryOptionType = null
+      this.speedyDeliveryOption.setSelected(false)
+      this.standardDeliveryOption.setSelected(false)
+      this.orderButton.setText('Select a delivery option')
     }
   }
 

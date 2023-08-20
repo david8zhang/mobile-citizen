@@ -8,6 +8,9 @@ export interface MenuItemType {
 
 export class DashEatsConstants {
   public static SPEEDY_DELIVERY_EXTRA_COST = 3
+  public static STANDARD_DELIVERY_TIME = 30000
+  public static SPEEDY_DELIVERY_TIME = 5000
+
   public static DASH_EATS_MENU_ITEMS: MenuItemType[] = [
     {
       name: 'Hamburger',

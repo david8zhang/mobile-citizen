@@ -6,6 +6,7 @@ import { Menu } from './screens/Menu'
 import { MenuItem } from './screens/MenuItem'
 import { OrderProgress } from './screens/OrderProgress'
 import { Save, SaveKeys } from '~/utils/Save'
+import { MenuItemType } from './DashEatsConstants'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -38,8 +39,8 @@ export class DashEats extends App {
     this.currSubscreen = newSubscreen
     const subscreen = this.screenMappings[newSubscreen]
     if (subscreen) {
-      subscreen.onRender(data)
       subscreen.setVisible(true)
+      subscreen.onRender(data)
     }
   }
 
@@ -63,7 +64,8 @@ export class DashEats extends App {
   public render(onComplete?: Function | undefined): void {
     super.render(() => {
       const orderProgress = this.screenMappings[DE_ScreenTypes.ORDER_PROGRESS] as OrderProgress
-      if (orderProgress.cachedMenuItem) {
+      const completedOrderPendingClaim = Save.getData(SaveKeys.PENDING_DASHEATS_ORDER)
+      if (orderProgress.cachedMenuItem || completedOrderPendingClaim) {
         this.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS)
       } else {
         this.renderSubscreen(DE_ScreenTypes.MENU)
