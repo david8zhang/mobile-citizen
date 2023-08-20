@@ -5,6 +5,7 @@ import { SubScreen } from '~/core/SubScreen'
 import { Menu } from './screens/Menu'
 import { MenuItem } from './screens/MenuItem'
 import { OrderProgress } from './screens/OrderProgress'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -45,6 +46,7 @@ export class DashEats extends App {
   hideSubscreen() {
     const subscreen = this.screenMappings[this.currSubscreen]
     if (subscreen) {
+      subscreen.onHide()
       subscreen.setVisible(false)
     }
   }
@@ -58,10 +60,11 @@ export class DashEats extends App {
     })
   }
 
-  public render(onComplete?: Function | undefined, subRoute?: DE_ScreenTypes): void {
+  public render(onComplete?: Function | undefined): void {
     super.render(() => {
-      if (subRoute) {
-        this.renderSubscreen(subRoute)
+      const orderProgress = this.screenMappings[DE_ScreenTypes.ORDER_PROGRESS] as OrderProgress
+      if (orderProgress.cachedMenuItem) {
+        this.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS)
       } else {
         this.renderSubscreen(DE_ScreenTypes.MENU)
       }

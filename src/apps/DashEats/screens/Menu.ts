@@ -13,7 +13,7 @@ export class Menu extends SubScreen {
   constructor(scene: Home, parent: DashEats) {
     super(scene, parent)
     this.headerText = this.scene.add
-      .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 25, 'DashEats', {
+      .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'Menu', {
         fontSize: '35px',
         color: 'black',
         fontFamily: 'Arial',
@@ -21,14 +21,14 @@ export class Menu extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
       this.headerText.x - this.headerText.displayWidth / 2,
-      Constants.TOP_BAR_HEIGHT + 25
+      Constants.TOP_BAR_HEIGHT + 30
     )
     this.setupMenuItemList()
     this.setVisible(false)
   }
 
   setupMenuItemList() {
-    const yPos = this.headerText.y + this.headerText.displayHeight + 20
+    const yPos = this.headerText.y + this.headerText.displayHeight + 30
     const menuItemList = MenuItemList(
       DashEatsConstants.DASH_EATS_MENU_ITEMS,
       Constants.WINDOW_WIDTH,
@@ -39,7 +39,7 @@ export class Menu extends SubScreen {
       }
     )
     this.menuItemListDom = this.scene.add
-      .dom(0, yPos + 25, menuItemList)
+      .dom(0, yPos, menuItemList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('menu-item-list')

@@ -216,9 +216,11 @@ export class CompletedWorkout extends SubScreen {
     const energyCostForFullness = Math.round(
       FitNessMonsterConstants.fullnessLevelToEnergyCostPct(fullnessLevel!) * data.energyCost
     )
+    const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL)
     const newEnergyLevel = energyLevel - energyCostForFullness
     Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
     Save.setData(SaveKeys.ENERGY_LEVEL, newEnergyLevel)
+    Save.setData(SaveKeys.FULLNESS_LEVEL, Math.max(0, fullness - data.fullnessCost))
     this.scene.topBar.updateStats()
   }
 

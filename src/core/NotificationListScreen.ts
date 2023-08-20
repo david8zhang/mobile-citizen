@@ -13,7 +13,7 @@ export interface Notification {
   appName: string
   message: string
   route: AppRoute
-  subRoute?: FNM_ScreenTypes | DE_ScreenTypes | CC_ScreenTypes
+  data?: any
 }
 
 export class NotificationListScreen {
@@ -64,8 +64,9 @@ export class NotificationListScreen {
       notifications,
       Constants.WINDOW_WIDTH,
       640,
-      (notification: Notification) => {
-        this.scene.renderApp(notification.route, notification.subRoute)
+      (notification: Notification, index: number) => {
+        this.scene.renderApp(notification.route, notification.data)
+        this.removeNotification(index)
         this.setVisible(false)
       },
       (index: number) => {

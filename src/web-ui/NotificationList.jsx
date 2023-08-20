@@ -29,7 +29,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
             <div
               style={{ flex: 3, padding: '15px', borderRight: '#aaa 1px solid' }}
               onClick={() => {
-                onClick(notification)
+                onClick(notification, index)
               }}
             >
               <p

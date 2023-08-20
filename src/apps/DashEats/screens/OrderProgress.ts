@@ -11,13 +11,21 @@ import { Notification } from '~/core/NotificationListScreen'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Utils } from '~/utils/Utils'
 
+export enum OrderStatus {
+  NOT_STARTED = 'NOT_STARTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  READY = 'READY',
+}
+
 export class OrderProgress extends SubScreen {
   private timer!: Phaser.Time.TimerEvent
   private headerText!: Phaser.GameObjects.Text
   private countdownTimerText!: Phaser.GameObjects.Text
   private timeRemaining: number = 0
   private button!: Button
-  private menuItem!: MenuItemType
+  public cachedMenuItem: MenuItemType | null = null
+  private orderStatus: OrderStatus = OrderStatus.NOT_STARTED
+  private isShowing: boolean = false
 
   constructor(scene: Home, parent: DashEats) {
     super(scene, parent)
@@ -60,24 +68,11 @@ export class OrderProgress extends SubScreen {
     )
   }
 
-  processMenuItem() {
-    const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
-    const fitness = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-    Save.setData(
-      SaveKeys.FULLNESS_LEVEL,
-      Math.min(Constants.MAX_FULLNESS_LEVEL, fullness + this.menuItem.fullnessBonus)
-    )
-    Save.setData(SaveKeys.FITNESS_LEVEL, Math.max(0, fitness + this.menuItem.fitnessBonus))
-    this.scene.updateTopBarStats()
-    const parent = this.parent as DashEats
-    parent.renderSubscreen(DE_ScreenTypes.MENU)
-  }
-
   setupOrderButton() {
     this.button = new Button({
       scene: this.scene,
       onClick: () => {
-        this.processMenuItem()
+        this.claimOrder()
       },
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,
@@ -93,11 +88,30 @@ export class OrderProgress extends SubScreen {
     })
   }
 
-  public onRender(data: { menuItem: MenuItemType; deliveryOptionType: DeliveryOptionType }): void {
+  public onHide() {
+    this.isShowing = false
+  }
+
+  public onRender(data: any): void {
+    this.isShowing = true
+    const completedOrderPendingClaim = Save.getData(SaveKeys.PENDING_DASHEATS_ORDER)
+    if (
+      (this.cachedMenuItem && this.orderStatus === OrderStatus.READY) ||
+      completedOrderPendingClaim
+    ) {
+      this.button.setVisible(true)
+    } else {
+      if (!this.cachedMenuItem) {
+        this.setupNewOrder(data)
+      }
+    }
+  }
+
+  setupNewOrder(data?: any) {
     if (this.timer) {
       this.timer.destroy()
     }
-    this.menuItem = data.menuItem
+    this.cachedMenuItem = data.menuItem
     this.button.setVisible(false)
     this.timeRemaining = data.deliveryOptionType === DeliveryOptionType.SPEEDY ? 15000 : 30000
     this.countdownTimerText.setText(`${this.timeRemaining / 1000}`)
@@ -105,7 +119,6 @@ export class OrderProgress extends SubScreen {
       Constants.WINDOW_WIDTH / 2 - this.countdownTimerText.displayWidth / 2,
       this.countdownTimerText.y
     )
-
     this.scene.time.addEvent({
       delay: 1000,
       callback: () => {
@@ -121,19 +134,43 @@ export class OrderProgress extends SubScreen {
     this.timer = this.scene.time.addEvent({
       delay: this.timeRemaining,
       callback: () => {
-        const orderReadyNotification: Notification = {
-          appName: 'DashEats',
-          route: AppRoute.DASH_EATS,
-          subRoute: DE_ScreenTypes.ORDER_PROGRESS,
-          message: 'Your order is ready!',
-          id: `dash-eats-order-${Date.now()}`,
-        }
-        Utils.addNotification(orderReadyNotification)
-        this.scene.showOnScreenNotification(orderReadyNotification)
-        this.scene.topBar.updateStats()
-        this.button.setVisible(true)
+        this.processOrderReady()
       },
     })
+  }
+
+  claimOrder() {
+    const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+    const fitness = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const pendingDashEatsOrder = Save.getData(SaveKeys.PENDING_DASHEATS_ORDER) as MenuItemType
+    Save.setData(
+      SaveKeys.FULLNESS_LEVEL,
+      Math.min(Constants.MAX_FULLNESS_LEVEL, fullness + pendingDashEatsOrder.fullnessBonus)
+    )
+    Save.setData(SaveKeys.FITNESS_LEVEL, Math.max(0, fitness + pendingDashEatsOrder.fitnessBonus))
+    this.scene.updateTopBarStats()
+    const parent = this.parent as DashEats
+    parent.renderSubscreen(DE_ScreenTypes.MENU)
+    Save.setData(SaveKeys.PENDING_DASHEATS_ORDER, null)
+    this.cachedMenuItem = null
+    this.orderStatus = OrderStatus.NOT_STARTED
+  }
+
+  processOrderReady() {
+    const orderReadyNotification: Notification = {
+      appName: 'DashEats',
+      route: AppRoute.DASH_EATS,
+      message: 'Your order is ready!',
+      id: `dash-eats-order-${Date.now()}`,
+    }
+    Utils.addNotification(orderReadyNotification)
+    if (!this.isShowing) {
+      this.scene.showOnScreenNotification(orderReadyNotification)
+    }
+    this.scene.topBar.updateStats()
+    this.button.setVisible(this.isShowing)
+    this.orderStatus === OrderStatus.READY
+    Save.setData(SaveKeys.PENDING_DASHEATS_ORDER, this.cachedMenuItem)
   }
 
   public setVisible(isVisible: boolean): void {

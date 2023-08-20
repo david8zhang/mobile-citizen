@@ -32,7 +32,7 @@ export class MenuItem extends SubScreen {
   setupMenuItemAttributes() {
     this.itemImage = this.scene.add
       .sprite(0, Constants.TOP_BAR_HEIGHT, '')
-      .setDisplaySize(Constants.WINDOW_WIDTH, 300)
+      .setDisplaySize(Constants.WINDOW_WIDTH, 225)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
     this.itemName = this.scene.add
@@ -111,7 +111,7 @@ export class MenuItem extends SubScreen {
     })
     this.orderButton = new Button({
       x: Constants.WINDOW_WIDTH / 2,
-      y: Constants.WINDOW_HEIGHT - 70,
+      y: Constants.WINDOW_HEIGHT - 80,
       scene: this.scene,
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,
@@ -173,6 +173,7 @@ export class MenuItem extends SubScreen {
         menuItem: this.menuItemType,
         deliveryOptionType: this.selectedDeliveryOptionType,
       })
+      this.selectedDeliveryOptionType = null
     }
   }
 

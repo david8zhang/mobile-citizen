@@ -30,7 +30,7 @@ export class OnScreenNotification {
       .on(Phaser.Input.Events.POINTER_UP, () => {
         if (this.notification) {
           this.scene.goBackHome()
-          this.scene.renderApp(this.notification.route, this.notification.subRoute)
+          this.scene.renderApp(this.notification.route, this.notification.data)
           this.setVisible(false)
           this.removeOnScreenNotification()
         }
