@@ -70,7 +70,7 @@ export class Home extends Phaser.Scene {
 
   initializeSaveData() {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
-      Save.setData(SaveKeys.BANK_BALANCE, 0)
+      Save.setData(SaveKeys.BANK_BALANCE, 100)
       Save.setData(SaveKeys.FITNESS_LEVEL, Constants.DEFAULT_FITNESS_LEVEL)
       Save.setData(SaveKeys.FULLNESS_LEVEL, Constants.DEFAULT_FULLNESS_LEVEL)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
@@ -170,7 +170,7 @@ export class Home extends Phaser.Scene {
     )
   }
 
-  renderApp(appRoute: AppRoute) {
+  renderApp(appRoute: AppRoute, data?: any) {
     const appToRender = this.appRouteMapping[appRoute]
     if (appToRender) {
       appToRender.render(() => {
@@ -179,7 +179,7 @@ export class Home extends Phaser.Scene {
             color: 'black',
           })
           .setDepth(Constants.SORT_LAYERS.APP_UI)
-      })
+      }, data)
       this.currApp = appRoute
     }
   }

@@ -19,7 +19,7 @@ export abstract class App {
       .setOrigin(0)
   }
 
-  public render(onComplete?: Function): void {
+  public render(onComplete?: Function, data?: any): void {
     this.bgRect.setVisible(true).setAlpha(1)
     this.scene.tweens.add({
       targets: this.bgRect,

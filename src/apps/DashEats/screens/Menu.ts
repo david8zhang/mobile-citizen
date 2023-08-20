@@ -5,6 +5,7 @@ import { Constants } from '~/utils/Constants'
 import { MenuItemList } from '~/web-ui/MenuItemList'
 import { DashEatsConstants } from '../DashEatsConstants'
 import { Utils } from '~/utils/Utils'
+import { DE_ScreenTypes } from '../DEScreenTypes'
 
 export class Menu extends SubScreen {
   private headerText: Phaser.GameObjects.Text
@@ -29,13 +30,16 @@ export class Menu extends SubScreen {
   setupMenuItemList() {
     const yPos = this.headerText.y + this.headerText.displayHeight + 20
     const menuItemList = MenuItemList(
-      DashEatsConstants.DASH_EATS_VIDEOS,
-      Constants.WINDOW_WIDTH - 30,
-      520,
-      (data) => {}
+      DashEatsConstants.DASH_EATS_MENU_ITEMS,
+      Constants.WINDOW_WIDTH,
+      600,
+      (data) => {
+        const parent = this.parent as DashEats
+        parent.renderSubscreen(DE_ScreenTypes.MENU_ITEM, data)
+      }
     )
     this.menuItemListDom = this.scene.add
-      .dom(0, yPos + 60, menuItemList)
+      .dom(0, yPos + 25, menuItemList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('menu-item-list')

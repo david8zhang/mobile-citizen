@@ -3,6 +3,7 @@ export class Constants {
   public static WINDOW_HEIGHT = 800
   public static TOP_BAR_HEIGHT = 30
 
+  public static MAX_FULLNESS_LEVEL = 100
   public static DEFAULT_FULLNESS_LEVEL = 100
   public static DEFAULT_FITNESS_LEVEL = 1000
   public static EMPTY_FULLNESS_FITNESS_PENALTY = 25

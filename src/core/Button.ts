@@ -18,7 +18,7 @@ export interface ButtonConfig {
 export class Button {
   private scene: Phaser.Scene
   private rectangle: Phaser.GameObjects.Rectangle
-  private text: Phaser.GameObjects.Text
+  public text: Phaser.GameObjects.Text
 
   constructor(config: ButtonConfig) {
     this.scene = config.scene

@@ -3,6 +3,8 @@ import { App } from '../App'
 import { DE_ScreenTypes } from './DEScreenTypes'
 import { SubScreen } from '~/core/SubScreen'
 import { Menu } from './screens/Menu'
+import { MenuItem } from './screens/MenuItem'
+import { OrderProgress } from './screens/OrderProgress'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -14,6 +16,8 @@ export class DashEats extends App {
     super(scene)
     this.screenMappings = {
       [DE_ScreenTypes.MENU]: new Menu(this.scene, this),
+      [DE_ScreenTypes.MENU_ITEM]: new MenuItem(this.scene, this),
+      [DE_ScreenTypes.ORDER_PROGRESS]: new OrderProgress(this.scene, this),
     }
     this.setVisible(false)
   }
@@ -54,9 +58,13 @@ export class DashEats extends App {
     })
   }
 
-  public render(onComplete?: Function | undefined): void {
+  public render(onComplete?: Function | undefined, subRoute?: DE_ScreenTypes): void {
     super.render(() => {
-      this.renderSubscreen(DE_ScreenTypes.MENU)
+      if (subRoute) {
+        this.renderSubscreen(subRoute)
+      } else {
+        this.renderSubscreen(DE_ScreenTypes.MENU)
+      }
       if (onComplete) {
         onComplete()
       }

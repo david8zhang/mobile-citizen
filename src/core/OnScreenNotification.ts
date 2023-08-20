@@ -30,7 +30,7 @@ export class OnScreenNotification {
       .on(Phaser.Input.Events.POINTER_UP, () => {
         if (this.notification) {
           this.scene.goBackHome()
-          this.scene.renderApp(this.notification.route)
+          this.scene.renderApp(this.notification.route, this.notification.subRoute)
           this.setVisible(false)
           this.removeOnScreenNotification()
         }
@@ -61,7 +61,7 @@ export class OnScreenNotification {
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setWordWrapWidth(this.bgRect.displayWidth - 100)
+      .setWordWrapWidth(this.bgRect.displayWidth - 50)
     this.setVisible(false)
   }
 
@@ -75,7 +75,7 @@ export class OnScreenNotification {
     if (this.dismissBtnText) {
       this.dismissBtnText.destroy()
     }
-    const xPos = this.notifMsgText.x + this.notifMsgText.displayWidth + 15
+    const xPos = this.bgRect.x + this.bgRect.displayWidth / 2 - 100
     this.dismissBtnDivider = this.scene.add
       .line(
         0,
@@ -104,19 +104,14 @@ export class OnScreenNotification {
       })
 
     this.dismissBtnText = this.scene.add
-      .text(
-        this.dismissBtnRect.x + this.dismissBtnRect.displayWidth / 2,
-        this.dismissBtnRect.y + this.dismissBtnRect.displayHeight / 2,
-        'Dismiss',
-        {
-          fontSize: '15px',
-          color: '#777777',
-          fontFamily: 'Arial',
-        }
-      )
+      .text(xPos, this.dismissBtnRect.y + this.dismissBtnRect.displayHeight / 2, 'Dismiss', {
+        fontSize: '15px',
+        color: '#777777',
+        fontFamily: 'Arial',
+      })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.dismissBtnText.setPosition(
-      this.dismissBtnText.x - this.dismissBtnText.displayWidth / 2,
+      this.dismissBtnText.x + this.dismissBtnText.displayWidth / 2,
       this.dismissBtnText.y - this.dismissBtnText.displayHeight / 2
     )
   }

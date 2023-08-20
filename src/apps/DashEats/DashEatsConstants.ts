@@ -1,4 +1,4 @@
-export interface MenuItem {
+export interface MenuItemType {
   name: string
   description: string
   fullnessBonus: number
@@ -7,7 +7,8 @@ export interface MenuItem {
 }
 
 export class DashEatsConstants {
-  public static DASH_EATS_VIDEOS: MenuItem[] = [
+  public static SPEEDY_DELIVERY_EXTRA_COST = 3
+  public static DASH_EATS_MENU_ITEMS: MenuItemType[] = [
     {
       name: 'Hamburger',
       description: 'Time for hamburger',
@@ -21,6 +22,20 @@ export class DashEatsConstants {
       price: 15,
       fullnessBonus: 50,
       fitnessBonus: -20,
+    },
+    {
+      name: 'Bean Burrito',
+      description: 'An extremely bean-ous burrito, packed with protein',
+      price: 5,
+      fullnessBonus: 10,
+      fitnessBonus: -10,
+    },
+    {
+      name: 'Bean Burrito',
+      description: 'An extremely bean-ous burrito, packed with protein',
+      price: 5,
+      fullnessBonus: 10,
+      fitnessBonus: -10,
     },
     {
       name: 'Bean Burrito',

@@ -1,3 +1,6 @@
+import { CC_ScreenTypes } from '~/apps/ClikClok/CCScreenTypes'
+import { DE_ScreenTypes } from '~/apps/DashEats/DEScreenTypes'
+import { FNM_ScreenTypes } from '~/apps/FitNessMonster/FNMScreenTypes'
 import { Home } from '~/scenes/Home'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
@@ -10,6 +13,7 @@ export interface Notification {
   appName: string
   message: string
   route: AppRoute
+  subRoute?: FNM_ScreenTypes | DE_ScreenTypes | CC_ScreenTypes
 }
 
 export class NotificationListScreen {
@@ -61,7 +65,7 @@ export class NotificationListScreen {
       Constants.WINDOW_WIDTH,
       640,
       (notification: Notification) => {
-        this.scene.renderApp(notification.route)
+        this.scene.renderApp(notification.route, notification.subRoute)
         this.setVisible(false)
       },
       (index: number) => {
