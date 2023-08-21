@@ -7,6 +7,7 @@ import { MenuItem } from './screens/MenuItem'
 import { OrderProgress } from './screens/OrderProgress'
 import { Save, SaveKeys } from '~/utils/Save'
 import { MenuItemType } from './DashEatsConstants'
+import { OrderConfirm } from './screens/OrderConfirm'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -19,6 +20,7 @@ export class DashEats extends App {
     this.screenMappings = {
       [DE_ScreenTypes.MENU]: new Menu(this.scene, this),
       [DE_ScreenTypes.MENU_ITEM]: new MenuItem(this.scene, this),
+      [DE_ScreenTypes.CONFIRM_ORDER]: new OrderConfirm(this.scene, this),
       [DE_ScreenTypes.ORDER_PROGRESS]: new OrderProgress(this.scene, this),
     }
     this.setVisible(false)

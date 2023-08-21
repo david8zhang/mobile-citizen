@@ -122,7 +122,7 @@ export class MenuItem extends SubScreen {
       strokeWidth: 1,
       strokeColor: 0x000000,
       onClick: () => {
-        this.orderItem()
+        this.goToOrderConfirmation()
       },
       depth: Constants.SORT_LAYERS.APP_UI,
     })
@@ -154,33 +154,16 @@ export class MenuItem extends SubScreen {
     this.orderButton.text.setColor(totalBankBalance < totalCost ? 'red' : 'black')
   }
 
-  orderItem() {
-    if (this.selectedDeliveryOptionType === null) {
-      return
-    }
-    const totalBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
-    const totalCost =
-      this.menuItemType.price +
-      (this.selectedDeliveryOptionType === DeliveryOptionType.SPEEDY ? 3 : 0)
-    if (totalCost <= totalBankBalance) {
-      const newBankBalance = totalBankBalance - totalCost
-      Save.setData(SaveKeys.BANK_BALANCE, newBankBalance)
-      const newTransaction: BankTransactions = {
-        vendor: 'DashEats, Inc.',
-        amount: -totalCost,
-      }
-      const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS)
-      Save.setData(SaveKeys.RECENT_TRANSACTIONS, transactions.concat(newTransaction))
-      const parent = this.parent as DashEats
-      parent.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS, {
-        menuItem: this.menuItemType,
-        deliveryOptionType: this.selectedDeliveryOptionType,
-      })
-      this.selectedDeliveryOptionType = null
-      this.speedyDeliveryOption.setSelected(false)
-      this.standardDeliveryOption.setSelected(false)
-      this.orderButton.setText('Select a delivery option')
-    }
+  goToOrderConfirmation() {
+    const parent = this.parent as DashEats
+    parent.renderSubscreen(DE_ScreenTypes.CONFIRM_ORDER, {
+      menuItem: this.menuItemType,
+      selectedDeliveryOptionType: this.selectedDeliveryOptionType,
+    })
+    this.selectedDeliveryOptionType = null
+    this.orderButton.setText('Select a delivery option')
+    this.speedyDeliveryOption.setSelected(false)
+    this.standardDeliveryOption.setSelected(false)
   }
 
   public onRender(data: MenuItemType): void {
