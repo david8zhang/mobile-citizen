@@ -28,7 +28,7 @@ export const APP_CONFIGS = [
   },
   {
     name: 'My Health',
-    route: AppRoute.DASH_EATS,
+    route: AppRoute.MY_HEALTH,
   },
   {
     name: 'Nile',

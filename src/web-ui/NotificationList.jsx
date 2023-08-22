@@ -58,6 +58,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '10px',
+                height: '90px',
               }}
               onClick={() => {
                 onDismiss(index)

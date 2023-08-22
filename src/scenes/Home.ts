@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import { App } from '~/apps/App'
-import { Bank } from '~/apps/Bank/Bank'
+import { Bank, BankTransactions } from '~/apps/Bank/Bank'
 import { ClikClok } from '~/apps/ClikClok/ClikClok'
 import { DashEats } from '~/apps/DashEats/DashEats'
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
@@ -122,10 +122,55 @@ export class Home extends Phaser.Scene {
     Save.setData(SaveKeys.CURR_DATE, nextDay)
     this.handleFullnessDecrease()
     this.resetLevels()
+    this.handleBillPay(nextDay)
     this.onProgressDayCallbacks.forEach((fn) => {
       fn()
     })
     this.topBar.updateStats()
+  }
+
+  handleBillPay(nextDay: number) {
+    const diffBetweenNextDayAndBilling =
+      nextDay < Constants.DAYS_BETWEEN_BILLING
+        ? Math.abs(nextDay - Constants.DAYS_BETWEEN_BILLING)
+        : Constants.DAYS_BETWEEN_BILLING - (nextDay % Constants.DAYS_BETWEEN_BILLING)
+    if (diffBetweenNextDayAndBilling < 5 && diffBetweenNextDayAndBilling > 0) {
+      const billReminderNotification: Notification = {
+        id: `bill-reminder-${nextDay}`,
+        appName: 'Bank',
+        route: AppRoute.BANK,
+        message: `Your monthly utilities and internet bill amounting to $${Constants.BASE_BILL_AMOUNT.toFixed(
+          2
+        )} will be due in ${diffBetweenNextDayAndBilling} day${
+          diffBetweenNextDayAndBilling == 1 ? '' : 's'
+        }!`,
+      }
+      Utils.addNotification(billReminderNotification)
+    } else {
+      if (nextDay > 0 && nextDay % Constants.DAYS_BETWEEN_BILLING == 0) {
+        const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+        if (currBankBalance < Constants.BASE_BILL_AMOUNT) {
+          // Show game over
+        } else {
+          const billPayNotification: Notification = {
+            id: `day-${nextDay}`,
+            appName: 'Bank',
+            route: AppRoute.BANK,
+            message: `Monthly bills have been charged to your account: $${Constants.BASE_BILL_AMOUNT.toFixed(
+              2
+            )}`,
+          }
+          const billPayTransaction: BankTransactions = {
+            amount: -Constants.BASE_BILL_AMOUNT,
+            vendor: 'Bills',
+          }
+          const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
+          Save.setData(SaveKeys.RECENT_TRANSACTIONS, transactions.concat(billPayTransaction))
+          Save.setData(SaveKeys.BANK_BALANCE, currBankBalance - Constants.BASE_BILL_AMOUNT)
+          Utils.addNotification(billPayNotification)
+        }
+      }
+    }
   }
 
   goBackHome() {

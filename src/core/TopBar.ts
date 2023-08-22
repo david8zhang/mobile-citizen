@@ -109,7 +109,6 @@ export class TopBar {
 
   setupNotifications() {
     const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
-    console.log('Notifications', notifications)
     this.numNotificationsText = this.scene.add
       .text(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5, `${notifications.length}`, {
         fontSize: '18px',

@@ -7,6 +7,8 @@ export class Constants {
   public static DEFAULT_FULLNESS_LEVEL = 100
   public static DEFAULT_FITNESS_LEVEL = 1000
   public static EMPTY_FULLNESS_FITNESS_PENALTY = 25
+  public static DAYS_BETWEEN_BILLING = 5
+  public static BASE_BILL_AMOUNT = 25
 
   public static SORT_LAYERS = {
     MODAL: 400,
