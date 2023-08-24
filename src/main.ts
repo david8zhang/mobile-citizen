@@ -4,6 +4,7 @@ import { Home } from './scenes/Home'
 import { Preload } from './scenes/Preload'
 import { Constants } from './utils/Constants'
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js'
+import { GameOver } from './scenes/GameOver'
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -33,7 +34,7 @@ const config: Phaser.Types.Core.GameConfig = {
       },
     ],
   },
-  scene: [Preload, Home],
+  scene: [Preload, Home, GameOver],
 }
 
 export default new Phaser.Game(config)

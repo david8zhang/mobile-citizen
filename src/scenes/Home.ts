@@ -14,6 +14,7 @@ import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
+import { GameOverReason } from './GameOver'
 
 export class Home extends Phaser.Scene {
   public rexUI: any
@@ -38,7 +39,8 @@ export class Home extends Phaser.Scene {
     super('home')
   }
   create() {
-    this.initializeSaveData()
+    this.checkGameOver()
+    Utils.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x444444)
     this.appRouteMapping = {
       [AppRoute.BANK]: new Bank(this),
@@ -51,6 +53,13 @@ export class Home extends Phaser.Scene {
     this.setupNotifications()
     this.setupHomeButton()
     this.setupProgressDayUI()
+  }
+
+  checkGameOver() {
+    const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE)
+    if (currBankBalance < Constants.BANKRUPTCY_AMOUNT) {
+      this.scene.start('game-over', { reason: GameOverReason.BANKRUPTCY })
+    }
   }
 
   showOnScreenNotification(notification: Notification) {
@@ -66,19 +75,6 @@ export class Home extends Phaser.Scene {
   setupProgressDayUI() {
     this.progressDayConfirmModal = new ProgressDayConfirmModal(this)
     this.progressDayOverlayScreen = new ProgressDayOverlayScreen(this)
-  }
-
-  initializeSaveData() {
-    if (Save.getData(SaveKeys.BANK_BALANCE) == undefined) {
-      Save.setData(SaveKeys.BANK_BALANCE, 100)
-      Save.setData(SaveKeys.FITNESS_LEVEL, Constants.DEFAULT_FITNESS_LEVEL)
-      Save.setData(SaveKeys.FULLNESS_LEVEL, Constants.DEFAULT_FULLNESS_LEVEL)
-      Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
-      Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
-      Save.setData(SaveKeys.CURR_DATE, 1)
-      Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
-      Save.setData(SaveKeys.NOTIFICATIONS, [])
-    }
   }
 
   showConfirmProgressModal() {
@@ -101,11 +97,24 @@ export class Home extends Phaser.Scene {
   handleFullnessDecrease() {
     // If fullness is 0, subtract fitness level points
     const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL)
+    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     if (fullness === 0) {
-      const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-      const newFitnessLevel = Math.max(0, fitnessLevel - Constants.EMPTY_FULLNESS_FITNESS_PENALTY)
-      Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
+      // If fitness goes below a certain threshold, game over
       const currDate = Save.getData(SaveKeys.CURR_DATE) as number
+      const newFitnessLevel = Math.max(0, fitnessLevel - Constants.EMPTY_FULLNESS_FITNESS_PENALTY)
+      if (newFitnessLevel == 0) {
+        this.scene.start('game-over', { reason: GameOverReason.POOR_HEALTH })
+      } else if (newFitnessLevel < Constants.FITNESS_LEVEL_DANGER_THRESHOLD) {
+        const emptyFullnessFitnessPenaltyNotification: Notification = {
+          message:
+            'Your fitness level is dangerously low! Make sure to exercise to avoid a major health crisis!',
+          appName: 'MyHealth',
+          route: AppRoute.FIT_NESS_MONSTER,
+          id: `low-fitness-warning-${currDate}`,
+        }
+        Utils.addNotification(emptyFullnessFitnessPenaltyNotification)
+      }
+      Save.setData(SaveKeys.FITNESS_LEVEL, newFitnessLevel)
       const emptyFullnessFitnessPenaltyNotification: Notification = {
         message: 'Your fitness level has gone down! Remember to eat to keep up fullness!',
         appName: 'MyHealth',
@@ -130,45 +139,59 @@ export class Home extends Phaser.Scene {
   }
 
   handleBillPay(nextDay: number) {
-    const diffBetweenNextDayAndBilling =
-      nextDay < Constants.DAYS_BETWEEN_BILLING
-        ? Math.abs(nextDay - Constants.DAYS_BETWEEN_BILLING)
-        : Constants.DAYS_BETWEEN_BILLING - (nextDay % Constants.DAYS_BETWEEN_BILLING)
-    if (diffBetweenNextDayAndBilling < 5 && diffBetweenNextDayAndBilling > 0) {
-      const billReminderNotification: Notification = {
-        id: `bill-reminder-${nextDay}`,
-        appName: 'Bank',
-        route: AppRoute.BANK,
-        message: `Your monthly utilities and internet bill amounting to $${Constants.BASE_BILL_AMOUNT.toFixed(
-          2
-        )} will be due in ${diffBetweenNextDayAndBilling} day${
-          diffBetweenNextDayAndBilling == 1 ? '' : 's'
-        }!`,
-      }
-      Utils.addNotification(billReminderNotification)
-    } else {
-      if (nextDay > 0 && nextDay % Constants.DAYS_BETWEEN_BILLING == 0) {
+    if (nextDay % Constants.DAYS_BETWEEN_BILLING == 0) {
+      if (nextDay !== 0) {
         const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
-        if (currBankBalance < Constants.BASE_BILL_AMOUNT) {
-          // Show game over
-        } else {
-          const billPayNotification: Notification = {
-            id: `day-${nextDay}`,
-            appName: 'Bank',
-            route: AppRoute.BANK,
-            message: `Monthly bills have been charged to your account: $${Constants.BASE_BILL_AMOUNT.toFixed(
-              2
-            )}`,
+        const newBankBalance = currBankBalance - Constants.BASE_BILL_AMOUNT
+        if (newBankBalance < 0) {
+          if (newBankBalance <= Constants.BANKRUPTCY_AMOUNT) {
+            this.scene.start('game-over', { reason: GameOverReason.BANKRUPTCY })
+          } else {
+            const negativeBalanceNotification: Notification = {
+              id: `negative-balance-${nextDay}`,
+              appName: 'Bank',
+              route: AppRoute.BANK,
+              message: `Warning! Your balance has gone into the negative! Once you accrue more than $${Math.abs(
+                Constants.BANKRUPTCY_AMOUNT
+              ).toFixed(2)} in debt, you will go bankrupt!`,
+            }
+            Utils.addNotification(negativeBalanceNotification)
           }
-          const billPayTransaction: BankTransactions = {
-            amount: -Constants.BASE_BILL_AMOUNT,
-            vendor: 'Bills',
-          }
-          const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
-          Save.setData(SaveKeys.RECENT_TRANSACTIONS, transactions.concat(billPayTransaction))
-          Save.setData(SaveKeys.BANK_BALANCE, currBankBalance - Constants.BASE_BILL_AMOUNT)
-          Utils.addNotification(billPayNotification)
         }
+        const billPayNotification: Notification = {
+          id: `day-${nextDay}`,
+          appName: 'Bank',
+          route: AppRoute.BANK,
+          message: `Monthly bills have been charged to your account: $${Constants.BASE_BILL_AMOUNT.toFixed(
+            2
+          )}`,
+        }
+        const billPayTransaction: BankTransactions = {
+          amount: -Constants.BASE_BILL_AMOUNT,
+          vendor: 'Bills',
+        }
+        const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
+        Save.setData(SaveKeys.RECENT_TRANSACTIONS, transactions.concat(billPayTransaction))
+        Save.setData(SaveKeys.BANK_BALANCE, newBankBalance)
+        Utils.addNotification(billPayNotification)
+      }
+    } else {
+      const diffBetweenNextDayAndBilling =
+        nextDay < Constants.DAYS_BETWEEN_BILLING
+          ? Math.abs(nextDay - Constants.DAYS_BETWEEN_BILLING)
+          : Constants.DAYS_BETWEEN_BILLING - (nextDay % Constants.DAYS_BETWEEN_BILLING)
+      if (diffBetweenNextDayAndBilling < 5 && diffBetweenNextDayAndBilling > 0) {
+        const billReminderNotification: Notification = {
+          id: `bill-reminder-${nextDay}`,
+          appName: 'Bank',
+          route: AppRoute.BANK,
+          message: `Your monthly utilities and internet bill amounting to $${Constants.BASE_BILL_AMOUNT.toFixed(
+            2
+          )} will be due in ${diffBetweenNextDayAndBilling} day${
+            diffBetweenNextDayAndBilling == 1 ? '' : 's'
+          }!`,
+        }
+        Utils.addNotification(billReminderNotification)
       }
     }
   }

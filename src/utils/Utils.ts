@@ -1,6 +1,7 @@
 import { FitnessGrade } from '~/core/TopBar'
 import { Save, SaveKeys } from './Save'
 import { Notification } from '~/core/NotificationListScreen'
+import { Constants } from './Constants'
 
 export enum FullnessLevel {
   FULL = 'FULL',
@@ -59,6 +60,19 @@ export class Utils {
       case FullnessLevel.STARVING: {
         return '#e74c3c'
       }
+    }
+  }
+
+  public static initializeSaveData(isRestart: boolean = false) {
+    if (Save.getData(SaveKeys.BANK_BALANCE) == undefined || isRestart) {
+      Save.setData(SaveKeys.BANK_BALANCE, Constants.STARTING_BANK_BALANCE)
+      Save.setData(SaveKeys.FITNESS_LEVEL, Constants.DEFAULT_FITNESS_LEVEL)
+      Save.setData(SaveKeys.FULLNESS_LEVEL, Constants.DEFAULT_FULLNESS_LEVEL)
+      Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
+      Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
+      Save.setData(SaveKeys.CURR_DATE, 1)
+      Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
+      Save.setData(SaveKeys.NOTIFICATIONS, [])
     }
   }
 

@@ -107,7 +107,10 @@ export class Bank extends App {
   }
 
   updateBankBalance() {
-    this.bankBalanceText.setText(`$${Save.getData(SaveKeys.BANK_BALANCE).toFixed(2)}`)
+    const bankBalance = Save.getData(SaveKeys.BANK_BALANCE)
+    const bankBalanceStr =
+      bankBalance >= 0 ? `$${bankBalance.toFixed(2)}` : `-$${Math.abs(bankBalance).toFixed(2)}`
+    this.bankBalanceText.setText(bankBalanceStr)
     this.bankBalanceText.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.bankBalanceText.displayWidth / 2,
       this.bankBalanceText.y
