@@ -2,14 +2,14 @@ import { Constants } from '~/utils/Constants'
 import { WorkoutGameTypes } from './WorkoutGameTypes'
 import { HoldAndReleaseGameConfig } from './workout-games/HoldAndReleaseGame'
 import { TapTimingGameConfig } from './workout-games/TapTimingGame'
-import { FitnessGrade } from '~/core/TopBar'
+import { Grade } from '~/core/TopBar'
 import { FullnessLevel } from '~/utils/Utils'
 
 export interface Workout {
   name: string
   fullnessCost: number
   fitnessLevelToGainMappings: {
-    [key in FitnessGrade]: {
+    [key in Grade]: {
       energyCost: number
       fitnessGain: number
       requiredCompletionValue: number
@@ -55,32 +55,32 @@ export class FitNessMonsterConstants {
       name: 'Pushups',
       fullnessCost: 20,
       fitnessLevelToGainMappings: {
-        [FitnessGrade.F]: {
+        [Grade.F]: {
           energyCost: 40,
           fitnessGain: 10,
           requiredCompletionValue: 5,
         },
-        [FitnessGrade.D]: {
+        [Grade.D]: {
           energyCost: 35,
           fitnessGain: 15,
           requiredCompletionValue: 10,
         },
-        [FitnessGrade.C]: {
+        [Grade.C]: {
           energyCost: 30,
           fitnessGain: 20,
           requiredCompletionValue: 15,
         },
-        [FitnessGrade.B]: {
+        [Grade.B]: {
           energyCost: 25,
           fitnessGain: 25,
           requiredCompletionValue: 20,
         },
-        [FitnessGrade.A]: {
+        [Grade.A]: {
           energyCost: 20,
           fitnessGain: 30,
           requiredCompletionValue: 25,
         },
-        [FitnessGrade.S]: {
+        [Grade.S]: {
           energyCost: 15,
           fitnessGain: 35,
           requiredCompletionValue: 30,
@@ -102,32 +102,32 @@ export class FitNessMonsterConstants {
       name: 'Jogging',
       fullnessCost: 20,
       fitnessLevelToGainMappings: {
-        [FitnessGrade.F]: {
+        [Grade.F]: {
           energyCost: 40,
           fitnessGain: 30,
           requiredCompletionValue: 60, // seconds,
         },
-        [FitnessGrade.D]: {
+        [Grade.D]: {
           energyCost: 35,
           fitnessGain: 25,
           requiredCompletionValue: 90,
         },
-        [FitnessGrade.C]: {
+        [Grade.C]: {
           energyCost: 30,
           fitnessGain: 20,
           requiredCompletionValue: 120,
         },
-        [FitnessGrade.B]: {
+        [Grade.B]: {
           energyCost: 25,
           fitnessGain: 15,
           requiredCompletionValue: 150,
         },
-        [FitnessGrade.A]: {
+        [Grade.A]: {
           energyCost: 20,
           fitnessGain: 12,
           requiredCompletionValue: 180,
         },
-        [FitnessGrade.S]: {
+        [Grade.S]: {
           energyCost: 15,
           fitnessGain: 10,
           requiredCompletionValue: 210,

@@ -9,12 +9,13 @@ import { Notification, NotificationListScreen } from '~/core/NotificationListScr
 import { OnScreenNotification } from '~/core/OnScreenNotification'
 import { ProgressDayConfirmModal } from '~/core/ProgressDayConfirmModal'
 import { ProgressDayOverlayScreen } from '~/core/ProgressDayOverlayScreen'
-import { FitnessGrade, TopBar } from '~/core/TopBar'
+import { Grade, TopBar } from '~/core/TopBar'
 import { APP_CONFIGS, AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 import { GameOverReason } from './GameOver'
+import { MyHealth } from '~/apps/MyHealth/MyHealth'
 
 export class Home extends Phaser.Scene {
   public rexUI: any
@@ -47,6 +48,7 @@ export class Home extends Phaser.Scene {
       [AppRoute.CLIK_CLOK]: new ClikClok(this),
       [AppRoute.FIT_NESS_MONSTER]: new FitNessMonster(this),
       [AppRoute.DASH_EATS]: new DashEats(this),
+      [AppRoute.MY_HEALTH]: new MyHealth(this),
     }
     this.setupTopBar()
     this.setupAppGrid()
@@ -90,7 +92,7 @@ export class Home extends Phaser.Scene {
 
   resetLevels() {
     const fitnessGrade = Utils.getFitnessGrade()
-    const totalEnergyForFitnessGrade = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const totalEnergyForFitnessGrade = Utils.getMaxEnergyForFitness(fitnessGrade)
     Save.setData(SaveKeys.ENERGY_LEVEL, totalEnergyForFitnessGrade)
   }
 
@@ -123,7 +125,7 @@ export class Home extends Phaser.Scene {
       }
       Utils.addNotification(emptyFullnessFitnessPenaltyNotification)
     }
-    const newFullness = Math.max(fullness - 20, 0)
+    const newFullness = Math.max(fullness - Constants.FULLNESS_DECREASE_PER_DAY, 0)
     Save.setData(SaveKeys.FULLNESS_LEVEL, newFullness)
   }
 

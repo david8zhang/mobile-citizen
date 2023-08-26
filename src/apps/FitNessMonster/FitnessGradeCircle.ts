@@ -1,9 +1,9 @@
-import { FitnessGrade } from '~/core/TopBar'
+import { Grade } from '~/core/TopBar'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 
 export interface FitnessGradeCircleConfig {
-  fitnessGrade: FitnessGrade
+  fitnessGrade: Grade
   fitnessPoints: number
   yPos: number
 }
@@ -69,7 +69,7 @@ export class FitnessGradeCircle {
     return this.fitnessGradeCircle.displayWidth
   }
 
-  updateStats(fitnessGrade: FitnessGrade, fitnessPoints: number) {
+  updateStats(fitnessGrade: Grade, fitnessPoints: number) {
     this.fitnessGradeLabel.setText(fitnessGrade)
     this.fitnessGradeLabel.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.fitnessGradeLabel.displayWidth / 2,

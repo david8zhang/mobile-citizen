@@ -4,7 +4,7 @@ import { UIValueBar } from './UIValueBar'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 
-export enum FitnessGrade {
+export enum Grade {
   S = 'S',
   A = 'A',
   B = 'B',
@@ -17,6 +17,8 @@ export class TopBar {
   private scene: Home
   public bgRect: Phaser.GameObjects.Rectangle
 
+  private knowledgeLabel!: Phaser.GameObjects.Sprite
+  private knowledgeValueText!: Phaser.GameObjects.Text
   private fitnessLabel!: Phaser.GameObjects.Sprite
   private fitnessValueText!: Phaser.GameObjects.Text
   private fullnessLabel!: Phaser.GameObjects.Sprite
@@ -36,6 +38,7 @@ export class TopBar {
       .setOrigin(0)
       .setAlpha(0.5)
     this.setupFullnessText()
+    this.setupKnowledgeText()
     this.setupFitnessText()
     this.setupEnergyText()
     this.setupPowerButton()
@@ -46,16 +49,17 @@ export class TopBar {
   setupFullnessText() {
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     this.fullnessBar = new UIValueBar(this.scene, {
-      width: 40,
-      height: 14,
-      bgColor: 0x555555,
+      width: 15,
+      height: 20,
+      bgColor: 0x888888,
       maxValue: 100,
-      x: Constants.WINDOW_WIDTH - 50,
-      y: 8,
+      x: Constants.WINDOW_WIDTH - 30,
+      y: 5,
       borderWidth: 0,
       showBorder: false,
       hideBg: false,
       changeColorBasedOnPct: true,
+      isVertical: true,
     })
     this.fullnessBar.setCurrValue(fullnessLevel)
     this.fullnessLabel = this.scene.add
@@ -65,12 +69,29 @@ export class TopBar {
       .setTintFill(0xffffff)
   }
 
+  setupKnowledgeText() {
+    const knowledgeLevel = Save.getData(SaveKeys.KNOWLEDGE_LEVEL) as number
+    const knowledgeGrade = Utils.convertKnowledgeLevelToGrade(knowledgeLevel) as Grade
+    this.knowledgeValueText = this.scene.add
+      .text(this.fullnessLabel.x - 30, 5, `${knowledgeGrade}`, {
+        fontSize: '18px',
+        color: 'white',
+        strokeThickness: 1,
+      })
+      .setOrigin(1, 0)
+    this.knowledgeLabel = this.scene.add
+      .sprite(this.knowledgeValueText.x - this.knowledgeValueText.displayWidth - 5, 7, 'book-solid')
+      .setDisplaySize(15, 15)
+      .setOrigin(1, 0)
+      .setTintFill(0xffffff)
+  }
+
   setupFitnessText() {
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as Grade
 
     this.fitnessValueText = this.scene.add
-      .text(this.fullnessLabel.x - 30, 5, `${fitnessGrade}`, {
+      .text(this.knowledgeLabel.x - 30, 5, `${fitnessGrade}`, {
         fontSize: '18px',
         color: 'white',
         strokeThickness: 1,
@@ -86,8 +107,8 @@ export class TopBar {
   setupEnergyText() {
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as FitnessGrade
-    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as Grade
+    const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     this.energyValue = this.scene.add
       .text(
         this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15,
@@ -167,7 +188,7 @@ export class TopBar {
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
-    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     const currDate = Save.getData(SaveKeys.CURR_DATE) as number
     const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
 

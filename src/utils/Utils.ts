@@ -1,4 +1,4 @@
-import { FitnessGrade } from '~/core/TopBar'
+import { Grade } from '~/core/TopBar'
 import { Save, SaveKeys } from './Save'
 import { Notification } from '~/core/NotificationListScreen'
 import { Constants } from './Constants'
@@ -11,23 +11,102 @@ export enum FullnessLevel {
 }
 
 export class Utils {
+  public static getMinKnowledgePointsForGrade(grade: Grade) {
+    switch (grade) {
+      case Grade.S: {
+        return 6400
+      }
+      case Grade.A: {
+        return 3200
+      }
+      case Grade.B: {
+        return 1600
+      }
+      case Grade.C: {
+        return 800
+      }
+      case Grade.D: {
+        return 400
+      }
+      default: {
+        return 0
+      }
+    }
+  }
+
+  public static getNextKnowledgeGrade(currRank: Grade) {
+    const grades = [Grade.F, Grade.D, Grade.C, Grade.B, Grade.A, Grade.S]
+    const currGradeIndex = grades.indexOf(currRank)
+    const nextGradeIndex = Math.min(grades.length - 1, currGradeIndex + 1)
+    return grades[nextGradeIndex]
+  }
+
+  public static getMinFitnessPointsForGrade(grade: Grade) {
+    switch (grade) {
+      case Grade.S: {
+        return 6400
+      }
+      case Grade.A: {
+        return 3200
+      }
+      case Grade.B: {
+        return 1600
+      }
+      case Grade.C: {
+        return 800
+      }
+      case Grade.D: {
+        return 400
+      }
+      default: {
+        return 0
+      }
+    }
+  }
+
+  public static getNextGrade(currRank: Grade) {
+    const grades = [Grade.F, Grade.D, Grade.C, Grade.B, Grade.A, Grade.S]
+    const currGradeIndex = grades.indexOf(currRank)
+    const nextGradeIndex = Math.min(grades.length - 1, currGradeIndex + 1)
+    return grades[nextGradeIndex]
+  }
+
   public static convertFitnessLevelToGrade(level: number) {
     if (level < 400) {
-      return FitnessGrade.F
+      return Grade.F
     }
     if (level >= 400 && level < 800) {
-      return FitnessGrade.D
+      return Grade.D
     }
     if (level >= 800 && level < 1600) {
-      return FitnessGrade.C
+      return Grade.C
     }
     if (level >= 1600 && level < 3200) {
-      return FitnessGrade.B
+      return Grade.B
     }
     if (level >= 3200 && level < 6400) {
-      return FitnessGrade.A
+      return Grade.A
     }
-    return FitnessGrade.S
+    return Grade.S
+  }
+
+  public static convertKnowledgeLevelToGrade(level: number) {
+    if (level < 400) {
+      return Grade.F
+    }
+    if (level >= 400 && level < 800) {
+      return Grade.D
+    }
+    if (level >= 800 && level < 1600) {
+      return Grade.C
+    }
+    if (level >= 1600 && level < 3200) {
+      return Grade.B
+    }
+    if (level >= 3200 && level < 6400) {
+      return Grade.A
+    }
+    return Grade.S
   }
 
   public static getFullnessLevel() {
@@ -66,12 +145,13 @@ export class Utils {
   public static initializeSaveData(isRestart: boolean = false) {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined || isRestart) {
       Save.setData(SaveKeys.BANK_BALANCE, Constants.STARTING_BANK_BALANCE)
+      Save.setData(SaveKeys.KNOWLEDGE_LEVEL, Constants.DEFAULT_KNOWLEDGE_LEVEL)
       Save.setData(SaveKeys.FITNESS_LEVEL, Constants.DEFAULT_FITNESS_LEVEL)
       Save.setData(SaveKeys.FULLNESS_LEVEL, Constants.DEFAULT_FULLNESS_LEVEL)
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, [])
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, [])
       Save.setData(SaveKeys.CURR_DATE, 1)
-      Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getTotalEnergyForFitness(FitnessGrade.C))
+      Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getMaxEnergyForFitness(Grade.C))
       Save.setData(SaveKeys.NOTIFICATIONS, [])
     }
   }
@@ -81,47 +161,52 @@ export class Utils {
     return Utils.convertFitnessLevelToGrade(fitnessLevel)
   }
 
-  public static getTotalEnergyForFitness(grade: FitnessGrade) {
+  public static getKnowledgeGrade() {
+    const knowledgeLevel = Save.getData(SaveKeys.KNOWLEDGE_LEVEL)
+    return Utils.convertKnowledgeLevelToGrade(knowledgeLevel)
+  }
+
+  public static getMaxEnergyForFitness(grade: Grade) {
     switch (grade) {
-      case FitnessGrade.S: {
+      case Grade.S: {
         return 250
       }
-      case FitnessGrade.A: {
+      case Grade.A: {
         return 200
       }
-      case FitnessGrade.B: {
+      case Grade.B: {
         return 150
       }
-      case FitnessGrade.C: {
+      case Grade.C: {
         return 100
       }
-      case FitnessGrade.D: {
+      case Grade.D: {
         return 75
       }
-      case FitnessGrade.F: {
+      case Grade.F: {
         return 50
       }
     }
   }
 
-  public static getEnergyCostForFitness(grade: FitnessGrade) {
+  public static getEnergyCostForFitness(grade: Grade) {
     switch (grade) {
-      case FitnessGrade.S: {
+      case Grade.S: {
         return -0.6
       }
-      case FitnessGrade.A: {
+      case Grade.A: {
         return -0.5
       }
-      case FitnessGrade.B: {
+      case Grade.B: {
         return -0.25
       }
-      case FitnessGrade.C: {
+      case Grade.C: {
         return 0
       }
-      case FitnessGrade.D: {
+      case Grade.D: {
         return 0.25
       }
-      case FitnessGrade.F: {
+      case Grade.F: {
         return 0.5
       }
     }

@@ -46,7 +46,7 @@ export class FitnessStats extends SubScreen {
   setupFitnessStats() {
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)!
-    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     const yPos = Math.round(this.fitnessGradeCircle.y + this.fitnessGradeCircle.displayHeight / 2)
     this.totalEnergyLevelLabel = this.scene.add
       .text(30, yPos + 40, 'Total Energy Level', {
@@ -68,7 +68,7 @@ export class FitnessStats extends SubScreen {
       .text(
         30,
         this.totalEnergyLevelLabel.y + this.totalEnergyLevelLabel.displayHeight + 15,
-        'Energy Cost Bonus',
+        'Energy Cost Impact',
         {
           fontSize: '20px',
           color: 'black',
@@ -95,7 +95,7 @@ export class FitnessStats extends SubScreen {
     const fitnessPoints = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessPoints)!
     this.fitnessGradeCircle.updateStats(fitnessGrade, fitnessPoints)
-    const totalEnergyLevel = Utils.getTotalEnergyForFitness(fitnessGrade)
+    const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     this.totalEnergyLevelValue.setText(`${totalEnergyLevel}`)
     this.energyCostValue.setText(`${Utils.getEnergyCostForFitness(fitnessGrade) * 100}%`)
   }
