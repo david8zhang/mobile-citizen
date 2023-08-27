@@ -16,6 +16,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 import { GameOverReason } from './GameOver'
 import { MyHealth } from '~/apps/MyHealth/MyHealth'
+import { Nile } from '~/apps/Nile/Nile'
 
 export class Home extends Phaser.Scene {
   public rexUI: any
@@ -49,6 +50,7 @@ export class Home extends Phaser.Scene {
       [AppRoute.FIT_NESS_MONSTER]: new FitNessMonster(this),
       [AppRoute.DASH_EATS]: new DashEats(this),
       [AppRoute.MY_HEALTH]: new MyHealth(this),
+      [AppRoute.NILE]: new Nile(this),
     }
     this.setupTopBar()
     this.setupAppGrid()

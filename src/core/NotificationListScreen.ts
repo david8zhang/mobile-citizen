@@ -6,7 +6,7 @@ import { AppRoute } from '~/utils/AppConfigs'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
-import { NotificationList } from '~/web-ui/NotificationList'
+import { NotificationList } from '~/core/web-ui/NotificationList'
 
 export interface Notification {
   id: string

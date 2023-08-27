@@ -4,7 +4,7 @@ import { SubScreen } from '../../../core/SubScreen'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Video } from './CompletedVideo'
-import { VideoList } from '~/web-ui/VideoList'
+import { VideoList } from '~/apps/ClikClok/web-ui/VideoList'
 import { Utils } from '~/utils/Utils'
 import { CC_ScreenTypes } from '../CCScreenTypes'
 

@@ -3,7 +3,7 @@ import { App } from '../App'
 import { Navbar } from '~/core/NavBar'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
-import { TransactionsList } from '~/web-ui/TransactionsList'
+import { TransactionsList } from '~/apps/Bank/web-ui/TransactionsList'
 import { Utils } from '~/utils/Utils'
 
 export interface BankTransactions {

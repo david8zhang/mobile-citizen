@@ -2,7 +2,7 @@ import { Constants } from '~/utils/Constants'
 import { App } from '../App'
 import { Home } from '~/scenes/Home'
 import { Utils } from '~/utils/Utils'
-import { HealthStatList } from '~/web-ui/HealthStatList'
+import { HealthStatList } from '~/apps/MyHealth/web-ui/HealthStatList'
 import { Save, SaveKeys } from '~/utils/Save'
 
 export interface HealthStat {
