@@ -9,7 +9,7 @@ export interface NileBottomNavConfig {
 
 export class NileBottomNav {
   private scene: Home
-  private bgRect: Phaser.GameObjects.Rectangle
+  public bgRect: Phaser.GameObjects.Rectangle
   private bottomNavOptions: NileBottomNavOption[] = []
 
   constructor(scene: Home, config: NileBottomNavConfig) {

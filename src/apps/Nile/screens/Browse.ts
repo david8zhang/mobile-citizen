@@ -5,6 +5,7 @@ import { Constants } from '~/utils/Constants'
 import { NILE_STORE_ITEMS, StoreItem, Tag } from '~/content/NileStoreItems'
 import { StoreList } from '../web-ui/StoreList'
 import { Utils } from '~/utils/Utils'
+import { NileScreenTypes } from '../NileScreenTypes'
 
 export interface StoreTagGroup {
   tagName: string
@@ -48,7 +49,16 @@ export class Browse extends SubScreen {
       this.browseItemListDomElement.destroy()
     }
     const yPos = this.headerText.y
-    const soundsList = StoreList(this.chunkItems(), Constants.WINDOW_WIDTH, 520, (data) => {})
+    const soundsList = StoreList(
+      this.chunkItems(),
+      Constants.WINDOW_WIDTH,
+      520,
+      (item) => {
+        const parent = this.parent as Nile
+        parent.renderSubscreen(NileScreenTypes.ITEM_DRILLDOWN, item)
+      },
+      (item) => {}
+    )
     this.browseItemListDomElement = this.scene.add
       .dom(0, yPos + 60, soundsList)
       .setOrigin(0)

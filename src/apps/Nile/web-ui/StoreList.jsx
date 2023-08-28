@@ -1,4 +1,4 @@
-export const StoreList = (storeItemChunks, width, height, onClick) => {
+export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) => {
   return (
     <div
       id='store-item-list'
@@ -27,12 +27,15 @@ export const StoreList = (storeItemChunks, width, height, onClick) => {
                     boxSizing: 'border-box',
                     cursor: 'pointer',
                   }}
+                  onClick={() => {
+                    onClick(item)
+                  }}
                 >
                   <img
                     src={item.imageSrc}
                     style={{
-                      width: '130px',
-                      width: '130px',
+                      width: '100%',
+                      height: '120px',
                       pointerEvents: 'none',
                       boxSizing: 'border-box',
                       padding: '20px',
@@ -59,7 +62,14 @@ export const StoreList = (storeItemChunks, width, height, onClick) => {
                   >
                     ${item.price.toFixed(2)}
                   </p>
-                  <button style={{ width: '100%' }}>Add to cart</button>
+                  <button
+                    style={{ width: '100%' }}
+                    onAddToCart={() => {
+                      onAddToCart(item)
+                    }}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               )
             })}

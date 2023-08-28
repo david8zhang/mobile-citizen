@@ -4,6 +4,11 @@ export interface StoreItem {
   description: string
   price: number
   tags: Tag[]
+  effect: Effect
+}
+
+export interface Effect {
+  description: string
   pointGain?: {
     [key in Tag]?: number
   }
@@ -23,8 +28,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description:
       "Equity's too high? You gotta smash it down. Equity's too low? Build it right back up",
     tags: [Tag.KNOWLEDGE],
-    pointGain: {
-      [Tag.KNOWLEDGE]: 15,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -34,8 +42,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description:
       "This stock market is the best thing ever. I've made over a million dollars just from selling this book",
     tags: [Tag.KNOWLEDGE],
-    pointGain: {
-      [Tag.KNOWLEDGE]: 25,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -44,8 +55,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description: 'Time for brain',
     price: 12,
     tags: [Tag.KNOWLEDGE],
-    pointGain: {
-      [Tag.KNOWLEDGE]: 10,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -55,8 +69,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description:
       "Equity's too high? You gotta smash it down. Equity's too low? Build it right back up",
     tags: [Tag.FITNESS],
-    pointGain: {
-      [Tag.FITNESS]: 15,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -66,8 +83,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description:
       "This stock market is the best thing ever. I've made over a million dollars just from selling this book",
     tags: [Tag.FITNESS],
-    pointGain: {
-      [Tag.FITNESS]: 25,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -76,8 +96,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description: 'Time for brain',
     price: 12,
     tags: [Tag.FITNESS],
-    pointGain: {
-      [Tag.FITNESS]: 10,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -86,8 +109,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description: 'Time for brain',
     price: 12,
     tags: [Tag.FITNESS],
-    pointGain: {
-      [Tag.FITNESS]: 10,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
   {
@@ -96,8 +122,11 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     description: 'Time for brain',
     price: 12,
     tags: [Tag.FITNESS],
-    pointGain: {
-      [Tag.FITNESS]: 10,
+    effect: {
+      description: '+15 Knowledge',
+      pointGain: {
+        [Tag.KNOWLEDGE]: 15,
+      },
     },
   },
 ]

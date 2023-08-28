@@ -7,6 +7,7 @@ import { Browse } from './screens/Browse'
 import { Cart } from './screens/Cart'
 import { OrderStatus } from './screens/OrderStatus'
 import { NileBottomNav } from './NileBottomNav'
+import { ItemDrilldown } from './screens/ItemDrilldown'
 
 export class Nile extends App {
   private headerText!: Phaser.GameObjects.Text
@@ -14,7 +15,7 @@ export class Nile extends App {
     [key in NileScreenTypes]?: SubScreen
   }
   private currSubscreen: NileScreenTypes = NileScreenTypes.BROWSE
-  private bottomNav: NileBottomNav
+  public bottomNav: NileBottomNav
 
   constructor(scene: Home) {
     super(scene)
@@ -22,9 +23,12 @@ export class Nile extends App {
       [NileScreenTypes.BROWSE]: new Browse(this.scene, this),
       [NileScreenTypes.CART]: new Cart(this.scene, this),
       [NileScreenTypes.ORDER_STATUS]: new OrderStatus(this.scene, this),
+      [NileScreenTypes.ITEM_DRILLDOWN]: new ItemDrilldown(this.scene, this),
     }
     this.bottomNav = new NileBottomNav(this.scene, {
-      onRoute: () => {},
+      onRoute: (route) => {
+        this.renderSubscreen(route)
+      },
     })
     this.setVisible(false)
   }
