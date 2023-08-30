@@ -9,6 +9,7 @@ export enum SaveKeys {
   CURR_DATE = 'CURR_DATE',
   NOTIFICATIONS = 'NOTIFICATIONS',
   PENDING_DASHEATS_ORDER = 'PENDING_ORDER',
+  NILE_CART = 'NILE_CART',
 }
 
 export class Save {

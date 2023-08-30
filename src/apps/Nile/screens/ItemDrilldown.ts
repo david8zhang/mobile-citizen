@@ -4,6 +4,7 @@ import { Nile } from '../Nile'
 import { StoreItem } from '~/content/NileStoreItems'
 import { Constants } from '~/utils/Constants'
 import { Button } from '~/core/Button'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export class ItemDrilldown extends SubScreen {
   private storeItem!: StoreItem
@@ -73,9 +74,24 @@ export class ItemDrilldown extends SubScreen {
       fontSize: '20px',
       strokeWidth: 1,
       strokeColor: 0x000000,
-      onClick: () => {},
+      onClick: () => {
+        this.addToCart()
+      },
       depth: Constants.SORT_LAYERS.APP_UI,
     })
+  }
+
+  addToCart() {
+    const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const isItemInCart = cart.find((item) => item.id === this.storeItem.id) !== undefined
+    const parent = this.parent as Nile
+    if (isItemInCart) {
+      parent.removeFromCart(this.storeItem.id)
+      this.addToCartButton.setText('Add to Cart')
+    } else {
+      parent.addToCart(this.storeItem)
+      this.addToCartButton.setText('Remove From Cart')
+    }
   }
 
   updateStoreItemAttributes(storeItem: StoreItem) {

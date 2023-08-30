@@ -8,6 +8,8 @@ import { Cart } from './screens/Cart'
 import { OrderStatus } from './screens/OrderStatus'
 import { NileBottomNav } from './NileBottomNav'
 import { ItemDrilldown } from './screens/ItemDrilldown'
+import { Save, SaveKeys } from '~/utils/Save'
+import { StoreItem } from '~/content/NileStoreItems'
 
 export class Nile extends App {
   private headerText!: Phaser.GameObjects.Text
@@ -68,6 +70,18 @@ export class Nile extends App {
       Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
       Constants.TOP_BAR_HEIGHT + 30
     )
+  }
+
+  public addToCart(item: StoreItem) {
+    const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    cart.push(item)
+    Save.setData(SaveKeys.NILE_CART, cart)
+  }
+
+  removeFromCart(itemId: string) {
+    const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const newCart = cart.filter((item) => item.id !== itemId)
+    Save.setData(SaveKeys.NILE_CART, newCart)
   }
 
   public setVisible(isVisible: boolean): void {

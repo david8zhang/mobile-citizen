@@ -5,6 +5,7 @@ export interface StoreItem {
   price: number
   tags: Tag[]
   effect: Effect
+  id: string
 }
 
 export interface Effect {
@@ -22,6 +23,7 @@ export enum Tag {
 
 export const NILE_STORE_ITEMS: StoreItem[] = [
   {
+    id: 'item-1',
     imageSrc: '/icons/book-solid.svg',
     name: 'Equity, Equity, Equity',
     price: 15,
@@ -36,6 +38,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-2',
     imageSrc: '/icons/book-solid.svg',
     name: 'Stocks vs. Finances',
     price: 20,
@@ -50,6 +53,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-3',
     imageSrc: '/icons/book-solid.svg',
     name: 'Brain Time',
     description: 'Time for brain',
@@ -63,6 +67,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-4',
     imageSrc: '/icons/book-solid.svg',
     name: 'Equity, Equity, Equity',
     price: 15,
@@ -77,6 +82,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-5',
     imageSrc: '/icons/book-solid.svg',
     name: 'Stocks vs. Finances',
     price: 20,
@@ -91,6 +97,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-6',
     imageSrc: '/icons/book-solid.svg',
     name: 'Brain Time',
     description: 'Time for brain',
@@ -104,6 +111,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-7',
     imageSrc: '/icons/book-solid.svg',
     name: 'Brain Time',
     description: 'Time for brain',
@@ -117,6 +125,7 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
     },
   },
   {
+    id: 'item-8',
     imageSrc: '/icons/book-solid.svg',
     name: 'Brain Time',
     description: 'Time for brain',

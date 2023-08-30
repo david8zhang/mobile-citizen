@@ -25,46 +25,49 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
                     maxWidth: '33%',
                     padding: '10px',
                     boxSizing: 'border-box',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    onClick(item)
                   }}
                 >
-                  <img
-                    src={item.imageSrc}
-                    style={{
-                      width: '100%',
-                      height: '120px',
-                      pointerEvents: 'none',
-                      boxSizing: 'border-box',
-                      padding: '20px',
-                    }}
-                  />
-                  <p
-                    style={{
-                      fontSize: '16px',
-                      color: 'black',
-                      marginTop: '10px',
-                      marginBottom: '10px',
-                      height: '35px',
+                  <div
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      onClick(item)
                     }}
                   >
-                    {item.name}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: '20px',
-                      color: 'black',
-                      marginTop: '10px',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    ${item.price.toFixed(2)}
-                  </p>
+                    <img
+                      src={item.imageSrc}
+                      style={{
+                        width: '100%',
+                        height: '120px',
+                        pointerEvents: 'none',
+                        boxSizing: 'border-box',
+                        padding: '20px',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        color: 'black',
+                        marginTop: '10px',
+                        marginBottom: '10px',
+                        height: '35px',
+                      }}
+                    >
+                      {item.name}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: '20px',
+                        color: 'black',
+                        marginTop: '10px',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      ${item.price.toFixed(2)}
+                    </p>
+                  </div>
                   <button
                     style={{ width: '100%' }}
-                    onAddToCart={() => {
+                    onClick={() => {
                       onAddToCart(item)
                     }}
                   >

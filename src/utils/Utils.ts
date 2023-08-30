@@ -153,6 +153,7 @@ export class Utils {
       Save.setData(SaveKeys.CURR_DATE, 1)
       Save.setData(SaveKeys.ENERGY_LEVEL, Utils.getMaxEnergyForFitness(Grade.C))
       Save.setData(SaveKeys.NOTIFICATIONS, [])
+      Save.setData(SaveKeys.NILE_CART, [])
     }
   }
 

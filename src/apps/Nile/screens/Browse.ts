@@ -6,6 +6,7 @@ import { NILE_STORE_ITEMS, StoreItem, Tag } from '~/content/NileStoreItems'
 import { StoreList } from '../web-ui/StoreList'
 import { Utils } from '~/utils/Utils'
 import { NileScreenTypes } from '../NileScreenTypes'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export interface StoreTagGroup {
   tagName: string
@@ -32,14 +33,19 @@ export class Browse extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
-      Constants.TOP_BAR_HEIGHT + 30
+      Constants.TOP_BAR_HEIGHT + 15
     )
   }
 
   chunkItems(): StoreItem[][] {
     const result: StoreItem[][] = []
-    for (let i = 0; i < NILE_STORE_ITEMS.length; i += 3) {
-      result.push(NILE_STORE_ITEMS.slice(i, i + 3))
+    const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const addedStoreItemIds = new Set(cart.map((storeItem) => storeItem.id))
+    const availableItems = NILE_STORE_ITEMS.filter((item) => {
+      return !addedStoreItemIds.has(item.id)
+    })
+    for (let i = 0; i < availableItems.length; i += 3) {
+      result.push(availableItems.slice(i, i + 3))
     }
     return result
   }
@@ -49,18 +55,22 @@ export class Browse extends SubScreen {
       this.browseItemListDomElement.destroy()
     }
     const yPos = this.headerText.y
-    const soundsList = StoreList(
+    const storeItemList = StoreList(
       this.chunkItems(),
       Constants.WINDOW_WIDTH,
-      520,
-      (item) => {
+      510,
+      (item: StoreItem) => {
         const parent = this.parent as Nile
         parent.renderSubscreen(NileScreenTypes.ITEM_DRILLDOWN, item)
       },
-      (item) => {}
+      (item: StoreItem) => {
+        const parent = this.parent as Nile
+        parent.addToCart(item)
+        this.renderBrowseItemList()
+      }
     )
     this.browseItemListDomElement = this.scene.add
-      .dom(0, yPos + 60, soundsList)
+      .dom(0, yPos + 40, storeItemList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('store-item-list')
