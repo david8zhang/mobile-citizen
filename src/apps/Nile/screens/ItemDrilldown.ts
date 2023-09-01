@@ -35,6 +35,7 @@ export class ItemDrilldown extends SubScreen {
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setWordWrapWidth(Constants.WINDOW_WIDTH * 0.65, true)
     this.itemPrice = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
         fontSize: '30px',
@@ -98,8 +99,12 @@ export class ItemDrilldown extends SubScreen {
     this.storeItem = storeItem
     this.itemName.setText(storeItem.name)
     this.itemPrice.setText(`$${storeItem.price.toFixed(2)}`)
-    this.effectText.setText(storeItem.effect.description)
-    this.itemDescription.setText(`${storeItem.description}`)
+    this.effectText
+      .setText(storeItem.effect.description)
+      .setPosition(this.effectText.x, this.itemName.y + this.itemName.displayHeight + 15)
+    this.itemDescription
+      .setText(`${storeItem.description}`)
+      .setPosition(this.itemDescription.x, this.effectText.y + this.effectText.displayHeight + 15)
   }
 
   public onRender(data: StoreItem): void {

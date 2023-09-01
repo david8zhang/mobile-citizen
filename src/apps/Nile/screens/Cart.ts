@@ -3,10 +3,11 @@ import { Nile } from '../Nile'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
-import { StoreItem } from '~/content/NileStoreItems'
+import { PendingOrder, StoreItem } from '~/content/NileStoreItems'
 import { Button } from '~/core/Button'
 import { CartItemList } from '../web-ui/CartItemList'
 import { Utils } from '~/utils/Utils'
+import { NileScreenTypes } from '../NileScreenTypes'
 
 export class Cart extends SubScreen {
   private subtotalLabelText!: Phaser.GameObjects.Text
@@ -34,7 +35,6 @@ export class Cart extends SubScreen {
       515,
       (item: StoreItem) => {
         const parent = this.parent as Nile
-        console.log(item.id)
         parent.removeFromCart(item.id)
         this.renderCartItemList()
       }
@@ -60,8 +60,22 @@ export class Cart extends SubScreen {
       backgroundColor: 0xffffff,
       strokeWidth: 1,
       strokeColor: 0x000000,
-      onClick: () => {},
+      onClick: () => {
+        this.confirmOrder()
+      },
     })
+  }
+
+  confirmOrder() {
+    const cartItems = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const pendingOrders: PendingOrder[] = cartItems.map((cartItem) => ({
+      storeItem: cartItem,
+      daysUntilDelivery: 2,
+    }))
+    Save.setData(SaveKeys.NILE_CART, [])
+    Save.setData(SaveKeys.PENDING_NILE_ORDERS, pendingOrders)
+    const parent = this.parent as Nile
+    parent.renderSubscreen(NileScreenTypes.ORDER_STATUS)
   }
 
   setupSubtotal() {

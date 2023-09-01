@@ -8,6 +8,11 @@ export interface StoreItem {
   id: string
 }
 
+export interface PendingOrder {
+  storeItem: StoreItem
+  daysUntilDelivery: number
+}
+
 export interface Effect {
   description: string
   pointGain?: {
@@ -69,10 +74,9 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
   {
     id: 'item-4',
     imageSrc: '/icons/book-solid.svg',
-    name: 'Equity, Equity, Equity',
+    name: 'Stocks for Dummies vol. 1',
     price: 15,
-    description:
-      "Equity's too high? You gotta smash it down. Equity's too low? Build it right back up",
+    description: 'Buy high sell low',
     tags: [Tag.FITNESS],
     effect: {
       description: '+15 Knowledge',
@@ -84,10 +88,9 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
   {
     id: 'item-5',
     imageSrc: '/icons/book-solid.svg',
-    name: 'Stocks vs. Finances',
+    name: 'Tai Lopez Guide to Lamborghinis',
     price: 20,
-    description:
-      "This stock market is the best thing ever. I've made over a million dollars just from selling this book",
+    description: 'Open an interest free Lamborghini account',
     tags: [Tag.FITNESS],
     effect: {
       description: '+15 Knowledge',
@@ -99,42 +102,42 @@ export const NILE_STORE_ITEMS: StoreItem[] = [
   {
     id: 'item-6',
     imageSrc: '/icons/book-solid.svg',
-    name: 'Brain Time',
-    description: 'Time for brain',
+    name: 'Muscle time',
+    description: 'Time for muscle',
     price: 12,
     tags: [Tag.FITNESS],
     effect: {
-      description: '+15 Knowledge',
+      description: '+15 Fitness',
       pointGain: {
-        [Tag.KNOWLEDGE]: 15,
+        [Tag.FITNESS]: 15,
       },
     },
   },
   {
     id: 'item-7',
     imageSrc: '/icons/book-solid.svg',
-    name: 'Brain Time',
-    description: 'Time for brain',
+    name: 'How to Exercise',
+    description: "This is not a guide. I actually don't know and I'm asking for help",
     price: 12,
     tags: [Tag.FITNESS],
     effect: {
-      description: '+15 Knowledge',
+      description: '+15 Fitness',
       pointGain: {
-        [Tag.KNOWLEDGE]: 15,
+        [Tag.FITNESS]: 15,
       },
     },
   },
   {
     id: 'item-8',
     imageSrc: '/icons/book-solid.svg',
-    name: 'Brain Time',
-    description: 'Time for brain',
+    name: 'Do Drugs',
+    description: 'Yes. Drugssss.',
     price: 12,
     tags: [Tag.FITNESS],
     effect: {
-      description: '+15 Knowledge',
+      description: '+15 Health',
       pointGain: {
-        [Tag.KNOWLEDGE]: 15,
+        [Tag.FITNESS]: 15,
       },
     },
   },
