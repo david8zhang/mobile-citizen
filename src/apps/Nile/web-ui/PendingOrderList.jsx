@@ -1,4 +1,4 @@
-export const PendingOrderList = (pendingOrders, width, height, claimOrder) => {
+export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
   return (
     <div
       id='pending-order-list'
@@ -70,7 +70,7 @@ export const PendingOrderList = (pendingOrders, width, height, claimOrder) => {
                 <button
                   style={{ width: '50%' }}
                   onClick={() => {
-                    onClaimItem(cartItem)
+                    onClaimItem(pendingOrder)
                   }}
                 >
                   Claim Item

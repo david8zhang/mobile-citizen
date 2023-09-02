@@ -9,6 +9,7 @@ export interface StoreItem {
 }
 
 export interface PendingOrder {
+  id: string
   storeItem: StoreItem
   daysUntilDelivery: number
 }

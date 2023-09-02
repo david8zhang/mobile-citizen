@@ -2,6 +2,7 @@ import { Grade } from '~/core/TopBar'
 import { Save, SaveKeys } from './Save'
 import { Notification } from '~/core/NotificationListScreen'
 import { Constants } from './Constants'
+import { BankTransactions } from '~/apps/Bank/Bank'
 
 export enum FullnessLevel {
   FULL = 'FULL',
@@ -139,6 +140,33 @@ export class Utils {
       case FullnessLevel.STARVING: {
         return '#e74c3c'
       }
+    }
+  }
+
+  public static addKnowledgePoints(points: number) {
+    const knowledgePoints = Save.getData(SaveKeys.KNOWLEDGE_LEVEL) as number
+    Save.setData(SaveKeys.KNOWLEDGE_LEVEL, knowledgePoints + points)
+  }
+
+  public static addFitnessPoints(points: number) {
+    const fitnessPoints = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    Save.setData(SaveKeys.FITNESS_LEVEL, fitnessPoints + points)
+  }
+
+  public static addTransaction(amount: number, vendor: string, isCredit: boolean) {
+    const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+    if (isCredit || bankBalance > amount) {
+      const newTransaction: BankTransactions = {
+        amount: isCredit ? amount : -amount,
+        vendor,
+      }
+      const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
+      const newTransactions = transactions.concat(newTransaction)
+      const newBankBalance = isCredit ? bankBalance + amount : bankBalance - amount
+      Save.setData(SaveKeys.RECENT_TRANSACTIONS, newTransactions)
+      Save.setData(SaveKeys.BANK_BALANCE, newBankBalance)
+    } else {
+      console.error('Insufficient funds: ', bankBalance)
     }
   }
 

@@ -8,6 +8,7 @@ import { DeliveryOptionType } from '../DeliveryOption'
 import { Save, SaveKeys } from '~/utils/Save'
 import { BankTransactions } from '~/apps/Bank/Bank'
 import { DE_ScreenTypes } from '../DEScreenTypes'
+import { Utils } from '~/utils/Utils'
 
 export class OrderConfirm extends SubScreen {
   private headerText!: Phaser.GameObjects.Text
@@ -165,24 +166,14 @@ export class OrderConfirm extends SubScreen {
     if (this.selectedDeliveryOptionType === null) {
       return
     }
-    const totalBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const totalCost =
       this.menuItem.price + (this.selectedDeliveryOptionType === DeliveryOptionType.SPEEDY ? 3 : 0)
-    if (totalCost <= totalBankBalance) {
-      const newBankBalance = totalBankBalance - totalCost
-      Save.setData(SaveKeys.BANK_BALANCE, newBankBalance)
-      const newTransaction: BankTransactions = {
-        vendor: 'DashEats, Inc.',
-        amount: -totalCost,
-      }
-      const transactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS)
-      Save.setData(SaveKeys.RECENT_TRANSACTIONS, transactions.concat(newTransaction))
-      const parent = this.parent as DashEats
-      parent.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS, {
-        menuItem: this.menuItem,
-        deliveryOptionType: this.selectedDeliveryOptionType,
-      })
-    }
+    Utils.addTransaction(totalCost, 'DashEats, Inc.', false)
+    const parent = this.parent as DashEats
+    parent.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS, {
+      menuItem: this.menuItem,
+      deliveryOptionType: this.selectedDeliveryOptionType,
+    })
   }
 
   updateOrderDetails() {

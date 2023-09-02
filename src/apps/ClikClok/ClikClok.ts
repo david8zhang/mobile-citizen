@@ -14,6 +14,7 @@ import { ClikClokConstants } from './ClikClokConstants'
 import { BankTransactions } from '../Bank/Bank'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Notification } from '~/core/NotificationListScreen'
+import { Utils } from '~/utils/Utils'
 
 export class ClikClok extends App {
   public navbar: Navbar
@@ -84,13 +85,7 @@ export class ClikClok extends App {
       })
     })
     if (totalRevenueEarned > 0) {
-      bankTransactions.unshift({
-        vendor: 'Clik Clok, Inc.',
-        amount: totalRevenueEarned,
-      })
-      bankBalance += totalRevenueEarned
-      Save.setData(SaveKeys.BANK_BALANCE, bankBalance)
-      Save.setData(SaveKeys.RECENT_TRANSACTIONS, bankTransactions)
+      Utils.addTransaction(totalRevenueEarned, 'Clik Clok, Inc.', true)
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
       this.showNotificationForEarned(totalRevenueEarned)
     }

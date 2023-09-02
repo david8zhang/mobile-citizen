@@ -40,9 +40,10 @@ export class Browse extends SubScreen {
   chunkItems(): StoreItem[][] {
     const result: StoreItem[][] = []
     const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const inventory = new Set(Save.getData(SaveKeys.INVENTORY) as string[])
     const addedStoreItemIds = new Set(cart.map((storeItem) => storeItem.id))
     const availableItems = NILE_STORE_ITEMS.filter((item) => {
-      return !addedStoreItemIds.has(item.id)
+      return !addedStoreItemIds.has(item.id) && !inventory.has(item.id)
     })
     for (let i = 0; i < availableItems.length; i += 3) {
       result.push(availableItems.slice(i, i + 3))

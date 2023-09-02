@@ -9,7 +9,10 @@ import { OrderStatus } from './screens/OrderStatus'
 import { NileBottomNav } from './NileBottomNav'
 import { ItemDrilldown } from './screens/ItemDrilldown'
 import { Save, SaveKeys } from '~/utils/Save'
-import { StoreItem } from '~/content/NileStoreItems'
+import { PendingOrder, StoreItem } from '~/content/NileStoreItems'
+import { Notification } from '~/core/NotificationListScreen'
+import { AppRoute } from '~/utils/AppConfigs'
+import { Utils } from '~/utils/Utils'
 
 export class Nile extends App {
   private headerText!: Phaser.GameObjects.Text
@@ -33,6 +36,9 @@ export class Nile extends App {
       },
     })
     this.setVisible(false)
+    this.scene.onProgressDayCallbacks.push(() => {
+      this.processDeliveries()
+    })
   }
 
   renderSubscreen(newSubscreen: NileScreenTypes, data?: any) {
@@ -73,9 +79,16 @@ export class Nile extends App {
   }
 
   public addToCart(item: StoreItem) {
+    const currBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
-    cart.push(item)
-    Save.setData(SaveKeys.NILE_CART, cart)
+    const cartTotal = cart.reduce((acc, curr) => {
+      return acc + curr.price
+    }, 0)
+    if (cartTotal + item.price <= currBalance) {
+      const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+      cart.push(item)
+      Save.setData(SaveKeys.NILE_CART, cart)
+    }
   }
 
   removeFromCart(itemId: string) {
@@ -105,5 +118,26 @@ export class Nile extends App {
         onComplete()
       }
     })
+  }
+
+  processDeliveries() {
+    const pendingOrders = Save.getData(SaveKeys.PENDING_NILE_ORDERS) as PendingOrder[]
+    let hasOrderBeenDelivered = false
+    pendingOrders.forEach((order) => {
+      order.daysUntilDelivery = Math.max(0, order.daysUntilDelivery - 1)
+      if (order.daysUntilDelivery == 0) {
+        hasOrderBeenDelivered = true
+      }
+    })
+    Save.setData(SaveKeys.PENDING_NILE_ORDERS, pendingOrders)
+    if (hasOrderBeenDelivered) {
+      const orderDeliveredNotif: Notification = {
+        message: 'Your order has been delivered',
+        appName: 'Nile',
+        id: `${Date.now()}-nile-order-delivered`,
+        route: AppRoute.NILE,
+      }
+      Utils.addNotification(orderDeliveredNotif)
+    }
   }
 }

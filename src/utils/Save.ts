@@ -11,6 +11,7 @@ export enum SaveKeys {
   PENDING_DASHEATS_ORDER = 'PENDING_DASHEATS_ORDER',
   NILE_CART = 'NILE_CART',
   PENDING_NILE_ORDERS = 'NILE_PENDING_ORDERS',
+  INVENTORY = 'INVENTORY',
 }
 
 export class Save {
@@ -39,7 +40,10 @@ export class Save {
     localStorage.clear()
   }
 
-  public static getData(key: SaveKeys) {
+  public static getData(key: SaveKeys, defaultIfNotFound?: any) {
+    if (this.saveObj[key] == undefined) {
+      return defaultIfNotFound
+    }
     return this.saveObj[key]
   }
 

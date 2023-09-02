@@ -68,12 +68,28 @@ export class Cart extends SubScreen {
 
   confirmOrder() {
     const cartItems = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
-    const pendingOrders: PendingOrder[] = cartItems.map((cartItem) => ({
+    const cartTotal = cartItems.reduce((acc, curr) => {
+      return acc + curr.price
+    }, 0)
+
+    // Subtract cart total from bank balance
+    const pendingOrders: PendingOrder[] = cartItems.map((cartItem, index) => ({
+      id: `${Date.now()}-${index}`,
       storeItem: cartItem,
       daysUntilDelivery: 2,
     }))
+    Utils.addTransaction(cartTotal, 'Nile, Inc.', false)
+
+    // Add items to inventory (to prevent player from purchasing them again)
+    const inventory = Save.getData(SaveKeys.INVENTORY, []) as string[]
+    const cartItemIds = cartItems.map((cart) => cart.id)
+    Save.setData(SaveKeys.INVENTORY, inventory.concat(cartItemIds))
+
+    // Clear cart and move items to pending
     Save.setData(SaveKeys.NILE_CART, [])
     Save.setData(SaveKeys.PENDING_NILE_ORDERS, pendingOrders)
+
+    // Navigate to order status page
     const parent = this.parent as Nile
     parent.renderSubscreen(NileScreenTypes.ORDER_STATUS)
   }

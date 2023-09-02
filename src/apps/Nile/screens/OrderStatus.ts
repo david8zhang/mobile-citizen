@@ -3,9 +3,10 @@ import { Nile } from '../Nile'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { Save, SaveKeys } from '~/utils/Save'
-import { PendingOrder } from '~/content/NileStoreItems'
+import { PendingOrder, Tag } from '~/content/NileStoreItems'
 import { PendingOrderList } from '../web-ui/PendingOrderList'
 import { Utils } from '~/utils/Utils'
+import { UINumber } from '~/apps/ClikClok/UINumber'
 
 export class OrderStatus extends SubScreen {
   private headerText!: Phaser.GameObjects.Text
@@ -41,8 +42,8 @@ export class OrderStatus extends SubScreen {
       pendingOrders,
       Constants.WINDOW_WIDTH,
       550,
-      (item: PendingOrder) => {
-        console.log(item)
+      (order: PendingOrder) => {
+        this.onClaimItem(order)
       }
     )
     const yPos = this.headerText.y
@@ -51,6 +52,45 @@ export class OrderStatus extends SubScreen {
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('pending-order-list')
+  }
+
+  onClaimItem(order: PendingOrder) {
+    const storeItem = order.storeItem
+    const pointGain = storeItem.effect.pointGain
+    if (pointGain) {
+      Object.keys(pointGain).forEach((key: string) => {
+        switch (key) {
+          case Tag.KNOWLEDGE: {
+            Utils.addKnowledgePoints(pointGain[key]!)
+            UINumber.createNumber(
+              `+${pointGain[key]!} Knowledge`,
+              this.scene,
+              Constants.WINDOW_WIDTH / 2,
+              this.headerText.y + this.headerText.displayHeight + 15,
+              '#000000'
+            )
+            break
+          }
+          case Tag.FITNESS: {
+            Utils.addFitnessPoints(pointGain[key]!)
+            UINumber.createNumber(
+              `+${pointGain[key]!} Fitness`,
+              this.scene,
+              Constants.WINDOW_WIDTH / 2,
+              this.headerText.y + this.headerText.displayHeight + 15,
+              '#000000'
+            )
+            break
+          }
+        }
+      })
+    }
+    const pendingOrders = Save.getData(SaveKeys.PENDING_NILE_ORDERS) as PendingOrder[]
+    const newPendingOrders = pendingOrders.filter((o) => {
+      return o.id != order.id
+    })
+    Save.setData(SaveKeys.PENDING_NILE_ORDERS, newPendingOrders)
+    this.setupPendingOrdersList()
   }
 
   public onRender(data?: any): void {
