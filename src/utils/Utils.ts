@@ -170,6 +170,10 @@ export class Utils {
     }
   }
 
+  public static getCurrDayKey() {
+    return `Day${Save.getData(SaveKeys.CURR_DATE)}`
+  }
+
   public static initializeSaveData(isRestart: boolean = false) {
     if (Save.getData(SaveKeys.BANK_BALANCE) == undefined || isRestart) {
       Save.setData(SaveKeys.BANK_BALANCE, Constants.STARTING_BANK_BALANCE)
@@ -183,6 +187,7 @@ export class Utils {
       Save.setData(SaveKeys.NOTIFICATIONS, [])
       Save.setData(SaveKeys.NILE_CART, [])
       Save.setData(SaveKeys.PENDING_NILE_ORDERS, [])
+      Save.setData(SaveKeys.FRIAR_BUCK_BUYING_POWER, 0)
     }
   }
 
