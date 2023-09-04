@@ -28,7 +28,7 @@ export class Cart extends SubScreen {
       this.cartItemsDomElement.destroy()
     }
     const yPos = this.confirmOrderButton.y - 25
-    const cartItems = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const cartItems = Save.getData(SaveKeys.NILE_CART, []) as StoreItem[]
     const storeItemList = CartItemList(
       cartItems,
       Constants.WINDOW_WIDTH,

@@ -1,7 +1,7 @@
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 
-export interface NileBottomNavOptionConfig {
+export interface BottomNavOptionConfig {
   width: number
   height: number
   position: {
@@ -13,13 +13,13 @@ export interface NileBottomNavOptionConfig {
   navOption: string
 }
 
-export class NileBottomNavOption {
+export class BottomNavOption {
   private scene: Home
   private bgRect: Phaser.GameObjects.Rectangle
   private sprite: Phaser.GameObjects.Sprite
   private navOptionText: Phaser.GameObjects.Text
 
-  constructor(scene: Home, config: NileBottomNavOptionConfig) {
+  constructor(scene: Home, config: BottomNavOptionConfig) {
     this.scene = scene
     this.bgRect = this.scene.add
       .rectangle(config.position.x, config.position.y, config.width, config.height, 0xffffff)

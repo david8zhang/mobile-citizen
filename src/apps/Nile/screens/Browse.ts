@@ -33,7 +33,7 @@ export class Browse extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
-      Constants.TOP_BAR_HEIGHT + 15
+      this.headerText.y
     )
   }
 
@@ -55,11 +55,11 @@ export class Browse extends SubScreen {
     if (this.browseItemListDomElement) {
       this.browseItemListDomElement.destroy()
     }
-    const yPos = this.headerText.y
+    const yPos = this.headerText.y + this.headerText.displayHeight
     const storeItemList = StoreList(
       this.chunkItems(),
       Constants.WINDOW_WIDTH,
-      510,
+      575,
       (item: StoreItem) => {
         const parent = this.parent as Nile
         parent.renderSubscreen(NileScreenTypes.ITEM_DRILLDOWN, item)
@@ -71,7 +71,7 @@ export class Browse extends SubScreen {
       }
     )
     this.browseItemListDomElement = this.scene.add
-      .dom(0, yPos + 40, storeItemList)
+      .dom(0, yPos, storeItemList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('store-item-list')

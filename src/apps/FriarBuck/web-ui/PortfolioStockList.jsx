@@ -13,22 +13,50 @@ export const PortfolioStockList = (stocks, width, height, onClick) => {
         boxSizing: 'border-box',
       }}
     >
-      <p style={{ color: 'black', fontWeight: 'bold', fontSize: '20px', margin: '0px' }}>
+      <p
+        style={{
+          color: 'black',
+          fontWeight: 'bold',
+          fontSize: '20px',
+          marginTop: '0px',
+          marginBottom: '0px',
+        }}
+      >
         Portfolio
       </p>
-      {stocks.map((stock) => {
-        return (
-          <div style={{ display: 'flex', color: 'black' }}>
-            <div style={{ flex: 1 }}>
-              <p style={{ marginBottom: '5px', fontSize: '25px' }}>{stock.symbol}</p>
-              <p style={{ marginBottom: '0px', marginTop: '0px', fontSize: '18px' }}>
-                {stock.name}
+      {stocks.length == 0 ? (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#777777',
+            height: '80%',
+          }}
+        >
+          <p style={{ fontSize: '30px', textAlign: 'center' }}>No Data</p>
+        </div>
+      ) : (
+        stocks.map((stock) => {
+          return (
+            <div
+              style={{ display: 'flex', color: 'black', paddingTop: '8px', paddingBottom: '8px' }}
+            >
+              <div style={{ flex: 1 }}>
+                <p style={{ marginBottom: '5px', marginTop: '10px', fontSize: '25px' }}>
+                  {stock.symbol}
+                </p>
+                <p style={{ marginBottom: '0px', marginTop: '0px', fontSize: '18px' }}>
+                  {stock.name}
+                </p>
+              </div>
+              <p style={{ fontSize: '25px', marginTop: '15px', marginBottom: '15px' }}>
+                ${stock.price}
               </p>
             </div>
-            <p style={{ fontSize: '30px' }}>${stock.price}</p>
-          </div>
-        )
-      })}
+          )
+        })
+      )}
     </div>
   )
 }

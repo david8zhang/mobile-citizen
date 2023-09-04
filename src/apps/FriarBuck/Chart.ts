@@ -19,6 +19,7 @@ export class Chart {
   private config: ChartConfig
   private yScale!: number
   private lines!: Phaser.GameObjects.Group
+  private placeholderText: Phaser.GameObjects.Text | null = null
 
   constructor(scene: Home, config: ChartConfig) {
     this.scene = scene
@@ -53,21 +54,35 @@ export class Chart {
 
   setupChart(config: ChartConfig) {
     this.lines = this.scene.add.group()
-    const widthPerInterval = config.width / config.data.length
-    let prevX = config.position.x
-    let prevY = this.getYPosForPoint(config.data[0].y)
-    config.data.slice(1).forEach((point) => {
-      const xPos = prevX + widthPerInterval
-      const yPos = this.getYPosForPoint(point.y)
-      const line = this.scene.add
-        .line(0, 0, prevX, prevY, xPos, yPos, 0x000000)
+    if (config.data.length == 0) {
+      this.placeholderText = this.scene.add
+        .text(Constants.WINDOW_WIDTH / 2, (config.position.y + config.height) / 2, 'No data', {
+          fontSize: '30px',
+          color: '#777777',
+          fontFamily: 'Arial',
+        })
         .setDepth(Constants.SORT_LAYERS.APP_UI)
-        .setLineWidth(1)
-        .setOrigin(0)
-      this.lines.add(line)
-      prevX = xPos
-      prevY = yPos
-    })
+      this.placeholderText.setPosition(
+        Constants.WINDOW_WIDTH / 2 - this.placeholderText.displayWidth / 2,
+        (config.position.y + config.height) / 2 + this.placeholderText.displayHeight / 2
+      )
+    } else {
+      const widthPerInterval = config.width / config.data.length
+      let prevX = config.position.x
+      let prevY = this.getYPosForPoint(config.data[0].y)
+      config.data.slice(1).forEach((point) => {
+        const xPos = prevX + widthPerInterval
+        const yPos = this.getYPosForPoint(point.y)
+        const line = this.scene.add
+          .line(0, 0, prevX, prevY, xPos, yPos, 0x000000)
+          .setDepth(Constants.SORT_LAYERS.APP_UI)
+          .setLineWidth(1)
+          .setOrigin(0)
+        this.lines.add(line)
+        prevX = xPos
+        prevY = yPos
+      })
+    }
   }
 
   getYPosForPoint(y: number) {
@@ -76,6 +91,9 @@ export class Chart {
   }
 
   setVisible(isVisible: boolean) {
+    if (this.placeholderText) {
+      this.placeholderText.setVisible(isVisible)
+    }
     this.lines.setVisible(isVisible)
   }
 

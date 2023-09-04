@@ -16,7 +16,7 @@ export interface Stock {
   }
 }
 
-export type Portfolio = {
+export type PortfolioType = {
   [key in StockSymbols]?: number
 }
 

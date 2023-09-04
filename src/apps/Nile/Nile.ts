@@ -6,13 +6,13 @@ import { SubScreen } from '~/core/SubScreen'
 import { Browse } from './screens/Browse'
 import { Cart } from './screens/Cart'
 import { OrderStatus } from './screens/OrderStatus'
-import { NileBottomNav } from './NileBottomNav'
 import { ItemDrilldown } from './screens/ItemDrilldown'
 import { Save, SaveKeys } from '~/utils/Save'
 import { PendingOrder, StoreItem } from '~/content/NileStoreItems'
 import { Notification } from '~/core/NotificationListScreen'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Utils } from '~/utils/Utils'
+import { BottomNav } from '~/core/BottomNav'
 
 export class Nile extends App {
   private headerText!: Phaser.GameObjects.Text
@@ -20,7 +20,7 @@ export class Nile extends App {
     [key in NileScreenTypes]?: SubScreen
   }
   private currSubscreen: NileScreenTypes = NileScreenTypes.BROWSE
-  public bottomNav: NileBottomNav
+  public bottomNav: BottomNav
 
   constructor(scene: Home) {
     super(scene)
@@ -30,7 +30,24 @@ export class Nile extends App {
       [NileScreenTypes.ORDER_STATUS]: new OrderStatus(this.scene, this),
       [NileScreenTypes.ITEM_DRILLDOWN]: new ItemDrilldown(this.scene, this),
     }
-    this.bottomNav = new NileBottomNav(this.scene, {
+    this.bottomNav = new BottomNav(this.scene, {
+      options: [
+        {
+          navOption: 'Browse',
+          iconTexture: 'tags-solid',
+          route: NileScreenTypes.BROWSE,
+        },
+        {
+          navOption: 'Cart',
+          iconTexture: 'cart-shopping-solid',
+          route: NileScreenTypes.CART,
+        },
+        {
+          navOption: 'Orders',
+          iconTexture: 'box-open-solid',
+          route: NileScreenTypes.ORDER_STATUS,
+        },
+      ],
       onRoute: (route) => {
         this.renderSubscreen(route)
       },
@@ -62,20 +79,6 @@ export class Nile extends App {
     if (subscreen) {
       subscreen.setVisible(false)
     }
-  }
-
-  setupHeaderText() {
-    this.headerText = this.scene.add
-      .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'Nile', {
-        fontSize: '30px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.headerText.setPosition(
-      Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
-      Constants.TOP_BAR_HEIGHT + 30
-    )
   }
 
   public addToCart(item: StoreItem) {
