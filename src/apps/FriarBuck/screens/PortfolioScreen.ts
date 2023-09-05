@@ -3,7 +3,7 @@ import { Home } from '~/scenes/Home'
 import { FriarBuck } from '../FriarBuck'
 import { Chart } from '../Chart'
 import { Constants } from '~/utils/Constants'
-import { PortfolioStockList } from '../web-ui/PortfolioStockList'
+import { StockList } from '../web-ui/StockList'
 import { Save, SaveKeys } from '~/utils/Save'
 import { PortfolioType, Stock, StockPrices } from '../FriarBuckConstants'
 import { INITIAL_STOCK_PRICES, STOCKS, StockSymbols } from '~/content/FriarBuckStocks'
@@ -127,11 +127,18 @@ export class PortfolioScreen extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
     const portfolioStockList = this.getPortfolioList()
-    const portfolioElem = PortfolioStockList(portfolioStockList, Constants.WINDOW_WIDTH, 290)
+    const portfolioElem = StockList(
+      'portfolio-stock-list',
+      portfolioStockList,
+      'Portfolio',
+      Constants.WINDOW_WIDTH,
+      290
+    )
     this.portfolioStockList = this.scene.add
       .dom(0, yPos + 25, portfolioElem)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+    Utils.setupDragToScroll('portfolio-stock-list')
   }
 
   updatePortfolioChart() {

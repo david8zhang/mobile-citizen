@@ -201,6 +201,11 @@ export class Utils {
     return Utils.convertKnowledgeLevelToGrade(knowledgeLevel)
   }
 
+  public static getGradeIndex(grade: Grade) {
+    const gradesInOrder = [Grade.F, Grade.D, Grade.C, Grade.B, Grade.A, Grade.S]
+    return gradesInOrder.indexOf(grade)
+  }
+
   public static getMaxEnergyForFitness(grade: Grade) {
     switch (grade) {
       case Grade.S: {

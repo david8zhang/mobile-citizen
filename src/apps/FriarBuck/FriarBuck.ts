@@ -4,6 +4,7 @@ import { BottomNav } from '~/core/BottomNav'
 import { FB_ScreenTypes } from './FBscreenTypes'
 import { SubScreen } from '~/core/SubScreen'
 import { PortfolioScreen } from './screens/PortfolioScreen'
+import { Browse } from './screens/Browse'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -16,6 +17,7 @@ export class FriarBuck extends App {
     super(scene)
     this.screenMappings = {
       [FB_ScreenTypes.PORTFOLIO]: new PortfolioScreen(this.scene, this),
+      [FB_ScreenTypes.BROWSE]: new Browse(this.scene, this),
     }
     this.setupBottomNav()
     this.setVisible(false)
@@ -40,8 +42,8 @@ export class FriarBuck extends App {
           route: FB_ScreenTypes.ACCOUNT,
         },
       ],
-      onRoute: () => {
-        this.renderSubscreen(FB_ScreenTypes.PORTFOLIO)
+      onRoute: (screen: FB_ScreenTypes) => {
+        this.renderSubscreen(screen)
       },
     })
   }

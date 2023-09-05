@@ -98,6 +98,9 @@ export class Chart {
   }
 
   destroy() {
+    if (this.placeholderText) {
+      this.placeholderText.destroy()
+    }
     this.lines.destroy(true)
   }
 }

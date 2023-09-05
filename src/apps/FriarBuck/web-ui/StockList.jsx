@@ -1,7 +1,7 @@
-export const PortfolioStockList = (stocks, width, height, onClick) => {
+export const StockList = (id, stocks, headerText, width, height, onClick) => {
   return (
     <div
-      id='portfolio-stock-list'
+      id={id}
       style={{
         overflowY: 'scroll',
         padding: '0px 15px',
@@ -22,7 +22,7 @@ export const PortfolioStockList = (stocks, width, height, onClick) => {
           marginBottom: '0px',
         }}
       >
-        Portfolio
+        {headerText}
       </p>
       {stocks.length == 0 ? (
         <div
