@@ -40,7 +40,14 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
         stocks.map((stock) => {
           return (
             <div
-              style={{ display: 'flex', color: 'black', paddingTop: '8px', paddingBottom: '8px' }}
+              style={{
+                display: 'flex',
+                color: 'black',
+                paddingTop: '8px',
+                paddingBottom: '8px',
+                cursor: 'pointer',
+              }}
+              onClick={() => onClick(stock)}
             >
               <div style={{ flex: 1 }}>
                 <p style={{ marginBottom: '5px', marginTop: '10px', fontSize: '25px' }}>

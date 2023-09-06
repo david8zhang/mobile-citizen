@@ -7,6 +7,7 @@ import { StockPrices } from '../FriarBuckConstants'
 import { Utils } from '~/utils/Utils'
 import { Constants } from '~/utils/Constants'
 import { StockList } from '../web-ui/StockList'
+import { FB_ScreenTypes } from '../FBscreenTypes'
 
 export class Browse extends SubScreen {
   private stockList!: Phaser.GameObjects.DOMElement
@@ -38,7 +39,13 @@ export class Browse extends SubScreen {
       'Discover',
       Constants.WINDOW_WIDTH,
       600,
-      () => {}
+      (stock) => {
+        const parent = this.parent as FriarBuck
+        parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {
+          stock,
+          prevRoute: FB_ScreenTypes.BROWSE,
+        })
+      }
     )
     this.stockList = this.scene.add
       .dom(0, Constants.TOP_BAR_HEIGHT + 30, stockListElem)
