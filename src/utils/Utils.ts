@@ -170,8 +170,16 @@ export class Utils {
     }
   }
 
+  public static getPrevDayKey() {
+    return `Day${Save.getData(SaveKeys.CURR_DATE) - 1}`
+  }
+
   public static getCurrDayKey() {
     return `Day${Save.getData(SaveKeys.CURR_DATE)}`
+  }
+
+  public static getNextDayKey() {
+    return `Day${Save.getData(SaveKeys.CURR_DATE) + 1}`
   }
 
   public static initializeSaveData(isRestart: boolean = false) {

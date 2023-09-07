@@ -58,7 +58,7 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
                 </p>
               </div>
               <p style={{ fontSize: '25px', marginTop: '15px', marginBottom: '15px' }}>
-                ${stock.price}
+                ${stock.price.toFixed(2)}
               </p>
             </div>
           )

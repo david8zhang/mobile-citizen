@@ -6,6 +6,10 @@ import { SubScreen } from '~/core/SubScreen'
 import { PortfolioScreen } from './screens/PortfolioScreen'
 import { Browse } from './screens/Browse'
 import { StockDrilldown } from './screens/StockDrilldown'
+import { Save, SaveKeys } from '~/utils/Save'
+import { INITIAL_STOCK_PRICES, STOCKS, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
+import { Utils } from '~/utils/Utils'
+import { Stock } from './FriarBuckConstants'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -23,6 +27,32 @@ export class FriarBuck extends App {
     }
     this.setupBottomNav()
     this.setVisible(false)
+    this.scene.onProgressDayCallbacks.push(() => {
+      this.updateStockPrices()
+    })
+  }
+
+  updateStockPrices() {
+    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+    const symbolToStockMapping = STOCKS.reduce((acc, curr) => {
+      acc[curr.symbol] = curr
+      return acc
+    }, {}) as {
+      [key: string]: Stock
+    }
+    const stockPricesForCurrDay = stockPrices[Utils.getPrevDayKey()]
+    const newStockPrices = {}
+
+    Object.keys(stockPricesForCurrDay).forEach((symbol: string) => {
+      const price = stockPricesForCurrDay[symbol]
+      const stock = symbolToStockMapping[symbol]
+      const volatilityRange = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
+      const pctChange = Phaser.Math.Between(volatilityRange.low, volatilityRange.high) / 100
+      newStockPrices[symbol] = price + price * pctChange
+    })
+    const nextDayKey = Utils.getCurrDayKey()
+    stockPrices[nextDayKey] = newStockPrices
+    Save.setData(SaveKeys.STOCK_PRICES, stockPrices)
   }
 
   setupBottomNav() {

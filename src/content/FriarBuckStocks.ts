@@ -37,6 +37,27 @@ export const INITIAL_STOCK_PRICES = {
   },
 }
 
+// Mapping between knowledge required for stock and volatility range
+// Higher knowledge required = higher volatility
+export const VOLATILITY_THRESHOLDS = {
+  [Grade.F]: {
+    high: 5,
+    low: -5,
+  },
+  [Grade.C]: {
+    high: 10,
+    low: -10,
+  },
+  [Grade.B]: {
+    high: 20,
+    low: -20,
+  },
+  [Grade.A]: {
+    high: 30,
+    low: -30,
+  },
+}
+
 export const STOCKS: Stock[] = [
   // Starter Stocks
   {
