@@ -2,12 +2,13 @@ import { SubScreen } from '~/core/SubScreen'
 import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
-import { Stock } from '../FriarBuckConstants'
+import { PortfolioType, Stock } from '../FriarBuckConstants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 import { INITIAL_STOCK_PRICES, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
 import { Chart } from '../Chart'
+import { Button } from '~/core/Button'
 
 export class StockDrilldown extends SubScreen {
   private backButton!: Phaser.GameObjects.Sprite
@@ -18,11 +19,84 @@ export class StockDrilldown extends SubScreen {
   private prevRoute: FB_ScreenTypes | null = null
   private chart!: Chart
 
+  // Position info
+  private positionLabel!: Phaser.GameObjects.Text
+  private shareWorthLabel!: Phaser.GameObjects.Text
+  private shareWorthValue!: Phaser.GameObjects.Text
+  private numSharesOwnedLabel!: Phaser.GameObjects.Text
+  private numSharesOwnedValue!: Phaser.GameObjects.Text
+
+  // Buy/Sell buttons
+  private buyButton!: Button
+  private sellButton!: Button
+
   constructor(scene: Home, parent: FriarBuck) {
     super(scene, parent)
     this.setupStockHeaderText()
     this.setupStockChart()
+    this.setupPositionInfo()
+    this.setupBuySellButtons()
     this.setVisible(false)
+  }
+
+  setupPositionInfo() {
+    this.positionLabel = this.scene.add
+      .text(15, this.chart.y + this.chart.displayHeight + 30, 'Position', {
+        fontSize: '20px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.shareWorthLabel = this.scene.add
+      .text(
+        15,
+        this.positionLabel.y + this.positionLabel.displayHeight + 15,
+        'Total Holdings Value',
+        {
+          fontSize: '18px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.shareWorthValue = this.scene.add
+      .text(Constants.WINDOW_WIDTH - 15, this.shareWorthLabel.y, '', {
+        fontSize: '18px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(1, 0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+
+    this.numSharesOwnedLabel = this.scene.add
+      .text(
+        15,
+        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
+        'Num Shares Owned',
+        {
+          fontSize: '18px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+
+    this.numSharesOwnedValue = this.scene.add
+      .text(
+        Constants.WINDOW_WIDTH - 15,
+        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
+        '',
+        {
+          fontSize: '18px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(1, 0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
   setupStockHeaderText() {
@@ -74,6 +148,41 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
   }
 
+  setupBuySellButtons() {
+    this.buyButton = new Button({
+      scene: this.scene,
+      width: Constants.WINDOW_WIDTH / 2 - 15,
+      height: 50,
+      textColor: 'black',
+      fontFamily: 'Arial',
+      fontSize: '20px',
+      onClick: () => {},
+      x: Constants.WINDOW_WIDTH * 0.25,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 130,
+      text: 'Buy',
+      backgroundColor: 0xffffff,
+      strokeColor: 0x000000,
+      strokeWidth: 1,
+      depth: Constants.SORT_LAYERS.APP_UI,
+    })
+    this.sellButton = new Button({
+      scene: this.scene,
+      width: Constants.WINDOW_WIDTH / 2 - 15,
+      height: 50,
+      textColor: 'black',
+      fontFamily: 'Arial',
+      fontSize: '20px',
+      onClick: () => {},
+      backgroundColor: 0xffffff,
+      strokeColor: 0x000000,
+      strokeWidth: 1,
+      x: Constants.WINDOW_WIDTH * 0.75,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 130,
+      text: 'Sell',
+      depth: Constants.SORT_LAYERS.APP_UI,
+    })
+  }
+
   public setupStockChart() {
     this.chart = new Chart(this.scene, {
       data: [],
@@ -92,6 +201,13 @@ export class StockDrilldown extends SubScreen {
     this.stockName.setVisible(isVisible)
     this.stockPrice.setVisible(isVisible)
     this.chart.setVisible(isVisible)
+    this.positionLabel.setVisible(isVisible)
+    this.numSharesOwnedLabel.setVisible(isVisible)
+    this.numSharesOwnedValue.setVisible(isVisible)
+    this.shareWorthLabel.setVisible(isVisible)
+    this.shareWorthValue.setVisible(isVisible)
+    this.buyButton.setVisible(isVisible)
+    this.sellButton.setVisible(isVisible)
   }
 
   updateStockInfo(stock: Stock) {
@@ -108,8 +224,7 @@ export class StockDrilldown extends SubScreen {
     }
     const data: { x: number; y: number }[] = []
     let index = 0
-    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES)
-    const volatility = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
+    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
     Object.keys(stockPrices).forEach((dayKey: string) => {
       const stockPricesForDay = stockPrices[dayKey]
       data.push({
@@ -117,7 +232,6 @@ export class StockDrilldown extends SubScreen {
         y: stockPricesForDay[stock.symbol],
       })
     })
-    console.log(data)
     this.chart = new Chart(this.scene, {
       data,
       position: {
@@ -129,10 +243,22 @@ export class StockDrilldown extends SubScreen {
     })
   }
 
+  updatePosition(stock: Stock) {
+    const positions = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
+    const numSharesOwned = positions[stock.symbol] ? positions[stock.symbol] : 0
+    this.numSharesOwnedValue.setText(numSharesOwned)
+
+    const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+    const currPricesForDay = currPrices[Utils.getCurrDayKey()]
+    const totalShareValue = numSharesOwned * currPricesForDay[stock.symbol]
+    this.shareWorthValue.setText(`$${totalShareValue.toFixed(2)}`)
+  }
+
   public onRender(data?: any): void {
     this.stock = data.stock
     this.prevRoute = data.prevRoute
     this.updateStockInfo(data.stock)
     this.updateStockChart(data.stock)
+    this.updatePosition(data.stock)
   }
 }

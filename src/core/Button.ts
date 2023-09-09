@@ -81,6 +81,14 @@ export class Button {
     this.text.setPosition(x - this.text.displayWidth / 2, y - this.text.displayHeight / 2)
   }
 
+  public get displayWidth() {
+    return this.rectangle.displayWidth
+  }
+
+  public get displayHeight() {
+    return this.rectangle.displayHeight
+  }
+
   public get x() {
     return this.rectangle.x
   }
