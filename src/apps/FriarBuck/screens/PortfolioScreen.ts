@@ -8,6 +8,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { PortfolioType, Stock, StockPrices } from '../FriarBuckConstants'
 import { INITIAL_STOCK_PRICES, STOCKS, StockSymbols } from '~/content/FriarBuckStocks'
 import { Utils } from '~/utils/Utils'
+import { FB_ScreenTypes } from '../FBscreenTypes'
 
 export class PortfolioScreen extends SubScreen {
   private chart!: Chart
@@ -23,8 +24,17 @@ export class PortfolioScreen extends SubScreen {
     this.setupHeader()
     this.setupPortfolioChart()
     this.setupBuyingPower()
-    this.setupPortfolio()
+    this.setupPortfolioDividerLine()
+    this.updatePortfolioStockList()
     this.setVisible(false)
+  }
+
+  setupPortfolioDividerLine() {
+    const yPos = this.buyingPowerLabel.y + this.buyingPowerLabel.displayHeight + 15
+    this.portfolioDividerLine = this.scene.add
+      .line(0, 0, 0, yPos, Constants.WINDOW_WIDTH, yPos, 0x777777)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(0)
   }
 
   setupHeader() {
@@ -84,19 +94,22 @@ export class PortfolioScreen extends SubScreen {
     })
   }
 
-  updatePortfolioValue() {
+  getPortfolioValue(pricesForCurrDay) {
     const portfolioStocks = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
+    const totalPortfolioValue = Object.keys(portfolioStocks).reduce((acc, curr) => {
+      return acc + pricesForCurrDay[curr] * portfolioStocks[curr]
+    }, 0)
+    return totalPortfolioValue
+  }
+
+  updatePortfolioValue() {
     const priceMappingPerDay = Save.getData(
       SaveKeys.STOCK_PRICES,
       INITIAL_STOCK_PRICES
     ) as StockPrices
     const priceForCurrDay = priceMappingPerDay[Utils.getCurrDayKey()]
-    const totalPortfolioValue = Object.keys(portfolioStocks)
-      .reduce((acc, curr) => {
-        return acc + priceForCurrDay[curr] * portfolioStocks[curr]
-      }, 0)
-      .toFixed(2)
-    this.portfolioValue.setText(`$${totalPortfolioValue}`)
+    const totalPortfolioValue = this.getPortfolioValue(priceForCurrDay)
+    this.portfolioValue.setText(`$${totalPortfolioValue.toFixed(2)}`)
   }
 
   getPortfolioList() {
@@ -115,24 +128,30 @@ export class PortfolioScreen extends SubScreen {
       return {
         symbol,
         name: stocks[symbol].name,
-        price: totalHoldingsValue.toFixed(2),
+        price: totalHoldingsValue,
       }
     })
   }
 
-  setupPortfolio() {
+  updatePortfolioStockList() {
+    if (this.portfolioStockList) {
+      this.portfolioStockList.destroy()
+    }
     const yPos = this.buyingPowerLabel.y + this.buyingPowerLabel.displayHeight + 15
-    this.portfolioDividerLine = this.scene.add
-      .line(0, 0, 0, yPos, Constants.WINDOW_WIDTH, yPos, 0x777777)
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setOrigin(0)
     const portfolioStockList = this.getPortfolioList()
     const portfolioElem = StockList(
       'portfolio-stock-list',
       portfolioStockList,
       'Portfolio',
       Constants.WINDOW_WIDTH,
-      290
+      290,
+      (stock) => {
+        const parent = this.parent as FriarBuck
+        parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {
+          stock,
+          prevRoute: FB_ScreenTypes.PORTFOLIO,
+        })
+      }
     )
     this.portfolioStockList = this.scene.add
       .dom(0, yPos + 25, portfolioElem)
@@ -141,12 +160,26 @@ export class PortfolioScreen extends SubScreen {
     Utils.setupDragToScroll('portfolio-stock-list')
   }
 
+  getPortfolioData() {
+    const data: { x: number; y: number }[] = []
+    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+    Object.keys(stockPrices).forEach((currDay, index) => {
+      const pricesForDay = stockPrices[currDay]
+      data.push({
+        x: index,
+        y: this.getPortfolioValue(pricesForDay),
+      })
+    })
+    return data
+  }
+
   updatePortfolioChart() {
     if (this.chart) {
       this.chart.destroy()
     }
+    const portfolioData = this.getPortfolioData()
     this.chart = new Chart(this.scene, {
-      data: [],
+      data: portfolioData,
       position: {
         x: 15,
         y: this.portfolioValue.y + this.portfolioValue.displayHeight + 10,
@@ -159,6 +192,7 @@ export class PortfolioScreen extends SubScreen {
   public onRender(data?: any): void {
     this.updatePortfolioValue()
     this.updatePortfolioChart()
+    this.updatePortfolioStockList()
   }
 
   public setVisible(isVisible: boolean): void {

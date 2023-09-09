@@ -10,6 +10,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { INITIAL_STOCK_PRICES, STOCKS, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
 import { Utils } from '~/utils/Utils'
 import { Stock } from './FriarBuckConstants'
+import { TradeStockScreen } from './screens/TradeStockScreen'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -24,6 +25,7 @@ export class FriarBuck extends App {
       [FB_ScreenTypes.PORTFOLIO]: new PortfolioScreen(this.scene, this),
       [FB_ScreenTypes.BROWSE]: new Browse(this.scene, this),
       [FB_ScreenTypes.STOCK_DRILLDOWN]: new StockDrilldown(this.scene, this),
+      [FB_ScreenTypes.TRADE_STOCK]: new TradeStockScreen(this.scene, this),
     }
     this.setupBottomNav()
     this.setVisible(false)

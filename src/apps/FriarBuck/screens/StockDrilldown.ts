@@ -156,7 +156,13 @@ export class StockDrilldown extends SubScreen {
       textColor: 'black',
       fontFamily: 'Arial',
       fontSize: '20px',
-      onClick: () => {},
+      onClick: () => {
+        const parent = this.parent as FriarBuck
+        parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {
+          isBuy: true,
+          stock: this.stock,
+        })
+      },
       x: Constants.WINDOW_WIDTH * 0.25,
       y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 130,
       text: 'Buy',
@@ -172,7 +178,13 @@ export class StockDrilldown extends SubScreen {
       textColor: 'black',
       fontFamily: 'Arial',
       fontSize: '20px',
-      onClick: () => {},
+      onClick: () => {
+        const parent = this.parent as FriarBuck
+        parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {
+          isBuy: false,
+          stock: this.stock,
+        })
+      },
       backgroundColor: 0xffffff,
       strokeColor: 0x000000,
       strokeWidth: 1,

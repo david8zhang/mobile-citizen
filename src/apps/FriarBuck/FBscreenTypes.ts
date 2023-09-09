@@ -3,4 +3,5 @@ export enum FB_ScreenTypes {
   ACCOUNT = 'ACCOUNT',
   BROWSE = 'BROWSE',
   STOCK_DRILLDOWN = 'STOCK_DRILLDOWN',
+  TRADE_STOCK = 'TRADE_STOCK',
 }
