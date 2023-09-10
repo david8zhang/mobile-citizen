@@ -17,7 +17,10 @@ export interface Stock {
 }
 
 export type PortfolioType = {
-  [key in StockSymbols]?: number
+  [key in StockSymbols]?: {
+    costBasis: number
+    numShares: number
+  }
 }
 
 export interface StockPrices {

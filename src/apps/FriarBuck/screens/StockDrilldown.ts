@@ -25,6 +25,8 @@ export class StockDrilldown extends SubScreen {
   private shareWorthValue!: Phaser.GameObjects.Text
   private numSharesOwnedLabel!: Phaser.GameObjects.Text
   private numSharesOwnedValue!: Phaser.GameObjects.Text
+  private totalGrowthLabel!: Phaser.GameObjects.Text
+  private totalGrowthValue!: Phaser.GameObjects.Text
 
   // Buy/Sell buttons
   private buyButton!: Button
@@ -97,6 +99,28 @@ export class StockDrilldown extends SubScreen {
       )
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+
+    this.totalGrowthLabel = this.scene.add
+      .text(
+        15,
+        this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 15,
+        'Total Growth',
+        {
+          fontSize: '18px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(0)
+    this.totalGrowthValue = this.scene.add
+      .text(Constants.WINDOW_WIDTH - 15, this.totalGrowthLabel.y, '', {
+        fontSize: '18px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(1, 0)
   }
 
   setupStockHeaderText() {
@@ -220,6 +244,8 @@ export class StockDrilldown extends SubScreen {
     this.shareWorthValue.setVisible(isVisible)
     this.buyButton.setVisible(isVisible)
     this.sellButton.setVisible(isVisible)
+    this.totalGrowthLabel.setVisible(isVisible)
+    this.totalGrowthValue.setVisible(isVisible)
   }
 
   updateStockInfo(stock: Stock) {
@@ -227,7 +253,7 @@ export class StockDrilldown extends SubScreen {
     const currDayStockPrices = allStockPrices[Utils.getCurrDayKey()]
     this.stockSymbol.setText(stock.symbol)
     this.stockName.setText(stock.name)
-    this.stockPrice.setText(`$${currDayStockPrices[stock.symbol].toFixed(2)}`)
+    this.stockPrice.setText(`$${currDayStockPrices[stock.symbol].toFixed(4)}`)
   }
 
   updateStockChart(stock: Stock) {
@@ -257,13 +283,27 @@ export class StockDrilldown extends SubScreen {
 
   updatePosition(stock: Stock) {
     const positions = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
-    const numSharesOwned = positions[stock.symbol] ? positions[stock.symbol] : 0
+    const numSharesOwned = positions[stock.symbol] ? positions[stock.symbol].numShares : 0
     this.numSharesOwnedValue.setText(numSharesOwned)
 
     const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
     const currPricesForDay = currPrices[Utils.getCurrDayKey()]
     const totalShareValue = numSharesOwned * currPricesForDay[stock.symbol]
     this.shareWorthValue.setText(`$${totalShareValue.toFixed(2)}`)
+
+    if (positions[stock.symbol]) {
+      const costBasis = positions[stock.symbol].costBasis * numSharesOwned
+      const growthAmount = totalShareValue - costBasis
+      this.totalGrowthValue.setText(
+        `${
+          growthAmount >= 0
+            ? `+$${Math.abs(growthAmount).toFixed(2)}`
+            : `-$${Math.abs(growthAmount).toFixed(2)}`
+        }`
+      )
+    } else {
+      this.totalGrowthValue.setText('+$0.00')
+    }
   }
 
   public onRender(data?: any): void {

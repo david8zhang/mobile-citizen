@@ -56,14 +56,34 @@ export class TradeStockScreen extends SubScreen {
     })
   }
 
+  getAverageCostBasis(amountToTrade: number, currStockPrice: number, portfolio: PortfolioType) {
+    if (portfolio[this.stock.symbol]) {
+      const oldTotalCost =
+        portfolio[this.stock.symbol].numShares * portfolio[this.stock.symbol].costBasis
+      const newTotalCost = amountToTrade * currStockPrice
+
+      console.log(oldTotalCost, newTotalCost)
+      return (
+        (oldTotalCost + newTotalCost) / (portfolio[this.stock.symbol].numShares + amountToTrade)
+      )
+    }
+    return currStockPrice
+  }
+
   confirmTrade() {
-    const amountToTrade = (this.formInputElement as any).value
+    const amountToTrade = parseInt((this.formInputElement as any).value)
     const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
     const currDayPrices = currPrices[Utils.getCurrDayKey()]
     const stockPrice = currDayPrices[this.stock.symbol]
     Utils.addTransaction(amountToTrade * stockPrice, 'Friar Buck, Inc.', false)
     const portfolio = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
-    portfolio[this.stock.symbol] = amountToTrade
+    const averageCostBasis = this.getAverageCostBasis(amountToTrade, stockPrice, portfolio)
+    console.log(averageCostBasis)
+    portfolio[this.stock.symbol] = {
+      numShares:
+        amountToTrade + (portfolio[this.stock.symbol] ? portfolio[this.stock.symbol].numShares : 0),
+      costBasis: averageCostBasis,
+    }
     Save.setData(SaveKeys.PORTFOLIO, portfolio)
     const parent = this.parent as FriarBuck
     parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {
@@ -197,7 +217,7 @@ export class TradeStockScreen extends SubScreen {
     const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
     const currDayPrices = currPrices[Utils.getCurrDayKey()]
     const stockPrice = currDayPrices[stock.symbol]
-    this.marketPriceValue.setText(`$${stockPrice.toFixed(2)}`)
+    this.marketPriceValue.setText(`$${stockPrice.toFixed(4)}`)
 
     const amountToTrade = (this.formInputElement as any).value
     const totalAmount = stockPrice * (amountToTrade ? parseInt(amountToTrade, 10) : 0)
