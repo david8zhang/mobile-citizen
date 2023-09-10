@@ -3,6 +3,8 @@ export const NumSharesInput = (props, style, onUpdate) => {
     <input
       id={props.id}
       type='number'
+      min='0'
+      max={props.max}
       style={style}
       placeholder={props.placeholder}
       onKeyUp={(e) => {

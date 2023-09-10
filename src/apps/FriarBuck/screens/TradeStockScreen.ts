@@ -1,7 +1,7 @@
 import { SubScreen } from '~/core/SubScreen'
 import { Home } from '~/scenes/Home'
 import { FriarBuck } from '../FriarBuck'
-import { PortfolioType, Stock } from '../FriarBuckConstants'
+import { PortfolioStock, PortfolioType, Stock } from '../FriarBuckConstants'
 import { Constants } from '~/utils/Constants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { NumSharesInput } from '../web-ui/NumSharesInput'
@@ -57,39 +57,58 @@ export class TradeStockScreen extends SubScreen {
   }
 
   getAverageCostBasis(amountToTrade: number, currStockPrice: number, portfolio: PortfolioType) {
-    if (portfolio[this.stock.symbol]) {
-      const oldTotalCost =
-        portfolio[this.stock.symbol].numShares * portfolio[this.stock.symbol].costBasis
+    const portfolioStockData = portfolio[this.stock.symbol]
+    if (portfolioStockData) {
+      const oldTotalCost = portfolioStockData.numShares * portfolioStockData.costBasis
       const newTotalCost = amountToTrade * currStockPrice
-
-      console.log(oldTotalCost, newTotalCost)
-      return (
-        (oldTotalCost + newTotalCost) / (portfolio[this.stock.symbol].numShares + amountToTrade)
-      )
+      return (oldTotalCost + newTotalCost) / (portfolioStockData.numShares + amountToTrade)
     }
     return currStockPrice
   }
 
   confirmTrade() {
     const amountToTrade = parseInt((this.formInputElement as any).value)
-    const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
-    const currDayPrices = currPrices[Utils.getCurrDayKey()]
-    const stockPrice = currDayPrices[this.stock.symbol]
-    Utils.addTransaction(amountToTrade * stockPrice, 'Friar Buck, Inc.', false)
-    const portfolio = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
-    const averageCostBasis = this.getAverageCostBasis(amountToTrade, stockPrice, portfolio)
-    console.log(averageCostBasis)
-    portfolio[this.stock.symbol] = {
-      numShares:
-        amountToTrade + (portfolio[this.stock.symbol] ? portfolio[this.stock.symbol].numShares : 0),
-      costBasis: averageCostBasis,
+    if (amountToTrade > 0) {
+      const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+      const currDayPrices = currPrices[Utils.getCurrDayKey()]
+      const currStockPrice = currDayPrices[this.stock.symbol]
+      const portfolio = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
+      const portfolioStockData = portfolio[this.stock.symbol] as PortfolioStock
+      if (this.isBuy) {
+        const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+        const totalAmountToPurchase = amountToTrade * currStockPrice
+        if (totalAmountToPurchase <= bankBalance) {
+          Utils.addTransaction(totalAmountToPurchase, 'Friar Buck, Inc.', false)
+          const averageCostBasis = this.getAverageCostBasis(
+            amountToTrade,
+            currStockPrice,
+            portfolio
+          )
+          const numSharesAfter =
+            amountToTrade + (portfolioStockData ? portfolioStockData.numShares : 0)
+          portfolio[this.stock.symbol] = {
+            numShares: numSharesAfter,
+            costBasis: averageCostBasis,
+          }
+        } else {
+          // TODO: Show notification here about insufficient funds
+          return
+        }
+      } else {
+        Utils.addTransaction(amountToTrade * currStockPrice, 'Friar Buck, Inc.', true)
+        portfolio[this.stock.symbol] = {
+          numShares: (portfolioStockData ? portfolioStockData.numShares : 0) - amountToTrade,
+          costBasis: portfolioStockData.costBasis,
+        }
+      }
+      ;(this.formInputElement as any).value = 0
+      Save.setData(SaveKeys.PORTFOLIO, portfolio)
+      const parent = this.parent as FriarBuck
+      parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {
+        stock: this.stock,
+        prevRoute: FB_ScreenTypes.BROWSE,
+      })
     }
-    Save.setData(SaveKeys.PORTFOLIO, portfolio)
-    const parent = this.parent as FriarBuck
-    parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {
-      stock: this.stock,
-      prevRoute: FB_ScreenTypes.BROWSE,
-    })
   }
 
   setupTradeInfo() {
@@ -131,7 +150,7 @@ export class TradeStockScreen extends SubScreen {
       .text(
         15,
         this.sharesToTradeLabel.y + this.sharesToTradeLabel.displayHeight + 15,
-        'Remaining balance (after)',
+        'Bank balance (after trade)',
         {
           fontSize: '20px',
           color: 'black',
@@ -215,25 +234,36 @@ export class TradeStockScreen extends SubScreen {
 
   updateTradeInfo(stock: Stock) {
     const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
-    const currDayPrices = currPrices[Utils.getCurrDayKey()]
-    const stockPrice = currDayPrices[stock.symbol]
-    this.marketPriceValue.setText(`$${stockPrice.toFixed(4)}`)
-
-    const amountToTrade = (this.formInputElement as any).value
-    const totalAmount = stockPrice * (amountToTrade ? parseInt(amountToTrade, 10) : 0)
-    this.sharesToTradeValue.setText(`$${totalAmount.toFixed(2)}`)
-
     const bankBalance = Save.getData(SaveKeys.BANK_BALANCE)
-    const remainingBankBalance = bankBalance - totalAmount
-    this.remainingBalanceValue.setText(`$${remainingBankBalance.toFixed(2)}`)
-    if (remainingBankBalance < 0) {
-      this.remainingBalanceValue.setStyle({
-        color: 'red',
-      })
+    const currDayPrices = currPrices[Utils.getCurrDayKey()]
+    const currStockPrice = currDayPrices[stock.symbol]
+    this.marketPriceValue.setText(`$${currStockPrice.toFixed(4)}`)
+    let amountToTrade = parseInt((this.formInputElement as any).value, 10)
+    if (this.isBuy) {
+      const sharesToTradeValue = currStockPrice * (amountToTrade ? amountToTrade : 0)
+      this.sharesToTradeValue.setText(`$${sharesToTradeValue.toFixed(2)}`)
+      const remainingBankBalance = bankBalance - sharesToTradeValue
+      this.remainingBalanceValue.setText(`$${remainingBankBalance.toFixed(2)}`)
+      if (remainingBankBalance < 0) {
+        this.remainingBalanceValue.setStyle({
+          color: 'red',
+        })
+      } else {
+        this.remainingBalanceValue.setStyle({
+          color: 'black',
+        })
+      }
     } else {
-      this.remainingBalanceValue.setStyle({
-        color: 'black',
-      })
+      const portfolio = Save.getData(SaveKeys.PORTFOLIO, {})
+      const stockData = portfolio[stock.symbol]
+      if (!stockData || amountToTrade > stockData.numShares) {
+        ;(this.formInputElement as any).value = stockData ? stockData.numShares : 0
+        amountToTrade = stockData ? stockData.numShares : 0
+      }
+      const sharesToTradeValue = currStockPrice * (amountToTrade ? amountToTrade : 0)
+      this.sharesToTradeValue.setText(`$${sharesToTradeValue.toFixed(2)}`)
+      const remainingBankBalance = bankBalance + sharesToTradeValue
+      this.remainingBalanceValue.setText(`$${remainingBankBalance.toFixed(2)}`)
     }
   }
 

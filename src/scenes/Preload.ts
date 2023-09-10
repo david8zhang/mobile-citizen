@@ -7,7 +7,6 @@ export class Preload extends Phaser.Scene {
     new Save()
     window.addEventListener('keydown', (e) => {
       if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.code) > -1) {
-        console.log('Went here!')
         e.preventDefault()
       }
     })

@@ -26,14 +26,13 @@ export class PortfolioScreen extends SubScreen {
     this.setupHeader()
     this.setupGrowthLabels()
     this.setupPortfolioChart()
-    this.setupBuyingPower()
     this.setupPortfolioDividerLine()
     this.updatePortfolioStockList()
     this.setVisible(false)
   }
 
   setupPortfolioDividerLine() {
-    const yPos = this.buyingPowerLabel.y + this.buyingPowerLabel.displayHeight + 15
+    const yPos = this.chart.y + this.chart.displayHeight + 15
     this.portfolioDividerLine = this.scene.add
       .line(0, 0, 0, yPos, Constants.WINDOW_WIDTH, yPos, 0x777777)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -83,32 +82,6 @@ export class PortfolioScreen extends SubScreen {
       .setOrigin(0)
   }
 
-  setupBuyingPower() {
-    this.buyingPowerLabel = this.scene.add
-      .text(15, this.chart.y + this.chart.displayHeight + 20, 'Buying Power', {
-        fontSize: '20px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setOrigin(0)
-
-    const buyingPower = Save.getData(SaveKeys.FRIAR_BUCK_BUYING_POWER) as number
-    this.buyingPowerValue = this.scene.add
-      .text(
-        Constants.WINDOW_WIDTH - 15,
-        this.chart.y + this.chart.displayHeight + 20,
-        `$${buyingPower.toFixed(2)}`,
-        {
-          fontSize: '20px',
-          color: 'black',
-          fontFamily: 'Arial',
-        }
-      )
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setOrigin(1, 0)
-  }
-
   setupPortfolioChart() {
     this.chart = new Chart(this.scene, {
       data: [],
@@ -152,22 +125,26 @@ export class PortfolioScreen extends SubScreen {
       SaveKeys.STOCK_PRICES,
       INITIAL_STOCK_PRICES
     ) as StockPrices
-    return Object.keys(portfolioStocks).map((symbol) => {
-      const totalHoldingsValue =
-        portfolioStocks[symbol].numShares * priceMappingPerDay[Utils.getCurrDayKey()][symbol]
-      return {
-        symbol,
-        name: stocks[symbol].name,
-        price: totalHoldingsValue,
+    const portfolioStockList: any[] = []
+    Object.keys(portfolioStocks).forEach((symbol) => {
+      if (portfolioStocks[symbol].numShares > 0) {
+        const totalHoldingsValue =
+          portfolioStocks[symbol].numShares * priceMappingPerDay[Utils.getCurrDayKey()][symbol]
+        portfolioStockList.push({
+          symbol,
+          name: stocks[symbol].name,
+          price: totalHoldingsValue,
+        })
       }
     })
+    return portfolioStockList
   }
 
   updatePortfolioStockList() {
     if (this.portfolioStockList) {
       this.portfolioStockList.destroy()
     }
-    const yPos = this.buyingPowerLabel.y + this.buyingPowerLabel.displayHeight + 15
+    const yPos = this.chart.y + this.chart.displayHeight + 15
     const portfolioStockList = this.getPortfolioList()
     const portfolioElem = StockList(
       'portfolio-stock-list',
@@ -193,7 +170,7 @@ export class PortfolioScreen extends SubScreen {
   updateGrowthValue() {
     const currDay = Save.getData(SaveKeys.CURR_DATE)
     if (currDay > 0) {
-      const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, {}) as PortfolioType
+      const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, {})
       const prevDayPortfolioValue = this.getPortfolioValue(stockPrices[Utils.getPrevDayKey()])
       const currDayPortfolioValue = this.getPortfolioValue(stockPrices[Utils.getCurrDayKey()])
       const dailyGrowthValue = currDayPortfolioValue - prevDayPortfolioValue
@@ -207,6 +184,22 @@ export class PortfolioScreen extends SubScreen {
       this.totalGrowthLabel.setPosition(
         this.dailyGrowthLabel.x + this.dailyGrowthLabel.displayWidth + 15,
         this.totalGrowthLabel.y
+      )
+
+      let initialPortfolioValue = 0
+      const portfolio = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
+      Object.keys(portfolio).forEach((symbol) => {
+        if (portfolio[symbol].numShares > 0) {
+          initialPortfolioValue += portfolio[symbol].numShares * portfolio[symbol].costBasis
+        }
+      })
+      const totalGrowthValue = currDayPortfolioValue - initialPortfolioValue
+      this.totalGrowthLabel.setText(
+        `Total Growth: ${
+          totalGrowthValue >= 0
+            ? `+$${totalGrowthValue.toFixed(2)}`
+            : `-$${Math.abs(totalGrowthValue).toFixed(2)}`
+        }`
       )
     }
   }
@@ -253,8 +246,6 @@ export class PortfolioScreen extends SubScreen {
     this.portfolioValue.setVisible(isVisible)
     this.chart.setVisible(isVisible)
     this.headerText.setVisible(isVisible)
-    this.buyingPowerLabel.setVisible(isVisible)
-    this.buyingPowerValue.setVisible(isVisible)
     this.totalGrowthLabel.setVisible(isVisible)
     this.dailyGrowthLabel.setVisible(isVisible)
   }

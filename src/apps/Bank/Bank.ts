@@ -103,7 +103,7 @@ export class Bank extends App {
       this.transactionLabel.destroy()
     }
     const bankTransactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
-    this.setupRecentTransactions(bankTransactions)
+    this.setupRecentTransactions(bankTransactions.reverse().slice(0, 5))
   }
 
   updateBankBalance() {

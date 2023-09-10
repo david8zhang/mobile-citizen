@@ -2,7 +2,7 @@ import { SubScreen } from '~/core/SubScreen'
 import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
-import { PortfolioType, Stock } from '../FriarBuckConstants'
+import { PortfolioStock, PortfolioType, Stock } from '../FriarBuckConstants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
@@ -27,6 +27,8 @@ export class StockDrilldown extends SubScreen {
   private numSharesOwnedValue!: Phaser.GameObjects.Text
   private totalGrowthLabel!: Phaser.GameObjects.Text
   private totalGrowthValue!: Phaser.GameObjects.Text
+  private costBasisLabel!: Phaser.GameObjects.Text
+  private costBasisValue!: Phaser.GameObjects.Text
 
   // Buy/Sell buttons
   private buyButton!: Button
@@ -43,12 +45,13 @@ export class StockDrilldown extends SubScreen {
 
   setupPositionInfo() {
     this.positionLabel = this.scene.add
-      .text(15, this.chart.y + this.chart.displayHeight + 30, 'Position', {
+      .text(15, this.chart.y + this.chart.displayHeight + 40, 'Position', {
         fontSize: '20px',
         color: 'black',
         fontFamily: 'Arial',
       })
       .setOrigin(0)
+      .setStroke('#000000', 1)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.shareWorthLabel = this.scene.add
       .text(
@@ -115,6 +118,24 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
     this.totalGrowthValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.totalGrowthLabel.y, '', {
+        fontSize: '18px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(1, 0)
+
+    this.costBasisLabel = this.scene.add
+      .text(15, this.totalGrowthLabel.y + this.totalGrowthLabel.displayHeight + 15, 'Cost Basis', {
+        fontSize: '18px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(0)
+
+    this.costBasisValue = this.scene.add
+      .text(Constants.WINDOW_WIDTH - 15, this.costBasisLabel.y, '', {
         fontSize: '18px',
         color: 'black',
         fontFamily: 'Arial',
@@ -188,7 +209,7 @@ export class StockDrilldown extends SubScreen {
         })
       },
       x: Constants.WINDOW_WIDTH * 0.25,
-      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 130,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 175,
       text: 'Buy',
       backgroundColor: 0xffffff,
       strokeColor: 0x000000,
@@ -213,7 +234,7 @@ export class StockDrilldown extends SubScreen {
       strokeColor: 0x000000,
       strokeWidth: 1,
       x: Constants.WINDOW_WIDTH * 0.75,
-      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 130,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 175,
       text: 'Sell',
       depth: Constants.SORT_LAYERS.APP_UI,
     })
@@ -227,7 +248,7 @@ export class StockDrilldown extends SubScreen {
         y: this.stockPrice.y + this.stockPrice.displayHeight + 15,
       },
       width: Constants.WINDOW_WIDTH - 15,
-      height: 200,
+      height: 150,
     })
   }
 
@@ -246,14 +267,23 @@ export class StockDrilldown extends SubScreen {
     this.sellButton.setVisible(isVisible)
     this.totalGrowthLabel.setVisible(isVisible)
     this.totalGrowthValue.setVisible(isVisible)
+    this.costBasisLabel.setVisible(isVisible)
+    this.costBasisValue.setVisible(isVisible)
   }
 
   updateStockInfo(stock: Stock) {
     const allStockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+    const portfolio = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
+    const portfolioStock = portfolio[stock.symbol] as PortfolioStock
     const currDayStockPrices = allStockPrices[Utils.getCurrDayKey()]
     this.stockSymbol.setText(stock.symbol)
     this.stockName.setText(stock.name)
     this.stockPrice.setText(`$${currDayStockPrices[stock.symbol].toFixed(4)}`)
+    if (portfolioStock && portfolioStock.numShares) {
+      this.costBasisValue.setText(`$${portfolioStock.costBasis.toFixed(2)}`)
+    } else {
+      this.costBasisValue.setText('N/A')
+    }
   }
 
   updateStockChart(stock: Stock) {
@@ -277,22 +307,23 @@ export class StockDrilldown extends SubScreen {
         y: this.stockPrice.y + this.stockPrice.displayHeight + 30,
       },
       width: Constants.WINDOW_WIDTH - 15,
-      height: 200,
+      height: 150,
     })
   }
 
   updatePosition(stock: Stock) {
     const positions = Save.getData(SaveKeys.PORTFOLIO, {}) as PortfolioType
-    const numSharesOwned = positions[stock.symbol] ? positions[stock.symbol].numShares : 0
-    this.numSharesOwnedValue.setText(numSharesOwned)
+    const portfolioStock = positions[stock.symbol] as PortfolioStock
+    const numSharesOwned = portfolioStock ? portfolioStock.numShares : 0
+    this.numSharesOwnedValue.setText(`${numSharesOwned}`)
 
     const currPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
     const currPricesForDay = currPrices[Utils.getCurrDayKey()]
     const totalShareValue = numSharesOwned * currPricesForDay[stock.symbol]
     this.shareWorthValue.setText(`$${totalShareValue.toFixed(2)}`)
 
-    if (positions[stock.symbol]) {
-      const costBasis = positions[stock.symbol].costBasis * numSharesOwned
+    if (portfolioStock && portfolioStock.numShares > 0) {
+      const costBasis = portfolioStock.costBasis * numSharesOwned
       const growthAmount = totalShareValue - costBasis
       this.totalGrowthValue.setText(
         `${
@@ -302,7 +333,7 @@ export class StockDrilldown extends SubScreen {
         }`
       )
     } else {
-      this.totalGrowthValue.setText('+$0.00')
+      this.totalGrowthValue.setText('N/A')
     }
   }
 
