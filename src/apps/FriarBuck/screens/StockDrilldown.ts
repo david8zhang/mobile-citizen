@@ -2,13 +2,14 @@ import { SubScreen } from '~/core/SubScreen'
 import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
-import { PortfolioStock, PortfolioType, Stock } from '../FriarBuckConstants'
+import { PortfolioStock, PortfolioType, Stock, StockTipLevel } from '../FriarBuckConstants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 import { INITIAL_STOCK_PRICES, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
 import { Chart } from '../Chart'
 import { Button } from '~/core/Button'
+import { RecommendedAction, StockTip } from '../StockTip'
 
 export class StockDrilldown extends SubScreen {
   private backButton!: Phaser.GameObjects.Sprite
@@ -29,6 +30,8 @@ export class StockDrilldown extends SubScreen {
   private totalGrowthValue!: Phaser.GameObjects.Text
   private costBasisLabel!: Phaser.GameObjects.Text
   private costBasisValue!: Phaser.GameObjects.Text
+  private stockTipLabel!: Phaser.GameObjects.Text
+  private stockTip!: StockTip
 
   // Buy/Sell buttons
   private buyButton!: Button
@@ -40,13 +43,32 @@ export class StockDrilldown extends SubScreen {
     this.setupStockChart()
     this.setupPositionInfo()
     this.setupBuySellButtons()
+    this.setupStockTip()
     this.setVisible(false)
+  }
+
+  setupStockTip() {
+    this.stockTipLabel = this.scene.add
+      .text(15, this.costBasisLabel.y + this.costBasisLabel.displayHeight + 25, 'Stock Tips', {
+        fontSize: '18px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setStroke('#000000', 1)
+      .setOrigin(0)
+    this.stockTip = new StockTip(this.scene, {
+      position: {
+        x: 15,
+        y: this.stockTipLabel.y + this.stockTipLabel.displayHeight + 15,
+      },
+    })
   }
 
   setupPositionInfo() {
     this.positionLabel = this.scene.add
       .text(15, this.chart.y + this.chart.displayHeight + 40, 'Position', {
-        fontSize: '20px',
+        fontSize: '18px',
         color: 'black',
         fontFamily: 'Arial',
       })
@@ -59,7 +81,7 @@ export class StockDrilldown extends SubScreen {
         this.positionLabel.y + this.positionLabel.displayHeight + 15,
         'Total Holdings Value',
         {
-          fontSize: '18px',
+          fontSize: '16px',
           color: 'black',
           fontFamily: 'Arial',
         }
@@ -68,7 +90,7 @@ export class StockDrilldown extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.shareWorthValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.shareWorthLabel.y, '', {
-        fontSize: '18px',
+        fontSize: '16px',
         color: 'black',
         fontFamily: 'Arial',
       })
@@ -81,7 +103,7 @@ export class StockDrilldown extends SubScreen {
         this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
         'Num Shares Owned',
         {
-          fontSize: '18px',
+          fontSize: '16px',
           color: 'black',
           fontFamily: 'Arial',
         }
@@ -95,7 +117,7 @@ export class StockDrilldown extends SubScreen {
         this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
         '',
         {
-          fontSize: '18px',
+          fontSize: '16px',
           color: 'black',
           fontFamily: 'Arial',
         }
@@ -109,7 +131,7 @@ export class StockDrilldown extends SubScreen {
         this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 15,
         'Total Growth',
         {
-          fontSize: '18px',
+          fontSize: '16px',
           color: 'black',
           fontFamily: 'Arial',
         }
@@ -118,7 +140,7 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
     this.totalGrowthValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.totalGrowthLabel.y, '', {
-        fontSize: '18px',
+        fontSize: '16px',
         color: 'black',
         fontFamily: 'Arial',
       })
@@ -127,7 +149,7 @@ export class StockDrilldown extends SubScreen {
 
     this.costBasisLabel = this.scene.add
       .text(15, this.totalGrowthLabel.y + this.totalGrowthLabel.displayHeight + 15, 'Cost Basis', {
-        fontSize: '18px',
+        fontSize: '16px',
         color: 'black',
         fontFamily: 'Arial',
       })
@@ -136,7 +158,7 @@ export class StockDrilldown extends SubScreen {
 
     this.costBasisValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.costBasisLabel.y, '', {
-        fontSize: '18px',
+        fontSize: '16px',
         color: 'black',
         fontFamily: 'Arial',
       })
@@ -176,7 +198,7 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
 
     this.stockName = this.scene.add
-      .text(20, this.stockSymbol.y + this.stockSymbol.displayHeight + 30, '', {
+      .text(20, this.stockSymbol.y + this.stockSymbol.displayHeight + 15, '', {
         fontSize: '25px',
         color: 'black',
         fontFamily: 'Arial',
@@ -197,10 +219,10 @@ export class StockDrilldown extends SubScreen {
     this.buyButton = new Button({
       scene: this.scene,
       width: Constants.WINDOW_WIDTH / 2 - 15,
-      height: 50,
+      height: 40,
       textColor: 'black',
       fontFamily: 'Arial',
-      fontSize: '20px',
+      fontSize: '18px',
       onClick: () => {
         const parent = this.parent as FriarBuck
         parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {
@@ -209,7 +231,7 @@ export class StockDrilldown extends SubScreen {
         })
       },
       x: Constants.WINDOW_WIDTH * 0.25,
-      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 175,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 230,
       text: 'Buy',
       backgroundColor: 0xffffff,
       strokeColor: 0x000000,
@@ -219,10 +241,10 @@ export class StockDrilldown extends SubScreen {
     this.sellButton = new Button({
       scene: this.scene,
       width: Constants.WINDOW_WIDTH / 2 - 15,
-      height: 50,
+      height: 40,
       textColor: 'black',
       fontFamily: 'Arial',
-      fontSize: '20px',
+      fontSize: '18px',
       onClick: () => {
         const parent = this.parent as FriarBuck
         parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {
@@ -234,7 +256,7 @@ export class StockDrilldown extends SubScreen {
       strokeColor: 0x000000,
       strokeWidth: 1,
       x: Constants.WINDOW_WIDTH * 0.75,
-      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 175,
+      y: this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 230,
       text: 'Sell',
       depth: Constants.SORT_LAYERS.APP_UI,
     })
@@ -248,7 +270,7 @@ export class StockDrilldown extends SubScreen {
         y: this.stockPrice.y + this.stockPrice.displayHeight + 15,
       },
       width: Constants.WINDOW_WIDTH - 15,
-      height: 150,
+      height: 120,
     })
   }
 
@@ -269,6 +291,8 @@ export class StockDrilldown extends SubScreen {
     this.totalGrowthValue.setVisible(isVisible)
     this.costBasisLabel.setVisible(isVisible)
     this.costBasisValue.setVisible(isVisible)
+    this.stockTipLabel.setVisible(isVisible)
+    this.stockTip.setVisible(isVisible)
   }
 
   updateStockInfo(stock: Stock) {
@@ -307,7 +331,7 @@ export class StockDrilldown extends SubScreen {
         y: this.stockPrice.y + this.stockPrice.displayHeight + 30,
       },
       width: Constants.WINDOW_WIDTH - 15,
-      height: 150,
+      height: 120,
     })
   }
 
@@ -337,11 +361,24 @@ export class StockDrilldown extends SubScreen {
     }
   }
 
+  updateTipContent(stock: Stock) {
+    const placeholderTip = {
+      [StockTipLevel.LEVEL_1]: RecommendedAction.BUY,
+      [StockTipLevel.LEVEL_2]: 40,
+      [StockTipLevel.LEVEL_3]: 20,
+    }
+    this.stockTip.updateTipContent({
+      tipContent: placeholderTip,
+      requirements: stock.knowledgeReqsForTip,
+    })
+  }
+
   public onRender(data?: any): void {
     this.stock = data.stock
     this.prevRoute = data.prevRoute
     this.updateStockInfo(data.stock)
     this.updateStockChart(data.stock)
     this.updatePosition(data.stock)
+    this.updateTipContent(data.stock)
   }
 }

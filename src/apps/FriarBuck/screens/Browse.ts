@@ -26,8 +26,8 @@ export class Browse extends SubScreen {
     STOCKS.forEach((stock) => {
       if (Utils.getGradeIndex(stock.knowledgeReqForUnlock) <= Utils.getGradeIndex(knowledgeLevel)) {
         const stockToRender = {
-          ...stock,
           price: stockPricesForCurrDay[stock.symbol],
+          ...stock,
         }
         stockList.push(stockToRender)
       }

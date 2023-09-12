@@ -31,6 +31,7 @@ export class Preload extends Phaser.Scene {
     this.load.image('list-solid', 'icons/list-solid.svg')
     this.load.image('chart-line-solid', 'icons/chart-line-solid.svg')
     this.load.image('angle-left-solid', 'icons/angle-left-solid.svg')
+    this.load.image('angle-right-solid', 'icons/angle-right-solid.svg')
   }
 
   preload() {
