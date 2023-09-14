@@ -9,7 +9,7 @@ import { StockDrilldown } from './screens/StockDrilldown'
 import { Save, SaveKeys } from '~/utils/Save'
 import { INITIAL_STOCK_PRICES, STOCKS, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
 import { Utils } from '~/utils/Utils'
-import { Stock } from './FriarBuckConstants'
+import { Stock, StockTipLevel, StockTips } from './FriarBuckConstants'
 import { TradeStockScreen } from './screens/TradeStockScreen'
 
 export class FriarBuck extends App {
@@ -44,12 +44,18 @@ export class FriarBuck extends App {
     }
     const stockPricesForCurrDay = stockPrices[Utils.getPrevDayKey()]
     const newStockPrices = {}
-
+    const stockTips = Save.getData(SaveKeys.FRIAR_BUCK_STOCK_TIPS) as StockTips
     Object.keys(stockPricesForCurrDay).forEach((symbol: string) => {
       const price = stockPricesForCurrDay[symbol]
       const stock = symbolToStockMapping[symbol]
-      const volatilityRange = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
-      const pctChange = Phaser.Math.Between(volatilityRange.low, volatilityRange.high) / 100
+      let pctChange = 0
+      const stockTip = stockTips[symbol]
+      if (stockTip) {
+        pctChange = stockTip[StockTipLevel.LEVEL_2] / 100
+      } else {
+        const volatilityRange = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
+        pctChange = Phaser.Math.Between(volatilityRange.low, volatilityRange.high) / 100
+      }
       newStockPrices[symbol] = price + price * pctChange
     })
     const nextDayKey = Utils.getCurrDayKey()

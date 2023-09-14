@@ -1,26 +1,7 @@
 import { Home } from '~/scenes/Home'
-import { StockTipLevel } from './FriarBuckConstants'
+import { StockTipLevel, TipUpdate } from './FriarBuckConstants'
 import { Constants } from '~/utils/Constants'
-import { Grade } from '~/core/TopBar'
 import { Utils } from '~/utils/Utils'
-
-export enum RecommendedAction {
-  BUY = 'BUY',
-  SELL = 'SELL',
-}
-
-export interface TipContent {
-  [StockTipLevel.LEVEL_1]: RecommendedAction
-  [StockTipLevel.LEVEL_2]: number
-  [StockTipLevel.LEVEL_3]: number
-}
-
-export interface TipUpdate {
-  tipContent: TipContent
-  requirements: {
-    [key in StockTipLevel]: Grade
-  }
-}
 
 export interface StockTipConfig {
   position: {
@@ -36,9 +17,6 @@ export interface StockTipConfig {
  * Level 2 Tip:
  * Potential Change: +40%
  *
- * Level 3 Tip:
- * Chance to Increase: 50%
- *
  */
 
 export class StockTip {
@@ -47,7 +25,6 @@ export class StockTip {
 
   private level1TipText!: Phaser.GameObjects.Text
   private level2TipText!: Phaser.GameObjects.Text
-  private level3TipText!: Phaser.GameObjects.Text
   private currTipIndex: number = 0
 
   private scene: Home
@@ -77,26 +54,11 @@ export class StockTip {
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-
-    this.level3TipText = this.scene.add
-      .text(position.x, position.y, '', {
-        fontSize: '18px',
-        color: 'black',
-        fontFamily: 'Arial',
-      })
-      .setOrigin(0)
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
   getHighestUnlockedTipLevel(tipUpdate: TipUpdate) {
     const requirements = tipUpdate.requirements
     const knowledgeGrade = Utils.getKnowledgeGrade()
-    if (
-      Utils.getGradeIndex(knowledgeGrade) >=
-      Utils.getGradeIndex(requirements[StockTipLevel.LEVEL_3])
-    ) {
-      return StockTipLevel.LEVEL_3
-    }
     if (
       Utils.getGradeIndex(knowledgeGrade) >=
       Utils.getGradeIndex(requirements[StockTipLevel.LEVEL_2])
@@ -116,35 +78,37 @@ export class StockTip {
     const tipContent = tipUpdate.tipContent
     const tipLevel = this.getHighestUnlockedTipLevel(tipUpdate)
     if (tipLevel >= StockTipLevel.LEVEL_1) {
-      this.level1TipText.setText(`Recommended action: ${tipContent[StockTipLevel.LEVEL_1]}`)
+      this.level1TipText
+        .setText(`Recommended action: ${tipContent[StockTipLevel.LEVEL_1]}`)
+        .setColor('#000000')
+        .setPosition(15, this.level1TipText.y)
     } else {
-      this.level1TipText.setText(
-        `Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_1]} Required`
-      )
+      this.level1TipText
+        .setText(`Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_1]} Required`)
+        .setColor('#777777')
+      Utils.centerText(Constants.WINDOW_WIDTH / 2, this.level1TipText)
     }
     if (tipLevel >= StockTipLevel.LEVEL_2) {
       const pctChange = tipContent[StockTipLevel.LEVEL_2]
-      this.level2TipText.setText(
-        `Potential Change: ${pctChange > 0 ? `+${pctChange}%` : `-${pctChange}%`}`
-      )
+      this.level2TipText
+        .setText(
+          `Predicted Change: ${
+            pctChange > 0 ? `+${Math.abs(pctChange)}%` : `-${Math.abs(pctChange)}%`
+          }`
+        )
+        .setColor('#000000')
+        .setPosition(15, this.level2TipText.y)
     } else {
-      this.level2TipText.setText(
-        `Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_2]} Required`
-      )
-    }
-    if (tipLevel >= StockTipLevel.LEVEL_3) {
-      const likelihoodOfIncrease = tipContent[StockTipLevel.LEVEL_3]
-      this.level3TipText.setText(`Likelihood of increase: ${likelihoodOfIncrease}%`)
-    } else {
-      this.level3TipText.setText(
-        `Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_3]} Required`
-      )
+      this.level2TipText
+        .setText(`Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_2]} Required`)
+        .setColor('#777777')
+      Utils.centerText(Constants.WINDOW_WIDTH / 2, this.level2TipText)
     }
     this.displayCurrTipForIndex()
   }
 
   displayCurrTipForIndex() {
-    const tipTextList = [this.level1TipText, this.level2TipText, this.level3TipText]
+    const tipTextList = [this.level1TipText, this.level2TipText]
     const tipToShow = tipTextList[this.currTipIndex]
     tipToShow.setVisible(true)
     const tipsToHide = tipTextList.filter((_, index) => {
@@ -178,7 +142,7 @@ export class StockTip {
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
         this.rightCarat.setAlpha(1)
-        this.currTipIndex = Math.min(2, this.currTipIndex + 1)
+        this.currTipIndex = Math.min(1, this.currTipIndex + 1)
         this.displayCurrTipForIndex()
       })
       .setOrigin(1, 0)
@@ -188,7 +152,6 @@ export class StockTip {
     if (!isVisible) {
       this.level1TipText.setVisible(isVisible)
       this.level2TipText.setVisible(isVisible)
-      this.level3TipText.setVisible(isVisible)
     }
     this.leftCarat.setVisible(isVisible)
     this.rightCarat.setVisible(isVisible)

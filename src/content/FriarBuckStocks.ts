@@ -67,7 +67,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.D,
       [StockTipLevel.LEVEL_2]: Grade.C,
-      [StockTipLevel.LEVEL_3]: Grade.B,
     },
   },
   {
@@ -77,7 +76,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.D,
       [StockTipLevel.LEVEL_2]: Grade.C,
-      [StockTipLevel.LEVEL_3]: Grade.B,
     },
   },
   {
@@ -87,7 +85,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.D,
       [StockTipLevel.LEVEL_2]: Grade.C,
-      [StockTipLevel.LEVEL_3]: Grade.B,
     },
   },
   {
@@ -97,7 +94,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.D,
       [StockTipLevel.LEVEL_2]: Grade.C,
-      [StockTipLevel.LEVEL_3]: Grade.B,
     },
   },
   {
@@ -107,7 +103,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.D,
       [StockTipLevel.LEVEL_2]: Grade.C,
-      [StockTipLevel.LEVEL_3]: Grade.B,
     },
   },
   // Level 2 Stocks
@@ -118,7 +113,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.C,
       [StockTipLevel.LEVEL_2]: Grade.B,
-      [StockTipLevel.LEVEL_3]: Grade.A,
     },
   },
   {
@@ -128,7 +122,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.C,
       [StockTipLevel.LEVEL_2]: Grade.B,
-      [StockTipLevel.LEVEL_3]: Grade.A,
     },
   },
   {
@@ -138,7 +131,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.C,
       [StockTipLevel.LEVEL_2]: Grade.B,
-      [StockTipLevel.LEVEL_3]: Grade.A,
     },
   },
   {
@@ -148,7 +140,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.C,
       [StockTipLevel.LEVEL_2]: Grade.B,
-      [StockTipLevel.LEVEL_3]: Grade.A,
     },
   },
   // Level 3 Stocks
@@ -159,7 +150,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.B,
       [StockTipLevel.LEVEL_2]: Grade.A,
-      [StockTipLevel.LEVEL_3]: Grade.S,
     },
   },
   {
@@ -169,7 +159,6 @@ export const STOCKS: Stock[] = [
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.B,
       [StockTipLevel.LEVEL_2]: Grade.A,
-      [StockTipLevel.LEVEL_3]: Grade.S,
     },
   },
   // Level 4 Stocks
@@ -178,9 +167,8 @@ export const STOCKS: Stock[] = [
     name: 'GameGo, Inc.',
     knowledgeReqForUnlock: Grade.A,
     knowledgeReqsForTip: {
-      [StockTipLevel.LEVEL_1]: Grade.S,
+      [StockTipLevel.LEVEL_1]: Grade.A,
       [StockTipLevel.LEVEL_2]: Grade.S,
-      [StockTipLevel.LEVEL_3]: Grade.S,
     },
   },
   {
@@ -188,9 +176,8 @@ export const STOCKS: Stock[] = [
     name: 'BrickBerry, Inc.',
     knowledgeReqForUnlock: Grade.A,
     knowledgeReqsForTip: {
-      [StockTipLevel.LEVEL_1]: Grade.S,
+      [StockTipLevel.LEVEL_1]: Grade.A,
       [StockTipLevel.LEVEL_2]: Grade.S,
-      [StockTipLevel.LEVEL_3]: Grade.S,
     },
   },
   {
@@ -198,9 +185,8 @@ export const STOCKS: Stock[] = [
     name: 'America Needs Crap, Inc.',
     knowledgeReqForUnlock: Grade.A,
     knowledgeReqsForTip: {
-      [StockTipLevel.LEVEL_1]: Grade.S,
+      [StockTipLevel.LEVEL_1]: Grade.A,
       [StockTipLevel.LEVEL_2]: Grade.S,
-      [StockTipLevel.LEVEL_3]: Grade.S,
     },
   },
 ]

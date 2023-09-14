@@ -6,15 +6,13 @@ import { Constants } from '~/utils/Constants'
 import { StockList } from '../web-ui/StockList'
 import { Save, SaveKeys } from '~/utils/Save'
 import { PortfolioType, Stock, StockPrices } from '../FriarBuckConstants'
-import { INITIAL_STOCK_PRICES, STOCKS, StockSymbols } from '~/content/FriarBuckStocks'
+import { INITIAL_STOCK_PRICES, STOCKS } from '~/content/FriarBuckStocks'
 import { Utils } from '~/utils/Utils'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 
 export class PortfolioScreen extends SubScreen {
   private chart!: Chart
   private headerText!: Phaser.GameObjects.Text
-  private buyingPowerLabel!: Phaser.GameObjects.Text
-  private buyingPowerValue!: Phaser.GameObjects.Text
   private portfolioValue!: Phaser.GameObjects.Text
   private portfolioStockList!: Phaser.GameObjects.DOMElement
   private portfolioDividerLine!: Phaser.GameObjects.Line
@@ -130,7 +128,9 @@ export class PortfolioScreen extends SubScreen {
       if (portfolioStocks[symbol].numShares > 0) {
         const totalHoldingsValue =
           portfolioStocks[symbol].numShares * priceMappingPerDay[Utils.getCurrDayKey()][symbol]
+        const stock = stocks[symbol]
         portfolioStockList.push({
+          ...stock,
           symbol,
           name: stocks[symbol].name,
           price: totalHoldingsValue,
@@ -151,7 +151,7 @@ export class PortfolioScreen extends SubScreen {
       portfolioStockList,
       'Portfolio',
       Constants.WINDOW_WIDTH,
-      290,
+      280,
       (stock) => {
         const parent = this.parent as FriarBuck
         parent.renderSubscreen(FB_ScreenTypes.STOCK_DRILLDOWN, {

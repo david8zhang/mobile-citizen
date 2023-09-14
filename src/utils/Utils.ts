@@ -155,7 +155,7 @@ export class Utils {
 
   public static addTransaction(amount: number, vendor: string, isCredit: boolean) {
     const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
-    if (isCredit || bankBalance > amount) {
+    if (isCredit || bankBalance >= amount) {
       const newTransaction: BankTransactions = {
         amount: isCredit ? amount : -amount,
         vendor,
@@ -212,6 +212,10 @@ export class Utils {
   public static getGradeIndex(grade: Grade) {
     const gradesInOrder = [Grade.F, Grade.D, Grade.C, Grade.B, Grade.A, Grade.S]
     return gradesInOrder.indexOf(grade)
+  }
+
+  public static centerText(xToCenterOn: number, text: Phaser.GameObjects.Text) {
+    text.setPosition(xToCenterOn - text.displayWidth / 2, text.y)
   }
 
   public static getMaxEnergyForFitness(grade: Grade) {

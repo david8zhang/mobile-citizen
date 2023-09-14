@@ -1,10 +1,31 @@
 import { StockSymbols } from '~/content/FriarBuckStocks'
 import { Grade } from '~/core/TopBar'
 
+export enum RecommendedAction {
+  BUY = 'BUY',
+  SELL = 'SELL',
+}
+
+export interface TipContent {
+  [StockTipLevel.LEVEL_1]: RecommendedAction
+  [StockTipLevel.LEVEL_2]: number
+  dateKey: string
+}
+
+export interface TipUpdate {
+  tipContent: TipContent
+  requirements: {
+    [key in StockTipLevel]: Grade
+  }
+}
+
+export type StockTips = {
+  [key in StockSymbols]?: TipContent
+}
+
 export enum StockTipLevel {
   LEVEL_1,
   LEVEL_2,
-  LEVEL_3,
 }
 
 export interface Stock {
