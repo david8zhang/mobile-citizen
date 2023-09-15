@@ -12,12 +12,15 @@ import { NileScreenTypes } from '../NileScreenTypes'
 export class Cart extends SubScreen {
   private subtotalLabelText!: Phaser.GameObjects.Text
   private subtotalValueText!: Phaser.GameObjects.Text
+  private remainingBankBalanceLabel!: Phaser.GameObjects.Text
+  private remainingBankBalanceValue!: Phaser.GameObjects.Text
   private confirmOrderButton!: Button
   private cartItemsDomElement!: Phaser.GameObjects.DOMElement
 
   constructor(scene: Home, parent: Nile) {
     super(scene, parent)
     this.setupSubtotal()
+    this.setupRemainingBankBalance()
     this.setupConfirmOrderButton()
     this.renderCartItemList()
     this.setVisible(false)
@@ -36,6 +39,7 @@ export class Cart extends SubScreen {
       (item: StoreItem) => {
         const parent = this.parent as Nile
         parent.removeFromCart(item.id)
+        this.updateCartSubtotal()
         this.renderCartItemList()
       }
     )
@@ -50,7 +54,7 @@ export class Cart extends SubScreen {
     this.confirmOrderButton = new Button({
       scene: this.scene,
       x: Constants.WINDOW_WIDTH / 2,
-      y: this.subtotalLabelText.y + this.subtotalLabelText.displayHeight + 40,
+      y: this.remainingBankBalanceLabel.y + this.remainingBankBalanceLabel.displayHeight + 40,
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,
       text: 'Confirm Order',
@@ -113,18 +117,51 @@ export class Cart extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
-  public onRender(data?: any): void {
+  setupRemainingBankBalance() {
+    this.remainingBankBalanceLabel = this.scene.add
+      .text(
+        15,
+        this.subtotalLabelText.y + this.subtotalLabelText.displayHeight + 15,
+        'Remaining Bank Balance',
+        {
+          fontSize: '20px',
+          color: 'black',
+          fontFamily: 'Arial',
+        }
+      )
+      .setOrigin(0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.remainingBankBalanceValue = this.scene.add
+      .text(Constants.WINDOW_WIDTH - 15, this.remainingBankBalanceLabel.y, '', {
+        fontSize: '20px',
+        color: 'black',
+        fontFamily: 'Arial',
+      })
+      .setOrigin(1, 0)
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+  }
+
+  updateCartSubtotal() {
     const cart = Save.getData(SaveKeys.NILE_CART) as StoreItem[]
+    const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const subtotal = cart.reduce((acc, curr) => {
       return acc + curr.price
     }, 0)
     this.subtotalValueText.setText(`$${subtotal.toFixed(2)}`)
+    const remainingBankBalance = bankBalance - subtotal
+    this.remainingBankBalanceValue.setText(`$${remainingBankBalance.toFixed(2)}`)
+  }
+
+  public onRender(data?: any): void {
+    this.updateCartSubtotal()
     this.renderCartItemList()
   }
 
   public setVisible(isVisible: boolean): void {
     this.subtotalLabelText.setVisible(isVisible)
     this.subtotalValueText.setVisible(isVisible)
+    this.remainingBankBalanceLabel.setVisible(isVisible)
+    this.remainingBankBalanceValue.setVisible(isVisible)
     this.confirmOrderButton.setVisible(isVisible)
     this.cartItemsDomElement.setVisible(isVisible)
   }
