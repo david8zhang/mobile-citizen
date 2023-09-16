@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
   return (
     <div
@@ -9,7 +11,7 @@ export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

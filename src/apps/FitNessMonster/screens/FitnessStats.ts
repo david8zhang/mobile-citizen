@@ -21,7 +21,7 @@ export class FitnessStats extends SubScreen {
       .text(0, 0, 'Fitness Grade', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
@@ -52,14 +52,14 @@ export class FitnessStats extends SubScreen {
       .text(30, yPos + 40, 'Total Energy Level', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.totalEnergyLevelValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 30, yPos + 40, `${totalEnergyLevel}`, {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(1, 0)
@@ -72,7 +72,7 @@ export class FitnessStats extends SubScreen {
         {
           fontSize: '20px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -84,7 +84,7 @@ export class FitnessStats extends SubScreen {
         {
           fontSize: '20px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

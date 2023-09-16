@@ -74,7 +74,8 @@ export class TopBar {
     const knowledgeGrade = Utils.convertKnowledgeLevelToGrade(knowledgeLevel) as Grade
     this.knowledgeValueText = this.scene.add
       .text(this.fullnessLabel.x - 30, 5, `${knowledgeGrade}`, {
-        fontSize: '18px',
+        fontSize: '16px',
+        fontFamily: 'BalsamiqSans-Regular',
         color: 'white',
         strokeThickness: 1,
       })
@@ -92,7 +93,8 @@ export class TopBar {
 
     this.fitnessValueText = this.scene.add
       .text(this.knowledgeLabel.x - 30, 5, `${fitnessGrade}`, {
-        fontSize: '18px',
+        fontSize: '16px',
+        fontFamily: 'BalsamiqSans-Regular',
         color: 'white',
         strokeThickness: 1,
       })
@@ -115,7 +117,8 @@ export class TopBar {
         5,
         `${energyLevel}/${totalEnergyLevel}`,
         {
-          fontSize: '18px',
+          fontSize: '16px',
+          fontFamily: 'BalsamiqSans-Regular',
           color: 'white',
           strokeThickness: 1,
         }
@@ -132,7 +135,8 @@ export class TopBar {
     const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
     this.numNotificationsText = this.scene.add
       .text(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5, `${notifications.length}`, {
-        fontSize: '18px',
+        fontSize: '16px',
+        fontFamily: 'BalsamiqSans-Regular',
         color: 'white',
         strokeThickness: 1,
       })
@@ -159,8 +163,9 @@ export class TopBar {
   setupCurrDateLabel() {
     const currDay = Save.getData(SaveKeys.CURR_DATE) as number
     this.currDateLabel = this.scene.add
-      .text(this.powerButton.x + 30, 5, `Day ${currDay}`, {
-        fontSize: '18px',
+      .text(this.powerButton.x + 25, 5, `Day ${currDay}`, {
+        fontSize: '16px',
+        fontFamily: 'BalsamiqSans-Regular',
         color: 'white',
       })
       .setStroke('#ffffff', 1)

@@ -3,9 +3,9 @@ import { DashEats } from '../DashEats'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { MenuItemList } from '~/apps/DashEats/web-ui/MenuItemList'
-import { DashEatsConstants } from '../DashEatsConstants'
 import { Utils } from '~/utils/Utils'
 import { DE_ScreenTypes } from '../DEScreenTypes'
+import { DASH_EATS_MENU_ITEMS } from '~/content/DashEatsMenuItems'
 
 export class Menu extends SubScreen {
   private headerText: Phaser.GameObjects.Text
@@ -16,7 +16,7 @@ export class Menu extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'Menu', {
         fontSize: '35px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
@@ -29,15 +29,10 @@ export class Menu extends SubScreen {
 
   setupMenuItemList() {
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
-    const menuItemList = MenuItemList(
-      DashEatsConstants.DASH_EATS_MENU_ITEMS,
-      Constants.WINDOW_WIDTH,
-      600,
-      (data) => {
-        const parent = this.parent as DashEats
-        parent.renderSubscreen(DE_ScreenTypes.MENU_ITEM, data)
-      }
-    )
+    const menuItemList = MenuItemList(DASH_EATS_MENU_ITEMS, Constants.WINDOW_WIDTH, 600, (data) => {
+      const parent = this.parent as DashEats
+      parent.renderSubscreen(DE_ScreenTypes.MENU_ITEM, data)
+    })
     this.menuItemListDom = this.scene.add
       .dom(0, yPos, menuItemList)
       .setOrigin(0)

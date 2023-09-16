@@ -8,7 +8,7 @@ export const TransactionsList = (data, height, width) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: 'BalsamiqSans-Regular',
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

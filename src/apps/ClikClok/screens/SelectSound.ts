@@ -6,6 +6,7 @@ import { SoundList } from '~/apps/ClikClok/web-ui/SoundList'
 import { ClikClokConstants, EarningPotential } from '../ClikClokConstants'
 import { Utils } from '~/utils/Utils'
 import { Save, SaveKeys } from '~/utils/Save'
+import { SOUNDS_LIST } from '~/content/ClikClokSounds'
 
 export interface SongConfig {
   name: string
@@ -34,7 +35,7 @@ export class SelectSound extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, 0, 'Pick a Sound', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -56,7 +57,7 @@ export class SelectSound extends SubScreen {
     const yPos = this.selectSoundLabel.y
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL)
     const soundsList = SoundList(
-      ClikClokConstants.SOUNDS_LIST,
+      SOUNDS_LIST,
       520,
       Constants.WINDOW_WIDTH,
       (data) => {

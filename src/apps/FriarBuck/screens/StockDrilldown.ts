@@ -60,10 +60,9 @@ export class StockDrilldown extends SubScreen {
       .text(15, this.costBasisLabel.y + this.costBasisLabel.displayHeight + 25, 'Stock Tips', {
         fontSize: '18px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_BOLD,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setStroke('#000000', 1)
       .setOrigin(0)
     this.stockTip = new StockTip(this.scene, {
       position: {
@@ -78,10 +77,9 @@ export class StockDrilldown extends SubScreen {
       .text(15, this.chart.y + this.chart.displayHeight + 40, 'Position', {
         fontSize: '18px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_BOLD,
       })
       .setOrigin(0)
-      .setStroke('#000000', 1)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.shareWorthLabel = this.scene.add
       .text(
@@ -91,7 +89,7 @@ export class StockDrilldown extends SubScreen {
         {
           fontSize: '16px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0)
@@ -100,7 +98,7 @@ export class StockDrilldown extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, this.shareWorthLabel.y, '', {
         fontSize: '16px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -113,7 +111,7 @@ export class StockDrilldown extends SubScreen {
         {
           fontSize: '16px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0)
@@ -127,7 +125,7 @@ export class StockDrilldown extends SubScreen {
         {
           fontSize: '16px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(1, 0)
@@ -141,7 +139,7 @@ export class StockDrilldown extends SubScreen {
         {
           fontSize: '16px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -150,7 +148,7 @@ export class StockDrilldown extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, this.totalGrowthLabel.y, '', {
         fontSize: '16px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(1, 0)
@@ -159,7 +157,7 @@ export class StockDrilldown extends SubScreen {
       .text(15, this.totalGrowthLabel.y + this.totalGrowthLabel.displayHeight + 15, 'Cost Basis', {
         fontSize: '16px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -168,7 +166,7 @@ export class StockDrilldown extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, this.costBasisLabel.y, '', {
         fontSize: '16px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(1, 0)
@@ -199,7 +197,7 @@ export class StockDrilldown extends SubScreen {
         {
           fontSize: '18px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -209,7 +207,7 @@ export class StockDrilldown extends SubScreen {
       .text(20, this.stockSymbol.y + this.stockSymbol.displayHeight + 15, '', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -217,7 +215,7 @@ export class StockDrilldown extends SubScreen {
       .text(20, this.stockName.y + this.stockName.displayHeight + 15, '', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -229,7 +227,7 @@ export class StockDrilldown extends SubScreen {
       width: Constants.WINDOW_WIDTH / 2 - 15,
       height: 40,
       textColor: 'black',
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '18px',
       onClick: () => {
         const parent = this.parent as FriarBuck
@@ -251,7 +249,7 @@ export class StockDrilldown extends SubScreen {
       width: Constants.WINDOW_WIDTH / 2 - 15,
       height: 40,
       textColor: 'black',
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '18px',
       onClick: () => {
         const parent = this.parent as FriarBuck

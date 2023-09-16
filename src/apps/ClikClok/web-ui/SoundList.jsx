@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const SoundList = (sounds, height, width, onClick, energyLevel) => {
   return (
     <div
@@ -8,7 +10,7 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

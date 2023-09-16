@@ -25,10 +25,9 @@ export class FitnessGradeCircle {
       .text(Constants.WINDOW_WIDTH / 2, this.fitnessGradeCircle.y - 25, config.fitnessGrade, {
         fontSize: '80px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_BOLD,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-      .setStroke('black', 3)
 
     this.fitnessGradeLabel.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.fitnessGradeLabel.displayWidth / 2,
@@ -38,7 +37,7 @@ export class FitnessGradeCircle {
       .text(0, 0, `${config.fitnessPoints}`, {
         fontSize: '40px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.fitnessGradePoints.setPosition(

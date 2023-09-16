@@ -58,7 +58,7 @@ export class BottomNavOption {
         {
           fontSize: '15px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

@@ -42,7 +42,7 @@ export class PortfolioScreen extends SubScreen {
       .text(20, Constants.TOP_BAR_HEIGHT + 20, 'Investing', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -50,7 +50,7 @@ export class PortfolioScreen extends SubScreen {
       .text(20, this.headerText.y + this.headerText.displayHeight + 15, '', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -61,7 +61,7 @@ export class PortfolioScreen extends SubScreen {
       .text(20, this.portfolioValue.y + this.portfolioValue.displayHeight + 15, 'Daily growth: ', {
         fontSize: '15px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -73,7 +73,7 @@ export class PortfolioScreen extends SubScreen {
         {
           fontSize: '15px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

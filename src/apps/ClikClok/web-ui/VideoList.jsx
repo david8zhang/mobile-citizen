@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const VideoList = (videos, currDay, height, width, onClick) => {
   return (
     <div
@@ -8,7 +10,7 @@ export const VideoList = (videos, currDay, height, width, onClick) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

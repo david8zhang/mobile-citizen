@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const CartItemList = (cartItems, width, height, onRemoveItem) => {
   return (
     <div
@@ -9,7 +11,7 @@ export const CartItemList = (cartItems, width, height, onRemoveItem) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

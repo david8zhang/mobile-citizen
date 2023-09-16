@@ -40,7 +40,7 @@ export class OrderConfirm extends SubScreen {
       onClick: () => {
         this.orderItem()
       },
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '20px',
       scene: this.scene,
       backgroundColor: 0xffffff,
@@ -55,7 +55,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, 'Confirm Order', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
@@ -68,7 +68,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -77,7 +77,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -88,7 +88,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -97,7 +97,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -108,7 +108,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, 'Total Cost', {
         fontSize: '22px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setStroke('black', 1)
       .setOrigin(0)
@@ -121,7 +121,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '22px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setStroke('black', 1)
       .setOrigin(1, 0)
@@ -146,7 +146,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, 'Balance After Purchase', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -155,7 +155,7 @@ export class OrderConfirm extends SubScreen {
       .text(0, 0, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)

@@ -33,7 +33,7 @@ export class Profile extends SubScreen {
         {
           fontSize: '25px',
           color: 'black',
-          fontFamily: 'Helvetica',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

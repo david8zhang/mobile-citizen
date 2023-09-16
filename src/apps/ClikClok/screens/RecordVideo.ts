@@ -58,7 +58,7 @@ export class RecordVideo extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, '', {
         fontSize: '40px',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.setupCompletedVideoText()

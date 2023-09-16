@@ -32,7 +32,7 @@ export class MyHealth extends App {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 40, 'MyHealth', {
         fontSize: '40px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)

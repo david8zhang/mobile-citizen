@@ -15,6 +15,7 @@ import { BankTransactions } from '../Bank/Bank'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Notification } from '~/core/NotificationListScreen'
 import { Utils } from '~/utils/Utils'
+import { Constants } from '~/utils/Constants'
 
 export class ClikClok extends App {
   public navbar: Navbar
@@ -31,7 +32,7 @@ export class ClikClok extends App {
       height: 50,
       appName: 'ClikClok',
       fontStyle: {
-        fontFamily: 'Helvetica',
+        fontFamily: Constants.FONT_BOLD,
         color: 'black',
         fontSize: '20px',
       },

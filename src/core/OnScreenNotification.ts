@@ -43,7 +43,7 @@ export class OnScreenNotification {
         {
           fontSize: '18px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -57,7 +57,7 @@ export class OnScreenNotification {
         {
           fontSize: '15px',
           color: '#777777',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -107,7 +107,7 @@ export class OnScreenNotification {
       .text(xPos, this.dismissBtnRect.y + this.dismissBtnRect.displayHeight / 2, 'Dismiss', {
         fontSize: '15px',
         color: '#777777',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.dismissBtnText.setPosition(

@@ -30,7 +30,7 @@ export class Earnings extends SubScreen {
         {
           fontSize: '40px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -42,7 +42,7 @@ export class Earnings extends SubScreen {
         {
           fontSize: '16px',
           color: '#777777',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const StockList = (id, stocks, headerText, width, height, onClick) => {
   return (
     <div
@@ -8,7 +10,7 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}
@@ -17,6 +19,7 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
         style={{
           color: 'black',
           fontWeight: 'bold',
+          fontFamily: Constants.FONT_BOLD,
           fontSize: '20px',
           marginTop: '0px',
           marginBottom: '0px',

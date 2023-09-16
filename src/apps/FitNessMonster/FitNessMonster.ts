@@ -1,15 +1,15 @@
 import { Home } from '~/scenes/Home'
 import { App } from '../App'
-import { FNM_BottomNav } from './FNMBottomNav'
 import { FNM_ScreenTypes } from './FNMScreenTypes'
 import { SubScreen } from '~/core/SubScreen'
 import { FitnessStats } from './screens/FitnessStats'
 import { WorkoutSelect } from './screens/WorkoutSelect'
 import { WorkoutScreen } from './screens/WorkoutScreen'
 import { CompletedWorkout } from './screens/CompletedWorkout'
+import { BottomNav } from '~/core/BottomNav'
 
 export class FitNessMonster extends App {
-  public bottomNav: FNM_BottomNav
+  public bottomNav: BottomNav
   private screenMappings: {
     [key in FNM_ScreenTypes]?: SubScreen
   }
@@ -17,7 +17,19 @@ export class FitNessMonster extends App {
 
   constructor(scene: Home) {
     super(scene)
-    this.bottomNav = new FNM_BottomNav(this.scene, {
+    this.bottomNav = new BottomNav(this.scene, {
+      options: [
+        {
+          navOption: 'Workout',
+          iconTexture: 'dumbbell-solid',
+          route: FNM_ScreenTypes.CHOOSE_WORKOUT,
+        },
+        {
+          navOption: 'Stats',
+          iconTexture: 'heart-pulse-solid',
+          route: FNM_ScreenTypes.FITNESS_STATS,
+        },
+      ],
       onRoute: (route: FNM_ScreenTypes) => {
         this.renderSubscreen(route)
       },

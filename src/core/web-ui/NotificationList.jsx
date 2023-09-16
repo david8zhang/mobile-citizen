@@ -7,7 +7,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
         padding: '0px 15px',
         height: `${height}px`,
         scrollbarWidth: 'none',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

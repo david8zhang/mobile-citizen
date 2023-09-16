@@ -222,6 +222,7 @@ export class Home extends Phaser.Scene {
   setupHomeButton() {
     this.homeButton = this.add
       .text(0, 0, 'Home', {
+        fontFamily: 'BalsamiqSans-Regular',
         fontSize: '15px',
         color: 'white',
       })

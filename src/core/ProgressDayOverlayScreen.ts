@@ -24,7 +24,7 @@ export class ProgressDayOverlayScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, '', {
         fontSize: '30px',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.continueButton = new Button({
@@ -33,7 +33,7 @@ export class ProgressDayOverlayScreen {
       width: 200,
       height: 50,
       backgroundColor: 0xffffff,
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '18px',
       scene: this.scene,
       text: 'Continue',

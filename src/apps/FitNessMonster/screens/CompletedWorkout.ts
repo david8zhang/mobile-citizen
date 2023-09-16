@@ -35,7 +35,7 @@ export class CompletedWorkout extends SubScreen {
       .text(0, 0, 'Completed Workout!', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
@@ -69,7 +69,7 @@ export class CompletedWorkout extends SubScreen {
       .text(30, 414, 'Fitness gain', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0, 0.5)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -81,7 +81,7 @@ export class CompletedWorkout extends SubScreen {
         {
           fontSize: '20px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0, 0.5)
@@ -106,7 +106,7 @@ export class CompletedWorkout extends SubScreen {
         {
           fontSize: '30px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0, 0.5)
@@ -130,6 +130,7 @@ export class CompletedWorkout extends SubScreen {
       strokeWidth: 1,
       depth: Constants.SORT_LAYERS.APP_UI,
       fontSize: '20px',
+      fontFamily: Constants.FONT_REGULAR,
     })
   }
 
@@ -140,7 +141,7 @@ export class CompletedWorkout extends SubScreen {
       .text(0, 0, `Workout Grade: ${workoutGradeForScore}`, {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.workoutGradeText.setPosition(
@@ -163,7 +164,7 @@ export class CompletedWorkout extends SubScreen {
     this.fitnessPointIncreaseValue = this.scene.add.text(0, 0, `+${data.fitnessGain}`, {
       fontSize: '25px',
       color: 'black',
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
     })
     this.fitnessPointIncreaseValue
       .setPosition(Constants.WINDOW_WIDTH - 30, Math.round(this.fitnessGradeCircle.y + 140))
@@ -172,7 +173,7 @@ export class CompletedWorkout extends SubScreen {
     this.fitnessPointBonusValue = this.scene.add.text(0, 0, `+${bonusFitnessGain}`, {
       fontSize: '25px',
       color: 'black',
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
     })
     this.fitnessPointBonusValue
       .setPosition(
@@ -189,7 +190,7 @@ export class CompletedWorkout extends SubScreen {
         {
           fontSize: '30px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(1, 0.5)

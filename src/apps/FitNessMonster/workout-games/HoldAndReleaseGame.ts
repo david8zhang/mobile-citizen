@@ -65,7 +65,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
       .text(0, 0, 'Hold key and release!', {
         fontSize: '18px',
         color: '#555555',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
@@ -157,7 +157,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
         {
           fontSize: '30px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -168,7 +168,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, config.headerText, {
         fontSize: '35px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(

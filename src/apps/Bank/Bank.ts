@@ -28,7 +28,7 @@ export class Bank extends App {
       fontStyle: {
         fontSize: '22px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       },
     })
     this.setupBankBalanceText()
@@ -44,7 +44,7 @@ export class Bank extends App {
         {
           fontSize: '50px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -56,7 +56,7 @@ export class Bank extends App {
         {
           fontSize: '20px',
           color: '#777777',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -74,11 +74,10 @@ export class Bank extends App {
     const yPos = this.bankBalanceLabel.y + this.bankBalanceLabel.displayHeight + 30
     this.transactionLabel = this.scene.add
       .text(15, yPos + 30, 'RECENT TRANSACTIONS', {
-        fontSize: '14px',
+        fontSize: '15px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_BOLD,
       })
-      .setStroke('#000000', 1)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.transactionListDivider = this.scene.add
       .line(0, 0, 15, yPos, Constants.WINDOW_WIDTH - 15, yPos, 0x999999)

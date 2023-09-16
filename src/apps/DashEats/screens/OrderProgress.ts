@@ -40,7 +40,7 @@ export class OrderProgress extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 20, 'Order in Progress', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(
@@ -58,7 +58,7 @@ export class OrderProgress extends SubScreen {
         {
           fontSize: '50px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -81,7 +81,7 @@ export class OrderProgress extends SubScreen {
       strokeWidth: 1,
       text: 'Collect',
       fontSize: '18px',
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       textColor: 'black',
       backgroundColor: 0xffffff,
       depth: Constants.SORT_LAYERS.APP_UI,

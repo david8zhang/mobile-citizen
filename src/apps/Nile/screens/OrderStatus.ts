@@ -24,7 +24,7 @@ export class OrderStatus extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, 'My Orders', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.headerText.setPosition(

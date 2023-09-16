@@ -1,5 +1,6 @@
 import { FitNessMonster } from '~/apps/FitNessMonster/FitNessMonster'
 import { FitNessMonsterConstants } from '~/apps/FitNessMonster/FitNessMonsterConstants'
+import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 
 export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height, onClick) => {
@@ -11,7 +12,7 @@ export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height
         padding: '0px 15px',
         height: `${height}px`,
         scrollbarWidth: 'none',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

@@ -6,7 +6,6 @@ import { MenuItemType } from '../DashEatsConstants'
 import { DeliveryOption, DeliveryOptionType } from '../DeliveryOption'
 import { Button } from '~/core/Button'
 import { Save, SaveKeys } from '~/utils/Save'
-import { BankTransactions } from '~/apps/Bank/Bank'
 import { DE_ScreenTypes } from '../DEScreenTypes'
 
 export class MenuItem extends SubScreen {
@@ -39,7 +38,7 @@ export class MenuItem extends SubScreen {
       .text(15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -47,7 +46,7 @@ export class MenuItem extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
         fontSize: '30px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -55,7 +54,7 @@ export class MenuItem extends SubScreen {
       .text(15, this.itemName.y + this.itemName.displayHeight + 15, '', {
         fontSize: '18px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -67,7 +66,7 @@ export class MenuItem extends SubScreen {
         {
           fontSize: '18px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0)
@@ -76,7 +75,7 @@ export class MenuItem extends SubScreen {
       .text(15, this.fitnessBonus.y + this.fitnessBonus.displayHeight + 15, '', {
         fontSize: '18px',
         color: '#444444',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -88,7 +87,7 @@ export class MenuItem extends SubScreen {
         {
           fontSize: '20px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -117,7 +116,7 @@ export class MenuItem extends SubScreen {
       height: 50,
       text: 'Select a delivery option',
       backgroundColor: 0xffffff,
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '20px',
       strokeWidth: 1,
       strokeColor: 0x000000,

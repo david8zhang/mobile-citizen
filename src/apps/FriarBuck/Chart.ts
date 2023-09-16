@@ -61,7 +61,7 @@ export class Chart {
         .text(Constants.WINDOW_WIDTH / 2, (config.position.y + config.height) / 2, 'No data', {
           fontSize: '30px',
           color: '#777777',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         })
         .setDepth(Constants.SORT_LAYERS.APP_UI)
       this.placeholderText.setPosition(

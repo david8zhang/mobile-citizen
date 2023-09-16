@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) => {
   return (
     <div
@@ -9,7 +11,7 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}
@@ -66,7 +68,13 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
                     </p>
                   </div>
                   <button
-                    style={{ width: '100%' }}
+                    style={{
+                      width: '100%',
+                      fontFamily: Constants.FONT_REGULAR,
+                      backgroundColor: 'white',
+                      border: '2px solid #555',
+                      borderRadius: '5px',
+                    }}
                     onClick={() => {
                       onAddToCart(item)
                     }}

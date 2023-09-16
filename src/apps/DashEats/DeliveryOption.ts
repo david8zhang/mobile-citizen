@@ -45,7 +45,7 @@ export class DeliveryOption {
       .text(this.bgRect.x + 15, this.bgRect.y + 15, titleText, {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -54,7 +54,7 @@ export class DeliveryOption {
       .text(this.bgRect.x + 15, this.bgRect.y + this.bgRect.displayHeight - 30, durationText, {
         fontSize: '16px',
         color: '#444444',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
@@ -67,7 +67,7 @@ export class DeliveryOption {
           {
             fontSize: '15px',
             color: 'black',
-            fontFamily: 'Arial',
+            fontFamily: Constants.FONT_REGULAR,
           }
         )
         .setOrigin(1)

@@ -36,7 +36,7 @@ export class GameOver extends Phaser.Scene {
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 3, this.getMessageForReason(), {
         fontSize: '30px',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     gameOverReasonText.setPosition(
@@ -50,7 +50,7 @@ export class GameOver extends Phaser.Scene {
       },
       width: 150,
       height: 50,
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '20px',
       textColor: 'black',
       backgroundColor: 0xffffff,

@@ -19,7 +19,7 @@ export class ProgressDayConfirmModal {
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'Progress to the next day?', {
         fontSize: '24px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.MODAL)
       .setWordWrapWidth(320, true)
@@ -43,6 +43,7 @@ export class ProgressDayConfirmModal {
       strokeColor: 0x000000,
       strokeWidth: 1,
       fontSize: '15px',
+      fontFamily: Constants.FONT_REGULAR,
     })
 
     this.denyButton = new Button({
@@ -59,6 +60,7 @@ export class ProgressDayConfirmModal {
       strokeColor: 0x000000,
       strokeWidth: 1,
       fontSize: '15px',
+      fontFamily: Constants.FONT_REGULAR,
     })
     this.setVisible(false)
   }

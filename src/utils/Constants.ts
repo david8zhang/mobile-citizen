@@ -21,4 +21,7 @@ export class Constants {
     APP_BG: 200,
     HOME: 100,
   }
+
+  public static FONT_REGULAR = 'BalsamiqSans-Regular'
+  public static FONT_BOLD = 'BalsamiqSans-Bold'
 }

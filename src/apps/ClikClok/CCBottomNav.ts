@@ -62,7 +62,7 @@ export class CC_BottomNav {
         {
           fontSize: '12px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -109,7 +109,7 @@ export class CC_BottomNav {
         {
           fontSize: '12px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)

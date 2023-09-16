@@ -41,7 +41,7 @@ export class StockTip {
       .text(position.x, position.y, '', {
         fontSize: '18px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -50,7 +50,7 @@ export class StockTip {
       .text(position.x, position.y, '', {
         fontSize: '18px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)

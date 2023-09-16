@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const HealthStatList = (healthStats, width, height) => {
   return (
     <div
@@ -8,7 +10,7 @@ export const HealthStatList = (healthStats, width, height) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}

@@ -59,7 +59,7 @@ export class Cart extends SubScreen {
       height: 50,
       text: 'Confirm Order',
       depth: Constants.SORT_LAYERS.APP_UI,
-      fontFamily: 'Arial',
+      fontFamily: Constants.FONT_REGULAR,
       fontSize: '18px',
       backgroundColor: 0xffffff,
       strokeWidth: 1,
@@ -103,7 +103,7 @@ export class Cart extends SubScreen {
       .text(15, Constants.TOP_BAR_HEIGHT + 20, 'Subtotal', {
         fontSize: '25px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -111,7 +111,7 @@ export class Cart extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, Constants.TOP_BAR_HEIGHT + 20, '', {
         fontSize: '25px',
         color: ' black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -126,7 +126,7 @@ export class Cart extends SubScreen {
         {
           fontSize: '20px',
           color: 'black',
-          fontFamily: 'Arial',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setOrigin(0)
@@ -135,7 +135,7 @@ export class Cart extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 15, this.remainingBankBalanceLabel.y, '', {
         fontSize: '20px',
         color: 'black',
-        fontFamily: 'Arial',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(1, 0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
