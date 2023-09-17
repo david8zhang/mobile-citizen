@@ -9,6 +9,7 @@ export interface NavbarConfig {
     width: number
   }
   fontStyle?: Phaser.Types.GameObjects.Text.TextStyle
+  fillColor?: number
 }
 
 export class Navbar {
@@ -26,7 +27,7 @@ export class Navbar {
         Constants.WINDOW_WIDTH - Navbar.STROKE_WIDTH * 2,
         config.height
       )
-      .setFillStyle(0xffffff)
+      .setFillStyle(config.fillColor ? config.fillColor : 0xffffff)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     if (config.strokeStyle) {

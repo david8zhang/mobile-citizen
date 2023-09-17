@@ -55,6 +55,7 @@ export class CompletedVideo extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, '', {
         fontSize: '20px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
@@ -64,6 +65,7 @@ export class CompletedVideo extends SubScreen {
       .text(Constants.WINDOW_WIDTH - 20, Constants.WINDOW_HEIGHT / 2 + 20, 'Revenue: $0', {
         fontSize: '15px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.totalViewsLabel = this.scene.add
@@ -74,6 +76,7 @@ export class CompletedVideo extends SubScreen {
         {
           fontSize: '15px',
           color: 'white',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -84,12 +87,14 @@ export class CompletedVideo extends SubScreen {
       .text(15, this.totalViewsLabel.y + this.totalViewsLabel.displayHeight + 20, '@User', {
         fontSize: '15px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.hashTags = this.scene.add
       .text(15, this.profileName.y + this.profileName.displayHeight + 15, '#funny #dance', {
         fontSize: '15px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setStroke('#ffffff', 1)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -97,6 +102,7 @@ export class CompletedVideo extends SubScreen {
       .text(15, this.hashTags.y + this.hashTags.displayHeight + 15, 'Funny Dance', {
         fontSize: '15px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }

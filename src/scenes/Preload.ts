@@ -36,6 +36,7 @@ export class Preload extends Phaser.Scene {
     this.load.image('pizza-slice-solid', 'icons/pizza-slice-solid.svg')
     this.load.image('video-solid', 'icons/video-solid.svg')
     this.load.image('football-solid', 'icons/football-solid.svg')
+    this.load.image('newspaper-solid', 'icons/newspaper-solid.svg')
   }
 
   preload() {

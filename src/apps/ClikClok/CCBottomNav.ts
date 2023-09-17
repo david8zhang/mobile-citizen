@@ -126,7 +126,7 @@ export class CC_BottomNav {
         this.bgRect.y,
         CC_BottomNav.BUTTON_WIDTH,
         CC_BottomNav.BUTTON_WIDTH,
-        0xdddddd
+        0x7100ff
       )
       .setInteractive()
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -143,11 +143,9 @@ export class CC_BottomNav {
         onCreateNew()
         this.button.setAlpha(1)
       })
-    this.buttonIcon = this.scene.add.sprite(
-      this.button.x + this.button.displayWidth / 2,
-      this.button.y,
-      'plus-solid'
-    )
+    this.buttonIcon = this.scene.add
+      .sprite(this.button.x + this.button.displayWidth / 2, this.button.y, 'plus-solid')
+      .setTintFill(0xffffff)
     this.buttonIcon.setDisplaySize(30, 30).setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 

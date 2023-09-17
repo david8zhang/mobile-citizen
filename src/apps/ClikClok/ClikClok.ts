@@ -33,9 +33,10 @@ export class ClikClok extends App {
       appName: 'ClikClok',
       fontStyle: {
         fontFamily: Constants.FONT_BOLD,
-        color: 'black',
+        color: 'white',
         fontSize: '20px',
       },
+      fillColor: 0x7100ff,
     })
     this.screenMappings = {
       [CC_ScreenTypes.PROFILE]: new Profile(this.scene, this),
@@ -65,8 +66,6 @@ export class ClikClok extends App {
   earnRevenueForVideos() {
     const currDate = Save.getData(SaveKeys.CURR_DATE) as number
     const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]
-    const bankTransactions = Save.getData(SaveKeys.RECENT_TRANSACTIONS) as BankTransactions[]
-    let bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const sortedByDateDesc = videos.sort((a, b) => {
       return b.creationDate - a.creationDate
     })

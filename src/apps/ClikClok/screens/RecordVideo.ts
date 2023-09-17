@@ -52,6 +52,7 @@ export class RecordVideo extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, '', {
         fontSize: '20px',
         color: 'white',
+        fontFamily: Constants.FONT_BOLD,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.countdownLabel = this.scene.add
@@ -73,6 +74,7 @@ export class RecordVideo extends SubScreen {
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'Finished recording!', {
         fontSize: '25px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.completedVideoLabel.setPosition(
@@ -86,13 +88,15 @@ export class RecordVideo extends SubScreen {
       },
       width: 100,
       height: 30,
-      textColor: 'black',
-      backgroundColor: 0x777777,
+      textColor: 'white',
+      backgroundColor: 0x7100ff,
       strokeWidth: 0,
       x: Constants.WINDOW_WIDTH / 2,
       y: this.completedVideoLabel.y + this.completedVideoLabel.displayHeight + 30,
       text: 'Post Video',
       depth: Constants.SORT_LAYERS.APP_UI,
+      fontSize: '15px',
+      fontFamily: Constants.FONT_REGULAR,
     })
     this.songScoreValueText = this.scene.add
       .text(
@@ -102,6 +106,7 @@ export class RecordVideo extends SubScreen {
         {
           fontSize: '50px',
           color: 'white',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -113,6 +118,7 @@ export class RecordVideo extends SubScreen {
         {
           fontSize: '30px',
           color: 'white',
+          fontFamily: Constants.FONT_REGULAR,
         }
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
@@ -143,9 +149,10 @@ export class RecordVideo extends SubScreen {
         this.recordButton.setAlpha(1)
       })
     this.recordButtonLabel = this.scene.add
-      .text(this.recordButton.x, this.recordButton.y - 75, 'Tap button to start recording!', {
+      .text(this.recordButton.x, this.recordButton.y - 75, 'Tap the button to start recording!', {
         fontSize: '15px',
         color: 'white',
+        fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.recordButtonLabel.setPosition(

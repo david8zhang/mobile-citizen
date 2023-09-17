@@ -42,6 +42,9 @@ export class Home extends Phaser.Scene {
     super('home')
   }
   create() {
+    this.add
+      .sprite(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'bg')
+      .setDisplaySize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)
     this.checkGameOver()
     Utils.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x30336b)

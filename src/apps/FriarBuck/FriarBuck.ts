@@ -11,6 +11,7 @@ import { INITIAL_STOCK_PRICES, STOCKS, VOLATILITY_THRESHOLDS } from '~/content/F
 import { Utils } from '~/utils/Utils'
 import { Stock, StockTipLevel, StockTips } from './FriarBuckConstants'
 import { TradeStockScreen } from './screens/TradeStockScreen'
+import { NewsScreen } from './screens/NewsScreen'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -26,6 +27,7 @@ export class FriarBuck extends App {
       [FB_ScreenTypes.BROWSE]: new Browse(this.scene, this),
       [FB_ScreenTypes.STOCK_DRILLDOWN]: new StockDrilldown(this.scene, this),
       [FB_ScreenTypes.TRADE_STOCK]: new TradeStockScreen(this.scene, this),
+      [FB_ScreenTypes.NEWS]: new NewsScreen(this.scene, this),
     }
     this.setupBottomNav()
     this.setVisible(false)
@@ -77,9 +79,9 @@ export class FriarBuck extends App {
           route: FB_ScreenTypes.BROWSE,
         },
         {
-          navOption: 'Account',
-          iconTexture: 'circle-user-solid',
-          route: FB_ScreenTypes.ACCOUNT,
+          navOption: 'News',
+          iconTexture: 'newspaper-solid',
+          route: FB_ScreenTypes.NEWS,
         },
       ],
       onRoute: (screen: FB_ScreenTypes) => {
