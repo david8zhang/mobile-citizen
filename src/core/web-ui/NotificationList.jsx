@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const NotificationList = (notificationList, width, height, onClick, onDismiss) => {
   return (
     <div

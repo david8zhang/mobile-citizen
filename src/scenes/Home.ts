@@ -34,6 +34,7 @@ export class Home extends Phaser.Scene {
   public onProgressDayCallbacks: Function[] = []
   private notificationListScreen!: NotificationListScreen
   private onScreenNotification!: OnScreenNotification
+  private sprite!: Phaser.GameObjects.Sprite
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
@@ -42,6 +43,9 @@ export class Home extends Phaser.Scene {
     super('home')
   }
   create() {
+    this.sprite = this.add
+      .sprite(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'bg')
+      .setDisplaySize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)
     this.checkGameOver()
     Utils.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x444444)
@@ -289,7 +293,7 @@ export class Home extends Phaser.Scene {
     APP_CONFIGS.forEach((config, index) => {
       if (index !== 0 && index % 4 == 0) {
         currX = startX
-        currY += appBoxWidth + Home.PADDING_BETWEEN_APPS
+        currY += appBoxWidth + Home.PADDING_BETWEEN_APPS + 25
       }
       this.apps.push(
         new AppIconBox(this, {
@@ -297,6 +301,7 @@ export class Home extends Phaser.Scene {
             x: currX,
             y: currY,
           },
+          spriteTexture: config.spriteTexture,
           width: appBoxWidth,
           height: appBoxWidth,
           name: config.name,

@@ -32,6 +32,10 @@ export class Preload extends Phaser.Scene {
     this.load.image('chart-line-solid', 'icons/chart-line-solid.svg')
     this.load.image('angle-left-solid', 'icons/angle-left-solid.svg')
     this.load.image('angle-right-solid', 'icons/angle-right-solid.svg')
+    this.load.image('building-columns-solid', 'icons/building-columns-solid.svg')
+    this.load.image('pizza-slice-solid', 'icons/pizza-slice-solid.svg')
+    this.load.image('video-solid', 'icons/video-solid.svg')
+    this.load.image('football-solid', 'icons/football-solid.svg')
   }
 
   preload() {
@@ -39,6 +43,7 @@ export class Preload extends Phaser.Scene {
     this.load.image('arrow-down', 'arrowDown.png')
     this.load.image('arrow-left', 'arrowLeft.png')
     this.load.image('arrow-right', 'arrowRight.png')
+    this.load.image('bg', 'bg.jpeg')
     this.loadIcons()
   }
 

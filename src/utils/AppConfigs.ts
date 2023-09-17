@@ -13,33 +13,41 @@ export const APP_CONFIGS = [
   {
     name: 'Bank',
     route: AppRoute.BANK,
+    spriteTexture: 'building-columns-solid',
   },
   {
-    name: 'Clik Clok',
+    name: 'ClikClok',
     route: AppRoute.CLIK_CLOK,
+    spriteTexture: 'video-solid',
   },
   {
-    name: 'Dash Eats',
+    name: 'DashEats',
     route: AppRoute.DASH_EATS,
+    spriteTexture: 'pizza-slice-solid',
   },
   {
-    name: 'Fit Ness Monster',
+    name: 'Fitness Monster',
     route: AppRoute.FIT_NESS_MONSTER,
+    spriteTexture: 'dumbbell-solid',
   },
   {
     name: 'My Health',
     route: AppRoute.MY_HEALTH,
+    spriteTexture: 'heart-pulse-solid',
   },
   {
     name: 'Nile',
     route: AppRoute.NILE,
+    spriteTexture: 'cart-shopping-solid',
   },
   {
     name: 'Friar Buck',
     route: AppRoute.FRIAR_BUCK,
+    spriteTexture: 'chart-line-solid',
   },
   {
-    name: 'Sporti Cash',
+    name: 'SportiCash',
     route: AppRoute.SPORTI_CASH,
+    spriteTexture: 'football-solid',
   },
 ]

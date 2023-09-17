@@ -51,6 +51,3 @@ export interface StockPrices {
     [stockSymbol: string]: number
   }
 }
-
-export const FB_FONT_REGULAR = 'Arial'
-export const FB_FONT_BOLD = 'CaviarDreams_Bold'
