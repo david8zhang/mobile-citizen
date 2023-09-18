@@ -3,7 +3,9 @@ import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { NewsStories } from '../web-ui/NewsStories'
-import { CLIK_CLOK_NEWS_STORIES } from '~/content/FriarBuckNewsTemplates'
+import { CLIK_CLOK_NEWS_STORIES, NEWS_COMPANIES } from '~/content/FriarBuckNewsTemplates'
+import { Utils } from '~/utils/Utils'
+import { FB_ScreenTypes } from '../FBscreenTypes'
 
 export class NewsScreen extends SubScreen {
   private newsStories!: Phaser.GameObjects.DOMElement
@@ -31,16 +33,21 @@ export class NewsScreen extends SubScreen {
   }
 
   setupNewsStoriesList() {
-    const newsStoriesList = NewsStories(
-      CLIK_CLOK_NEWS_STORIES.BULLISH,
-      Constants.WINDOW_WIDTH,
-      560,
-      () => {}
-    )
+    const stories = CLIK_CLOK_NEWS_STORIES.BULLISH.map((story) => {
+      return {
+        ...story,
+        newsCompany: NEWS_COMPANIES[Phaser.Math.Between(0, NEWS_COMPANIES.length - 1)],
+      }
+    })
+    const newsStoriesList = NewsStories(stories, Constants.WINDOW_WIDTH, 560, (article) => {
+      const parent = this.parent as FriarBuck
+      parent.renderSubscreen(FB_ScreenTypes.FULL_ARTICLE, article)
+    })
     this.newsStories = this.scene.add
       .dom(0, this.headerText.y + this.headerText.displayHeight + 30, newsStoriesList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+    Utils.setupDragToScroll('friar-buck-news-stories')
   }
 
   public onRender(data?: any): void {}

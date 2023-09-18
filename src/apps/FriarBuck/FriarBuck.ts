@@ -12,6 +12,7 @@ import { Utils } from '~/utils/Utils'
 import { Stock, StockTipLevel, StockTips } from './FriarBuckConstants'
 import { TradeStockScreen } from './screens/TradeStockScreen'
 import { NewsScreen } from './screens/NewsScreen'
+import { FullArticleScreen } from './screens/FullArticleScreen'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -28,6 +29,7 @@ export class FriarBuck extends App {
       [FB_ScreenTypes.STOCK_DRILLDOWN]: new StockDrilldown(this.scene, this),
       [FB_ScreenTypes.TRADE_STOCK]: new TradeStockScreen(this.scene, this),
       [FB_ScreenTypes.NEWS]: new NewsScreen(this.scene, this),
+      [FB_ScreenTypes.FULL_ARTICLE]: new FullArticleScreen(this.scene, this),
     }
     this.setupBottomNav()
     this.setVisible(false)

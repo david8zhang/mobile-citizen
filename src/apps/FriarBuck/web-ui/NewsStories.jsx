@@ -25,6 +25,7 @@ export const NewsStories = (stories, width, height, onClick) => {
               backgroundColor: 'white',
               marginBottom: '10px',
               display: 'flex',
+              cursor: 'pointer',
             }}
             onClick={() => {
               onClick(story)
@@ -32,7 +33,7 @@ export const NewsStories = (stories, width, height, onClick) => {
           >
             <div style={{ flex: 1, paddingRight: '15px' }}>
               <p style={{ margin: '0px', marginBottom: '10px', fontSize: '14px' }}>
-                {NEWS_COMPANIES[Phaser.Math.Between(0, NEWS_COMPANIES.length - 1)]}
+                {story.newsCompany}
               </p>
               <p style={{ margin: '0px', fontSize: '16px', paddingRight: '15px' }}>
                 {story.headline}
