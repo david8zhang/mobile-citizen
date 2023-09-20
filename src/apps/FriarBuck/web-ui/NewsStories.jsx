@@ -1,4 +1,3 @@
-import { NEWS_COMPANIES } from '~/content/FriarBuckNewsTemplates'
 import { Constants } from '~/utils/Constants'
 
 export const NewsStories = (stories, width, height, onClick) => {

@@ -1,5 +1,6 @@
 import { Home } from '~/scenes/Home'
-import { StockTipLevel, TipUpdate } from './FriarBuckConstants'
+import { TipUpdate } from './FriarBuckConstants'
+import { StockTipLevel } from '../../content/FriarBuck/StockTipLevel'
 import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 

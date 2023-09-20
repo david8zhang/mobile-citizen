@@ -8,10 +8,6 @@ export enum NewsType {
   VERY_BEARISH = 'VERY_BEARISH',
 }
 
-export const NEWS_TEMPLATES = {
-  [StockSymbols.CC]: {},
-}
-
 export const NEWS_COMPANIES = ['CBNC', 'Yippee Finance', 'York New Times', 'Wall Street Insider']
 
 export const CLIK_CLOK_NEWS_STORIES = {
@@ -148,4 +144,8 @@ export const CLIK_CLOK_NEWS_STORIES = {
       As Clik Clok continues to thrive and connect people through short-form video content, the platform's journey highlights the ever-growing demand for innovative and engaging digital experiences. The company's surge in users reaffirms its role as a leading influencer in the evolving landscape of digital media and short-form content creation.`,
     },
   ],
+}
+
+export const NEWS_TEMPLATES = {
+  [StockSymbols.CC]: CLIK_CLOK_NEWS_STORIES,
 }

@@ -1,13 +1,12 @@
 import { SubScreen } from '~/core/SubScreen'
 import { Home } from '~/scenes/Home'
 import { FriarBuck } from '../FriarBuck'
-import { PortfolioStock, PortfolioType, Stock } from '../FriarBuckConstants'
+import { INITIAL_STOCK_PRICES, PortfolioStock, PortfolioType, Stock } from '../FriarBuckConstants'
 import { Constants } from '~/utils/Constants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { NumSharesInput } from '../web-ui/NumSharesInput'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
-import { INITIAL_STOCK_PRICES } from '~/content/FriarBuckStocks'
 import { Button } from '~/core/Button'
 
 export class TradeStockScreen extends SubScreen {

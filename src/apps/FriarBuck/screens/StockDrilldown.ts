@@ -3,18 +3,17 @@ import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import {
+  INITIAL_STOCK_PRICES,
   PortfolioStock,
   PortfolioType,
   RecommendedAction,
   Stock,
-  StockTipLevel,
   StockTips,
   TipContent,
 } from '../FriarBuckConstants'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
-import { INITIAL_STOCK_PRICES, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
 import { Chart } from '../Chart'
 import { Button } from '~/core/Button'
 import { StockTip } from '../StockTip'
@@ -367,35 +366,9 @@ export class StockDrilldown extends SubScreen {
     }
   }
 
-  generateTipContent(stock: Stock): TipContent {
-    const buyOrSell =
-      Phaser.Math.Between(0, 1) == 0 ? RecommendedAction.BUY : RecommendedAction.SELL
-    const volatilityThreshold = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
-    if (buyOrSell == RecommendedAction.BUY) {
-      const pctChange = Phaser.Math.Between(1, volatilityThreshold.high * 100)
-      return {
-        [StockTipLevel.LEVEL_1]: buyOrSell,
-        [StockTipLevel.LEVEL_2]: pctChange / 100,
-        dateKey: Utils.getCurrDayKey(),
-      }
-    } else {
-      const pctChange = Phaser.Math.Between(volatilityThreshold.low * 100, -1)
-      return {
-        [StockTipLevel.LEVEL_1]: buyOrSell,
-        [StockTipLevel.LEVEL_2]: pctChange / 100,
-        dateKey: Utils.getCurrDayKey(),
-      }
-    }
-  }
-
   updateTipContent(stock: Stock) {
     const friarBuckTips = Save.getData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, {}) as StockTips
-    let currTip = friarBuckTips[stock.symbol] as TipContent | undefined
-    if (!currTip || currTip.dateKey !== Utils.getCurrDayKey()) {
-      currTip = this.generateTipContent(stock)
-      friarBuckTips[stock.symbol] = currTip
-      Save.setData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, friarBuckTips)
-    }
+    const currTip = friarBuckTips[stock.symbol] as TipContent
     this.stockTip.updateTipContent({
       tipContent: currTip,
       requirements: stock.knowledgeReqsForTip,

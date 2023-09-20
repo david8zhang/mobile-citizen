@@ -7,12 +7,24 @@ import { PortfolioScreen } from './screens/PortfolioScreen'
 import { Browse } from './screens/Browse'
 import { StockDrilldown } from './screens/StockDrilldown'
 import { Save, SaveKeys } from '~/utils/Save'
-import { INITIAL_STOCK_PRICES, STOCKS, VOLATILITY_THRESHOLDS } from '~/content/FriarBuckStocks'
+import { STOCKS, StockSymbols, VOLATILITY_THRESHOLDS } from '~/content/FriarBuck/FriarBuckStocks'
 import { Utils } from '~/utils/Utils'
-import { Stock, StockTipLevel, StockTips } from './FriarBuckConstants'
+import {
+  INITIAL_NEWS_COOLDOWNS,
+  INITIAL_STOCK_PRICES,
+  NEWS_COOLDOWN,
+  RecommendedAction,
+  Stock,
+  StockPrices,
+  StockTips,
+  TipContent,
+} from './FriarBuckConstants'
+import { StockTipLevel } from '../../content/FriarBuck/StockTipLevel'
 import { TradeStockScreen } from './screens/TradeStockScreen'
 import { NewsScreen } from './screens/NewsScreen'
 import { FullArticleScreen } from './screens/FullArticleScreen'
+import { NEWS_TEMPLATES, NewsType } from '~/content/FriarBuck/FriarBuckNewsTemplates'
+import { StockTip } from './StockTip'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -36,10 +48,128 @@ export class FriarBuck extends App {
     this.scene.onProgressDayCallbacks.push(() => {
       this.updateStockPrices()
     })
+    this.generateStockNewsAndTips()
+  }
+
+  getNewsTypeForProjectedChange(
+    projectedChange: number,
+    volatilityThreshold: { high: number; low: number }
+  ) {
+    let pctOfMaxChange = 0
+    if (projectedChange < 0) {
+      pctOfMaxChange = projectedChange / volatilityThreshold.low
+    } else {
+      pctOfMaxChange = projectedChange / volatilityThreshold.high
+    }
+    pctOfMaxChange *= 100
+    if (pctOfMaxChange >= 50) {
+      return projectedChange > 0 ? NewsType.VERY_BULLISH : NewsType.VERY_BEARISH
+    }
+    if (pctOfMaxChange >= 25 && pctOfMaxChange < 50) {
+      return projectedChange > 0 ? NewsType.BULLISH : NewsType.BEARISH
+    }
+    if (pctOfMaxChange < 25) {
+      return NewsType.NEUTRAL
+    }
+  }
+
+  generateStoryForSymbol(
+    symbol: StockSymbols,
+    projectedChange: number,
+    volatilityThreshold: { high: number; low: number }
+  ) {
+    const newsType = this.getNewsTypeForProjectedChange(projectedChange, volatilityThreshold)
+    if (NEWS_TEMPLATES[symbol]) {
+      const storiesToSelect = NEWS_TEMPLATES[symbol][newsType]
+      return storiesToSelect[Phaser.Math.Between(0, storiesToSelect.length - 1)]
+    }
+    return null
+  }
+
+  generateTipContent(stock: Stock): TipContent {
+    const buyOrSell =
+      Phaser.Math.Between(0, 1) == 0 ? RecommendedAction.BUY : RecommendedAction.SELL
+    const volatilityThreshold = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
+    if (buyOrSell == RecommendedAction.BUY) {
+      const pctChange = Phaser.Math.Between(1, volatilityThreshold.high * 100)
+      return {
+        [StockTipLevel.LEVEL_1]: buyOrSell,
+        [StockTipLevel.LEVEL_2]: pctChange / 100,
+        dateKey: Utils.getCurrDayKey(),
+      }
+    } else {
+      const pctChange = Phaser.Math.Between(volatilityThreshold.low * 100, -1)
+      return {
+        [StockTipLevel.LEVEL_1]: buyOrSell,
+        [StockTipLevel.LEVEL_2]: pctChange / 100,
+        dateKey: Utils.getCurrDayKey(),
+      }
+    }
+  }
+
+  shouldGenerateNewTips() {
+    const currStockTips = Save.getData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, {})
+    return (
+      Object.keys(currStockTips).length == 0 ||
+      (Object.values(currStockTips)[0] as TipContent).dateKey !== Utils.getCurrDayKey()
+    )
+  }
+
+  generateStockNewsAndTips() {
+    if (!this.shouldGenerateNewTips()) {
+      return
+    }
+
+    // Generate Tips for every stock
+    const stockTips = STOCKS.reduce((acc, curr) => {
+      acc[curr.symbol] = this.generateTipContent(curr)
+      return acc
+    }, {})
+    const symbolToStockMapping = STOCKS.reduce((acc, curr) => {
+      acc[curr.symbol] = curr
+      return acc
+    }, {})
+
+    // Generate News Based on Tips
+    const newsCooldowns = Save.getData(SaveKeys.FRIAR_BUCK_NEWS_COOLDOWN, INITIAL_NEWS_COOLDOWNS)
+    const stockSymbolsSortedByNewsRecency = Object.keys(newsCooldowns).sort((a, b) => {
+      const cooldownA = newsCooldowns[a]
+      const cooldownB = newsCooldowns[b]
+      if (cooldownA === cooldownB) {
+        return Phaser.Math.Between(0, 1) == 0 ? -1 : 1
+      }
+      return cooldownB - cooldownA
+    })
+    const symbolsToGenerateStoriesFor = stockSymbolsSortedByNewsRecency.slice(0, 5)
+    const newsStoriesForCurrDate = {}
+    symbolsToGenerateStoriesFor.forEach((symbol) => {
+      const volatilityThreshold =
+        VOLATILITY_THRESHOLDS[symbolToStockMapping[symbol].knowledgeReqForUnlock]
+      const projectedChange = stockTips[symbol][StockTipLevel.LEVEL_2]
+      const story = this.generateStoryForSymbol(
+        symbol as StockSymbols,
+        projectedChange,
+        volatilityThreshold
+      )
+      if (story) {
+        newsStoriesForCurrDate[symbol] = story
+        newsCooldowns[symbol] = NEWS_COOLDOWN
+      }
+    })
+
+    // Update tips, news, and cooldowns
+    Save.setData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, stockTips)
+    Save.setData(SaveKeys.FRIAR_BUCK_NEWS_STORIES, newsStoriesForCurrDate)
+    Object.keys(newsCooldowns).forEach((key) => {
+      if (!symbolsToGenerateStoriesFor.includes(key)) {
+        newsCooldowns[key] = Math.max(newsCooldowns[key] - 1, 0)
+      }
+    })
+    Save.setData(SaveKeys.FRIAR_BUCK_NEWS_COOLDOWN, newsCooldowns)
   }
 
   updateStockPrices() {
-    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES)
+    const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES) as StockPrices
     const symbolToStockMapping = STOCKS.reduce((acc, curr) => {
       acc[curr.symbol] = curr
       return acc

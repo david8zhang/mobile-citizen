@@ -3,7 +3,7 @@ import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { NewsStories } from '../web-ui/NewsStories'
-import { CLIK_CLOK_NEWS_STORIES, NEWS_COMPANIES } from '~/content/FriarBuckNewsTemplates'
+import { CLIK_CLOK_NEWS_STORIES, NEWS_COMPANIES } from '~/content/FriarBuck/FriarBuckNewsTemplates'
 import { Utils } from '~/utils/Utils'
 import { FB_ScreenTypes } from '../FBscreenTypes'
 

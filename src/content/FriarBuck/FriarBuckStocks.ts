@@ -1,4 +1,5 @@
-import { Stock, StockTipLevel } from '~/apps/FriarBuck/FriarBuckConstants'
+import { Stock } from '~/apps/FriarBuck/FriarBuckConstants'
+import { StockTipLevel } from '~/content/FriarBuck/StockTipLevel'
 import { Grade } from '~/core/TopBar'
 
 export enum StockSymbols {
@@ -16,25 +17,6 @@ export enum StockSymbols {
   GG = 'GG',
   BRB = 'BRB',
   ANC = 'ANC',
-}
-
-export const INITIAL_STOCK_PRICES = {
-  Day1: {
-    [StockSymbols.CC]: 10,
-    [StockSymbols.NILE]: 10,
-    [StockSymbols.DASH]: 10,
-    [StockSymbols.SPORT]: 10,
-    [StockSymbols.BANK]: 10,
-    [StockSymbols.BOOG]: 50,
-    [StockSymbols.FISH]: 50,
-    [StockSymbols.MRHD]: 50,
-    [StockSymbols.NDFX]: 50,
-    [StockSymbols.DIDN]: 100,
-    [StockSymbols.VVDA]: 100,
-    [StockSymbols.GG]: 250,
-    [StockSymbols.BRB]: 250,
-    [StockSymbols.ANC]: 250,
-  },
 }
 
 // Mapping between knowledge required for stock and volatility range
