@@ -80,7 +80,7 @@ export class FriarBuck extends App {
   ) {
     const newsType = this.getNewsTypeForProjectedChange(projectedChange, volatilityThreshold)
     if (NEWS_TEMPLATES[symbol]) {
-      const storiesToSelect = NEWS_TEMPLATES[symbol][newsType]
+      const storiesToSelect = NEWS_TEMPLATES[symbol]![newsType!]
       return storiesToSelect[Phaser.Math.Between(0, storiesToSelect.length - 1)]
     }
     return null
