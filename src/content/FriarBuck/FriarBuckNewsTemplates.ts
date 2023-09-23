@@ -14,135 +14,115 @@ export const CLIK_CLOK_NEWS_STORIES = {
   [NewsType.VERY_BEARISH]: [
     {
       headline: 'U.S. Authorities Consider Ban on Clik Clok Amidst Security Concerns',
-      text: `Clik Clok, the short-form video sharing company that has taken the world by storm, may be facing a potential ban in the United States as concerns mount over national security implications tied to the platform.
-
-      The U.S. government has been closely scrutinizing Clik Clok in recent months due to fears that the platform could pose a threat to user data security and national interests. While no official ban has been enacted as of yet, the possibility looms large.
-
-      The U.S. government's consideration of a ban on Clik Clok has sent shockwaves through the tech industry. Users and content creators on the platform are uncertain about the fate of their accounts, and investors have expressed concern about the potential impact on the company's stock.
-
-      Clik Clok has responded to these concerns with a pledge to improve data security, enhance content moderation, and ensure transparency in its operations. The company has also proposed discussions with U.S. regulators to address their concerns and avoid a ban.
-
-      The fate of Clik Clok in the United States remains uncertain, but the situation highlights the growing scrutiny and regulatory challenges faced by tech companies in the digital age. As discussions between Clik Clok and U.S. authorities continue, the outcome could have far-reaching implications for both the platform and the broader tech industry.
-      `,
+      text: '',
     },
     {
       headline: 'Clik Clok Stumbles as Earnings Fall Short of Projections',
-      text: `Clik Clok, the popular short-form video sharing company, found itself in a tough spot today as it announced that its quarterly earnings had fallen significantly short of analysts' projections. This disappointing news has sent shockwaves through the tech industry and rattled investors.
-
-      Clik Clok, once seen as a rising star in the social media landscape, has been grappling with mounting competition and evolving user preferences. The company's financial report for the most recent quarter revealed that its revenue and profit margins were substantially lower than anticipated.
-      
-      Clik Clok's leadership team has acknowledged the challenges it faces and has pledged to take decisive action to address the situation. They are considering various strategies to reignite user growth, enhance advertising offerings, and optimize costs.
-
-      As Clik Clok confronts these headwinds, industry analysts and shareholders are closely monitoring the company's next moves. Whether the short-form video platform can rebound from this setback and meet its future earnings projections remains uncertain. The coming months will be critical for Clik Clok as it strives to regain investor confidence and chart a path towards sustainable growth.`,
+      text: '',
+    },
+    { headline: 'Investor Confidence Plummets as ClikClok Faces Content Crisis', text: '' },
+    { headline: "ClikClok's Ad Revenue Takes a Nosedive, Raising Red Flags", text: '' },
+    {
+      headline: 'Regulatory Challenges Mount as ClikClok Grapples with Content Moderation',
+      text: '',
+    },
+    {
+      headline: 'Investors Flee as ClikClok Reports Ongoing Losses and Uncertain Future',
+      text: '',
+    },
+    { headline: 'Advertisers Pull Out of ClikClok Amidst Brand Safety Concerns', text: '' },
+    { headline: "ClikClok's User Base Shrinks Significantly, Dark Clouds Overhead", text: '' },
+    { headline: 'Content Controversies Continue to Plague ClikClok, Stock Prices Sink', text: '' },
+    {
+      headline: 'Market Experts Predict Tough Times Ahead for ClikClok in Crowded Market',
+      text: '',
     },
   ],
   [NewsType.BEARISH]: [
     {
       headline: 'Clik Clok Narrowly Misses Earnings, Offers Hope for Recovery',
-      text: `Clik Clok, the short-form video sharing company, narrowly missed its earnings projections for the latest quarter, but the smaller-than-expected margin has sparked optimism among investors and industry analysts about the company's potential for a swift recovery.
-
-      Clik Clok, which had been facing mounting pressure to meet its earnings targets after a period of stagnant growth, reported revenues that were just shy of analyst expectations. While this marks the company's second consecutive quarter of missed earnings, the narrower gap between projections and actual results has raised hopes that the worst may be behind them.
-
-      Investors initially reacted cautiously to the news, with Clik Clok's stock price dipping slightly. However, a closer look at the financial report revealed some positive trends, including a modest increase in user engagement and a decrease in operating costs.
-
-      Clik Clok's leadership team expressed their commitment to addressing the challenges head-on. They have outlined strategies to reignite user growth, strengthen advertising partnerships, and optimize expenses.
-
-      Market analysts have noted that the company's efforts to close the earnings gap indicate a potential turning point. While Clik Clok still has work ahead to meet investor expectations fully, the improved performance has fueled optimism about the company's ability to adapt to changing market dynamics.
-
-      As Clik Clok charts a path toward recovery and seeks to regain investor confidence, the tech industry is watching closely. Whether the company can sustain its momentum and achieve its next earnings targets will be a focal point of interest for shareholders and industry observers in the coming months.
-      `,
+      text: '',
     },
     {
       headline: 'Clik Clok Faces Uphill Battle as Growth Slows',
-      text: `Clik Clok, the once-booming short-form video sharing platform, is grappling with a challenging period as it experiences a notable slowdown in user growth. This development has raised concerns among investors, casting a shadow on the company's stock price.
-
-      Clik Clok, known for its viral videos and user-generated content, was one of the pioneers in the short-form video industry. However, recent data indicates that the platform's meteoric rise may be leveling off. User engagement and new sign-ups have shown signs of deceleration over the past few quarters, marking a departure from the company's previously exponential growth.
-      
-      The company's leadership has acknowledged the challenges it faces and has outlined plans to address them. These include improving content moderation, diversifying revenue streams, and exploring strategic partnerships.
-
-      Investors and industry analysts are closely monitoring Clik Clok's efforts to reverse its growth trajectory. Whether the company can reignite user interest and regain its position in the highly competitive short-form video market remains uncertain. As the battle for user attention continues, the future of Clik Clok and its stock price will be closely watched by investors and stakeholders alike.`,
+      text: '',
     },
+    { headline: 'ClikClok Faces Growing Competition in Crowded Short-Video Market', text: '' },
+    { headline: "Investors Show Caution as ClikClok's Growth Rate Slows", text: '' },
+    { headline: 'ClikClok Wrestles with Content Moderation Challenges', text: '' },
+    { headline: 'ClikClok Grapples with User Data Privacy Concerns', text: '' },
+    { headline: 'Regulatory Scrutiny Increases for ClikClok Amidst Expansion', text: '' },
+    { headline: "Investors Monitor ClikClok's Struggles to Attract Top Creators", text: '' },
+    { headline: 'Advertisers Seek Transparency from ClikClok in Brand Partnerships', text: '' },
+    { headline: "ClikClok's User Engagement Plateaus, Impact on Stock Value", text: '' },
+    { headline: 'Content Controversies Occasional Headache for ClikClok', text: '' },
+    { headline: "Market Uncertainty Affects ClikClok's Growth Trajectory", text: '' },
   ],
   [NewsType.NEUTRAL]: [
     {
       headline: 'Shrimptastic Craze Takes Over Clik Clok as Users Go Shellfish for Laughs',
-      text: `Move over, cat videos and dance challenges, there's a new sensation taking over Clik Clok, and it's as shrimply hilarious as it gets. The short-form video sharing platform has witnessed an unexpected surge in "shrimp content," leaving users cracking up and wondering if the shrimp invasion is here to stay.
-
-      In what can only be described as a tidal wave of shrimp-related content, Clik Clok users have been sharing short videos featuring everything from miniature shrimp doing interpretive dance to shrimp-themed comedy sketches. It seems that the crustacean charm has captivated the platform's community, with many videos going viral and racking up millions of views.
-      
-      The trend started innocently enough with a user named @ShrimpyDance, who posted a video of a tiny shrimp shimmying to a catchy tune. The clip quickly gained attention and inspired countless imitators. Soon, Clik Clok was flooded with shrimp-inspired creativity.
-      
-      Users have embraced the trend with enthusiasm, creating shrimp-centric skits, parodies, and even a few shrimp cooking tutorials for the more adventurous foodies. The hashtag #Shrimptastic has become a viral sensation, with users competing to come up with the wackiest shrimp-related content.
-      
-      "I never thought I'd say this, but shrimp have become the stars of Clik Clok," said @ShrimpyDance in an interview. "People love the little guys, and it's been a shell of a good time sharing their antics with the world."
-      
-      Shrimp enthusiasts and comedians are cashing in on the trend, with some even setting up merch shops selling shrimp-themed clothing and accessories. It seems that the shrimp craze is not only entertaining but also economically fruitful for those riding the shrimpy wave.
-      
-      Clik Clok's leadership is both bemused and amused by the shrimp phenomenon. "We've seen trends come and go, but this one definitely takes the cake, or should I say, the shrimp cocktail," remarked the platform's spokesperson.
-      
-      While no one knows how long the shrimp content trend will last, one thing is clear: Clik Clok users are having a shell of a time, and the shrimp invasion shows no signs of slowing down. So, if you're in need of a good laugh or just some shrimptastic entertainment, hop on Clik Clok and join the fun!`,
+      text: '',
     },
+    {
+      headline:
+        'ClikClok User Breaks World Record for Most Dance Challenges Attempted in One Hour!',
+      text: '',
+    },
+    {
+      headline: "ClikClok Announces New 'Dad Joke Challenge' Trend, World Groans in Anticipation",
+      text: '',
+    },
+    {
+      headline: "Local Cat Takes Over ClikClok: Officially Crowned 'Purrfect' Content Creator",
+      text: '',
+    },
+    {
+      headline:
+        "ClikClok's CEO Attempts Viral 'Coffeemaker Dance' – Results Hilariously Predictable",
+      text: '',
+    },
+    {
+      headline: 'ClikClok Influencer Discovers Secret Society of Sock Puppet Enthusiasts',
+      text: '',
+    },
+    {
+      headline: "User Claims to Have Found a Portal to the 'Dance Dimension' on ClikClok",
+      text: '',
+    },
+    { headline: "ClikClok User Conducts 'Alien Interview' Series with a Tin Foil Hat", text: '' },
   ],
   [NewsType.BULLISH]: [
     {
       headline:
         'Clik Clok Breathes Sigh of Relief as Privacy Violation Fine Comes in Lower Than Expected',
-      text: `Clik Clok, the embattled short-form video sharing company, received a somewhat unexpected reprieve as the fine for its recent user privacy law violations turned out to be smaller than originally anticipated. While the penalty still represents a significant setback, the reduced amount has provided the company with a bit of breathing room.
-
-      Clik Clok had been under scrutiny for alleged breaches of user privacy laws, including unauthorized data collection and sharing user information with third parties. The violations prompted regulatory investigations and calls for substantial fines, but the final judgment handed down was notably lower than initial expectations.
-
-      The fine, which amounted to $150 million, is considered a substantial sum but falls short of the more substantial penalties that had been speculated by privacy advocates and industry observers.
-
-      The company, which has faced a significant public relations crisis in the wake of the privacy scandal, expressed its commitment to rectifying its privacy practices and implementing enhanced data protection measures. Clik Clok's leadership team has also issued a public apology for the privacy lapses.
-
-      Privacy experts and advocates are divided in their responses to the reduced fine. Some argue that it sends a message that privacy violations will not be met with the severity they deserve, while others believe it strikes a balance by holding Clik Clok accountable while allowing the company to continue its efforts to reform its privacy policies.
-
-      As Clik Clok navigates the aftermath of the privacy violation and the associated fine, the company remains under close scrutiny from users, regulators, and the wider tech industry. The incident underscores the ongoing importance of robust data privacy practices in the digital age and the consequences companies face when they fail to meet those standards.
-    `,
+      text: '',
     },
     {
       headline: 'Clik Clok Surprises Investors with Slightly Better-Than-Expected Earnings',
-      text: `In a delightful turn of events, Clik Clok, the popular short-form video sharing company, has exceeded the expectations of investors by reporting slightly higher earnings for the past quarter. The positive news has provided a boost of confidence in the platform's ability to rebound from recent challenges.
-
-      Clik Clok's financial report, released earlier this week, revealed that the company's earnings exceeded analyst projections by a modest margin. While it may not be a dramatic surge, the unexpected improvement has been met with enthusiasm among shareholders and industry experts.
-      
-      The company had faced scrutiny in recent months due to missed earnings targets and a competitive landscape. However, the slight earnings beat suggests that Clik Clok is making progress in its efforts to recover and adapt to changing market dynamics.
-
-      The positive news has resulted in a modest uptick in Clik Clok's stock price, offering some relief to investors who had weathered uncertainty in recent quarters.
-
-      Clik Clok's leadership team remains cautiously optimistic and committed to implementing strategies aimed at long-term growth and stability. The company continues to work on enhancing user experiences, expanding its advertising offerings, and exploring new revenue streams.
-
-      As Clik Clok navigates the evolving landscape of short-form video sharing, the slight earnings beat is seen as a step in the right direction. The company's ability to sustain this positive momentum will be closely monitored by shareholders and industry observers in the coming quarters, as they anticipate further improvements and innovations in the world of short-form content.
-      `,
+      text: '',
     },
+    { headline: "Investors Remain Optimistic About ClikClok's Potential for Growth", text: '' },
+    { headline: 'ClikClok Partners with Charities to Raise Awareness for Social Causes', text: '' },
+    { headline: "ClikClok's User Engagement Continues to Show Steady Growth", text: '' },
+    { headline: 'Advertisers Recognize ClikClok as a Platform for Authentic Engagement', text: '' },
+    { headline: "Content Creators Flourish on ClikClok's Supportive Platform", text: '' },
+    { headline: "ClikClok's Long-Term Vision Aligns with Positive Industry Trends", text: '' },
+    { headline: 'ClikClok Transforms Lives: Stories of Success from Content Creators', text: '' },
   ],
   [NewsType.VERY_BULLISH]: [
     {
       headline:
         'Clik Clok Surpasses Earnings Expectations, Shining Bright in the Short-Form Video Industry',
-      text: `Clik Clok, the popular short-form video sharing platform, has left investors and industry experts pleasantly surprised by announcing earnings that have beaten expectations for the most recent quarter. The news has fueled optimism about the platform's potential and future growth.
-
-      Clik Clok's financial report, released yesterday, revealed earnings that exceeded analyst projections by a significant margin. The impressive performance comes as a breath of fresh air for the company, which had faced challenges and uncertainty in previous quarters.
-      
-      Clik Clok's leadership team expressed their gratitude to the platform's dedicated user base and content creators for their role in this success. They also emphasized their commitment to maintaining this positive momentum, vowing to continue investing in innovative features, content quality, and user experiences.
-
-      The positive earnings report has reinforced Clik Clok's position as a formidable player in the short-form video sharing industry. The company's ability to consistently exceed earnings expectations highlights its resilience and adaptability in the highly competitive world of social media and digital content.
-
-      As Clik Clok celebrates this impressive financial milestone, the tech industry will be watching closely to see how the platform leverages this success to further solidify its presence and continue shaping the future of short-form video sharing.`,
+      text: '',
     },
     {
       headline:
         'Clik Clok Celebrates Surging User Growth, Expanding Its Reach in the Short-Form Video World',
-      text: `Clik Clok, the dynamic short-form video sharing platform, is celebrating a significant milestone as it announces a substantial increase in its user base, reinforcing its status as a prominent player in the world of short-form video content.
-
-      The company's latest report showcases a remarkable 30% surge in active users over the past quarter, marking a resounding success in its ongoing mission to create an engaging and diverse digital community.
-
-      The announcement of this substantial increase in users has reverberated throughout the tech industry, sparking excitement among investors and industry experts alike. The platform's expanding reach presents new opportunities for creators and advertisers, further solidifying its position in the short-form video landscape.
-
-      Clik Clok's leadership team expressed their gratitude to the passionate community of users and content creators who have contributed to this achievement. They also reaffirmed their commitment to fostering an environment of creativity, diversity, and user satisfaction.
-
-      As Clik Clok continues to thrive and connect people through short-form video content, the platform's journey highlights the ever-growing demand for innovative and engaging digital experiences. The company's surge in users reaffirms its role as a leading influencer in the evolving landscape of digital media and short-form content creation.`,
+      text: '',
     },
+    { headline: 'ClikClok Hits a Billion Downloads, Changing the Face of Social Media', text: '' },
+    { headline: "ClikClok's Positive Impact: Fostering Creativity and Connection", text: '' },
+    { headline: 'ClikClok Empowers the Next Generation of Content Creators', text: '' },
   ],
 }
 
@@ -150,148 +130,111 @@ export const NILE_NEWS_STORIES = {
   [NewsType.VERY_BEARISH]: [
     {
       headline: 'Nile, Prominent Online Retailer, Faces Financial Turmoil as Earnings Plummet',
-      text: `Nile, the once-thriving online retail giant, is now grappling with a financial crisis as it falls short of earnings expectations, leaving investors and industry experts questioning the company's future.
-
-      For years, Nile had been a dominant player in the e-commerce sector, offering a vast array of products and services to millions of customers worldwide. However, recent financial reports reveal a stark contrast to the company's previous success.
-      
-      In the most recent quarterly earnings report, Nile reported earnings per share (EPS) significantly below analysts' forecasts, marking the third consecutive quarter of disappointing results. The company's revenue also showed a marked decline, raising concerns about its ability to compete in an increasingly competitive online retail landscape. Industry analysts are divided on whether Nile can reverse its fortunes. Some believe that the company's long-standing reputation and customer loyalty could provide a foundation for recovery. Others, however, point to the deep-seated issues within the company's operations that need immediate attention.
-
-      To address the crisis, Nile's management has announced a series of cost-cutting measures, including staff layoffs and the restructuring of its supply chain operations. Additionally, the company plans to launch a new marketing campaign in an effort to regain lost market share.
-      
-      As Nile navigates these turbulent waters, shareholders, employees, and the entire e-commerce industry will be closely watching to see if the online retail giant can overcome its earnings woes and once again thrive in a fiercely competitive market.
-      
-      It remains to be seen whether Nile can successfully weather this financial storm and emerge as a stronger and more resilient player in the online retail industry.`,
+      text: '',
     },
     {
       headline:
         'Nile Online Retailer Faces Financial Setback with Major Losses in Virtual Assistant Division',
-      text: `Nile, the fictional online retail juggernaut, finds itself in the midst of a financial challenge as it reports significant losses within its once-promising virtual assistant division, sending ripples through the tech industry and raising questions about the company's strategic direction.
-
-      The virtual assistant department at Nile, which was established to develop cutting-edge AI-driven virtual assistants for customer support and e-commerce assistance, has been a central focus of the company's innovation efforts. However, recent financial disclosures indicate that these endeavors have not yielded the expected returns.
-      
-      In the latest quarterly report, Nile announced substantial losses directly attributed to its virtual assistant division. These losses were primarily due to the high costs associated with research and development, as well as the deployment and maintenance of the virtual assistant technology. The company cited the need for substantial investments in AI and machine learning capabilities as a major contributing factor to the division's financial woes.`,
+      text: '',
+    },
+    { headline: 'Nile Faces Mounting Lawsuits Over Alleged Unfair Business Practices', text: '' },
+    { headline: 'Nile Under Investigation for Alleged Privacy Breach, Users Concerned', text: '' },
+    { headline: 'Nile Accused of Exploitative Labor Practices in Warehouses', text: '' },
+    { headline: 'Regulatory Scrutiny Grows: Nile Faces Antitrust Concerns', text: '' },
+    { headline: 'Investor Confidence Wavers as Nile Reports Disappointing Earnings', text: '' },
+    { headline: 'Nile Grapples with Escalating Customer Complaints and Returns', text: '' },
+    { headline: 'Nile Faces Boycott Threats Over Environmental Sustainability Concerns', text: '' },
+    {
+      headline: 'Market Experts Predict a Challenging Future for Nile Amidst Controversies',
+      text: '',
     },
   ],
   [NewsType.BEARISH]: [
     {
       headline: 'Nile Video Stumbles as Subscriber Numbers Fall Short of Expectations',
-      text: `Nile Video, the streaming service subsidiary of the online retail giant Nile, is facing challenges as it reports worse-than-expected subscriber numbers, raising concerns about the platform's competitive position in the crowded streaming market.
-
-      Nile Video had entered the streaming arena with high hopes and aggressive marketing campaigns, leveraging Nile's existing customer base to build a formidable platform. However, recent reports indicate that the streaming service has struggled to meet its subscriber growth targets.
-
-      In the latest quarterly report, Nile announced that Nile Video's subscriber numbers fell short of internal expectations. While the platform continues to attract viewers, the rate of growth has been slower than anticipated. Nile Video's subscriber base is now considerably smaller than that of its major competitors in the streaming industry.`,
+      text: '',
     },
     {
       headline:
         'Nile Game Studios Cancels MMO Sensation "Grand Adventure" Amidst Overwhelming Negative Feedback',
-      text: `Nile Game Studios, a subsidiary of the online retail titan Nile, has sent shockwaves through the gaming world as it announces the sudden cancellation of its ambitious MMO project, "Grand Adventure," citing overwhelmingly negative user feedback from early alpha tests as the driving force behind the decision.
-
-      "Grand Adventure" had captured the imagination of gamers worldwide with its promise of a vast virtual world filled with epic quests, immersive gameplay, and cutting-edge graphics. However, the dream has now come to a screeching halt as Nile Game Studios grapples with the fallout from unfavorable reactions during alpha testing.
-      
-      The decision to cancel "Grand Adventure" was made after a comprehensive evaluation of user feedback from the alpha testing phase, which revealed a range of critical issues, including gameplay mechanics, server stability, and a perceived lack of innovation. Nile Game Studios expressed deep regret over the disappointment this cancellation may bring to the gaming community.
-      
-      In a press release, Nile Game Studios stated, "We deeply appreciate the passion and enthusiasm of our gaming community and acknowledge their invaluable feedback during the alpha testing phase of 'Grand Adventure.' Unfortunately, the project faced significant challenges that hindered our ability to deliver the high-quality experience we had envisioned."
-      
-      The cancellation of "Grand Adventure" is a significant blow to Nile Game Studios, which had pinned high hopes on the MMO game to establish a strong foothold in the competitive gaming industry. Many gamers had eagerly anticipated the title as a potential game-changer in the MMO genre.
-      
-      Reactions to the cancellation have been mixed, with some gamers expressing understanding of the studio's decision given the negative feedback, while others voiced frustration and disappointment over the sudden end to a game they had eagerly awaited.
-      
-      Industry analysts are now speculating on the impact of this cancellation on Nile Game Studios' reputation and future gaming endeavors. The studio, previously seen as a rising star in the gaming industry, now faces the challenge of regaining trust and confidence from the gaming community.
-      
-      Nile Game Studios has indicated that it remains committed to delivering engaging gaming experiences and will continue to invest in game development. The studio plans to learn from the "Grand Adventure" experience and channel its resources into future projects.
-      
-      As Nile Game Studios reevaluates its gaming strategies and regroups after the cancellation of "Grand Adventure," gamers and industry observers will be watching closely to see how the studio aims to bounce back in the fiercely competitive gaming market.`,
+      text: '',
     },
+    { headline: "Nile's Stock Sees Minor Downturn Amidst Market Volatility", text: '' },
+    { headline: 'Investors Exercise Caution as Nile Reports Modest Earnings Growth', text: '' },
+    { headline: 'Nile Faces Scrutiny Over Alleged Privacy Concerns', text: '' },
+    { headline: "Nile's Expansion Plans Raise Questions Among Investor Community", text: '' },
+    { headline: 'Nile Struggles with Regulatory Compliance in International Markets', text: '' },
+    { headline: "Investors Monitor Nile's Efforts to Address Worker Welfare", text: '' },
+    { headline: "Market Reacts Cautiously to Nile's New Product Offerings", text: '' },
+    { headline: "Nile's Delivery Delays Lead to Customer Frustration", text: '' },
+    { headline: 'Nile Faces Growing Competition in the Online Retail Sector', text: '' },
+    { headline: "Investors Express Concerns About Nile's Ad Campaign Effectiveness", text: '' },
   ],
   [NewsType.NEUTRAL]: [
     {
       headline: 'Brave Nile Delivery Driver Fends Off Mountain Lion in Daring Encounter',
-      text: `n a harrowing incident that has captivated the nation, a Nile delivery driver displayed remarkable courage as he fought off a wild mountain lion while on duty, underscoring the unexpected challenges that come with delivering packages in rural and wildlife-rich areas.
-
-      The dramatic encounter occurred when John Davis, a dedicated Nile delivery driver, was on his route in a remote mountainous region. As Davis approached a residence to make a delivery, he noticed a mountain lion lurking nearby. The big cat, startled by Davis's presence, became aggressive and moved closer.
-      
-      In a split-second decision, Davis, who had received safety training from Nile, acted swiftly and resolutely to defend himself. Armed only with a can of bear spray, he managed to fend off the mountain lion, spraying it in the face and causing the startled animal to retreat.
-      
-      Davis's quick thinking and bravery saved him from potential harm, and he emerged from the encounter with only minor injuries, primarily scratches and bruises. He immediately contacted local authorities to report the incident, ensuring that wildlife officials could assess the situation and protect the surrounding community.
-      
-      Nile, the online retail giant, commended Davis for his heroic actions and emphasized the safety measures and training it provides to its delivery personnel. In a statement, Nile stated, "The safety of our employees is our top priority. We are incredibly proud of John's courage and quick response during this unexpected encounter."
-      
-      The incident serves as a stark reminder of the challenges faced by delivery drivers, particularly those delivering to remote and rural areas where encounters with wildlife can be a real risk. Nile, like other delivery companies, places great importance on ensuring the safety of its employees and provides training to help them navigate various scenarios they may encounter on the job.
-      
-      Wildlife experts have noted that mountain lion encounters in such areas are relatively rare, but they can happen. They advise individuals in similar situations to remain calm, make themselves appear larger, and use any available deterrents, such as bear spray, as a last resort.
-      
-      John Davis's bravery in the face of danger has earned him widespread admiration, and his story serves as a testament to the resilience and determination of those who work in the delivery industry, especially in challenging environments.`,
+      text: '',
     },
     {
       headline:
         'Nile, Leading Online Retailer, Takes Bold Step to Erase Carbon Emissions, Aims for Net Zero by 2040',
-      text: `Nile, a prominent online retailer known for its commitment to innovation, has made an extraordinary commitment to combat climate change by pledging to eliminate carbon emissions from its operations, aiming for net-zero emissions by 2040. This forward-looking sustainability initiative marks a significant stride toward a greener future within the e-commerce industry.
-
-      Nile's carbon emissions reduction plan is an encompassing strategy aimed at tackling emissions at their source and implementing comprehensive sustainability measures across its entire supply chain.
-      
-      The announcement has garnered enthusiastic support from environmental organizations, climate activists, and customers alike. Nile's pledge aligns with global efforts to combat climate change and showcases the influence of corporations in driving positive change.
-
-      Nile's determination to reach net-zero carbon emissions by 2040 places it at the forefront of sustainability initiatives in the e-commerce sector. The company's commitment serves as an exemplary model for reducing the environmental impact of online retail and demonstrates the influential role businesses can play in addressing critical environmental challenges.
-      
-      As Nile embarks on its journey toward a carbon-neutral future, the world will be closely watching the company's progress. Nile's pledge represents a monumental step toward a more sustainable and environmentally responsible business model, inspiring hope and setting a commendable example for sustainability within the industry.`,
+      text: '',
     },
     {
       headline: 'Nile Unveils Cutting-Edge Drone Delivery Service, Revolutionizing Online Shopping',
-      text: `Nile, the pioneering online retailer, has officially entered a new era of e-commerce by announcing the launch of its cutting-edge drone delivery service. With this innovative move, Nile aims to reshape the way customers receive their online orders, offering a faster, more eco-friendly, and highly convenient delivery experience.
-
-      The introduction of Nile's drone delivery service signifies a monumental step forward in the e-commerce industry, as the company harnesses the latest advancements in drone technology to offer a unique and efficient delivery solution.
-      
-      To ensure the safe and efficient deployment of its drone fleet, Nile has invested in state-of-the-art technology, including advanced navigation systems, obstacle avoidance mechanisms, and comprehensive safety protocols. The company is also collaborating with local authorities and aviation agencies to comply with regulations and maintain the highest standards of safety.
-
-      The announcement of Nile's drone delivery service has generated widespread excitement among customers, technology enthusiasts, and industry experts. Many anticipate that this innovative approach will set new industry standards and inspire other companies to explore similar delivery solutions.
-      
-      As Nile's cutting-edge drone delivery service takes flight, it promises to redefine the online shopping experience, offering customers unprecedented speed, efficiency, and environmental responsibility. The future of e-commerce has arrived, and Nile is at the forefront of this exciting transformation.`,
+      text: '',
     },
+    { headline: "Nile's Ambitious Plan to Expand Into Space Commerce Sparks Excitement", text: '' },
+    { headline: "Nile's CEO Pledges $1 Billion for Environmental Conservation Efforts", text: '' },
+    { headline: "Nile Introduces Revolutionary 'Green Packaging' to Reduce Waste", text: '' },
+    { headline: "Nile's Innovative Virtual Shopping Experience Sets Industry Standard", text: '' },
+    { headline: "Nile's AI-Powered Customer Service Chatbots Earn Rave Reviews", text: '' },
+    { headline: "Nile Launches 'Nile for Good' Initiative, Aims to Combat Hunger", text: '' },
+    {
+      headline: "Nile's Cutting-Edge Warehouse Robotics Revolutionize Order Fulfillment",
+      text: '',
+    },
+    { headline: "Nile's Partnership with Local Artisans Boosts Small Business Growth", text: '' },
+    { headline: "Nile's Philanthropic Arm Donates Millions to Disaster Relief Efforts", text: '' },
+    { headline: "Nile's Commitment to Sustainability: Carbon-Neutral Shipping by 2030", text: '' },
   ],
   [NewsType.BULLISH]: [
     {
       headline: `Nile's Strategic Product Announcements Boost Investor Confidence in Web Services Division`,
-      text: `Nile, the influential online retailer, has witnessed a surge in investor confidence following a series of strategic product announcements in its rapidly expanding Web Services Division. The company's forward-thinking approach to diversifying its offerings has resonated with investors, indicating a promising future for Nile's technological ventures.
-
-      Nile's recent product announcements have underscored the company's commitment to innovation and its desire to leverage its technological expertise beyond traditional e-commerce. The Web Services Division, responsible for developing and managing cloud-based solutions and applications, has unveiled several key offerings that have piqued investor interest. 
-      
-      Nile's strategic expansion into web services aligns with broader industry trends, where the demand for cloud-based solutions and data-driven insights is steadily rising. The company's proven track record of delivering exceptional customer experiences and its strong brand reputation give investors added confidence in its ability to excel in this new venture.
-
-      As investor confidence in Nile continues to soar, the company's journey into web services represents a strategic evolution that could reshape its future and solidify its position as a tech-savvy industry leader. The positive response to these key product announcements underscores Nile's potential to diversify and excel in the dynamic landscape of digital services.`,
+      text: '',
     },
     {
       headline: 'Nile Stages Remarkable Comeback: Bounces Back from Challenging Financial Quarter',
-      text: `Nile, the renowned online retailer, has demonstrated extraordinary resilience and strategic prowess as it successfully navigates a significant turnaround following a challenging financial quarter. The company's ability to bounce back from adversity highlights its commitment to adaptability and innovation in the ever-evolving e-commerce landscape.
-
-      Nile's recent financial quarter had presented a set of unexpected challenges, including disruptions in supply chains, increased competition, and shifts in consumer spending patterns. However, the company's response to these challenges has been nothing short of remarkable.
-      
-      As Nile celebrates its remarkable comeback, the company is well-positioned to capitalize on its newfound momentum and set new industry standards in the competitive e-commerce sector. The turnaround serves as a reminder of the resilience and adaptability that define Nile's corporate ethos and its determination to thrive in an ever-changing business landscape.`,
+      text: '',
     },
+    { headline: 'Nile Reports Steady Growth Despite Market Challenges', text: '' },
+    { headline: "Investors Remain Optimistic About Nile's Long-Term Potential", text: '' },
+    { headline: "Nile's Customer-Centric Approach Draws Positive Feedback", text: '' },
+    { headline: 'Nile Expands Global Footprint, Fostering Investor Confidence', text: '' },
+    { headline: "Nile's Commitment to Sustainability Earns Praise", text: '' },
+    { headline: "Nile's Innovations Enhance User Experience, Attracting Interest", text: '' },
+    { headline: "Market Analysts Acknowledge Nile's Resilience and Adaptability", text: '' },
+    { headline: "Nile's Brand Recognition Grows, Bolstering Investor Trust", text: '' },
+    { headline: "Nile's Long-Term Strategy Aligned with Industry Trends", text: '' },
   ],
   [NewsType.VERY_BULLISH]: [
     {
       headline:
         'Nile Online Retailer Surpasses Earnings Expectations, Reflecting Remarkable Growth',
-      text: `Nile, the renowned online retailer, has reported a spectacular quarter, exceeding earnings expectations and demonstrating remarkable growth that has captivated investors and industry analysts alike. The company's robust financial performance reflects its continued ascent in the competitive e-commerce landscape.
-
-      Nile's latest earnings report, released today, revealed earnings per share (EPS) and revenue figures that surpassed even the most optimistic forecasts. This surge in earnings can be attributed to several key factors that have propelled Nile to new heights in the online retail sector. 
-      
-      Nile's earnings exceed expectations not only showcase its financial strength but also underscore the resilience and adaptability of the e-commerce sector as a whole. The online retailer's remarkable growth serves as a testament to the increasing importance of e-commerce in the modern retail landscape and its ability to thrive in dynamic and challenging market conditions.
-
-      As Nile continues to exceed earnings expectations and shape the future of online retail, the company's success story remains a source of inspiration for both industry peers and consumers alike. With its commitment to innovation and customer satisfaction, Nile is well-positioned to maintain its upward trajectory in the world of e-commerce.
-      `,
+      text: '',
     },
     {
       headline: `Nile's Video Streaming Platform Sees Explosive Growth: Subscriber Numbers Skyrocket`,
-      text: `Nile, the renowned online retailer, is celebrating a major triumph as its subsidiary, Nile Video, announces a significant surge in subscriber numbers. The remarkable increase in subscribers highlights Nile Video's growing influence in the competitive world of video streaming platforms.
-
-      Nile Video, a streaming platform known for its diverse content library and user-friendly interface, has experienced explosive growth in recent months. The company's latest subscriber numbers reveal an impressive increase, far exceeding expectations and solidifying its position as a formidable player in the streaming industry. 
-      
-      The surge in Nile Video's subscribers has drawn attention from industry analysts, who recognize the platform's potential to challenge established streaming giants. The company's ability to adapt to changing viewer preferences and its focus on content quality have been cited as contributing factors to its rapid growth.
-
-      As Nile Video continues to expand its content library and enhance its user experience, it aims to attract an even broader audience and cement its status as a prominent player in the competitive streaming landscape.
-      
-      The substantial increase in subscribers marks a significant milestone for Nile Video and reaffirms the company's commitment to providing top-notch streaming services to its customers. With its growing subscriber base and continued dedication to innovation, Nile Video is poised for an exciting future in the world of online streaming.`,
+      text: '',
+    },
+    { headline: 'Nile Achieves Record-Breaking Sales, Solidifying Market Dominance', text: '' },
+    { headline: 'Investors Celebrate as Nile Reports Stellar Q3 Earnings', text: '' },
+    { headline: "Nile's Innovation Hub Drives Technological Advancements in E-Commerce", text: '' },
+    { headline: "Nile's Seamless Shopping Experience Resonates with Users Worldwide", text: '' },
+    { headline: "Positive Outlook: Analysts Bullish on Nile's Continued Success", text: '' },
+    {
+      headline: "Nile's Visionary Leadership Paves the Way for Future Growth and Innovation",
+      text: '',
     },
   ],
 }
@@ -310,6 +253,22 @@ export const DASH_NEWS_STORIES = {
       headline: 'DashEats Stock Takes a Hit Amidst Increasing Operating Costs',
       text: '',
     },
+    { headline: 'DashEats Faces Severe Backlash Over Alleged Delivery Mishaps', text: '' },
+    { headline: 'Investor Panic as DashEats Stock Crashes Amidst Earnings Plunge', text: '' },
+    { headline: "DashEats' App Security Under Scrutiny, User Data Privacy Concerns", text: '' },
+    {
+      headline: "DashEats' Labor Practices Draw Ire, Accusations of Worker Exploitation",
+      text: '',
+    },
+    { headline: 'Regulatory Challenges Loom as DashEats Expands into New Markets', text: '' },
+    { headline: 'Investor Confidence Plummets as DashEats Reports Disastrous Quarter', text: '' },
+    { headline: 'DashEats Grapples with Escalating Customer Complaints and Disputes', text: '' },
+    { headline: 'DashEats Faces Boycott Threats Over Alleged Pricing Gouging', text: '' },
+    {
+      headline: 'Market Experts Predict Uphill Battle for DashEats in Competitive Sector',
+      text: '',
+    },
+    { headline: 'DashEats Hit with Class-Action Lawsuit for Unfair Business Practices', text: '' },
   ],
   [NewsType.BEARISH]: [
     {
@@ -847,7 +806,6 @@ export const MRHD_NEWS_STORIES = {
     },
   ],
   [NewsType.BULLISH]: [
-    { headline: 'MacroHard Stock Holds Steady Amidst Market Volatility', text: '' },
     { headline: "Investors Express Confidence in MacroHard's Consistent Performance", text: '' },
     { headline: "MacroHard's Latest Product Updates Receive Positive Feedback", text: '' },
     { headline: "MacroHard's CEO Optimistic About Future Growth Opportunities", text: '' },
@@ -887,19 +845,595 @@ export const MRHD_NEWS_STORIES = {
     { headline: 'MacroHard Faces Short-Term Challenges as It Navigates Tech Landscape', text: '' },
   ],
   [NewsType.VERY_BEARISH]: [
-    { headline: 'MacroHard Stock Plummets as Earnings Fall Far Below Expectations', text: '' },
     { headline: 'Investors Flee as MacroHard Faces Severe Data Breach Scandal', text: '' },
     { headline: "MacroHard's Bleak Revenue Forecast Sends Shockwaves Through Market", text: '' },
-    {
-      headline: 'MacroHard CEO Resigns Amidst Mounting Controversies and Stock Collapse',
-      text: '',
-    },
     { headline: 'Regulatory Troubles Loom Large Over Troubled MacroHard', text: '' },
     { headline: 'Investor Confidence in MacroHard Reaches an All-Time Low', text: '' },
-    { headline: "MacroHard's Stock Nosedives Amidst Growing Advertiser Boycott", text: '' },
     { headline: 'Market Experts Predict a Grim Future for MacroHard Amidst Scandals', text: '' },
     { headline: 'MacroHard Faces Massive User Exodus Following Privacy Debacle', text: '' },
-    { headline: 'Investors Abandon Ship as MacroHard Becomes a Tech Industry Pariah', text: '' },
+  ],
+}
+
+export const NDFX_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    {
+      headline: 'Nedflix Emerges as Top Streaming Choice with Record-Breaking Subscribers',
+      text: '',
+    },
+    { headline: 'Investors Rejoice as Nedflix Reports Exceptional Q4 Earnings', text: '' },
+    { headline: 'Nedflix Dominates the Streaming Market with Premium Original Content', text: '' },
+    { headline: 'Nedflix Receives Rave Reviews for Diverse and Inclusive Programming', text: '' },
+    { headline: 'Nedflix CEO Named Visionary Leader for Transforming Entertainment', text: '' },
+    { headline: "Nedflix's User-Centric Approach Earns Unprecedented Viewer Loyalty", text: '' },
+    { headline: "Industry Experts Bullish on Nedflix's Global Expansion Strategy", text: '' },
+    {
+      headline: 'Nedflix Wins Multiple Awards for Outstanding Original Series and Films',
+      text: '',
+    },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'Nedflix Continues to Gain Ground with Growing Subscriber Base', text: '' },
+    { headline: "Investors Show Confidence in Nedflix's Steady Earnings Growth", text: '' },
+    { headline: "Nedflix's Original Content Receives Acclaim from Critics", text: '' },
+    { headline: 'Nedflix Focuses on User Experience, Garnering Positive Feedback', text: '' },
+    { headline: "Nedflix's Diverse Content Library Appeals to a Global Audience", text: '' },
+    {
+      headline: "Market Analysts Acknowledge Nedflix's Resilience in a Competitive Industry",
+      text: '',
+    },
+    { headline: "Nedflix's Innovations in Streaming Tech Enhance Viewer Satisfaction", text: '' },
+    { headline: 'Investor Trust in Nedflix Remains Strong Amidst Market Fluctuations', text: '' },
+    { headline: "Nedflix's Expanding International Reach Draws Interest from Viewers", text: '' },
+    {
+      headline: "Nedflix's Long-Term Strategy Aligned with the Evolution of Entertainment",
+      text: '',
+    },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'Nedflix Launches New User-Friendly App Interface', text: '' },
+    { headline: "Investors Keep a Watchful Eye on Nedflix's Market Performance", text: '' },
+    { headline: 'Nedflix Continues to Deliver a Variety of Entertainment Choices', text: '' },
+    { headline: 'Nedflix Explores Strategies for Global Content Partnerships', text: '' },
+    { headline: "Nedflix's Efforts to Enhance Content Discovery for Viewers", text: '' },
+    { headline: 'Advertisers Seek Opportunities for Brand Engagement on Nedflix', text: '' },
+    { headline: "Nedflix's CEO Discusses the Future of Streaming at Industry Summit", text: '' },
+    { headline: 'Nedflix Prioritizes User Data Privacy with Updated Policies', text: '' },
+    { headline: 'Nedflix Announces Plans for Upcoming Original Series Releases', text: '' },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'Nedflix Faces Tough Competition in Crowded Streaming Market', text: '' },
+    { headline: 'Investors Express Caution as Nedflix Reports Modest Earnings Growth', text: '' },
+    { headline: "Nedflix's Original Content Receives Mixed Reviews from Critics", text: '' },
+    { headline: 'Nedflix Users Voice Concerns Over Content Discovery Challenges', text: '' },
+    { headline: 'Nedflix Grapples with Licensing Issues for Popular Shows and Movies', text: '' },
+    {
+      headline: 'Investors Monitor Growing Pressure on Nedflix to Expand Internationally',
+      text: '',
+    },
+    { headline: 'Advertisers Evaluate the Effectiveness of Campaigns on Nedflix', text: '' },
+    { headline: "Nedflix's CEO Addresses User Privacy Concerns Amidst Data Breaches", text: '' },
+    { headline: 'Content Creators Assess the Competitive Landscape on Nedflix', text: '' },
+    { headline: 'Nedflix Faces Challenges in Retaining Exclusive Streaming Rights', text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    { headline: 'Investor Exodus from Nedflix Amidst Growing Content Controversies', text: '' },
+    { headline: "Nedflix's Privacy Breach Nightmare: Millions of User Profiles Hacked", text: '' },
+    { headline: 'Nedflix CEO Under Fire as Scandals and Stock Collapse Continue', text: '' },
+    {
+      headline: 'Regulatory Troubles Pile Up for Nedflix, Facing Multiple Investigations',
+      text: '',
+    },
+    {
+      headline: 'Advertisers Shun Nedflix Over Brand Safety Concerns and Advertiser Boycott',
+      text: '',
+    },
+    { headline: 'Market Experts Predict Bleak Future for Nedflix Amidst Ongoing Crisis', text: '' },
+    {
+      headline: 'Nedflix Suffers Unprecedented User Exodus After Content Censorship Controversy',
+      text: '',
+    },
+    { headline: "Investors Worried as Nedflix's Original Shows Fail to Impress Viewers", text: '' },
+    {
+      headline: 'Investors Recoil as Nedflix Records Multi-Billion Dollar Loss from Flopped Series',
+      text: '',
+    },
+  ],
+}
+
+export const DIDN_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    {
+      headline: "Didney's Remarkable Year: Record-Breaking Earnings and Global Dominance",
+      text: '',
+    },
+    { headline: "Didney's Iconic Brands and Beloved Characters Continue to Inspire", text: '' },
+    { headline: "Didney's Unwavering Commitment to Creativity and Innovation Shines", text: '' },
+    { headline: 'Didney Delivers Magical Experiences, Earning Praise from Audiences', text: '' },
+    { headline: "Didney's Positive Impact on Communities: Philanthropy at Its Finest", text: '' },
+    {
+      headline: "Didney's Creative Excellence Sets the Gold Standard for Media and Entertainment",
+      text: '',
+    },
+    {
+      headline: 'Didney Expands Its Global Influence, Strengthening Partnerships Worldwide',
+      text: '',
+    },
+    {
+      headline: "Didney's Legacy of Imagination and Joy Lives On, Inspiring Generations",
+      text: '',
+    },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'Didney Continues to Delight Audiences with Timeless Classics', text: '' },
+    { headline: "Investors Maintain Confidence in Didney's Resilience", text: '' },
+    { headline: "Didney's Creative Ventures Receive Positive Industry Acknowledgment", text: '' },
+    { headline: "Didney's Theme Parks Showcase Innovative Attractions and Experiences", text: '' },
+    { headline: "Didney's Streaming Services Garner Growing User Base", text: '' },
+    { headline: "Market Observers See Potential in Didney's Expanding IP Universe", text: '' },
+    { headline: "Didney's Family-Friendly Content Resonates with Global Audiences", text: '' },
+    { headline: "Didney's CEO Focuses on Sustainable Initiatives for the Future", text: '' },
+    { headline: "Didney's Philanthropic Efforts Impact Communities in Meaningful Ways", text: '' },
+    { headline: "Didney's Commitment to Inclusivity Reflects Positively on Its Brand", text: '' },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'Didney Announces Upcoming Slate of Film and TV Releases', text: '' },
+    { headline: "Investors Monitor Didney's Steady Performance in Dynamic Industry", text: '' },
+    { headline: 'Didney Continues to Evolve Its Theme Park Experiences', text: '' },
+    { headline: 'Didney Expands Licensing Agreements with New Merchandise Partners', text: '' },
+    { headline: "Didney's CEO Discusses Company's Position in Changing Media Landscape", text: '' },
+    { headline: "Didney's Iconic Characters Remain a Fixture in Pop Culture", text: '' },
+    { headline: "Didney's Streaming Services Face Competition in Crowded Market", text: '' },
+    { headline: 'Didney Navigates Challenges in Global Distribution and Licensing', text: '' },
+    {
+      headline: "Didney's Commitment to Environmental Sustainability Highlighted in Initiatives",
+      text: '',
+    },
+    {
+      headline: "Didney's Cultural Impact Examined in Light of Changing Audience Trends",
+      text: '',
+    },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'Didney Faces Criticism for Handling of Controversial Content', text: '' },
+    { headline: 'Investors Keep an Eye on Didney Amidst Streaming Wars', text: '' },
+    { headline: "Didney's Theme Park Attendance Dips Amidst Pandemic Challenges", text: '' },
+    { headline: 'Didney Encounters Labor Disputes with Park Workers', text: '' },
+    { headline: "Didney's Streaming Service Grapples with Content Moderation Issues", text: '' },
+    { headline: "Didney's Expensive Theme Park Ticket Prices Raise Concerns", text: '' },
+    { headline: "Investors Weigh Didney's Heavy Reliance on Established IPs", text: '' },
+    { headline: "Didney's CEO Faces Scrutiny for Compensation Amidst Layoffs", text: '' },
+    { headline: "Didney's Recent Film Releases Receive Mixed Reviews from Critics", text: '' },
+    { headline: "Didney's Subscription Services Face Cancellations Over Price Hikes", text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    { headline: "Didney's Struggles Continue as Earnings Plunge Amidst Industry Shifts", text: '' },
+    { headline: 'Investors Panic as Didney Faces Steepest Stock Drop in a Decade', text: '' },
+    { headline: 'Didney Faces Mounting Backlash Over Controversial Content Decisions', text: '' },
+    { headline: "Didney's Theme Parks Grapple with Attendance Crisis and Layoffs", text: '' },
+    { headline: 'Regulatory Probes Loom Over Didney Amid Antitrust Concerns', text: '' },
+    { headline: 'Didney CEO Under Fire for Alleged Mishandling of Company Resources', text: '' },
+    { headline: "Didney's Streaming Services Haunted by User Data Privacy Scandals", text: '' },
+    { headline: "Didney's Labor Practices Criticized Amid Reports of Exploitation", text: '' },
+    { headline: "Didney's Revamped Film Slate Fails to Revive Box Office Fortunes", text: '' },
+    {
+      headline: "Investor Confidence Hits Rock Bottom as Didney's Future Remains Uncertain",
+      text: '',
+    },
+  ],
+}
+
+export const VVDA_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    {
+      headline: 'Viva La NVidya Revolutionizes Gaming with Breakthrough Graphics Technology',
+      text: '',
+    },
+    { headline: "Investors Celebrate Viva La NVidya's Remarkable Growth and Innovation", text: '' },
+    {
+      headline: "Viva La NVidya's Graphics Cards Dominate Market with Unparalleled Performance",
+      text: '',
+    },
+    { headline: "Viva La NVidya's AI Solutions Earn Acclaim for Industry Disruption", text: '' },
+    {
+      headline: 'Viva La NVidya Pushes Boundaries with Cutting-Edge Research and Development',
+      text: '',
+    },
+    {
+      headline: "Viva La NVidya's Philanthropic Efforts Support STEM Education Worldwide",
+      text: '',
+    },
+    { headline: 'Viva La NVidya Inspires Creativity and Innovation in Tech and Gaming', text: '' },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'Viva La NVidya Continues to Impress Gamers with High-Performance GPUs', text: '' },
+    { headline: "Investors Remain Bullish on Viva La NVidya's Future Growth Prospects", text: '' },
+    {
+      headline: "Viva La NVidya's Gaming Graphics Cards Gaining Popularity Among Enthusiasts",
+      text: '',
+    },
+    { headline: "Viva La NVidya's CEO Shares Vision for Advancing GPU Technology", text: '' },
+    { headline: "Viva La NVidya's Innovations in AI Chipsets Show Promise", text: '' },
+    { headline: 'Viva La NVidya Stock Holds Steady Amidst Market Volatility', text: '' },
+    { headline: 'Viva La NVidya Explores Collaborations to Expand Its Reach', text: '' },
+    {
+      headline: "Viva La NVidya's Commitment to Research and Development Evident in New Products",
+      text: '',
+    },
+    {
+      headline: "Viva La NVidya's Efforts to Foster Diversity in Tech Industry Recognized",
+      text: '',
+    },
+    {
+      headline: "Viva La NVidya's Contributions to STEM Education Applauded by Educators",
+      text: '',
+    },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'Viva La NVidya Announces Latest GPU Product Lineup', text: '' },
+    { headline: "Investors Monitor Viva La NVidya's Stock Performance in Tech Sector", text: '' },
+    { headline: 'Viva La NVidya Explores Opportunities in AI and Gaming Industries', text: '' },
+    { headline: "Viva La NVidya's CEO Speaks at Tech Conference on Industry Trends", text: '' },
+    { headline: "Viva La NVidya's Graphics Cards Maintain Market Presence", text: '' },
+    { headline: "Viva La NVidya's Research and Development Initiatives Show Progress", text: '' },
+    {
+      headline: "Viva La NVidya's Commitment to Sustainability Highlighted in Annual Report",
+      text: '',
+    },
+    {
+      headline: 'Viva La NVidya Seeks to Enhance User Experience with New Software Updates',
+      text: '',
+    },
+    { headline: 'Viva La NVidya Collaborates with Partners for Industry Advancements', text: '' },
+    {
+      headline: "Viva La NVidya's Contributions to STEM Education Recognized by Schools",
+      text: '',
+    },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'Viva La NVidya Faces Increased Competition in Crowded GPU Market', text: '' },
+    { headline: "Investors Express Caution as Viva La NVidya's Stock Price Fluctuates", text: '' },
+    { headline: "Viva La NVidya's Graphics Cards Encounter Manufacturing Delays", text: '' },
+    { headline: 'Viva La NVidya Grapples with Supply Chain Disruptions', text: '' },
+    { headline: "Viva La NVidya's CEO Addresses Concerns Over Chip Shortages", text: '' },
+    {
+      headline: 'Investors Assess Potential Impact of Industry Regulations on Viva La NVidya',
+      text: '',
+    },
+    { headline: "Viva La NVidya's AI Chipsets Receive Mixed Reviews from Tech Experts", text: '' },
+    { headline: 'Viva La NVidya Faces Challenges in Expanding into Emerging Markets', text: '' },
+    { headline: "Viva La NVidya's Strategic Partnerships Encounter Roadblocks", text: '' },
+    {
+      headline: "Viva La NVidya's Research and Development Expenses Impact Quarterly Earnings",
+      text: '',
+    },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    {
+      headline: 'Viva La NVidia in Crisis: Stock Prices Plummet Amidst Mounting Challenges',
+      text: '',
+    },
+    { headline: 'Investors in Panic as Viva La NVidia Reports Record Losses', text: '' },
+    { headline: 'Viva La NVidia Faces Backlash Over Controversial Business Practices', text: '' },
+    {
+      headline: "Viva La NVidia's Reputation Takes a Hit Amidst Product Quality Concerns",
+      text: '',
+    },
+    {
+      headline: 'Regulatory Probes Intensify as Viva La NVidia Navigates Legal Troubles',
+      text: '',
+    },
+    { headline: 'Viva La NVidia CEO Under Scrutiny for Mismanagement Amidst Layoffs', text: '' },
+    {
+      headline: "Viva La NVidia's Struggles in Competitive Market Lead to Mass Customer Exodus",
+      text: '',
+    },
+    { headline: 'Investor Confidence in Viva La NVidia at an All-Time Low', text: '' },
+    { headline: 'Market Experts Predict Bleak Future for Viva La NVidia Amidst Crisis', text: '' },
+  ],
+}
+
+export const GG_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    { headline: "GameGo's CEO Hailed as Savior of the Video Game Retail Industry", text: '' },
+    { headline: "GameGo's Innovative Strategy Transforms Retail Experience for Gamers", text: '' },
+    { headline: "GameGo's Commitment to Gaming Community Earns Rave Reviews", text: '' },
+    { headline: "GameGo's Bold Moves Pay Off with Record-Breaking Earnings", text: '' },
+    { headline: "GameGo's Thriving Ecosystem Thrills Gamers and Investors Alike", text: '' },
+    { headline: "GameGo's Expansion Plans Spark Excitement in the Gaming World", text: '' },
+    { headline: "GameGo's Visionary Leadership Sets the Stage for Future Success", text: '' },
+    { headline: "GameGo's Astonishing Revival: The Power of the Memestock Movement", text: '' },
+    { headline: "GameGo's Innovative Strategies Transform It into Memestock Darling", text: '' },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: "GameGo's Stock Shows Steady Growth in an Evolving Market", text: '' },
+    { headline: "Investors Find Renewed Confidence in GameGo's Performance", text: '' },
+    { headline: "GameGo's Customer-Centric Approach Resonates with Gamers", text: '' },
+    { headline: 'GameGo Adapts to Changing Trends, Remains Relevant in Retail', text: '' },
+    { headline: 'GameGo Reports Modest Earnings Increase, Encouraging Investors', text: '' },
+    { headline: 'Investor Interest in GameGo Grows as Company Explores New Initiatives', text: '' },
+    { headline: "GameGo's Gaming Community Engagement Receives Positive Feedback", text: '' },
+    { headline: "GameGo's CEO Discusses Vision for the Future of Video Game Retail", text: '' },
+    { headline: "GameGo's Resilience in Competitive Market Noted by Analysts", text: '' },
+    { headline: "GameGo's Commitment to Employee Wellbeing Recognized", text: '' },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'GameGo Announces Updates to Its Retail Store Locations', text: '' },
+    { headline: "Investors Closely Monitor GameGo's Performance Amid Industry Shifts", text: '' },
+    {
+      headline: 'GameGo Continues to Serve Gaming Enthusiasts with Diverse Product Range',
+      text: '',
+    },
+    { headline: "GameGo's CEO Speaks at Industry Event on Market Trends", text: '' },
+    { headline: 'GameGo Faces Challenges Amidst Digitalization of Gaming', text: '' },
+    { headline: "GameGo's Recent Financial Report Reflects Market Conditions", text: '' },
+    { headline: "Investors Analyze GameGo's Place in the Evolving Gaming Landscape", text: '' },
+    { headline: "GameGo's Efforts to Enhance In-Store Experience for Customers", text: '' },
+    { headline: 'GameGo Seeks Strategic Partnerships for Growth Opportunities', text: '' },
+    {
+      headline: "GameGo's Role in Gaming Culture Examined Amidst Industry Transformations",
+      text: '',
+    },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'GameGo Grapples with Declining Sales in an Evolving Gaming Market', text: '' },
+    { headline: 'Investor Concerns Emerge as GameGo Faces Stock Price Volatility', text: '' },
+    { headline: "GameGo's Struggle to Adapt to Digital Gaming Trends Raises Questions", text: '' },
+    { headline: 'GameGo Reports Modest Earnings Drop Amidst Industry Challenges', text: '' },
+    { headline: "GameGo's CEO Acknowledges Tough Retail Climate for Physical Games", text: '' },
+    {
+      headline: 'Investors Cautious as GameGo Encounters Competition from Online Retailers',
+      text: '',
+    },
+    { headline: "GameGo's Store Closure Plans Draw Mixed Reactions from Gamers", text: '' },
+    {
+      headline: "GameGo's Efforts to Stay Relevant Face Hurdles in Fast-Changing Industry",
+      text: '',
+    },
+    { headline: "GameGo's Footprint Shrinks as Digital Downloads Gain Popularity", text: '' },
+    { headline: "Market Experts Debate GameGo's Future Amidst Retail Headwinds", text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    { headline: 'Investors Panic as GameGo Reports Record Losses in Recent Quarter', text: '' },
+    { headline: "GameGo's Struggles Escalate with Mounting Debt and Store Closures", text: '' },
+    {
+      headline: "GameGo's CEO Under Fire for Controversial Business Decisions Amidst Layoffs",
+      text: '',
+    },
+    { headline: 'Regulatory Investigations Intensify as GameGo Navigates Legal Woes', text: '' },
+    {
+      headline: "GameGo's Reputation Takes a Hit Amidst Customer Complaints and Boycotts",
+      text: '',
+    },
+    { headline: 'Investor Confidence in GameGo at an All-Time Low as Stock Tumbles', text: '' },
+    { headline: "GameGo's Privacy Breaches Shake User Trust in the Company", text: '' },
+    { headline: 'Market Experts Predict Bleak Future for GameGo Amidst Ongoing Crisis', text: '' },
+    { headline: "GameGo's Stock Prices Plummet, Casting Shadow Over Its Survival", text: '' },
+    { headline: "GameGo's Risky Bet on NFTs Backfires: Massive Losses Reported", text: '' },
+    { headline: "Market Experts Condemn GameGo's Hasty Dive into NFTs as Foolish Move", text: '' },
+    {
+      headline: "GameGo's Desperate Attempt to Stay Afloat with NFTs Leads to Financial Ruin",
+      text: '',
+    },
+  ],
+}
+
+export const BRB_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    { headline: "BrickBerry's Memestock Revival: An Iconic Brand Reborn", text: '' },
+    { headline: "BrickBerry's Remarkable Memestock Rally: From Legacy to Legend", text: '' },
+    {
+      headline: "BrickBerry's Renaissance: Iconic Smartphone Brand Stages Remarkable Comeback",
+      text: '',
+    },
+    {
+      headline: 'Investors Thrilled as BrickBerry Records Impressive Sales and Innovation',
+      text: '',
+    },
+    { headline: "BrickBerry's CEO Leads the Charge in Transforming the Tech Landscape", text: '' },
+    {
+      headline: "BrickBerry's Resurgence Shines Bright as It Returns to Market Prominence",
+      text: '',
+    },
+    {
+      headline: "BrickBerry's Commitment to Security and Innovation Resonates with Users",
+      text: '',
+    },
+    {
+      headline: 'Investor Confidence Soars as BrickBerry Stock Price Surges to New Highs',
+      text: '',
+    },
+    { headline: "BrickBerry's Cutting-Edge Devices Garner Praise for Modernization", text: '' },
+    {
+      headline: "BrickBerry's Legacy of Productivity Finds New Relevance in the Digital Age",
+      text: '',
+    },
+    {
+      headline: "BrickBerry's Strategic Partnerships Enhance Its Global Reach and Impact",
+      text: '',
+    },
+    { headline: "BrickBerry's Return to Prominence Inspires Tech Enthusiasts Worldwide", text: '' },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'BrickBerry Makes Steady Progress in Its Quest for a Tech Comeback', text: '' },
+    { headline: 'Investors Show Interest as BrickBerry Pursues a Revival Strategy', text: '' },
+    { headline: "BrickBerry's Efforts to Modernize Legacy Features Receive Recognition", text: '' },
+    { headline: "BrickBerry's CEO Discusses Plans for Company's Ongoing Transformation", text: '' },
+    {
+      headline: "BrickBerry's Commitment to Data Security Appeals to Privacy-Conscious Users",
+      text: '',
+    },
+    { headline: "Investors Acknowledge BrickBerry's Potential in Niche Markets", text: '' },
+    {
+      headline: "BrickBerry's Nostalgic Appeal Finds a Place Amongst Smartphone Choices",
+      text: '',
+    },
+    {
+      headline: "BrickBerry's Product Updates Highlight Its Evolution in the Tech World",
+      text: '',
+    },
+    { headline: "BrickBerry's Partnerships Signal Promising Prospects for the Brand", text: '' },
+    { headline: "BrickBerry's Renewed Focus on Productivity Features Garners Interest", text: '' },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'BrickBerry Releases Latest Smartphone Model with Updated Features', text: '' },
+    { headline: "Investors Monitor BrickBerry's Performance in Competitive Tech Sector", text: '' },
+    { headline: 'BrickBerry Continues to Offer Secure Communication Solutions', text: '' },
+    { headline: "BrickBerry CEO Discusses Company's Role in Evolving Mobile Landscape", text: '' },
+    { headline: "BrickBerry's Classic Design Resonates with Some Niche User Groups", text: '' },
+    { headline: 'BrickBerry Faces Challenges Amidst Shifting Smartphone Trends', text: '' },
+    { headline: "BrickBerry's Legacy of Corporate Security Solutions Underscored", text: '' },
+    { headline: 'BrickBerry Explores Partnerships to Expand Its Market Presence', text: '' },
+    { headline: "BrickBerry's Transition Reflects Ongoing Changes in Mobile Technology", text: '' },
+    { headline: "Industry Observers Assess BrickBerry's Place in Modern Tech Market", text: '' },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'BrickBerry Struggles to Regain Wider Consumer Appeal', text: '' },
+    { headline: 'Investors Remain Cautious as BrickBerry Faces Market Challenges', text: '' },
+    { headline: "BrickBerry's Smartphone Sales Stall Amidst Tough Competition", text: '' },
+    { headline: 'BrickBerry CEO Acknowledges Tough Road Ahead in Crowded Tech Space', text: '' },
+    {
+      headline: "BrickBerry's Niche Focus Raises Questions About Its Long-Term Viability",
+      text: '',
+    },
+    { headline: 'Investor Interest in BrickBerry Dips as Stock Price Fluctuates', text: '' },
+    {
+      headline: "BrickBerry's Legacy Features Pose Challenges in the Age of Smartphones",
+      text: '',
+    },
+    { headline: "BrickBerry's Efforts to Modernize Met with Mixed Reviews", text: '' },
+    {
+      headline: "BrickBerry's Market Share Continues to Shrink in Competitive Landscape",
+      text: '',
+    },
+    { headline: "Industry Analysts Assess BrickBerry's Position Amidst Changing Trends", text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    {
+      headline: 'Investors Panic as BrickBerry Faces Record Losses and Uncertain Future',
+      text: '',
+    },
+    { headline: "BrickBerry's CEO Under Fire for Failing to Revive the Ailing Company", text: '' },
+    {
+      headline: "BrickBerry's Stagnation Exposes Challenges in a Rapidly Advancing Market",
+      text: '',
+    },
+    {
+      headline: 'Regulatory Scrutiny Intensifies as BrickBerry Struggles to Stay Afloat',
+      text: '',
+    },
+    { headline: "BrickBerry's Reputation in Shambles Amidst Customer Complaints", text: '' },
+    {
+      headline: 'Investor Confidence in BrickBerry Nosedives as Stock Hits All-Time Low',
+      text: '',
+    },
+    { headline: "BrickBerry's Privacy Breaches Shake User Trust and Loyalty", text: '' },
+    { headline: 'Market Experts Predict Bleak Future for BrickBerry Amidst Crisis', text: '' },
+    { headline: "BrickBerry's Desperate Measures Fail to Halt Its Ongoing Decline", text: '' },
+  ],
+}
+
+export const ANC_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    { headline: 'ANC Theatres Leads Industry Revival: Moviegoers Return in Droves', text: '' },
+    {
+      headline: 'Investors Rejoice as ANC Theatres Posts Spectacular Box Office Results',
+      text: '',
+    },
+    {
+      headline: "ANC Theatres' CEO Lauded for Innovative Strategies in Challenging Times",
+      text: '',
+    },
+    {
+      headline: 'ANC Theatres Redefines the Movie-Going Experience with Exciting Offerings',
+      text: '',
+    },
+    { headline: 'ANC Theatres Sets New Records with Blockbuster Movie Releases', text: '' },
+    { headline: 'Investor Confidence Soars as ANC Theatres Stock Reaches New Heights', text: '' },
+    {
+      headline: "ANC Theatres' Commitment to Safety Measures Earns Applause from Patrons",
+      text: '',
+    },
+    {
+      headline: 'ANC Theatres Expands Reach with Strategic Acquisitions and Renovations',
+      text: '',
+    },
+    { headline: "ANC Theatres' Role in Supporting the Film Industry Recognized", text: '' },
+    { headline: "ANC Theatres' Community Engagement Initiatives Win Hearts and Minds", text: '' },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'ANC Theatres Sees Encouraging Turnout as Moviegoers Return', text: '' },
+    { headline: "Investors Find Reasons for Optimism in ANC Theatres' Performance", text: '' },
+    { headline: 'ANC Theatres Offers Enhanced Movie-Going Experiences for Audiences', text: '' },
+    {
+      headline: "ANC Theatres' CEO Shares Strategies for Navigating Industry Challenges",
+      text: '',
+    },
+    { headline: 'ANC Theatres Enjoys Box Office Success with Recent Film Releases', text: '' },
+    { headline: 'Investor Interest in ANC Theatres Grows Amidst Positive Signals', text: '' },
+    { headline: "ANC Theatres' Safety Measures Foster a Reassuring Theater Environment", text: '' },
+    {
+      headline: 'ANC Theatres Expands Footprint with Select Renovations and Innovations',
+      text: '',
+    },
+    { headline: 'ANC Theatres Continues to Play a Vital Role in Promoting Cinema', text: '' },
+    {
+      headline: "ANC Theatres' Community Involvement Initiatives Make a Positive Impact",
+      text: '',
+    },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'ANC Theatres Updates Safety Protocols in Response to Changing Times', text: '' },
+    { headline: "Investors Monitor ANC Theatres' Performance Amidst Industry Shifts", text: '' },
+    { headline: 'ANC Theatres Continues to Offer Diverse Movie Options for Audiences', text: '' },
+    { headline: "ANC Theatres' CEO Discusses Insights on Current Cinema Landscape", text: '' },
+    { headline: 'ANC Theatres Faces Challenges and Opportunities in Evolving Market', text: '' },
+    { headline: "ANC Theatres' Movie-Going Experience Reflects Current Industry Trends", text: '' },
+    { headline: "Investors Assess ANC Theatres' Position Amidst Market Fluctuations", text: '' },
+    { headline: 'ANC Theatres Highlights Commitment to Community Engagement', text: '' },
+    { headline: 'ANC Theatres Seeks Collaborations to Enhance Movie Offerings', text: '' },
+    {
+      headline: "Industry Observers Analyze ANC Theatres' Role in Modern Cinema Culture",
+      text: '',
+    },
+  ],
+  [NewsType.BEARISH]: [
+    {
+      headline: 'ANC Theatres Grapples with Lower Attendance Amidst Industry Challenges',
+      text: '',
+    },
+    { headline: "Investors Express Caution as ANC Theatres' Revenue Faces Pressure", text: '' },
+    { headline: "ANC Theatres' CEO Acknowledges Tough Market Conditions for Cinemas", text: '' },
+    { headline: 'ANC Theatres Sees Mixed Results with Recent Movie Releases', text: '' },
+    { headline: 'ANC Theatres Faces Stiff Competition from Streaming Services', text: '' },
+    { headline: 'Investor Confidence in ANC Theatres Wavers Amidst Industry Turbulence', text: '' },
+    {
+      headline: "ANC Theatres' Efforts to Adapt to Changing Movie-Going Habits Raise Concerns",
+      text: '',
+    },
+    { headline: "ANC Theatres' Renovation Plans Encounter Hurdles in Current Climate", text: '' },
+    { headline: 'ANC Theatres Continues to Navigate Challenges in Film Exhibition', text: '' },
+    { headline: "Market Experts Debate ANC Theatres' Future Amidst Industry Headwinds", text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    { headline: 'ANC Theatres in Dire Straits: Attendance Plummets as Crisis Deepens', text: '' },
+    { headline: 'Investors in Panic as ANC Theatres Reports Record Losses', text: '' },
+    { headline: 'ANC Theatres CEO Under Fire for Failing to Revive Ailing Cinema Chain', text: '' },
+    { headline: "ANC Theatres' Struggles Highlight Challenges in an Evolving Industry", text: '' },
+    {
+      headline: 'Regulatory Scrutiny Mounts as ANC Theatres Grapples with Financial Crisis',
+      text: '',
+    },
+    { headline: "ANC Theatres' Reputation Takes a Hit Amidst Customer Dissatisfaction", text: '' },
+    {
+      headline: 'Investor Confidence in ANC Theatres at an All-Time Low as Stock Tumbles',
+      text: '',
+    },
+    {
+      headline: "ANC Theatres' Struggle to Adapt to Changing Movie Habits Spells Trouble",
+      text: '',
+    },
+    { headline: "ANC Theatres' Financial Woes Lead to Massive Layoffs and Closures", text: '' },
+    { headline: 'Market Experts Predict Bleak Future for ANC Theatres Amidst Crisis', text: '' },
   ],
 }
 
@@ -912,10 +1446,10 @@ export const NEWS_TEMPLATES = {
   [StockSymbols.BOOG]: BOOG_NEWS_STORIES,
   [StockSymbols.FISH]: FISH_NEWS_STORIES,
   [StockSymbols.MRHD]: MRHD_NEWS_STORIES,
-  [StockSymbols.NDFX]: null,
-  [StockSymbols.DIDN]: null,
-  [StockSymbols.VVDA]: null,
-  [StockSymbols.GG]: null,
-  [StockSymbols.BRB]: null,
-  [StockSymbols.ANC]: null,
+  [StockSymbols.NDFX]: NDFX_NEWS_STORIES,
+  [StockSymbols.DIDN]: DIDN_NEWS_STORIES,
+  [StockSymbols.VVDA]: VVDA_NEWS_STORIES,
+  [StockSymbols.GG]: GG_NEWS_STORIES,
+  [StockSymbols.BRB]: BRB_NEWS_STORIES,
+  [StockSymbols.ANC]: ANC_NEWS_STORIES,
 }

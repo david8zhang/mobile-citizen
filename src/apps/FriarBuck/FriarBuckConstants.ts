@@ -22,9 +22,8 @@ export interface TipContent {
 
 export interface TipUpdate {
   tipContent: TipContent
-  requirements: {
-    [key in StockTipLevel]: Grade
-  }
+  knowledgeReqForUnlock: Grade
+  symbol: StockSymbols
 }
 
 export type StockTips = {
@@ -98,20 +97,20 @@ export const INITIAL_STOCK_PRICES = {
 
 // Cooldown until the symbol can be used to generate new stories
 export const INITIAL_NEWS_COOLDOWNS = {
-  [StockSymbols.CC]: 0,
-  [StockSymbols.NILE]: 0,
-  [StockSymbols.DASH]: 0,
-  [StockSymbols.SPORT]: 0,
-  [StockSymbols.BANK]: 0,
-  [StockSymbols.BOOG]: 0,
-  [StockSymbols.FISH]: 0,
-  [StockSymbols.MRHD]: 0,
-  [StockSymbols.NDFX]: 0,
-  [StockSymbols.DIDN]: 0,
-  [StockSymbols.VVDA]: 0,
-  [StockSymbols.GG]: 0,
-  [StockSymbols.BRB]: 0,
-  [StockSymbols.ANC]: 0,
+  [StockSymbols.CC]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.NILE]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.DASH]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.SPORT]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.BANK]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.BOOG]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.FISH]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.MRHD]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.NDFX]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.DIDN]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.VVDA]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.GG]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.BRB]: Number.MAX_SAFE_INTEGER,
+  [StockSymbols.ANC]: Number.MAX_SAFE_INTEGER,
 }
 
 export const NEWS_COOLDOWN = 5

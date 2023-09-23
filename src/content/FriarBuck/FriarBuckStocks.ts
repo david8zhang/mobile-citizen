@@ -164,7 +164,7 @@ export const STOCKS: Stock[] = [
   },
   {
     symbol: StockSymbols.ANC,
-    name: 'America Needs Crap, Inc.',
+    name: 'ANC Theatres, Inc.',
     knowledgeReqForUnlock: Grade.A,
     knowledgeReqsForTip: {
       [StockTipLevel.LEVEL_1]: Grade.A,
