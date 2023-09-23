@@ -1,7 +1,10 @@
 import { Home } from '~/scenes/Home'
-import { TipUpdate } from './FriarBuckConstants'
+import { TipContent, TipUpdate } from './FriarBuckConstants'
 import { StockTipLevel } from '../../content/FriarBuck/StockTipLevel'
 import { Constants } from '~/utils/Constants'
+import { STOCK_KNOWLEDGE_GRADE_TO_TIP_COST } from '~/content/FriarBuck/StockTipCost'
+import { Button } from '~/core/Button'
+import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 
 export interface StockTipConfig {
@@ -24,9 +27,11 @@ export class StockTip {
   private leftCarat!: Phaser.GameObjects.Sprite
   private rightCarat!: Phaser.GameObjects.Sprite
 
+  private purchaseTipButton!: Button
   private level1TipText!: Phaser.GameObjects.Text
   private level2TipText!: Phaser.GameObjects.Text
   private currTipIndex: number = 0
+  private tipUpdate!: TipUpdate
 
   private scene: Home
 
@@ -34,6 +39,7 @@ export class StockTip {
     this.scene = scene
     this.setupTips(config.position)
     this.setupNavButtons(config.position)
+    this.setupPurchaseTipButton()
     this.setVisible(false)
   }
 
@@ -57,61 +63,98 @@ export class StockTip {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
   }
 
-  getHighestUnlockedTipLevel(tipUpdate: TipUpdate) {
-    const requirements = tipUpdate.requirements
-    const knowledgeGrade = Utils.getKnowledgeGrade()
-    if (
-      Utils.getGradeIndex(knowledgeGrade) >=
-      Utils.getGradeIndex(requirements[StockTipLevel.LEVEL_2])
-    ) {
-      return StockTipLevel.LEVEL_2
+  setupPurchaseTipButton() {
+    this.purchaseTipButton = new Button({
+      scene: this.scene,
+      onClick: () => {
+        this.purchaseTip()
+      },
+      width: Constants.WINDOW_WIDTH - 30,
+      x: Constants.WINDOW_WIDTH / 2,
+      y: this.level1TipText.y + 10,
+      text: '',
+      height: 35,
+      fontFamily: Constants.FONT_REGULAR,
+      fontSize: '15px',
+      backgroundColor: 0xdddddd,
+      depth: Constants.SORT_LAYERS.APP_UI,
+      textColor: 'black',
+    })
+  }
+
+  purchaseTip() {
+    const tipPurchaseCost =
+      STOCK_KNOWLEDGE_GRADE_TO_TIP_COST[this.tipUpdate.knowledgeReqForUnlock][this.currTipIndex]
+    const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+    if (currBankBalance >= tipPurchaseCost) {
+      this.tipUpdate.tipContent[this.currTipIndex].purchased = true
+      this.displayCurrTipForIndex()
+
+      const symbolToPurchase = this.tipUpdate.symbol
+      const tips = Save.getData(SaveKeys.FRIAR_BUCK_STOCK_TIPS)
+      tips[symbolToPurchase] = {
+        ...tips[symbolToPurchase],
+        [this.currTipIndex as StockTipLevel]: {
+          ...tips[symbolToPurchase][this.currTipIndex as StockTipLevel],
+          purchased: true,
+        },
+      }
+
+      Utils.addTransaction(tipPurchaseCost, 'Friar Buck, Inc.', false)
+      Save.setData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, tips)
     }
-    if (
-      Utils.getGradeIndex(knowledgeGrade) >=
-      Utils.getGradeIndex(requirements[StockTipLevel.LEVEL_1])
-    ) {
-      return StockTipLevel.LEVEL_1
-    }
-    return -1
   }
 
   updateTipContent(tipUpdate: TipUpdate) {
+    this.tipUpdate = tipUpdate
     const tipContent = tipUpdate.tipContent
-    const tipLevel = this.getHighestUnlockedTipLevel(tipUpdate)
-    if (tipLevel >= StockTipLevel.LEVEL_1) {
-      this.level1TipText
-        .setText(`Recommended action: ${tipContent[StockTipLevel.LEVEL_1]}`)
-        .setColor('#000000')
-        .setPosition(15, this.level1TipText.y)
-    } else {
-      this.level1TipText
-        .setText(`Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_1]} Required`)
-        .setColor('#777777')
-      Utils.centerText(Constants.WINDOW_WIDTH / 2, this.level1TipText)
-    }
-    if (tipLevel >= StockTipLevel.LEVEL_2) {
-      const pctChange = tipContent[StockTipLevel.LEVEL_2]
-      this.level2TipText
-        .setText(
-          `Predicted Change: ${
-            pctChange > 0 ? `+${Math.abs(pctChange)}%` : `-${Math.abs(pctChange)}%`
-          }`
-        )
-        .setColor('#000000')
-        .setPosition(15, this.level2TipText.y)
-    } else {
-      this.level2TipText
-        .setText(`Knowledge Rank ${tipUpdate.requirements[StockTipLevel.LEVEL_2]} Required`)
-        .setColor('#777777')
-      Utils.centerText(Constants.WINDOW_WIDTH / 2, this.level2TipText)
-    }
+
+    this.level1TipText
+      .setText(`Recommended action: ${tipContent[StockTipLevel.LEVEL_1].value}`)
+      .setColor('#000000')
+      .setPosition(15, this.level1TipText.y)
+
+    const pctChange = tipContent[StockTipLevel.LEVEL_2].value
+    this.level2TipText
+      .setText(
+        `Predicted Change: ${
+          pctChange > 0 ? `+${Math.abs(pctChange)}%` : `-${Math.abs(pctChange)}%`
+        }`
+      )
+      .setColor('#000000')
+      .setPosition(15, this.level2TipText.y)
+
     this.displayCurrTipForIndex()
   }
 
   displayCurrTipForIndex() {
     const tipTextList = [this.level1TipText, this.level2TipText]
     const tipToShow = tipTextList[this.currTipIndex]
-    tipToShow.setVisible(true)
+
+    if (this.tipUpdate.tipContent[this.currTipIndex as StockTipLevel].purchased) {
+      tipToShow.setVisible(true)
+      this.purchaseTipButton.setVisible(false)
+    } else {
+      const tipCostMappings =
+        STOCK_KNOWLEDGE_GRADE_TO_TIP_COST[this.tipUpdate.knowledgeReqForUnlock]
+      const tipCost = tipCostMappings[this.currTipIndex as StockTipLevel]
+      const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+      if (currBankBalance < tipCost) {
+        this.purchaseTipButton.text.setColor('red')
+        this.purchaseTipButton.setText(
+          `Buy Level ${this.currTipIndex + 1} Tip for $${tipCost.toFixed(
+            2
+          )} (bank balance: $${currBankBalance.toFixed(2)})`
+        )
+      } else {
+        this.purchaseTipButton.text.setColor('black')
+        this.purchaseTipButton.setText(
+          `Buy Level ${this.currTipIndex + 1} Tip for $${tipCost.toFixed(2)}`
+        )
+      }
+
+      this.purchaseTipButton.setVisible(true)
+    }
     const tipsToHide = tipTextList.filter((_, index) => {
       return index !== this.currTipIndex
     })
@@ -120,7 +163,7 @@ export class StockTip {
 
   setupNavButtons(position: { x: number; y: number }) {
     this.leftCarat = this.scene.add
-      .sprite(15, position.y + 30, 'angle-left-solid')
+      .sprite(15, position.y + 35, 'angle-left-solid')
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setScale(0.1)
       .setInteractive()
@@ -153,6 +196,7 @@ export class StockTip {
     if (!isVisible) {
       this.level1TipText.setVisible(isVisible)
       this.level2TipText.setVisible(isVisible)
+      this.purchaseTipButton.setVisible(isVisible)
     }
     this.leftCarat.setVisible(isVisible)
     this.rightCarat.setVisible(isVisible)

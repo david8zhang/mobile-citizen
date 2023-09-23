@@ -9,8 +9,14 @@ export enum RecommendedAction {
 }
 
 export interface TipContent {
-  [StockTipLevel.LEVEL_1]: RecommendedAction
-  [StockTipLevel.LEVEL_2]: number
+  [StockTipLevel.LEVEL_1]: {
+    value: RecommendedAction
+    purchased: boolean
+  }
+  [StockTipLevel.LEVEL_2]: {
+    value: number
+    purchased: boolean
+  }
   dateKey: string
 }
 

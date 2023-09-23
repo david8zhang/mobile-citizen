@@ -22,9 +22,7 @@ import {
 import { StockTipLevel } from '../../content/FriarBuck/StockTipLevel'
 import { TradeStockScreen } from './screens/TradeStockScreen'
 import { NewsScreen } from './screens/NewsScreen'
-import { FullArticleScreen } from './screens/FullArticleScreen'
 import { NEWS_TEMPLATES, NewsType } from '~/content/FriarBuck/FriarBuckNewsTemplates'
-import { StockTip } from './StockTip'
 
 export class FriarBuck extends App {
   private bottomNav!: BottomNav
@@ -41,7 +39,6 @@ export class FriarBuck extends App {
       [FB_ScreenTypes.STOCK_DRILLDOWN]: new StockDrilldown(this.scene, this),
       [FB_ScreenTypes.TRADE_STOCK]: new TradeStockScreen(this.scene, this),
       [FB_ScreenTypes.NEWS]: new NewsScreen(this.scene, this),
-      [FB_ScreenTypes.FULL_ARTICLE]: new FullArticleScreen(this.scene, this),
     }
     this.setupBottomNav()
     this.setVisible(false)
@@ -90,20 +87,20 @@ export class FriarBuck extends App {
     const buyOrSell =
       Phaser.Math.Between(0, 1) == 0 ? RecommendedAction.BUY : RecommendedAction.SELL
     const volatilityThreshold = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
-    if (buyOrSell == RecommendedAction.BUY) {
-      const pctChange = Phaser.Math.Between(1, volatilityThreshold.high * 100)
-      return {
-        [StockTipLevel.LEVEL_1]: buyOrSell,
-        [StockTipLevel.LEVEL_2]: pctChange / 100,
-        dateKey: Utils.getCurrDayKey(),
-      }
-    } else {
-      const pctChange = Phaser.Math.Between(volatilityThreshold.low * 100, -1)
-      return {
-        [StockTipLevel.LEVEL_1]: buyOrSell,
-        [StockTipLevel.LEVEL_2]: pctChange / 100,
-        dateKey: Utils.getCurrDayKey(),
-      }
+    const pctChange =
+      buyOrSell === RecommendedAction.BUY
+        ? Phaser.Math.Between(1, volatilityThreshold.high * 100)
+        : Phaser.Math.Between(volatilityThreshold.low * 100, -1)
+    return {
+      [StockTipLevel.LEVEL_1]: {
+        value: buyOrSell,
+        purchased: false,
+      },
+      [StockTipLevel.LEVEL_2]: {
+        value: pctChange / 100,
+        purchased: false,
+      },
+      dateKey: Utils.getCurrDayKey(),
     }
   }
 
@@ -145,7 +142,7 @@ export class FriarBuck extends App {
     symbolsToGenerateStoriesFor.forEach((symbol) => {
       const volatilityThreshold =
         VOLATILITY_THRESHOLDS[symbolToStockMapping[symbol].knowledgeReqForUnlock]
-      const projectedChange = stockTips[symbol][StockTipLevel.LEVEL_2]
+      const projectedChange = stockTips[symbol][StockTipLevel.LEVEL_2].value
       const story = this.generateStoryForSymbol(
         symbol as StockSymbols,
         projectedChange,
@@ -185,7 +182,7 @@ export class FriarBuck extends App {
       let pctChange = 0
       const stockTip = stockTips[symbol]
       if (stockTip) {
-        pctChange = stockTip[StockTipLevel.LEVEL_2] / 100
+        pctChange = stockTip[StockTipLevel.LEVEL_2].value / 100
       } else {
         const volatilityRange = VOLATILITY_THRESHOLDS[stock.knowledgeReqForUnlock]
         pctChange = Phaser.Math.Between(volatilityRange.low, volatilityRange.high) / 100
@@ -249,6 +246,7 @@ export class FriarBuck extends App {
     super.render(() => {
       if (onComplete) {
         this.renderSubscreen(FB_ScreenTypes.PORTFOLIO)
+        this.generateStockNewsAndTips()
         onComplete()
       }
     })

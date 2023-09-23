@@ -1,6 +1,6 @@
 import { Constants } from '~/utils/Constants'
 
-export const NewsStories = (stories, width, height, onClick) => {
+export const NewsStories = (stories, width, height) => {
   return (
     <div
       id='friar-buck-news-stories'
@@ -24,10 +24,6 @@ export const NewsStories = (stories, width, height, onClick) => {
               backgroundColor: 'white',
               marginBottom: '10px',
               display: 'flex',
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              onClick(story)
             }}
           >
             <div style={{ flex: 1, paddingRight: '15px' }}>

@@ -6,7 +6,6 @@ import {
   INITIAL_STOCK_PRICES,
   PortfolioStock,
   PortfolioType,
-  RecommendedAction,
   Stock,
   StockTips,
   TipContent,
@@ -17,6 +16,7 @@ import { Utils } from '~/utils/Utils'
 import { Chart } from '../Chart'
 import { Button } from '~/core/Button'
 import { StockTip } from '../StockTip'
+import { StockSymbols } from '~/content/FriarBuck/FriarBuckStocks'
 
 export class StockDrilldown extends SubScreen {
   private backButton!: Phaser.GameObjects.Sprite
@@ -371,7 +371,8 @@ export class StockDrilldown extends SubScreen {
     const currTip = friarBuckTips[stock.symbol] as TipContent
     this.stockTip.updateTipContent({
       tipContent: currTip,
-      requirements: stock.knowledgeReqsForTip,
+      knowledgeReqForUnlock: stock.knowledgeReqForUnlock,
+      symbol: stock.symbol as StockSymbols,
     })
   }
 

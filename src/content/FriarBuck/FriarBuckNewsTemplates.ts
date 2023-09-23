@@ -833,6 +833,76 @@ export const FISH_NEWS_STORIES = {
   ],
 }
 
+export const MRHD_NEWS_STORIES = {
+  [NewsType.VERY_BULLISH]: [
+    { headline: "MacroHard's AI-Powered Devices Set to Transform Daily Life", text: '' },
+    { headline: 'Investors Rejoice as MacroHard Reports Remarkable Revenue Growth', text: '' },
+    { headline: "MacroHard's Cutting-Edge Innovations Reshape Tech Landscape", text: '' },
+    { headline: "Market Celebrates MacroHard's Successful Global Expansion", text: '' },
+    { headline: "MacroHard's Cloud Services Segment Drives Impressive Profit Margins", text: '' },
+    { headline: "Optimistic Outlook: Analysts Bullish on MacroHard's Future Prospects", text: '' },
+    {
+      headline: 'MacroHard Sets the Standard for Tech Excellence with Outstanding Performance',
+      text: '',
+    },
+  ],
+  [NewsType.BULLISH]: [
+    { headline: 'MacroHard Stock Holds Steady Amidst Market Volatility', text: '' },
+    { headline: "Investors Express Confidence in MacroHard's Consistent Performance", text: '' },
+    { headline: "MacroHard's Latest Product Updates Receive Positive Feedback", text: '' },
+    { headline: "MacroHard's CEO Optimistic About Future Growth Opportunities", text: '' },
+    { headline: 'Steady User Growth Reflects Positively on MacroHard', text: '' },
+    { headline: "MacroHard's Strategic Partnerships Foster Investor Interest", text: '' },
+    { headline: "Market Analysts Assess MacroHard's Role in Tech Industry Evolution", text: '' },
+    { headline: "Investors Acknowledge MacroHard's Strong Brand Presence", text: '' },
+    { headline: "MacroHard's Commitment to Innovation Resonates with Shareholders", text: '' },
+    { headline: "MacroHard's Long-Term Strategy Aligns with Tech Sector Trends", text: '' },
+  ],
+  [NewsType.NEUTRAL]: [
+    { headline: 'MacroHard Unveils Bold Vision for the Future of Computing', text: '' },
+    {
+      headline: 'MacroHard Partners with Leading Universities to Foster Tech Innovation',
+      text: '',
+    },
+    { headline: "MacroHard's CEO Discusses the Impact of Tech on Education", text: '' },
+    { headline: 'MacroHard Expands Data Centers to Meet Growing Demand', text: '' },
+    {
+      headline: "MacroHard's Philanthropic Arm Donates Millions to Support STEM Education",
+      text: '',
+    },
+    { headline: "MacroHard's Virtual Reality Venture Sparks Excitement Among Users", text: '' },
+    { headline: "MacroHard's Cybersecurity Initiatives Earn Industry Recognition", text: '' },
+    { headline: 'MacroHard Stock Resilient in Face of Market Volatility', text: '' },
+    { headline: 'MacroHard Hosts Tech Summit to Explore Future Innovations', text: '' },
+  ],
+  [NewsType.BEARISH]: [
+    { headline: 'Investors Cautious as MacroHard Reports Modest Earnings Growth', text: '' },
+    { headline: "MacroHard's Latest Product Release Receives Mixed User Reviews", text: '' },
+    { headline: "MacroHard's CEO Acknowledges Market Challenges Ahead", text: '' },
+    { headline: "Market Reacts Cautiously to MacroHard's Expansion Strategies", text: '' },
+    { headline: 'MacroHard Grapples with Regulatory Scrutiny in Key Markets', text: '' },
+    { headline: 'Investors Monitor Growing Competition in the Tech Sector', text: '' },
+    { headline: 'MacroHard Stock Shows Marginal Decline Amid Economic Uncertainty', text: '' },
+    { headline: "Investors Express Concern About MacroHard's Patent Lawsuits", text: '' },
+    { headline: 'MacroHard Faces Short-Term Challenges as It Navigates Tech Landscape', text: '' },
+  ],
+  [NewsType.VERY_BEARISH]: [
+    { headline: 'MacroHard Stock Plummets as Earnings Fall Far Below Expectations', text: '' },
+    { headline: 'Investors Flee as MacroHard Faces Severe Data Breach Scandal', text: '' },
+    { headline: "MacroHard's Bleak Revenue Forecast Sends Shockwaves Through Market", text: '' },
+    {
+      headline: 'MacroHard CEO Resigns Amidst Mounting Controversies and Stock Collapse',
+      text: '',
+    },
+    { headline: 'Regulatory Troubles Loom Large Over Troubled MacroHard', text: '' },
+    { headline: 'Investor Confidence in MacroHard Reaches an All-Time Low', text: '' },
+    { headline: "MacroHard's Stock Nosedives Amidst Growing Advertiser Boycott", text: '' },
+    { headline: 'Market Experts Predict a Grim Future for MacroHard Amidst Scandals', text: '' },
+    { headline: 'MacroHard Faces Massive User Exodus Following Privacy Debacle', text: '' },
+    { headline: 'Investors Abandon Ship as MacroHard Becomes a Tech Industry Pariah', text: '' },
+  ],
+}
+
 export const NEWS_TEMPLATES = {
   [StockSymbols.CC]: CLIK_CLOK_NEWS_STORIES,
   [StockSymbols.NILE]: NILE_NEWS_STORIES,
@@ -841,7 +911,7 @@ export const NEWS_TEMPLATES = {
   [StockSymbols.BANK]: BANK_NEWS_STORIES,
   [StockSymbols.BOOG]: BOOG_NEWS_STORIES,
   [StockSymbols.FISH]: FISH_NEWS_STORIES,
-  [StockSymbols.MRHD]: null,
+  [StockSymbols.MRHD]: MRHD_NEWS_STORIES,
   [StockSymbols.NDFX]: null,
   [StockSymbols.DIDN]: null,
   [StockSymbols.VVDA]: null,

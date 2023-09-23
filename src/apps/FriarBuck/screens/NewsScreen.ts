@@ -6,6 +6,7 @@ import { NewsStories } from '../web-ui/NewsStories'
 import { CLIK_CLOK_NEWS_STORIES, NEWS_COMPANIES } from '~/content/FriarBuck/FriarBuckNewsTemplates'
 import { Utils } from '~/utils/Utils'
 import { FB_ScreenTypes } from '../FBscreenTypes'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export class NewsScreen extends SubScreen {
   private newsStories!: Phaser.GameObjects.DOMElement
@@ -14,7 +15,7 @@ export class NewsScreen extends SubScreen {
   constructor(scene: Home, parent: FriarBuck) {
     super(scene, parent)
     this.setupHeaderText()
-    this.setupNewsStoriesList()
+    this.renderNewsStoriesList()
     this.setVisible(false)
   }
 
@@ -32,17 +33,21 @@ export class NewsScreen extends SubScreen {
     )
   }
 
-  setupNewsStoriesList() {
-    const stories = CLIK_CLOK_NEWS_STORIES.BULLISH.map((story) => {
+  renderNewsStoriesList() {
+    if (this.newsStories) {
+      this.newsStories.destroy()
+    }
+    const newsStories = Save.getData(SaveKeys.FRIAR_BUCK_NEWS_STORIES, {})
+    const savedStories = Object.keys(newsStories).map((symbol) => {
+      return { symbol, ...newsStories[symbol] }
+    })
+    const stories = savedStories.map((story) => {
       return {
         ...story,
         newsCompany: NEWS_COMPANIES[Phaser.Math.Between(0, NEWS_COMPANIES.length - 1)],
       }
     })
-    const newsStoriesList = NewsStories(stories, Constants.WINDOW_WIDTH, 560, (article) => {
-      const parent = this.parent as FriarBuck
-      parent.renderSubscreen(FB_ScreenTypes.FULL_ARTICLE, article)
-    })
+    const newsStoriesList = NewsStories(stories, Constants.WINDOW_WIDTH, 560)
     this.newsStories = this.scene.add
       .dom(0, this.headerText.y + this.headerText.displayHeight + 30, newsStoriesList)
       .setOrigin(0)
@@ -50,7 +55,9 @@ export class NewsScreen extends SubScreen {
     Utils.setupDragToScroll('friar-buck-news-stories')
   }
 
-  public onRender(data?: any): void {}
+  public onRender(data?: any): void {
+    this.renderNewsStoriesList()
+  }
 
   public setVisible(isVisible: boolean): void {
     this.headerText.setVisible(isVisible)
