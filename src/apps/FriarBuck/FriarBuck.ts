@@ -137,7 +137,6 @@ export class FriarBuck extends App {
       }
       return cooldownB - cooldownA
     })
-    console.log(newsCooldowns, stockSymbolsSortedByNewsRecency)
     const symbolsToGenerateStoriesFor = stockSymbolsSortedByNewsRecency.slice(0, 5)
     const newsStoriesForCurrDate = {}
     symbolsToGenerateStoriesFor.forEach((symbol) => {

@@ -20,16 +20,11 @@ export class Browse extends SubScreen {
       this.stockList.destroy()
     }
     const stockPrices = Save.getData(SaveKeys.STOCK_PRICES, INITIAL_STOCK_PRICES) as StockPrices
-    const knowledgeLevel = Utils.getKnowledgeGrade()
     const stockPricesForCurrDay = stockPrices[Utils.getCurrDayKey()]
-    const stockList: any[] = []
-    STOCKS.forEach((stock) => {
-      if (Utils.getGradeIndex(stock.knowledgeReqForUnlock) <= Utils.getGradeIndex(knowledgeLevel)) {
-        const stockToRender = {
-          price: stockPricesForCurrDay[stock.symbol],
-          ...stock,
-        }
-        stockList.push(stockToRender)
+    const stockList: any[] = STOCKS.map((stock) => {
+      return {
+        price: stockPricesForCurrDay[stock.symbol],
+        ...stock,
       }
     })
     const stockListElem = StockList(

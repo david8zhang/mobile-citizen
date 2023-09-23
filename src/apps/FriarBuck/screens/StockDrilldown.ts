@@ -43,6 +43,7 @@ export class StockDrilldown extends SubScreen {
   // Buy/Sell buttons
   private buyButton!: Button
   private sellButton!: Button
+  private knowledgeGradeInsufficientText!: Phaser.GameObjects.Text
 
   constructor(scene: Home, parent: FriarBuck) {
     super(scene, parent)
@@ -50,6 +51,7 @@ export class StockDrilldown extends SubScreen {
     this.setupStockChart()
     this.setupPositionInfo()
     this.setupBuySellButtons()
+    this.setupKnowledgeGradeInsufficientText()
     this.setupStockTip()
     this.setVisible(false)
   }
@@ -267,6 +269,18 @@ export class StockDrilldown extends SubScreen {
     })
   }
 
+  public setupKnowledgeGradeInsufficientText() {
+    this.knowledgeGradeInsufficientText = this.scene.add
+      .text(Constants.WINDOW_WIDTH / 2, this.buyButton.y - 30, '', {
+        fontSize: '15px',
+        color: '#555555',
+        fontFamily: Constants.FONT_REGULAR,
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setWordWrapWidth(Constants.WINDOW_WIDTH - 30, true)
+      .setAlign('center')
+  }
+
   public setupStockChart() {
     this.chart = new Chart(this.scene, {
       data: [],
@@ -280,6 +294,10 @@ export class StockDrilldown extends SubScreen {
   }
 
   public setVisible(isVisible: boolean): void {
+    if (!isVisible) {
+      this.buyButton.setVisible(isVisible)
+      this.sellButton.setVisible(isVisible)
+    }
     this.backButton.setVisible(isVisible)
     this.stockSymbol.setVisible(isVisible)
     this.stockName.setVisible(isVisible)
@@ -290,14 +308,13 @@ export class StockDrilldown extends SubScreen {
     this.numSharesOwnedValue.setVisible(isVisible)
     this.shareWorthLabel.setVisible(isVisible)
     this.shareWorthValue.setVisible(isVisible)
-    this.buyButton.setVisible(isVisible)
-    this.sellButton.setVisible(isVisible)
     this.totalGrowthLabel.setVisible(isVisible)
     this.totalGrowthValue.setVisible(isVisible)
     this.costBasisLabel.setVisible(isVisible)
     this.costBasisValue.setVisible(isVisible)
     this.stockTipLabel.setVisible(isVisible)
     this.stockTip.setVisible(isVisible)
+    this.knowledgeGradeInsufficientText.setVisible(isVisible)
   }
 
   updateStockInfo(stock: Stock) {
@@ -383,5 +400,22 @@ export class StockDrilldown extends SubScreen {
     this.updateStockChart(data.stock)
     this.updatePosition(data.stock)
     this.updateTipContent(data.stock)
+    this.updateBuyOrSellButton(data.stock)
+  }
+
+  updateBuyOrSellButton(stock: Stock) {
+    const knowledgeLevel = Utils.getKnowledgeGrade()
+    if (Utils.getGradeIndex(stock.knowledgeReqForUnlock) > Utils.getGradeIndex(knowledgeLevel)) {
+      this.buyButton.setVisible(false)
+      this.sellButton.setVisible(false)
+      this.knowledgeGradeInsufficientText.setText(
+        `Raise your knowledge level to invest!\nCurrent knowledge level: ${knowledgeLevel} | Required knowledge level: ${stock.knowledgeReqForUnlock}`
+      )
+      Utils.centerText(Constants.WINDOW_WIDTH / 2, this.knowledgeGradeInsufficientText)
+    } else {
+      this.buyButton.setVisible(true)
+      this.sellButton.setVisible(true)
+      this.knowledgeGradeInsufficientText.setVisible(false)
+    }
   }
 }
