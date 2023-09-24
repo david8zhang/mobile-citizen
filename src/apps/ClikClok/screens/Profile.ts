@@ -24,7 +24,6 @@ export class Profile extends SubScreen {
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0.5, 0)
-      .setTintFill(0x7100ff)
     this.profilePic.setDisplaySize(150, 150)
     this.profileNameLabel = this.scene.add
       .text(

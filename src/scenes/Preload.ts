@@ -40,10 +40,10 @@ export class Preload extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('arrow-up', 'arrowUp.png')
-    this.load.image('arrow-down', 'arrowDown.png')
-    this.load.image('arrow-left', 'arrowLeft.png')
-    this.load.image('arrow-right', 'arrowRight.png')
+    this.load.image('arrow-up', 'clikclok/arrowUp.png')
+    this.load.image('arrow-down', 'clikclok/arrowDown.png')
+    this.load.image('arrow-left', 'clikclok/arrowLeft.png')
+    this.load.image('arrow-right', 'clikclok/arrowRight.png')
     this.load.image('bg', 'bg.jpeg')
     this.loadIcons()
   }

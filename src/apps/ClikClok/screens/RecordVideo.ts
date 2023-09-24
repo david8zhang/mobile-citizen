@@ -89,7 +89,7 @@ export class RecordVideo extends SubScreen {
       width: 100,
       height: 30,
       textColor: 'white',
-      backgroundColor: 0x7100ff,
+      backgroundColor: 0xffffff,
       strokeWidth: 0,
       x: Constants.WINDOW_WIDTH / 2,
       y: this.completedVideoLabel.y + this.completedVideoLabel.displayHeight + 30,

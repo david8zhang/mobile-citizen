@@ -126,7 +126,7 @@ export class CC_BottomNav {
         this.bgRect.y,
         CC_BottomNav.BUTTON_WIDTH,
         CC_BottomNav.BUTTON_WIDTH,
-        0x7100ff
+        0x444444
       )
       .setInteractive()
       .setDepth(Constants.SORT_LAYERS.APP_UI)

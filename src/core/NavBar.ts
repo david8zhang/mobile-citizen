@@ -27,7 +27,7 @@ export class Navbar {
         Constants.WINDOW_WIDTH - Navbar.STROKE_WIDTH * 2,
         config.height
       )
-      .setFillStyle(config.fillColor ? config.fillColor : 0xffffff)
+      .setFillStyle(config.fillColor !== undefined ? config.fillColor : 0xffffff)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     if (config.strokeStyle) {

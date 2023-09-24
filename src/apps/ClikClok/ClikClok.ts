@@ -36,7 +36,7 @@ export class ClikClok extends App {
         color: 'white',
         fontSize: '20px',
       },
-      fillColor: 0x7100ff,
+      fillColor: 0x000000,
     })
     this.screenMappings = {
       [CC_ScreenTypes.PROFILE]: new Profile(this.scene, this),
