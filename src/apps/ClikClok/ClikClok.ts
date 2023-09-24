@@ -11,7 +11,6 @@ import { CompletedVideo, Video } from './screens/CompletedVideo'
 import { Earnings } from './screens/Earnings'
 import { Save, SaveKeys } from '~/utils/Save'
 import { ClikClokConstants } from './ClikClokConstants'
-import { BankTransactions } from '../Bank/Bank'
 import { AppRoute } from '~/utils/AppConfigs'
 import { Notification } from '~/core/NotificationListScreen'
 import { Utils } from '~/utils/Utils'
@@ -59,36 +58,58 @@ export class ClikClok extends App {
     })
     this.setVisible(false)
     this.scene.onProgressDayCallbacks.push(() => {
-      this.earnRevenueForVideos()
+      this.earnRevenueFollowersAndViews()
     })
   }
 
-  earnRevenueForVideos() {
+  earnRevenueFollowersAndViews() {
     const currDate = Save.getData(SaveKeys.CURR_DATE) as number
     const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]
     const sortedByDateDesc = videos.sort((a, b) => {
       return b.creationDate - a.creationDate
     })
     let totalRevenueEarned = 0
+    let totalViews = 0
     const videosWithRevenue: Video[] = []
     sortedByDateDesc.map((video: Video) => {
-      const recencyBonus = ClikClokConstants.getRecencyRevenueBonus(video.creationDate, currDate)
-      const baseRevenue = ClikClokConstants.getBaseRevenueFromVideoRank(video)
-      const totalRevenue = recencyBonus * baseRevenue
-      totalRevenueEarned += totalRevenue
-      videosWithRevenue.push({
-        ...video,
-        revenueEarnedPerDay: {
-          ...video.revenueEarnedPerDay,
-          [`Day ${currDate}`]: totalRevenue,
-        },
-      })
+      const newVideo = { ...video }
+      const recencyBonus = ClikClokConstants.getRecencyBonus(video.creationDate, currDate)
+      const newViews = ClikClokConstants.getNewViewsForVideo(recencyBonus)
+      newVideo.totalViews += newViews
+      totalViews += newVideo.totalViews
+      const revenueEarned = ClikClokConstants.getTotalRevenueForVideo(newVideo, recencyBonus)
+      totalRevenueEarned += revenueEarned
+      newVideo.revenueEarnedPerDay = {
+        ...video.revenueEarnedPerDay,
+        [`Day ${currDate}`]: revenueEarned,
+      }
+      videosWithRevenue.push(newVideo)
     })
     if (totalRevenueEarned > 0) {
       Utils.addTransaction(totalRevenueEarned, 'Clik Clok, Inc.', true)
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
       this.showNotificationForEarned(totalRevenueEarned)
     }
+    const currFollowers = Save.getData(SaveKeys.CLIK_CLOK_FOLLOWERS, 0)
+    const newFollowers = ClikClokConstants.getNewFollowers(totalViews)
+    if (newFollowers > 0) {
+      this.showNotificationForNewFollowers(newFollowers)
+    }
+    Save.setData(SaveKeys.CLIK_CLOK_FOLLOWERS, currFollowers + newFollowers)
+  }
+
+  showNotificationForNewFollowers(newFollowers: number) {
+    const day = Save.getData(SaveKeys.CURR_DATE) as number
+    const newNotification: Notification = {
+      id: `clik-clok-followers-day-${day}`,
+      appName: 'Clik Clok',
+      message: `You have ${newFollowers} new follower${newFollowers > 1 ? 's' : ''}`,
+      route: AppRoute.CLIK_CLOK,
+      day: day,
+    }
+    const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
+    const newNotifications = notifications.concat(newNotification)
+    Save.setData(SaveKeys.NOTIFICATIONS, newNotifications)
   }
 
   showNotificationForEarned(totalRevenueEarned: number) {
@@ -99,6 +120,7 @@ export class ClikClok extends App {
       appName: 'Clik Clok',
       message: `Your videos have earned $${totalRevenueEarned.toFixed(2)}`,
       route: AppRoute.CLIK_CLOK,
+      day: day,
     }
     const newNotifications = notifications.concat(newNotification)
     Save.setData(SaveKeys.NOTIFICATIONS, newNotifications)

@@ -134,11 +134,13 @@ export class Nile extends App {
     })
     Save.setData(SaveKeys.PENDING_NILE_ORDERS, pendingOrders)
     if (hasOrderBeenDelivered) {
+      const currDay = Save.getData(SaveKeys.CURR_DATE) as number
       const orderDeliveredNotif: Notification = {
         message: 'Your order has been delivered',
         appName: 'Nile',
         id: `${Date.now()}-nile-order-delivered`,
         route: AppRoute.NILE,
+        day: currDay,
       }
       Utils.addNotification(orderDeliveredNotif)
     }

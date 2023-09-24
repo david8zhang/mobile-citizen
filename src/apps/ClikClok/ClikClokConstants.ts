@@ -1,6 +1,8 @@
 import { Constants } from '~/utils/Constants'
 
 import { Video } from './screens/CompletedVideo'
+import { Save, SaveKeys } from '~/utils/Save'
+import { Grade } from '~/core/TopBar'
 
 export enum Direction {
   UP = 'up',
@@ -48,28 +50,28 @@ export class ClikClokConstants {
 
   public static EARNING_POTENTIAL_TO_BASE_REVENUE = {
     [EarningPotential.HIGH]: {
-      [SongRank.S]: 10,
-      [SongRank.A]: 7.5,
-      [SongRank.B]: 6.25,
-      [SongRank.D]: 5,
-      [SongRank.C]: 4,
-      [SongRank.F]: 2.5,
+      [SongRank.S]: 1.5,
+      [SongRank.A]: 1.25,
+      [SongRank.B]: 1,
+      [SongRank.D]: 0.75,
+      [SongRank.C]: 0.5,
+      [SongRank.F]: 0.25,
     },
     [EarningPotential.MEDIUM]: {
-      [SongRank.S]: 5,
-      [SongRank.A]: 4.5,
-      [SongRank.B]: 3.75,
-      [SongRank.C]: 3,
-      [SongRank.D]: 2,
-      [SongRank.F]: 1.5,
+      [SongRank.S]: 0.75,
+      [SongRank.A]: 0.5,
+      [SongRank.B]: 0.25,
+      [SongRank.C]: 0.2,
+      [SongRank.D]: 0.15,
+      [SongRank.F]: 0.1,
     },
     [EarningPotential.LOW]: {
-      [SongRank.S]: 3,
-      [SongRank.A]: 2.75,
-      [SongRank.B]: 2,
-      [SongRank.C]: 1.75,
-      [SongRank.D]: 1,
-      [SongRank.F]: 0.5,
+      [SongRank.S]: 0.2,
+      [SongRank.A]: 0.15,
+      [SongRank.B]: 0.1,
+      [SongRank.C]: 0.05,
+      [SongRank.D]: 0.02,
+      [SongRank.F]: 0.01,
     },
   }
 
@@ -121,12 +123,52 @@ export class ClikClokConstants {
     return SongRank.S
   }
 
-  public static getRecencyRevenueBonus(creationDate: number, currDate: number) {
+  public static getRecencyBonus(creationDate: number, currDate: number) {
     const dateDiff = currDate - creationDate
-    return 2 - (2 * dateDiff) / 3
+    return Math.max(0, 2 - (2 * dateDiff) / 3)
   }
 
   public static getBaseRevenueFromVideoRank(video: Video) {
     return this.EARNING_POTENTIAL_TO_BASE_REVENUE[video.earningPotential][video.songRank]
+  }
+
+  public static getTotalRevenueForVideo(video: Video, recencyBonus: number) {
+    return (
+      Math.ceil(video.totalViews / 100) * this.getBaseRevenueFromVideoRank(video) * recencyBonus
+    )
+  }
+
+  /**
+   * Views are calculated based on
+   *
+   * (followerCount * viralityCoefficient) * recencyBonus
+   *
+   * Virality coefficient is a random number which serves as a multiplier on top of existing follower count
+   *
+   * @param video
+   */
+  public static getNewViewsForVideo(recencyBonus: number) {
+    const followerCount = Math.max(1, Save.getData(SaveKeys.CLIK_CLOK_FOLLOWERS, 1) as number)
+    const viralityCoefficient = this.getViralityCoefficient()
+    const totalViews = Math.max(1, Math.round(followerCount * (viralityCoefficient / 100)))
+    return Math.round(totalViews * recencyBonus)
+  }
+
+  public static getViralityCoefficient() {
+    const basePct = Phaser.Math.Between(1, 1000)
+    if (basePct > 985) {
+      // 1.5% Chance to go very viral
+      return Phaser.Math.Between(400, 1000)
+    }
+    if (basePct > 950) {
+      // 5% Chance to go viral
+      return Phaser.Math.Between(200, 400)
+    }
+    return Phaser.Math.Between(10, 100)
+  }
+
+  public static getNewFollowers(totalViews: number) {
+    const maxFollowers = Math.round(totalViews / 10)
+    return Phaser.Math.Between(0, maxFollowers)
   }
 }

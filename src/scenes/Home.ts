@@ -120,6 +120,7 @@ export class Home extends Phaser.Scene {
           appName: 'MyHealth',
           route: AppRoute.FIT_NESS_MONSTER,
           id: `low-fitness-warning-${currDate}`,
+          day: currDate,
         }
         Utils.addNotification(emptyFullnessFitnessPenaltyNotification)
       }
@@ -129,6 +130,7 @@ export class Home extends Phaser.Scene {
         appName: 'MyHealth',
         route: AppRoute.FIT_NESS_MONSTER,
         id: `fullness-penalty-day-${currDate}`,
+        day: currDate,
       }
       Utils.addNotification(emptyFullnessFitnessPenaltyNotification)
     }
@@ -148,6 +150,7 @@ export class Home extends Phaser.Scene {
   }
 
   handleBillPay(nextDay: number) {
+    const currDay = Save.getData(SaveKeys.CURR_DATE) as number
     if (nextDay % Constants.DAYS_BETWEEN_BILLING == 0) {
       if (nextDay !== 0) {
         const currBankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
@@ -163,6 +166,7 @@ export class Home extends Phaser.Scene {
               message: `Warning! Your balance has gone into the negative! Once you accrue more than $${Math.abs(
                 Constants.BANKRUPTCY_AMOUNT
               ).toFixed(2)} in debt, you will go bankrupt!`,
+              day: currDay,
             }
             Utils.addNotification(negativeBalanceNotification)
           }
@@ -174,6 +178,7 @@ export class Home extends Phaser.Scene {
           message: `Monthly bills have been charged to your account: $${Constants.BASE_BILL_AMOUNT.toFixed(
             2
           )}`,
+          day: currDay,
         }
         const billPayTransaction: BankTransactions = {
           amount: -Constants.BASE_BILL_AMOUNT,
@@ -199,6 +204,7 @@ export class Home extends Phaser.Scene {
           )} will be due in ${diffBetweenNextDayAndBilling} day${
             diffBetweenNextDayAndBilling == 1 ? '' : 's'
           }!`,
+          day: currDay,
         }
         Utils.addNotification(billReminderNotification)
       }

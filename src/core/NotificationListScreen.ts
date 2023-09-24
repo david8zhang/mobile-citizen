@@ -13,6 +13,7 @@ export interface Notification {
   appName: string
   message: string
   route: AppRoute
+  day: number
   data?: any
 }
 
@@ -55,13 +56,17 @@ export class NotificationListScreen {
   }
 
   updateNotificationList() {
-    const notifications = Save.getData(SaveKeys.NOTIFICATIONS)
+    const sortedByDateDescNotifs = (Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]).sort(
+      (a, b) => {
+        return b.day - a.day
+      }
+    )
     if (this.notificationDomElement) {
       this.notificationDomElement.destroy()
     }
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
     const notificationList = NotificationList(
-      notifications,
+      sortedByDateDescNotifs,
       Constants.WINDOW_WIDTH,
       640,
       (notification: Notification, index: number) => {
@@ -81,7 +86,11 @@ export class NotificationListScreen {
   }
 
   removeNotification(index: number) {
-    const notifications = [...(Save.getData(SaveKeys.NOTIFICATIONS) as Notification[])]
+    const notifications = [...(Save.getData(SaveKeys.NOTIFICATIONS) as Notification[])].sort(
+      (a, b) => {
+        return b.day - a.day
+      }
+    )
     notifications.splice(index, 1)
     Save.setData(SaveKeys.NOTIFICATIONS, notifications)
     this.updateNotificationList()
