@@ -21,7 +21,7 @@ export abstract class App {
 
   public render(onComplete?: Function, data?: any): void {
     this.bgRect.setVisible(true).setAlpha(1)
-    this.scene.tweens.add({
+    const tween = this.scene.tweens.add({
       targets: this.bgRect,
       width: {
         from: 0,
@@ -44,6 +44,7 @@ export abstract class App {
           this.setVisible(true)
           onComplete()
         }
+        tween.remove()
       },
     })
   }
@@ -51,7 +52,7 @@ export abstract class App {
   public onHide(onComplete?: Function): void {
     this.setVisible(false)
     this.bgRect.setVisible(true)
-    this.scene.tweens.add({
+    const tween = this.scene.tweens.add({
       targets: this.bgRect,
       width: {
         to: 0,
@@ -75,6 +76,7 @@ export abstract class App {
         if (onComplete) {
           onComplete()
         }
+        tween.remove()
       },
     })
   }

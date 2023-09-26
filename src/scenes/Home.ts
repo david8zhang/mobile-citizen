@@ -100,7 +100,9 @@ export class Home extends Phaser.Scene {
   resetLevels() {
     const fitnessGrade = Utils.getFitnessGrade()
     const totalEnergyForFitnessGrade = Utils.getMaxEnergyForFitness(fitnessGrade)
-    Save.setData(SaveKeys.ENERGY_LEVEL, totalEnergyForFitnessGrade)
+    const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+    const currEnergy = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    Save.setData(SaveKeys.ENERGY_LEVEL, Math.min(currEnergy + fullness, totalEnergyForFitnessGrade))
   }
 
   handleFullnessDecrease() {
@@ -140,8 +142,8 @@ export class Home extends Phaser.Scene {
 
   executeOnProgressDayCallbacks(nextDay: number) {
     Save.setData(SaveKeys.CURR_DATE, nextDay)
-    this.handleFullnessDecrease()
     this.resetLevels()
+    this.handleFullnessDecrease()
     this.handleBillPay(nextDay)
     this.onProgressDayCallbacks.forEach((fn) => {
       fn()
