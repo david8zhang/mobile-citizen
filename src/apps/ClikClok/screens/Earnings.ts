@@ -53,13 +53,16 @@ export class Earnings extends SubScreen {
   }
 
   updateEarnings() {
-    const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]
-    const currDate = Save.getData(SaveKeys.CURR_DATE) as number
+    const currDayKey = Utils.getCurrDayKey()
+    const videosWithRevenue = (Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]).filter(
+      (video) => {
+        return video.revenueEarnedPerDay[currDayKey] !== 0
+      }
+    )
     let totalEarnings = 0
-    const day = `Day ${currDate}`
-    videos.forEach((video) => {
-      if (video.revenueEarnedPerDay[day]) {
-        totalEarnings += video.revenueEarnedPerDay[day]
+    videosWithRevenue.forEach((video) => {
+      if (video.revenueEarnedPerDay[currDayKey]) {
+        totalEarnings += video.revenueEarnedPerDay[currDayKey]
       }
     })
     this.dailyEarningsText.setText(`$${totalEarnings.toFixed(2)}`)
@@ -77,15 +80,19 @@ export class Earnings extends SubScreen {
   }
 
   public setupVideoList() {
-    const videos = Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]
-    const sortedVideos = videos.sort((a, b) => {
+    const currDayKey = Utils.getCurrDayKey()
+    const videosWithRevenue = (Save.getData(SaveKeys.CLIK_CLOK_VIDEOS) as Video[]).filter(
+      (video) => {
+        return video.revenueEarnedPerDay[currDayKey] !== 0
+      }
+    )
+    const sortedVideos = videosWithRevenue.sort((a, b) => {
       return b.creationDate - a.creationDate
     })
-    const currDay = Save.getData(SaveKeys.CURR_DATE) as Video[]
     const yPos = this.dailyEarningsLabel.y
     const videoList = VideoList(
       sortedVideos,
-      `Day ${currDay}`,
+      currDayKey,
       460,
       Constants.WINDOW_WIDTH,
       (video: Video) => {

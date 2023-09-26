@@ -12,6 +12,7 @@ import { Video } from './CompletedVideo'
 import { Save, SaveKeys } from '~/utils/Save'
 import { CC_ScreenTypes } from '../CCScreenTypes'
 import { Button } from '../../../core/Button'
+import { Utils } from '~/utils/Utils'
 
 export class RecordVideo extends SubScreen {
   private selectedSound: SongConfig | null = null
@@ -265,12 +266,13 @@ export class RecordVideo extends SubScreen {
     this.postVideoButton.setVisible(false)
     if (this.selectedSound) {
       const currDay = Save.getData(SaveKeys.CURR_DATE) as number
+      const currDayKey = Utils.getCurrDayKey()
       const completedVideo: Video = {
         songRank,
         totalViews: 0,
         creationDate: currDay,
         revenueEarnedPerDay: {
-          [`Day ${currDay}`]: 0,
+          [currDayKey]: 0,
         },
         profileName: '@User',
         hashtags: this.selectedSound.hashtags,

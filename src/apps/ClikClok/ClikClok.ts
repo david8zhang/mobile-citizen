@@ -78,10 +78,11 @@ export class ClikClok extends App {
       newVideo.totalViews += newViews
       totalViews += newVideo.totalViews
       const revenueEarned = ClikClokConstants.getTotalRevenueForVideo(newVideo, recencyBonus)
+      const currDayKey = Utils.getCurrDayKey()
       totalRevenueEarned += revenueEarned
       newVideo.revenueEarnedPerDay = {
         ...video.revenueEarnedPerDay,
-        [`Day ${currDate}`]: revenueEarned,
+        [currDayKey]: revenueEarned,
       }
       videosWithRevenue.push(newVideo)
     })
