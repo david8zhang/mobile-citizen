@@ -26,6 +26,9 @@ export class WorkoutScreen extends SubScreen {
     this.selectedWorkoutType = workoutType
     const workoutMinigame = this.workoutGameMapping[workoutType]
     if (workoutMinigame) {
+      const parent = this.parent as FitNessMonster
+      parent.bottomNav.setVisible(false)
+      this.scene.setPreventAction(true)
       workoutMinigame.initialize(this.workoutGame.minigameConfig, this.workoutGame)
     }
   }

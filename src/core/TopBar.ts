@@ -30,6 +30,7 @@ export class TopBar {
 
   private numNotificationsText!: Phaser.GameObjects.Text
   private envelopeButton!: Phaser.GameObjects.Sprite
+  private preventActions: boolean = false // Prevent actions (during activities like workouts or recording videos)
 
   constructor(scene: Home) {
     this.scene = scene
@@ -67,6 +68,10 @@ export class TopBar {
       .setDisplaySize(15, 15)
       .setOrigin(1, 0)
       .setTintFill(0xffffff)
+  }
+
+  setPreventAction(value: boolean) {
+    this.preventActions = value
   }
 
   setupKnowledgeText() {
@@ -152,11 +157,15 @@ export class TopBar {
       .setTintFill(0xffffff)
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {
-        this.envelopeButton.setAlpha(0.5)
+        if (!this.preventActions) {
+          this.envelopeButton.setAlpha(0.5)
+        }
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.envelopeButton.setAlpha(1)
-        this.scene.openNotificationsList()
+        if (!this.preventActions) {
+          this.envelopeButton.setAlpha(1)
+          this.scene.openNotificationsList()
+        }
       })
   }
 
@@ -180,11 +189,15 @@ export class TopBar {
       .setTintFill(0xffffff)
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {
-        this.powerButton.setAlpha(0.5)
+        if (!this.preventActions) {
+          this.powerButton.setAlpha(0.5)
+        }
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.powerButton.setAlpha(1)
-        this.scene.showConfirmProgressModal()
+        if (!this.preventActions) {
+          this.powerButton.setAlpha(1)
+          this.scene.showConfirmProgressModal()
+        }
       })
   }
 

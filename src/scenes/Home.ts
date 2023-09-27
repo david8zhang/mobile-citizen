@@ -37,6 +37,7 @@ export class Home extends Phaser.Scene {
 
   private static APPS_PER_ROW = 4
   private static PADDING_BETWEEN_APPS = 40
+  private preventActions: boolean = false
 
   constructor() {
     super('home')
@@ -230,6 +231,11 @@ export class Home extends Phaser.Scene {
     this.topBar.updateStats()
   }
 
+  setPreventAction(value: boolean) {
+    this.topBar.setPreventAction(value)
+    this.preventActions = value
+  }
+
   setupHomeButton() {
     this.homeButton = this.add
       .text(0, 0, 'Home', {
@@ -239,15 +245,21 @@ export class Home extends Phaser.Scene {
       })
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {
-        this.homeButton.setAlpha(0.5)
+        if (!this.preventActions) {
+          this.homeButton.setAlpha(0.5)
+        }
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.homeButton.setAlpha(1)
-        this.goBackHome()
+        if (!this.preventActions) {
+          this.homeButton.setAlpha(1)
+          this.goBackHome()
+        }
       })
       .on(Phaser.Input.Events.POINTER_UP_OUTSIDE, () => {
-        this.homeButton.setAlpha(1)
-        this.goBackHome()
+        if (!this.preventActions) {
+          this.homeButton.setAlpha(1)
+          this.goBackHome()
+        }
       })
       .setDepth(150)
     this.homeButton.setPosition(

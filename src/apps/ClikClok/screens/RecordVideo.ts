@@ -4,7 +4,7 @@ import { SubScreen } from '../../../core/SubScreen'
 import { SongConfig } from './SelectSound'
 import { Constants } from '~/utils/Constants'
 import { UINumber } from '../UINumber'
-import { ClikClokConstants, Superlative } from '../ClikClokConstants'
+import { ClikClokConstants } from '../ClikClokConstants'
 import { ArrowSpawner } from '../arrows/ArrowSpawner'
 import { InputArrowZone } from '../arrows/InputArrowZone'
 import { InputArrow } from '../arrows/InputArrow'
@@ -164,6 +164,7 @@ export class RecordVideo extends SubScreen {
   }
 
   startRecording() {
+    this.scene.setPreventAction(true)
     this.scene.homeButton.setVisible(false)
     this.recordButton.setVisible(false)
     this.recordButtonLabel.setVisible(false)
@@ -289,6 +290,7 @@ export class RecordVideo extends SubScreen {
       this.scene.updateTopBarStats()
       const parent = this.parent as ClikClok
       parent.renderSubscreen(CC_ScreenTypes.COMPLETED_VIDEO, completedVideo)
+      this.scene.setPreventAction(false)
     }
   }
 

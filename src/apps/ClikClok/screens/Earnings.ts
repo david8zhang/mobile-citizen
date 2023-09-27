@@ -91,6 +91,7 @@ export class Earnings extends SubScreen {
     })
     const yPos = this.dailyEarningsLabel.y
     const videoList = VideoList(
+      'video-list',
       sortedVideos,
       currDayKey,
       460,

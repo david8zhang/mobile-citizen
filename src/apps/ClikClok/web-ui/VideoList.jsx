@@ -1,9 +1,9 @@
 import { Constants } from '~/utils/Constants'
 
-export const VideoList = (videos, currDay, height, width, onClick) => {
+export const VideoList = (id, videos, currDay, height, width, onClick) => {
   return (
     <div
-      id='video-list'
+      id={id}
       style={{
         overflowY: 'scroll',
         padding: '0px 15px',

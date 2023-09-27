@@ -124,6 +124,7 @@ export class CompletedWorkout extends SubScreen {
       onClick: () => {
         const parent = this.parent as FitNessMonster
         parent.renderSubscreen(FNM_ScreenTypes.FITNESS_STATS)
+        this.scene.setPreventAction(false)
       },
       backgroundColor: 0xffffff,
       strokeColor: 0x000000,
