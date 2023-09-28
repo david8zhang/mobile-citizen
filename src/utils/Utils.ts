@@ -3,6 +3,7 @@ import { Save, SaveKeys } from './Save'
 import { Notification } from '~/core/NotificationListScreen'
 import { Constants } from './Constants'
 import { BankTransactions } from '~/apps/Bank/Bank'
+import { Home } from '~/scenes/Home'
 
 export enum FullnessLevel {
   FULL = 'FULL',
@@ -153,7 +154,7 @@ export class Utils {
     Save.setData(SaveKeys.FITNESS_LEVEL, fitnessPoints + points)
   }
 
-  public static addTransaction(amount: number, vendor: string, isCredit: boolean) {
+  public static addTransaction(scene: Home, amount: number, vendor: string, isCredit: boolean) {
     const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     if (isCredit || bankBalance >= amount) {
       const newTransaction: BankTransactions = {
@@ -165,6 +166,7 @@ export class Utils {
       const newBankBalance = isCredit ? bankBalance + amount : bankBalance - amount
       Save.setData(SaveKeys.RECENT_TRANSACTIONS, newTransactions)
       Save.setData(SaveKeys.BANK_BALANCE, newBankBalance)
+      scene.updateTopBarStats()
     } else {
       console.error('Insufficient funds: ', bankBalance)
     }

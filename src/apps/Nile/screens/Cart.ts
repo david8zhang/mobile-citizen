@@ -82,7 +82,7 @@ export class Cart extends SubScreen {
       storeItem: cartItem,
       daysUntilDelivery: 2,
     }))
-    Utils.addTransaction(cartTotal, 'Nile, Inc.', false)
+    Utils.addTransaction(this.scene, cartTotal, 'Nile, Inc.', false)
 
     // Add items to inventory (to prevent player from purchasing them again)
     const inventory = Save.getData(SaveKeys.INVENTORY, []) as string[]

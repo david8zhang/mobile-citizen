@@ -87,7 +87,7 @@ export class ClikClok extends App {
       videosWithRevenue.push(newVideo)
     })
     if (totalRevenueEarned > 0) {
-      Utils.addTransaction(totalRevenueEarned, 'Clik Clok, Inc.', true)
+      Utils.addTransaction(this.scene, totalRevenueEarned, 'Clik Clok, Inc.', true)
       Save.setData(SaveKeys.CLIK_CLOK_VIDEOS, videosWithRevenue)
       this.showNotificationForEarned(totalRevenueEarned)
     }

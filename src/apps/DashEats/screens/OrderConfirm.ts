@@ -168,7 +168,7 @@ export class OrderConfirm extends SubScreen {
     }
     const totalCost =
       this.menuItem.price + (this.selectedDeliveryOptionType === DeliveryOptionType.SPEEDY ? 3 : 0)
-    Utils.addTransaction(totalCost, 'DashEats, Inc.', false)
+    Utils.addTransaction(this.scene, totalCost, 'DashEats, Inc.', false)
     const parent = this.parent as DashEats
     parent.renderSubscreen(DE_ScreenTypes.ORDER_PROGRESS, {
       menuItem: this.menuItem,

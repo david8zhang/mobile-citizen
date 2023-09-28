@@ -77,7 +77,7 @@ export class TradeStockScreen extends SubScreen {
         const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
         const totalAmountToPurchase = amountToTrade * currStockPrice
         if (totalAmountToPurchase <= bankBalance) {
-          Utils.addTransaction(totalAmountToPurchase, 'Friar Buck, Inc.', false)
+          Utils.addTransaction(this.scene, totalAmountToPurchase, 'Friar Buck, Inc.', false)
           const averageCostBasis = this.getAverageCostBasis(
             amountToTrade,
             currStockPrice,
@@ -94,7 +94,7 @@ export class TradeStockScreen extends SubScreen {
           return
         }
       } else {
-        Utils.addTransaction(amountToTrade * currStockPrice, 'Friar Buck, Inc.', true)
+        Utils.addTransaction(this.scene, amountToTrade * currStockPrice, 'Friar Buck, Inc.', true)
         portfolio[this.stock.symbol] = {
           numShares: (portfolioStockData ? portfolioStockData.numShares : 0) - amountToTrade,
           costBasis: portfolioStockData.costBasis,

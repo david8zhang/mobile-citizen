@@ -100,7 +100,7 @@ export class StockTip {
         },
       }
 
-      Utils.addTransaction(tipPurchaseCost, 'Friar Buck, Inc.', false)
+      Utils.addTransaction(this.scene, tipPurchaseCost, 'Friar Buck, Inc.', false)
       Save.setData(SaveKeys.FRIAR_BUCK_STOCK_TIPS, tips)
     }
   }

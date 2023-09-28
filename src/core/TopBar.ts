@@ -19,6 +19,10 @@ export class TopBar {
 
   private knowledgeLabel!: Phaser.GameObjects.Sprite
   private knowledgeValueText!: Phaser.GameObjects.Text
+
+  private bankBalanceLabel!: Phaser.GameObjects.Sprite
+  private bankBalanceValueText!: Phaser.GameObjects.Text
+
   private fitnessLabel!: Phaser.GameObjects.Sprite
   private fitnessValueText!: Phaser.GameObjects.Text
   private fullnessLabel!: Phaser.GameObjects.Sprite
@@ -39,8 +43,7 @@ export class TopBar {
       .setOrigin(0)
       .setAlpha(0.5)
     this.setupFullnessText()
-    this.setupKnowledgeText()
-    this.setupFitnessText()
+    this.setupBankBalanceText()
     this.setupEnergyText()
     this.setupPowerButton()
     this.setupCurrDateLabel()
@@ -74,38 +77,22 @@ export class TopBar {
     this.preventActions = value
   }
 
-  setupKnowledgeText() {
-    const knowledgeLevel = Save.getData(SaveKeys.KNOWLEDGE_LEVEL) as number
-    const knowledgeGrade = Utils.convertKnowledgeLevelToGrade(knowledgeLevel) as Grade
-    this.knowledgeValueText = this.scene.add
-      .text(this.fullnessLabel.x - 30, 5, `${knowledgeGrade}`, {
+  setupBankBalanceText() {
+    const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
+    this.bankBalanceValueText = this.scene.add
+      .text(this.fullnessLabel.x - 30, 5, `$${bankBalance.toFixed(2)}`, {
         fontSize: '16px',
         fontFamily: 'BalsamiqSans-Regular',
         color: 'white',
         strokeThickness: 1,
       })
       .setOrigin(1, 0)
-    this.knowledgeLabel = this.scene.add
-      .sprite(this.knowledgeValueText.x - this.knowledgeValueText.displayWidth - 5, 7, 'book-solid')
-      .setDisplaySize(15, 15)
-      .setOrigin(1, 0)
-      .setTintFill(0xffffff)
-  }
-
-  setupFitnessText() {
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel) as Grade
-
-    this.fitnessValueText = this.scene.add
-      .text(this.knowledgeLabel.x - 30, 5, `${fitnessGrade}`, {
-        fontSize: '16px',
-        fontFamily: 'BalsamiqSans-Regular',
-        color: 'white',
-        strokeThickness: 1,
-      })
-      .setOrigin(1, 0)
-    this.fitnessLabel = this.scene.add
-      .sprite(this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5, 7, 'heart-solid')
+    this.bankBalanceLabel = this.scene.add
+      .sprite(
+        this.bankBalanceValueText.x - this.bankBalanceValueText.displayWidth - 5,
+        7,
+        'sack-dollar-solid'
+      )
       .setDisplaySize(15, 15)
       .setOrigin(1, 0)
       .setTintFill(0xffffff)
@@ -118,7 +105,7 @@ export class TopBar {
     const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     this.energyValue = this.scene.add
       .text(
-        this.fitnessLabel.x - this.fitnessLabel.displayWidth - 15,
+        this.bankBalanceLabel.x - this.bankBalanceLabel.displayWidth - 15,
         5,
         `${energyLevel}/${totalEnergyLevel}`,
         {
@@ -206,20 +193,25 @@ export class TopBar {
     const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
     const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
     const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
+    const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     const totalEnergyLevel = Utils.getMaxEnergyForFitness(fitnessGrade)
     const currDate = Save.getData(SaveKeys.CURR_DATE) as number
     const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
 
+    this.bankBalanceValueText.setText(`$${bankBalance.toFixed(2)}`)
+    this.bankBalanceLabel.setPosition(
+      this.bankBalanceValueText.x - this.bankBalanceValueText.displayWidth - 5,
+      7
+    )
+
     this.energyValue.setText(`${energyLevel}/${totalEnergyLevel}`)
+    this.energyValue.setPosition(
+      this.bankBalanceLabel.x - this.bankBalanceLabel.displayWidth - 15,
+      5
+    )
     this.energyIcon.setPosition(
       this.energyValue.x - this.energyValue.displayWidth - 5,
       this.energyIcon.y
-    )
-
-    this.fitnessValueText.setText(fitnessGrade)
-    this.fitnessLabel.setPosition(
-      this.fitnessValueText.x - this.fitnessValueText.displayWidth - 5,
-      this.fitnessLabel.y
     )
 
     this.currDateLabel.setText(`Day ${currDate}`)
