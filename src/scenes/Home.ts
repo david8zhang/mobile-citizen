@@ -60,9 +60,9 @@ export class Home extends Phaser.Scene {
     }
     this.setupTopBar()
     this.setupAppGrid()
-    this.setupNotifications()
     this.setupHomeButton()
     this.setupProgressDayUI()
+    this.setupNotifications()
   }
 
   checkGameOver() {
