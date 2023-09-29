@@ -34,12 +34,19 @@ export class FitnessStats extends SubScreen {
   }
 
   setupFitnessGradeCircle() {
-    const fitnessLevel = Save.getData(SaveKeys.FITNESS_LEVEL) as number
-    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessLevel)
+    const fitnessPoints = Save.getData(SaveKeys.FITNESS_LEVEL) as number
+    const fitnessGrade = Utils.convertFitnessLevelToGrade(fitnessPoints)
+    const pointsEarnedTowardNextGrade =
+      fitnessPoints - Utils.getMinFitnessPointsForGrade(fitnessGrade)
+    const totalPointsRequiredForNextFitnessGrade =
+      Utils.getMinFitnessPointsForGrade(Utils.getNextGrade(fitnessGrade)) -
+      Utils.getMinFitnessPointsForGrade(fitnessGrade)
+
     this.fitnessGradeCircle = new FitnessGradeCircle(this.scene, {
       fitnessGrade: fitnessGrade,
-      fitnessPoints: fitnessLevel,
+      fitnessPoints: fitnessPoints,
       yPos: this.headerText.y + this.headerText.displayHeight + 150,
+      progressPct: pointsEarnedTowardNextGrade / totalPointsRequiredForNextFitnessGrade,
     })
   }
 

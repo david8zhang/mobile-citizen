@@ -155,10 +155,17 @@ export class CompletedWorkout extends SubScreen {
     )
     const newFitnessLevel = prevFitnessLevel + data.fitnessGain + bonusFitnessGain
     const fitnessGrade = Utils.convertFitnessLevelToGrade(newFitnessLevel)
+
+    const pointsEarnedTowardNextGrade =
+      newFitnessLevel - Utils.getMinFitnessPointsForGrade(fitnessGrade)
+    const totalPointsRequiredForNextFitnessGrade =
+      Utils.getMinFitnessPointsForGrade(Utils.getNextGrade(fitnessGrade)) -
+      Utils.getMinFitnessPointsForGrade(fitnessGrade)
     this.fitnessGradeCircle = new FitnessGradeCircle(this.scene, {
       fitnessPoints: newFitnessLevel,
       fitnessGrade: fitnessGrade,
       yPos: this.workoutGradeText.y + this.workoutGradeText.displayHeight + 150,
+      progressPct: pointsEarnedTowardNextGrade / totalPointsRequiredForNextFitnessGrade,
     })
 
     // Setup fitness point increase amount text and label

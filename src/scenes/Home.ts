@@ -73,8 +73,9 @@ export class Home extends Phaser.Scene {
   }
 
   showOnScreenNotification(notification: Notification) {
-    this.onScreenNotification.setVisible(true)
-    this.onScreenNotification.showNotification(notification)
+    if (!this.preventActions) {
+      this.onScreenNotification.showNotification(notification)
+    }
   }
 
   setupNotifications() {

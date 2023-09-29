@@ -16,18 +16,25 @@ export class OnScreenNotification {
 
   constructor(scene: Home) {
     this.scene = scene
-    this.setupNotificationElem()
     this.setVisible(false)
   }
 
-  setupNotificationElem() {
+  setupNotificationElem(notification: Notification) {
+    if (this.notificationElem) {
+      this.notificationElem.destroy()
+      this.notificationBgRect.destroy()
+    }
+
     const onScreenNotif = OnScreenNotif(
-      'Test Notification',
+      notification,
       () => {
-        console.log('Clicked!')
+        this.scene.goBackHome()
+        this.scene.renderApp(notification.route, notification.data)
+        this.setVisible(false)
+        this.removeOnScreenNotification()
       },
       () => {
-        console.log('Dismissed!')
+        this.setVisible(false)
       }
     )
     this.notificationElem = this.scene.add
@@ -49,12 +56,22 @@ export class OnScreenNotification {
       const newNotifications = notifications.filter((notif) => notif.id !== this.notification!.id)
       Save.setData(SaveKeys.NOTIFICATIONS, newNotifications)
       this.scene.updateTopBarStats()
+      this.setVisible(false)
     }
   }
 
   showNotification(notification: Notification) {
     this.notification = notification
+    this.setupNotificationElem(notification)
+    this.setVisible(true)
   }
 
-  setVisible(isVisible: boolean) {}
+  setVisible(isVisible: boolean) {
+    if (this.notificationElem) {
+      this.notificationElem.setVisible(isVisible)
+    }
+    if (this.notificationBgRect) {
+      this.notificationBgRect.setVisible(isVisible)
+    }
+  }
 }

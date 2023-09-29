@@ -193,8 +193,10 @@ export class OrderProgress extends SubScreen {
 
   onOrderCompleted() {
     const notifId = `dash-eats-order-${Date.now()}`
+    const day = Save.getData(SaveKeys.CURR_DATE) as number
     if (!this.isShowing) {
       const orderReadyNotification: Notification = {
+        day,
         appName: 'DashEats',
         route: AppRoute.DASH_EATS,
         message: 'Your order is ready!',

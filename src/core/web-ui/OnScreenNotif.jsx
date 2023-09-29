@@ -1,6 +1,6 @@
 import { Constants } from '~/utils/Constants'
 
-export const OnScreenNotif = (notifText, onClick, onDismiss) => {
+export const OnScreenNotif = (notification, onClick, onDismiss) => {
   return (
     <div
       style={{
@@ -20,14 +20,20 @@ export const OnScreenNotif = (notifText, onClick, onDismiss) => {
             flex: 1,
             overflowY: 'hidden',
             display: 'flex',
+            flexDirection: 'column',
             height: '100%',
-            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            userSelect: 'none',
           }}
           onClick={() => {
             onClick()
           }}
         >
-          <p style={{ margin: '0px' }}>{notifText}</p>
+          <p style={{ marginBottom: '5px', marginTop: '0px', fontSize: '20px' }}>
+            {notification.appName}
+          </p>
+          <p style={{ margin: '0px' }}>{notification.message}</p>
         </div>
         <div
           style={{
