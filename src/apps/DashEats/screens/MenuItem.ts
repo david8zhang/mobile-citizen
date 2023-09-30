@@ -159,6 +159,10 @@ export class MenuItem extends SubScreen {
       menuItem: this.menuItemType,
       selectedDeliveryOptionType: this.selectedDeliveryOptionType,
     })
+    this.clearDeliveryOption()
+  }
+
+  clearDeliveryOption() {
     this.selectedDeliveryOptionType = null
     this.orderButton.setText('Select a delivery option')
     this.speedyDeliveryOption.setSelected(false)
@@ -168,6 +172,11 @@ export class MenuItem extends SubScreen {
   public onRender(data: MenuItemType): void {
     this.updateMenuItemAttributes(data)
   }
+
+  public onHide(): void {
+    this.clearDeliveryOption()
+  }
+
   public setVisible(isVisible: boolean): void {
     this.itemImage.setVisible(isVisible)
     this.itemName.setVisible(isVisible)
