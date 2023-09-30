@@ -34,17 +34,20 @@ export class WorkoutSelect extends SubScreen {
       this.workoutListDomElement.destroy()
     }
     const fitnessGrade = Utils.getFitnessGrade()
-    const workoutList = WorkoutList(
-      FitNessMonsterConstants.WORKOUT_LIST,
-      fitnessGrade,
-      Utils.getFullnessLevel(),
-      Constants.WINDOW_WIDTH,
-      520,
-      (workout: Workout) => {
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
+    const props = {
+      workouts: FitNessMonsterConstants.WORKOUT_LIST,
+      fitnessGrade: fitnessGrade,
+      fullnessLevel: Utils.getFullnessLevel(),
+      energyLevel,
+      width: Constants.WINDOW_WIDTH,
+      height: 520,
+      onClick: (workout: Workout) => {
         const parent = this.parent as FitNessMonster
         parent.renderSubscreen(FNM_ScreenTypes.WORKOUT_GAME, workout)
-      }
-    )
+      },
+    }
+    const workoutList = WorkoutList(props)
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
     this.workoutListDomElement = this.scene.add
       .dom(0, yPos, workoutList)

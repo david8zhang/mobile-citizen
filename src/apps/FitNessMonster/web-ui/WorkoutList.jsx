@@ -3,7 +3,15 @@ import { FitNessMonsterConstants } from '~/apps/FitNessMonster/FitNessMonsterCon
 import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 
-export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height, onClick) => {
+export const WorkoutList = ({
+  workouts,
+  fitnessGrade,
+  fullnessLevel,
+  energyLevel,
+  width,
+  height,
+  onClick,
+}) => {
   return (
     <div
       id='workout-list'
@@ -23,30 +31,31 @@ export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height
           FitNessMonsterConstants.fullnessLevelToEnergyCostPct(fullnessLevel) * energyCost
         )
         const energyCostStr = `-${fullnessToEnergyCost}`
-
         const fitnessGain = workout.fitnessLevelToGainMappings[fitnessGrade].fitnessGain
         const fitnessGainStr = `+${fitnessGain}`
+        const energyInsufficient = energyLevel < fullnessToEnergyCost
         return (
           <div
             style={{
               display: 'flex',
-              backgroundColor: 'white',
-              color: 'black',
+              backgroundColor: energyInsufficient ? '#dddddd' : 'white',
+              color: energyInsufficient ? 'red' : 'black',
               padding: '15px',
               marginBottom: '10px',
               userSelect: 'none',
               borderRadius: '5px',
               alignItems: 'center',
-              cursor: 'pointer',
+              cursor: energyInsufficient ? 'not-allowed' : 'pointer',
             }}
             onClick={() => {
-              onClick(workout)
+              if (energyLevel >= fullnessToEnergyCost) {
+                onClick(workout)
+              }
             }}
           >
             <p
               style={{
                 fontSize: '22px',
-                color: 'black',
                 margin: '0px',
                 flex: 3,
               }}
@@ -59,12 +68,15 @@ export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
+                marginRight: '20px',
               }}
             >
               <p
                 style={{
                   fontSize: '22px',
-                  color: Utils.getFullnessLevelHexString(fullnessLevel),
+                  color: energyInsufficient
+                    ? 'red'
+                    : Utils.getFullnessLevelHexString(fullnessLevel),
                   marginRight: '10px',
                 }}
               >
@@ -72,7 +84,7 @@ export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height
               </p>
               <svg xmlns='http://www.w3.org/2000/svg' height='22px' viewBox='0 0 448 512'>
                 <path
-                  fill={Utils.getFullnessLevelHexString(fullnessLevel)}
+                  fill={energyInsufficient ? 'red' : Utils.getFullnessLevelHexString(fullnessLevel)}
                   d='M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z'
                 />
               </svg>
@@ -88,14 +100,16 @@ export const WorkoutList = (workouts, fitnessGrade, fullnessLevel, width, height
               <p
                 style={{
                   fontSize: '22px',
-                  color: 'black',
                   marginRight: '10px',
                 }}
               >
                 {fitnessGainStr}
               </p>
-              <svg xmlns='http://www.w3.org/2000/svg' height='22px' viewBox='0 0 512 512'>
-                <path d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z' />
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512' height='22px'>
+                <path
+                  fill={energyInsufficient ? 'red' : Utils.getFullnessLevelHexString(fullnessLevel)}
+                  d='M96 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V224v64V448c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32V384H64c-17.7 0-32-14.3-32-32V288c-17.7 0-32-14.3-32-32s14.3-32 32-32V160c0-17.7 14.3-32 32-32H96V64zm448 0v64h32c17.7 0 32 14.3 32 32v64c17.7 0 32 14.3 32 32s-14.3 32-32 32v64c0 17.7-14.3 32-32 32H544v64c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32V288 224 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32zM416 224v64H224V224H416z'
+                />
               </svg>
             </div>
           </div>
