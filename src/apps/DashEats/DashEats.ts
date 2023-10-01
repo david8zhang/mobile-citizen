@@ -6,14 +6,16 @@ import { Menu } from './screens/Menu'
 import { MenuItem } from './screens/MenuItem'
 import { OrderProgress } from './screens/OrderProgress'
 import { Save, SaveKeys } from '~/utils/Save'
-import { MenuItemType } from './DashEatsConstants'
 import { OrderConfirm } from './screens/OrderConfirm'
+import { BottomNav } from '~/core/BottomNav'
+import { DeliveryJob } from './screens/DeliveryJob'
 
 export class DashEats extends App {
   private screenMappings: {
     [key in DE_ScreenTypes]?: SubScreen
   }
   private currSubscreen: DE_ScreenTypes = DE_ScreenTypes.MENU
+  public bottomNav: BottomNav
 
   constructor(scene: Home) {
     super(scene)
@@ -22,12 +24,31 @@ export class DashEats extends App {
       [DE_ScreenTypes.MENU_ITEM]: new MenuItem(this.scene, this),
       [DE_ScreenTypes.CONFIRM_ORDER]: new OrderConfirm(this.scene, this),
       [DE_ScreenTypes.ORDER_PROGRESS]: new OrderProgress(this.scene, this),
+      [DE_ScreenTypes.DELIVERY_JOB]: new DeliveryJob(this.scene, this),
     }
+    this.bottomNav = new BottomNav(this.scene, {
+      options: [
+        {
+          navOption: 'Order',
+          iconTexture: 'burger-solid',
+          route: DE_ScreenTypes.MENU,
+        },
+        {
+          navOption: 'Deliver',
+          iconTexture: 'car-solid',
+          route: DE_ScreenTypes.DELIVERY_JOB,
+        },
+      ],
+      onRoute: (route: DE_ScreenTypes) => {
+        this.renderSubscreen(route)
+      },
+    })
     this.setVisible(false)
   }
 
   public setVisible(isVisible: boolean): void {
     this.bgRect.setVisible(isVisible)
+    this.bottomNav.setVisible(isVisible)
   }
 
   renderSubscreen(newSubscreen: DE_ScreenTypes, data?: any) {

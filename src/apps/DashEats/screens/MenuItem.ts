@@ -110,7 +110,7 @@ export class MenuItem extends SubScreen {
     })
     this.orderButton = new Button({
       x: Constants.WINDOW_WIDTH / 2,
-      y: Constants.WINDOW_HEIGHT - 80,
+      y: Constants.WINDOW_HEIGHT - 165,
       scene: this.scene,
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,

@@ -1,3 +1,10 @@
+export enum Direction {
+  RIGHT = 'RIGHT',
+  LEFT = 'LEFT',
+  DOWN = 'DOWN',
+  UP = 'UP',
+}
+
 export class Constants {
   public static WINDOW_WIDTH = 480
   public static WINDOW_HEIGHT = 800

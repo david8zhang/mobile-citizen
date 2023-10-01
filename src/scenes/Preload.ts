@@ -37,15 +37,30 @@ export class Preload extends Phaser.Scene {
     this.load.image('video-solid', 'icons/video-solid.svg')
     this.load.image('football-solid', 'icons/football-solid.svg')
     this.load.image('newspaper-solid', 'icons/newspaper-solid.svg')
+    this.load.image('car-solid', 'icons/car-solid.svg')
   }
 
   preload() {
+    this.load.image('bg', 'bg.jpeg')
+
+    // Clik Clok
     this.load.image('arrow-up', 'clikclok/arrowUp.png')
     this.load.image('arrow-down', 'clikclok/arrowDown.png')
     this.load.image('arrow-left', 'clikclok/arrowLeft.png')
     this.load.image('arrow-right', 'clikclok/arrowRight.png')
-    this.load.image('bg', 'bg.jpeg')
+
+    // DashEats
+    this.load.image('car-red-horizontal', 'dasheats/cars/dasheats_car_red-horizontal.png')
+    this.load.image('car-red-up', 'dasheats/cars/dasheats_car_red-up.png')
+    this.load.image('car-red-down', 'dasheats/cars/dasheats_car_red-down.png')
+
+    this.loadTilemaps()
     this.loadIcons()
+  }
+
+  loadTilemaps() {
+    this.load.tilemapTiledJSON('sample-map', 'dasheats/sample-map.json')
+    this.load.image('tilemap_packed', 'dasheats/tilemap_packed.png')
   }
 
   create() {

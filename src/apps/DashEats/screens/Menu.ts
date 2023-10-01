@@ -29,7 +29,7 @@ export class Menu extends SubScreen {
 
   setupMenuItemList() {
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
-    const menuItemList = MenuItemList(DASH_EATS_MENU_ITEMS, Constants.WINDOW_WIDTH, 600, (data) => {
+    const menuItemList = MenuItemList(DASH_EATS_MENU_ITEMS, Constants.WINDOW_WIDTH, 540, (data) => {
       const parent = this.parent as DashEats
       parent.renderSubscreen(DE_ScreenTypes.MENU_ITEM, data)
     })
