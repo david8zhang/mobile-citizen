@@ -8,21 +8,22 @@ export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
   private carSprite!: Phaser.Physics.Arcade.Sprite
   private moveController!: MoveController
-  private static SCALE = 4
+  public static SCALE = 4
 
   constructor(scene: Home, parent: DashEats) {
     super(scene, parent)
-    this.initTilemap()
     this.initCar()
+    this.initTilemap()
     this.setVisible(false)
   }
 
   initCar() {
     this.carSprite = this.scene.physics.add
       .sprite(0, 0, 'car-red-horizontal')
-      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setDepth(Constants.SORT_LAYERS.MODAL)
       .setOrigin(0)
       .setScale(4)
+    this.scene.physics.world.enableBody(this.carSprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
     this.moveController = new MoveController({
       scene: this.scene,
       speed: 150,
@@ -40,15 +41,17 @@ export class DeliveryGame extends SubScreen {
 
   initTilemap() {
     this.tileMap = this.scene.make.tilemap({
-      key: 'sample-map',
+      key: 'dasheats-city',
     })
     const tileset = this.tileMap.addTilesetImage('tilemap_packed', 'tilemap_packed')
-    const layer = this.createLayer('Terrain', tileset)
+    const roadLayer = this.createLayer('Road', tileset)
+    const buildingLayer = this.createLayer('Buildings', tileset)
+    this.scene.physics.add.collider(this.carSprite, buildingLayer)
     this.scene.cameras.main.setBounds(
       0,
       0,
-      layer.width * DeliveryGame.SCALE,
-      layer.height * DeliveryGame.SCALE
+      roadLayer.width * DeliveryGame.SCALE,
+      roadLayer.height * DeliveryGame.SCALE
     )
   }
 
@@ -58,6 +61,7 @@ export class DeliveryGame extends SubScreen {
     layer.setScale(DeliveryGame.SCALE)
     layer.setPosition(0, 0)
     layer.setOrigin(0)
+    layer.setCollisionByExclusion([-1])
     return layer
   }
 

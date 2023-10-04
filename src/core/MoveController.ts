@@ -1,4 +1,5 @@
 import { Scene } from 'phaser'
+import { DeliveryGame } from '~/apps/DashEats/screens/DeliveryGame'
 import { Constants, Direction } from '~/utils/Constants'
 
 export interface MoveControllerConfig {
@@ -119,5 +120,9 @@ export class MoveController implements MoveControllerInterface {
     } else {
       this.sprite.setVelocityY(0)
     }
+    this.sprite.setBodySize(
+      this.sprite.displayWidth / DeliveryGame.SCALE,
+      this.sprite.displayHeight / DeliveryGame.SCALE
+    )
   }
 }
