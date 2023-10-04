@@ -4,7 +4,7 @@ import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
 
-export class DeliveryJob extends SubScreen {
+export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
   private carSprite!: Phaser.Physics.Arcade.Sprite
   private moveController!: MoveController
@@ -47,15 +47,15 @@ export class DeliveryJob extends SubScreen {
     this.scene.cameras.main.setBounds(
       0,
       0,
-      layer.width * DeliveryJob.SCALE,
-      layer.height * DeliveryJob.SCALE
+      layer.width * DeliveryGame.SCALE,
+      layer.height * DeliveryGame.SCALE
     )
   }
 
   createLayer(layerName: string, tileset: Phaser.Tilemaps.Tileset) {
     const layer = this.tileMap.createLayer(layerName, tileset)
     layer.setDepth(Constants.SORT_LAYERS.APP_UI)
-    layer.setScale(DeliveryJob.SCALE)
+    layer.setScale(DeliveryGame.SCALE)
     layer.setPosition(0, 0)
     layer.setOrigin(0)
     return layer

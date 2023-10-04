@@ -8,7 +8,8 @@ import { OrderProgress } from './screens/OrderProgress'
 import { Save, SaveKeys } from '~/utils/Save'
 import { OrderConfirm } from './screens/OrderConfirm'
 import { BottomNav } from '~/core/BottomNav'
-import { DeliveryJob } from './screens/DeliveryJob'
+import { DeliveryGame } from './screens/DeliveryGame'
+import { SelectDeliveryJob } from './screens/SelectDeliveryJob'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -24,7 +25,8 @@ export class DashEats extends App {
       [DE_ScreenTypes.MENU_ITEM]: new MenuItem(this.scene, this),
       [DE_ScreenTypes.CONFIRM_ORDER]: new OrderConfirm(this.scene, this),
       [DE_ScreenTypes.ORDER_PROGRESS]: new OrderProgress(this.scene, this),
-      [DE_ScreenTypes.DELIVERY_JOB]: new DeliveryJob(this.scene, this),
+      [DE_ScreenTypes.DELIVERY_GAME]: new DeliveryGame(this.scene, this),
+      [DE_ScreenTypes.SELECT_DELIVERY_JOB]: new SelectDeliveryJob(this.scene, this),
     }
     this.bottomNav = new BottomNav(this.scene, {
       options: [
@@ -36,7 +38,7 @@ export class DashEats extends App {
         {
           navOption: 'Deliver',
           iconTexture: 'car-solid',
-          route: DE_ScreenTypes.DELIVERY_JOB,
+          route: DE_ScreenTypes.SELECT_DELIVERY_JOB,
         },
       ],
       onRoute: (route: DE_ScreenTypes) => {

@@ -11,3 +11,22 @@ export class DashEatsConstants {
   public static STANDARD_DELIVERY_TIME = 30000
   public static SPEEDY_DELIVERY_TIME = 15000
 }
+
+export interface DeliveryJob {
+  restaurantName: string
+  energyCost: number
+  distance: DeliveryJobDistance
+  earningsPotential: DeliveryJobEarnings
+}
+
+export enum DeliveryJobDistance {
+  SHORT = 'SHORT',
+  MEDIUM = 'MED',
+  LONG = 'LONG',
+}
+
+export enum DeliveryJobEarnings {
+  LOW = '$',
+  MEDIUM = '$$',
+  HIGH = '$$$',
+}

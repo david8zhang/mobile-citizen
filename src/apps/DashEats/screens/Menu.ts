@@ -5,7 +5,7 @@ import { Constants } from '~/utils/Constants'
 import { MenuItemList } from '~/apps/DashEats/web-ui/MenuItemList'
 import { Utils } from '~/utils/Utils'
 import { DE_ScreenTypes } from '../DEScreenTypes'
-import { DASH_EATS_MENU_ITEMS } from '~/content/DashEatsMenuItems'
+import { DASH_EATS_MENU_ITEMS } from '~/content/DashEats/DashEatsMenuItems'
 
 export class Menu extends SubScreen {
   private headerText: Phaser.GameObjects.Text
