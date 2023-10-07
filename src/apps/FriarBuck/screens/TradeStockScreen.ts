@@ -43,7 +43,7 @@ export class TradeStockScreen extends SubScreen {
       width: Constants.WINDOW_WIDTH - 30,
       height: 50,
       textColor: 'black',
-      fontSize: '20px',
+      fontSize: '22px',
       fontFamily: Constants.FONT_REGULAR,
       x: Constants.WINDOW_WIDTH / 2,
       y: this.remainingBalanceLabel.y + this.remainingBalanceLabel.displayHeight + 50,
@@ -113,7 +113,7 @@ export class TradeStockScreen extends SubScreen {
   setupTradeInfo() {
     this.marketPriceLabel = this.scene.add
       .text(15, this.headerText.y + this.headerText.displayHeight + 115, 'Market Price', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -121,7 +121,7 @@ export class TradeStockScreen extends SubScreen {
       .setOrigin(0)
     this.marketPriceValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.marketPriceLabel.y, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -130,7 +130,7 @@ export class TradeStockScreen extends SubScreen {
 
     this.sharesToTradeLabel = this.scene.add
       .text(15, this.marketPriceLabel.y + this.marketPriceLabel.displayHeight + 15, 'Share value', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -138,7 +138,7 @@ export class TradeStockScreen extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.sharesToTradeValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.sharesToTradeLabel.y, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -151,7 +151,7 @@ export class TradeStockScreen extends SubScreen {
         this.sharesToTradeLabel.y + this.sharesToTradeLabel.displayHeight + 15,
         'Bank balance (after trade)',
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -160,7 +160,7 @@ export class TradeStockScreen extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.remainingBalanceValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.remainingBalanceLabel.y, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -187,8 +187,8 @@ export class TradeStockScreen extends SubScreen {
         })
       })
     this.headerText = this.scene.add
-      .text(this.backButton.x + this.backButton.displayWidth + 15, this.backButton.y, '', {
-        fontSize: '25px',
+      .text(this.backButton.x + this.backButton.displayWidth + 12, this.backButton.y, '', {
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -207,7 +207,8 @@ export class TradeStockScreen extends SubScreen {
         padding: '20px',
         backgroundColor: '#eeeeee',
         border: '0px',
-        fontSize: '40px',
+        fontFamily: Constants.FONT_REGULAR,
+        fontSize: '60px',
         width: `${Constants.WINDOW_WIDTH - 30}`,
         outline: 'none',
       },

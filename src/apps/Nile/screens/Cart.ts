@@ -44,7 +44,7 @@ export class Cart extends SubScreen {
       }
     )
     this.cartItemsDomElement = this.scene.add
-      .dom(0, yPos + 60, storeItemList)
+      .dom(0, yPos + 70, storeItemList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('cart-item-list')
@@ -60,7 +60,7 @@ export class Cart extends SubScreen {
       text: 'Confirm Order',
       depth: Constants.SORT_LAYERS.APP_UI,
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '18px',
+      fontSize: '28px',
       backgroundColor: 0xffffff,
       strokeWidth: 1,
       strokeColor: 0x000000,
@@ -101,7 +101,7 @@ export class Cart extends SubScreen {
   setupSubtotal() {
     this.subtotalLabelText = this.scene.add
       .text(15, Constants.TOP_BAR_HEIGHT + 20, 'Subtotal', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -109,7 +109,7 @@ export class Cart extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.subtotalValueText = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, Constants.TOP_BAR_HEIGHT + 20, '', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: ' black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -124,7 +124,7 @@ export class Cart extends SubScreen {
         this.subtotalLabelText.y + this.subtotalLabelText.displayHeight + 15,
         'Remaining Bank Balance',
         {
-          fontSize: '20px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -133,7 +133,7 @@ export class Cart extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.remainingBankBalanceValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.remainingBankBalanceLabel.y, '', {
-        fontSize: '20px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

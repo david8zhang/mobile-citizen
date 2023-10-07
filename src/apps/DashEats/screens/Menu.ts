@@ -14,7 +14,7 @@ export class Menu extends SubScreen {
     super(scene, parent)
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'Menu', {
-        fontSize: '35px',
+        fontSize: '45px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

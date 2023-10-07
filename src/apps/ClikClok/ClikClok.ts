@@ -33,7 +33,7 @@ export class ClikClok extends App {
       fontStyle: {
         fontFamily: Constants.FONT_BOLD,
         color: 'white',
-        fontSize: '20px',
+        fontSize: '35px',
       },
       fillColor: 0x000000,
     })

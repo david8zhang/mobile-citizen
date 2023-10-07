@@ -56,7 +56,7 @@ export class BottomNavOption {
         config.position.y + this.sprite.displayHeight + 15,
         `${config.navOption}`,
         {
-          fontSize: '15px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }

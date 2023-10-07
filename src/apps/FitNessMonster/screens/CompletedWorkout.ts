@@ -33,7 +33,7 @@ export class CompletedWorkout extends SubScreen {
     super(scene, parent)
     this.headerText = this.scene.add
       .text(0, 0, 'Completed Workout!', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -67,7 +67,7 @@ export class CompletedWorkout extends SubScreen {
   setupStaticUIElements() {
     this.fitnessPointIncreaseLabel = this.scene.add
       .text(30, 414, 'Fitness gain', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -79,7 +79,7 @@ export class CompletedWorkout extends SubScreen {
         this.fitnessPointIncreaseLabel.y + this.fitnessPointIncreaseLabel.displayHeight + 15,
         'Workout grade bonus',
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -104,7 +104,7 @@ export class CompletedWorkout extends SubScreen {
         this.fitnessPointBonusLabel.y + this.fitnessPointBonusLabel.displayHeight + 40,
         'Total Gains: ',
         {
-          fontSize: '30px',
+          fontSize: '35px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -130,7 +130,7 @@ export class CompletedWorkout extends SubScreen {
       strokeColor: 0x000000,
       strokeWidth: 1,
       depth: Constants.SORT_LAYERS.APP_UI,
-      fontSize: '20px',
+      fontSize: '28px',
       fontFamily: Constants.FONT_REGULAR,
     })
   }
@@ -140,7 +140,7 @@ export class CompletedWorkout extends SubScreen {
     const workoutGradeForScore = FitNessMonsterConstants.getWorkoutGradeForScore(data.averageScore)
     this.workoutGradeText = this.scene.add
       .text(0, 0, `Workout Grade: ${workoutGradeForScore}`, {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

@@ -26,7 +26,7 @@ export class Browse extends SubScreen {
   setupHeaderText() {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'Nile', {
-        fontSize: '30px',
+        fontSize: '45px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -55,11 +55,11 @@ export class Browse extends SubScreen {
     if (this.browseItemListDomElement) {
       this.browseItemListDomElement.destroy()
     }
-    const yPos = this.headerText.y + this.headerText.displayHeight
+    const yPos = this.headerText.y + this.headerText.displayHeight + 30
     const storeItemList = StoreList(
       this.chunkItems(),
       Constants.WINDOW_WIDTH,
-      575,
+      560,
       (item: StoreItem) => {
         const parent = this.parent as Nile
         parent.renderSubscreen(NileScreenTypes.ITEM_DRILLDOWN, item)

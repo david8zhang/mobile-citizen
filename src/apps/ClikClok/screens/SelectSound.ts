@@ -33,7 +33,7 @@ export class SelectSound extends SubScreen {
     const parent = this.parent as ClikClok
     this.selectSoundLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, 0, 'Pick a Sound', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

@@ -22,7 +22,7 @@ export class SelectDeliveryJob extends SubScreen {
   setupHeaderText() {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 25, 'Delivery Jobs', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

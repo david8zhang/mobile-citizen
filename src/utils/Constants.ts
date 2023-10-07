@@ -29,6 +29,6 @@ export class Constants {
     HOME: 100,
   }
 
-  public static FONT_REGULAR = 'BalsamiqSans-Regular'
-  public static FONT_BOLD = 'BalsamiqSans-Bold'
+  public static FONT_REGULAR = 'monogram'
+  public static FONT_BOLD = 'monogram'
 }

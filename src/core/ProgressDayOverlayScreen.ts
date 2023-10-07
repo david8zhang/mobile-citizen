@@ -22,7 +22,7 @@ export class ProgressDayOverlayScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.progressDayText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, '', {
-        fontSize: '30px',
+        fontSize: '50px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -34,7 +34,7 @@ export class ProgressDayOverlayScreen {
       height: 50,
       backgroundColor: 0xffffff,
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '18px',
+      fontSize: '22px',
       scene: this.scene,
       text: 'Continue',
       onClick: () => {

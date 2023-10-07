@@ -32,7 +32,7 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
           >
             <p
               style={{
-                fontSize: '25px',
+                fontSize: '30px',
                 color: 'black',
                 marginTop: '0px',
                 marginBottom: '10px',
@@ -41,7 +41,9 @@ export const SoundList = (sounds, height, width, onClick, energyLevel) => {
             >
               {sound.name}
             </p>
-            <div style={{ display: 'flex', color: 'black', flexDirection: 'row' }}>
+            <div
+              style={{ display: 'flex', color: 'black', flexDirection: 'row', fontSize: '1.25em' }}
+            >
               <p
                 style={{
                   marginTop: '0px',

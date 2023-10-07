@@ -26,7 +26,7 @@ export class Bank extends App {
       appName: 'Banking',
       height: 60,
       fontStyle: {
-        fontSize: '22px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       },
@@ -42,7 +42,7 @@ export class Bank extends App {
         this.navbar.bgRect.displayHeight + 55,
         `$${Save.getData(SaveKeys.BANK_BALANCE)}`,
         {
-          fontSize: '50px',
+          fontSize: '77px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -54,7 +54,7 @@ export class Bank extends App {
         this.bankBalanceText.y + this.bankBalanceText.displayHeight,
         'Available Balance',
         {
-          fontSize: '20px',
+          fontSize: '35px',
           color: '#777777',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -73,8 +73,8 @@ export class Bank extends App {
   setupRecentTransactions(recentTransactions: BankTransactions[]) {
     const yPos = this.bankBalanceLabel.y + this.bankBalanceLabel.displayHeight + 30
     this.transactionLabel = this.scene.add
-      .text(15, yPos + 30, 'RECENT TRANSACTIONS', {
-        fontSize: '15px',
+      .text(15, yPos + 30, 'Recent Transactions', {
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_BOLD,
       })
@@ -85,7 +85,7 @@ export class Bank extends App {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     const transactionList = TransactionsList(recentTransactions, 410, Constants.WINDOW_WIDTH)
     this.transactionListDomElement = this.scene.add
-      .dom(0, yPos + 65, transactionList)
+      .dom(0, yPos + 75, transactionList)
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     Utils.setupDragToScroll('transaction-list')

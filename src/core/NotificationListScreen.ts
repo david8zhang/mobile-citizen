@@ -38,7 +38,7 @@ export class NotificationListScreen {
       .setDepth(Constants.SORT_LAYERS.APP_BG)
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 20, 'Notifications', {
-        fontSize: '20px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

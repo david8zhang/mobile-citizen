@@ -57,10 +57,10 @@ export class CC_BottomNav {
     this.earningsText = this.scene.add
       .text(
         this.button.x,
-        this.earningsIcon.y + this.earningsIcon.displayHeight / 2 + 5,
+        this.earningsIcon.y + this.earningsIcon.displayHeight / 2 + 2,
         'Earnings',
         {
-          fontSize: '12px',
+          fontSize: '20px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -104,10 +104,10 @@ export class CC_BottomNav {
     this.profileText = this.scene.add
       .text(
         this.profileIcon.x,
-        this.profileIcon.y + this.profileIcon.displayHeight / 2 + 5,
+        this.profileIcon.y + this.profileIcon.displayHeight / 2 + 2,
         'Profile',
         {
-          fontSize: '12px',
+          fontSize: '20px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }

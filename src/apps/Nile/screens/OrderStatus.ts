@@ -22,7 +22,7 @@ export class OrderStatus extends SubScreen {
   setupHeaderText() {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, 'My Orders', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

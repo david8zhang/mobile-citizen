@@ -19,7 +19,7 @@ export class FitnessStats extends SubScreen {
     super(scene, parent)
     this.headerText = this.scene.add
       .text(0, 0, 'Fitness Grade', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -57,14 +57,14 @@ export class FitnessStats extends SubScreen {
     const yPos = Math.round(this.fitnessGradeCircle.y + this.fitnessGradeCircle.displayHeight / 2)
     this.totalEnergyLevelLabel = this.scene.add
       .text(30, yPos + 40, 'Total Energy Level', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.totalEnergyLevelValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 30, yPos + 40, `${totalEnergyLevel}`, {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -77,7 +77,7 @@ export class FitnessStats extends SubScreen {
         this.totalEnergyLevelLabel.y + this.totalEnergyLevelLabel.displayHeight + 15,
         'Energy Cost Impact',
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -89,7 +89,7 @@ export class FitnessStats extends SubScreen {
         this.totalEnergyLevelLabel.y + this.totalEnergyLevelLabel.displayHeight + 15,
         `${Utils.getEnergyCostForFitness(fitnessGrade) * 100}%`,
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }

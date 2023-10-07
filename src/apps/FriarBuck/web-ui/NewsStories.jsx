@@ -27,10 +27,10 @@ export const NewsStories = (stories, width, height) => {
             }}
           >
             <div style={{ flex: 1, paddingRight: '15px' }}>
-              <p style={{ margin: '0px', marginBottom: '10px', fontSize: '14px' }}>
+              <p style={{ margin: '0px', marginBottom: '10px', fontSize: '20px' }}>
                 {story.newsCompany}
               </p>
-              <p style={{ margin: '0px', fontSize: '16px', paddingRight: '15px' }}>
+              <p style={{ margin: '0px', fontSize: '25px', paddingRight: '15px' }}>
                 {story.headline}
               </p>
             </div>

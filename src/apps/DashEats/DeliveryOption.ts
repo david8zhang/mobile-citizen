@@ -43,7 +43,7 @@ export class DeliveryOption {
     const durationText = config.deliveryType == DeliveryOptionType.STANDARD ? '30s' : '15s'
     this.titleText = this.scene.add
       .text(this.bgRect.x + 15, this.bgRect.y + 15, titleText, {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -52,7 +52,7 @@ export class DeliveryOption {
       .setWordWrapWidth(Constants.WINDOW_WIDTH / 4, true)
     this.durationText = this.scene.add
       .text(this.bgRect.x + 15, this.bgRect.y + this.bgRect.displayHeight - 30, durationText, {
-        fontSize: '16px',
+        fontSize: '22px',
         color: '#444444',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -65,7 +65,7 @@ export class DeliveryOption {
           this.bgRect.y + this.bgRect.displayHeight - 15,
           `+$${DashEatsConstants.SPEEDY_DELIVERY_EXTRA_COST.toFixed(2)}`,
           {
-            fontSize: '15px',
+            fontSize: '22px',
             color: 'black',
             fontFamily: Constants.FONT_REGULAR,
           }

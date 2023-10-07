@@ -53,7 +53,7 @@ export class CompletedVideo extends SubScreen {
   setupVideoTitle() {
     this.videoTitleText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -63,7 +63,7 @@ export class CompletedVideo extends SubScreen {
   setupVideoStats() {
     this.revenueEarnedLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH - 20, Constants.WINDOW_HEIGHT / 2 + 20, 'Revenue: $0', {
-        fontSize: '15px',
+        fontSize: '25px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -74,7 +74,7 @@ export class CompletedVideo extends SubScreen {
         this.revenueEarnedLabel.y + this.revenueEarnedLabel.displayHeight + 15,
         'Total Views: 0',
         {
-          fontSize: '15px',
+          fontSize: '25px',
           color: 'white',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -85,14 +85,14 @@ export class CompletedVideo extends SubScreen {
   setupVideoDescription() {
     this.profileName = this.scene.add
       .text(15, this.totalViewsLabel.y + this.totalViewsLabel.displayHeight + 20, '@User', {
-        fontSize: '15px',
+        fontSize: '25px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.hashTags = this.scene.add
       .text(15, this.profileName.y + this.profileName.displayHeight + 15, '#funny #dance', {
-        fontSize: '15px',
+        fontSize: '25px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -100,7 +100,7 @@ export class CompletedVideo extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.songTitle = this.scene.add
       .text(15, this.hashTags.y + this.hashTags.displayHeight + 15, 'Funny Dance', {
-        fontSize: '15px',
+        fontSize: '25px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })

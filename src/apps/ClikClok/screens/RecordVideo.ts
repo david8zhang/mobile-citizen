@@ -51,14 +51,14 @@ export class RecordVideo extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_BG)
     this.selectedSoundLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 15, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'white',
         fontFamily: Constants.FONT_BOLD,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.countdownLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, '', {
-        fontSize: '40px',
+        fontSize: '56px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -73,7 +73,7 @@ export class RecordVideo extends SubScreen {
   setupCompletedVideoText() {
     this.completedVideoLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'Finished recording!', {
-        fontSize: '25px',
+        fontSize: '28px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -97,7 +97,7 @@ export class RecordVideo extends SubScreen {
       y: this.completedVideoLabel.y + this.completedVideoLabel.displayHeight + 30,
       text: 'Post Video',
       depth: Constants.SORT_LAYERS.APP_UI,
-      fontSize: '15px',
+      fontSize: '22px',
       fontFamily: Constants.FONT_REGULAR,
     })
     this.songScoreValueText = this.scene.add
@@ -106,7 +106,7 @@ export class RecordVideo extends SubScreen {
         this.completedVideoLabel.y - this.completedVideoLabel.displayHeight - 50,
         '',
         {
-          fontSize: '50px',
+          fontSize: '60px',
           color: 'white',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -118,7 +118,7 @@ export class RecordVideo extends SubScreen {
         this.songScoreValueText.y - this.songScoreValueText.displayHeight,
         'Rank',
         {
-          fontSize: '30px',
+          fontSize: '35px',
           color: 'white',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -152,7 +152,7 @@ export class RecordVideo extends SubScreen {
       })
     this.recordButtonLabel = this.scene.add
       .text(this.recordButton.x, this.recordButton.y - 75, 'Tap the button to start recording!', {
-        fontSize: '15px',
+        fontSize: '22px',
         color: 'white',
         fontFamily: Constants.FONT_REGULAR,
       })

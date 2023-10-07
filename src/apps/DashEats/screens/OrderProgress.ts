@@ -38,7 +38,7 @@ export class OrderProgress extends SubScreen {
   setupHeaderText() {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 20, 'Order in Progress', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -80,7 +80,7 @@ export class OrderProgress extends SubScreen {
       y: Constants.WINDOW_HEIGHT / 2 + 30,
       strokeWidth: 1,
       text: 'Collect',
-      fontSize: '18px',
+      fontSize: '22px',
       fontFamily: Constants.FONT_REGULAR,
       textColor: 'black',
       backgroundColor: 0xffffff,

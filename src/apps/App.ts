@@ -3,7 +3,7 @@ import { Constants } from '~/utils/Constants'
 
 export abstract class App {
   protected scene: Home
-  protected bgRect: Phaser.GameObjects.Rectangle
+  public bgRect: Phaser.GameObjects.Rectangle
   constructor(scene: Home) {
     this.scene = scene
     this.bgRect = this.scene.add

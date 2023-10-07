@@ -46,7 +46,7 @@ export class StockTip {
   setupTips(position: { x: number; y: number }) {
     this.level1TipText = this.scene.add
       .text(position.x, position.y, '', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -55,7 +55,7 @@ export class StockTip {
 
     this.level2TipText = this.scene.add
       .text(position.x, position.y, '', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -75,7 +75,7 @@ export class StockTip {
       text: '',
       height: 35,
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '15px',
+      fontSize: '22px',
       backgroundColor: 0xdddddd,
       depth: Constants.SORT_LAYERS.APP_UI,
       textColor: 'black',

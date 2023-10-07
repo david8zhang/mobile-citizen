@@ -43,11 +43,14 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
                         pointerEvents: 'none',
                         boxSizing: 'border-box',
                         padding: '20px',
+                        backgroundColor: 'white',
+                        borderRadius: '10px',
+                        border: '1px solid #777',
                       }}
                     />
                     <p
                       style={{
-                        fontSize: '16px',
+                        fontSize: '22px',
                         color: 'black',
                         marginTop: '10px',
                         marginBottom: '10px',
@@ -58,7 +61,7 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
                     </p>
                     <p
                       style={{
-                        fontSize: '20px',
+                        fontSize: '28px',
                         color: 'black',
                         marginTop: '10px',
                         marginBottom: '10px',
@@ -74,6 +77,8 @@ export const StoreList = (storeItemChunks, width, height, onClick, onAddToCart) 
                       backgroundColor: 'white',
                       border: '2px solid #555',
                       borderRadius: '5px',
+                      fontSize: '22px',
+                      paddingBottom: '5px',
                     }}
                     onClick={() => {
                       onAddToCart(item)

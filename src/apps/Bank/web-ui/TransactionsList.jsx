@@ -1,3 +1,5 @@
+import { Constants } from '~/utils/Constants'
+
 export const TransactionsList = (data, height, width) => {
   return (
     <div
@@ -8,7 +10,7 @@ export const TransactionsList = (data, height, width) => {
         height: `${height}px`,
         scrollbarWidth: 'none',
         color: 'white',
-        fontFamily: 'BalsamiqSans-Regular',
+        fontFamily: Constants.FONT_REGULAR,
         width: `${width}px`,
         boxSizing: 'border-box',
       }}
@@ -27,7 +29,9 @@ export const TransactionsList = (data, height, width) => {
             }}
           >
             <div style={{ flex: 2 }}>
-              <p style={{ fontSize: '18px' }}>{d.vendor}</p>
+              <p style={{ fontSize: '30px', marginTop: '10px', marginBottom: '10px' }}>
+                {d.vendor}
+              </p>
             </div>
             <div
               style={{
@@ -37,7 +41,7 @@ export const TransactionsList = (data, height, width) => {
                 justifyContent: 'flex-end',
               }}
             >
-              <p style={{ fontSize: '20px' }}>
+              <p style={{ fontSize: '30px', marginTop: '10px', marginBottom: '10px' }}>
                 {`${d.amount < 0 ? '-' : ''}$${Math.abs(d.amount).toFixed(2)}`}
               </p>
             </div>

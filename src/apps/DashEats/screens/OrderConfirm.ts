@@ -35,13 +35,13 @@ export class OrderConfirm extends SubScreen {
   setupConfirmOrderButton() {
     this.confirmOrderButton = new Button({
       x: Constants.WINDOW_WIDTH / 2,
-      y: Constants.WINDOW_HEIGHT - 100,
+      y: Constants.WINDOW_HEIGHT - 160,
       text: 'Place Order',
       onClick: () => {
         this.orderItem()
       },
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '20px',
+      fontSize: '28px',
       scene: this.scene,
       backgroundColor: 0xffffff,
       width: Constants.WINDOW_WIDTH - 30,
@@ -53,7 +53,7 @@ export class OrderConfirm extends SubScreen {
   setupText() {
     this.headerText = this.scene.add
       .text(0, 0, 'Confirm Order', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -66,7 +66,7 @@ export class OrderConfirm extends SubScreen {
     // Set up item price
     this.itemName = this.scene.add
       .text(0, 0, '', {
-        fontSize: '20px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -75,7 +75,7 @@ export class OrderConfirm extends SubScreen {
     this.itemName.setPosition(15, this.headerText.y + this.headerText.displayHeight + 40)
     this.itemPrice = this.scene.add
       .text(0, 0, '', {
-        fontSize: '20px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -86,7 +86,7 @@ export class OrderConfirm extends SubScreen {
     // Set up delivery type price
     this.deliveryTypeText = this.scene.add
       .text(0, 0, '', {
-        fontSize: '20px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -95,7 +95,7 @@ export class OrderConfirm extends SubScreen {
     this.deliveryTypeText.setPosition(15, this.itemName.y + this.itemName.displayHeight + 15)
     this.deliveryTypePrice = this.scene.add
       .text(0, 0, '', {
-        fontSize: '20px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -106,7 +106,7 @@ export class OrderConfirm extends SubScreen {
     // Total cost price (item + delivery cost)
     this.totalCostText = this.scene.add
       .text(0, 0, 'Total Cost', {
-        fontSize: '22px',
+        fontSize: '27px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -119,7 +119,7 @@ export class OrderConfirm extends SubScreen {
     )
     this.totalCostPrice = this.scene.add
       .text(0, 0, '', {
-        fontSize: '22px',
+        fontSize: '27px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -144,7 +144,7 @@ export class OrderConfirm extends SubScreen {
     // Show bank balance after purchase
     this.bankBalanceText = this.scene.add
       .text(0, 0, 'Balance After Purchase', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -153,7 +153,7 @@ export class OrderConfirm extends SubScreen {
     this.bankBalanceText.setPosition(15, this.totalCostPrice.y + 60)
     this.bankBalanceValue = this.scene.add
       .text(0, 0, '', {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

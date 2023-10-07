@@ -3,9 +3,8 @@ import { FriarBuck } from '../FriarBuck'
 import { Home } from '~/scenes/Home'
 import { Constants } from '~/utils/Constants'
 import { NewsStories } from '../web-ui/NewsStories'
-import { CLIK_CLOK_NEWS_STORIES, NEWS_COMPANIES } from '~/content/FriarBuck/FriarBuckNewsTemplates'
+import { NEWS_COMPANIES } from '~/content/FriarBuck/FriarBuckNewsTemplates'
 import { Utils } from '~/utils/Utils'
-import { FB_ScreenTypes } from '../FBscreenTypes'
 import { Save, SaveKeys } from '~/utils/Save'
 
 export class NewsScreen extends SubScreen {
@@ -22,7 +21,7 @@ export class NewsScreen extends SubScreen {
   setupHeaderText() {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, 'News', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

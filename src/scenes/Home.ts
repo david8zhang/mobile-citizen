@@ -49,6 +49,7 @@ export class Home extends Phaser.Scene {
     this.checkGameOver()
     Utils.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x30336b)
+    this.cameras.main.setRoundPixels(true)
     this.appRouteMapping = {
       [AppRoute.BANK]: new Bank(this),
       [AppRoute.CLIK_CLOK]: new ClikClok(this),
@@ -240,8 +241,8 @@ export class Home extends Phaser.Scene {
   setupHomeButton() {
     this.homeButton = this.add
       .text(0, 0, 'Home', {
-        fontFamily: 'BalsamiqSans-Regular',
-        fontSize: '15px',
+        fontFamily: Constants.FONT_REGULAR,
+        fontSize: '28px',
         color: 'white',
       })
       .setInteractive()
@@ -265,7 +266,7 @@ export class Home extends Phaser.Scene {
       .setDepth(150)
     this.homeButton.setPosition(
       Constants.WINDOW_WIDTH / 2 - this.homeButton.displayWidth / 2,
-      Constants.WINDOW_HEIGHT - 30
+      Constants.WINDOW_HEIGHT - 35
     )
   }
 

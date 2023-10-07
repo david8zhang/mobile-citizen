@@ -24,6 +24,8 @@ export const MenuItemList = (menuItems, width, height, onClick) => {
               padding: '20px',
               marginBottom: '10px',
               cursor: 'pointer',
+              borderRadius: '15px',
+              boxShadow: '2px 2px 8px 0px #aaa',
             }}
             onClick={() => {
               onClick(menuItem)
@@ -52,11 +54,11 @@ export const MenuItemList = (menuItems, width, height, onClick) => {
                 paddingLeft: '15px',
               }}
             >
-              <p style={{ color: 'black', fontSize: '20px', margin: '0px' }}>{menuItem.name}</p>
+              <p style={{ color: 'black', fontSize: '30px', margin: '0px' }}>{menuItem.name}</p>
               <p
                 style={{
                   color: '#444444',
-                  fontSize: '15px',
+                  fontSize: '20px',
                   marginTop: '10px',
                   marginBottom: '0px',
                   height: '34px',
@@ -66,7 +68,7 @@ export const MenuItemList = (menuItems, width, height, onClick) => {
               >
                 {menuItem.description}
               </p>
-              <div style={{ display: 'flex', marginTop: '15px' }}>
+              <div style={{ display: 'flex', marginTop: '15px', fontSize: '22px' }}>
                 <p style={{ marginRight: '10px', marginBottom: '0px', marginTop: '0px' }}>
                   ${menuItem.price.toFixed(2)}
                 </p>

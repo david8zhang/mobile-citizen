@@ -29,10 +29,10 @@ export const DeliveryJobList = (deliveryJobs, width, height, onClick) => {
               onClick(job)
             }}
           >
-            <p style={{ marginBottom: '5px', fontSize: '22px', marginTop: '0px' }}>
+            <p style={{ marginBottom: '5px', fontSize: '28px', marginTop: '0px' }}>
               {job.restaurantName}
             </p>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', fontSize: '22px' }}>
               <p style={{ marginTop: '5px', flex: 1, marginBottom: '5px', marginRight: '10px' }}>
                 <b>Distance: </b>
                 {job.distance}

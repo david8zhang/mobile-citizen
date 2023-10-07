@@ -28,7 +28,7 @@ export class Earnings extends SubScreen {
         parent.navbar.bgRect.y + Constants.TOP_BAR_HEIGHT + 40,
         '$0',
         {
-          fontSize: '40px',
+          fontSize: '55px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -40,7 +40,7 @@ export class Earnings extends SubScreen {
         this.dailyEarningsText.y + this.dailyEarningsText.displayHeight + 20,
         "Today's Earnings",
         {
-          fontSize: '16px',
+          fontSize: '30px',
           color: '#777777',
           fontFamily: Constants.FONT_REGULAR,
         }

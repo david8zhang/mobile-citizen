@@ -63,7 +63,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   setupSubtitleText() {
     this.subtitleText = this.scene.add
       .text(0, 0, 'Hold key and release!', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: '#555555',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -155,7 +155,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
         0,
         `${this.completedRepsValue}/${workout.fitnessLevelToGainMappings[fitnessGrade].requiredCompletionValue}`,
         {
-          fontSize: '30px',
+          fontSize: '50px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -166,7 +166,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
   setupHeaderText(config: HoldAndReleaseGameConfig) {
     this.headerText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.TOP_BAR_HEIGHT + 30, config.headerText, {
-        fontSize: '35px',
+        fontSize: '40px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

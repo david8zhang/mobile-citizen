@@ -59,12 +59,14 @@ export class StockDrilldown extends SubScreen {
   setupStockTip() {
     this.stockTipLabel = this.scene.add
       .text(15, this.costBasisLabel.y + this.costBasisLabel.displayHeight + 25, 'Stock Tips', {
-        fontSize: '18px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_BOLD,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
+      .setStroke('black', 1)
+
     this.stockTip = new StockTip(this.scene, {
       position: {
         x: 15,
@@ -76,19 +78,20 @@ export class StockDrilldown extends SubScreen {
   setupPositionInfo() {
     this.positionLabel = this.scene.add
       .text(15, this.chart.y + this.chart.displayHeight + 40, 'Position', {
-        fontSize: '18px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_BOLD,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setStroke('black', 1)
     this.shareWorthLabel = this.scene.add
       .text(
         15,
-        this.positionLabel.y + this.positionLabel.displayHeight + 15,
+        this.positionLabel.y + this.positionLabel.displayHeight + 10,
         'Total Holdings Value',
         {
-          fontSize: '16px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -97,7 +100,7 @@ export class StockDrilldown extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.shareWorthValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.shareWorthLabel.y, '', {
-        fontSize: '16px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -107,10 +110,10 @@ export class StockDrilldown extends SubScreen {
     this.numSharesOwnedLabel = this.scene.add
       .text(
         15,
-        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
+        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 10,
         'Num Shares Owned',
         {
-          fontSize: '16px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -121,10 +124,10 @@ export class StockDrilldown extends SubScreen {
     this.numSharesOwnedValue = this.scene.add
       .text(
         Constants.WINDOW_WIDTH - 15,
-        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 15,
+        this.shareWorthLabel.y + this.shareWorthLabel.displayHeight + 10,
         '',
         {
-          fontSize: '16px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -135,10 +138,10 @@ export class StockDrilldown extends SubScreen {
     this.totalGrowthLabel = this.scene.add
       .text(
         15,
-        this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 15,
+        this.numSharesOwnedLabel.y + this.numSharesOwnedLabel.displayHeight + 10,
         'Total Growth',
         {
-          fontSize: '16px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -147,7 +150,7 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
     this.totalGrowthValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.totalGrowthLabel.y, '', {
-        fontSize: '16px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -155,8 +158,8 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(1, 0)
 
     this.costBasisLabel = this.scene.add
-      .text(15, this.totalGrowthLabel.y + this.totalGrowthLabel.displayHeight + 15, 'Cost Basis', {
-        fontSize: '16px',
+      .text(15, this.totalGrowthLabel.y + this.totalGrowthLabel.displayHeight + 10, 'Cost Basis', {
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -165,7 +168,7 @@ export class StockDrilldown extends SubScreen {
 
     this.costBasisValue = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.costBasisLabel.y, '', {
-        fontSize: '16px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -193,10 +196,10 @@ export class StockDrilldown extends SubScreen {
     this.stockSymbol = this.scene.add
       .text(
         this.backButton.x + this.backButton.displayWidth + 10,
-        Constants.TOP_BAR_HEIGHT + 20,
+        Constants.TOP_BAR_HEIGHT + 18,
         '',
         {
-          fontSize: '18px',
+          fontSize: '28px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -206,15 +209,15 @@ export class StockDrilldown extends SubScreen {
 
     this.stockName = this.scene.add
       .text(20, this.stockSymbol.y + this.stockSymbol.displayHeight + 15, '', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
     this.stockPrice = this.scene.add
-      .text(20, this.stockName.y + this.stockName.displayHeight + 15, '', {
-        fontSize: '30px',
+      .text(20, this.stockName.y + this.stockName.displayHeight + 10, '', {
+        fontSize: '32px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -229,7 +232,7 @@ export class StockDrilldown extends SubScreen {
       height: 40,
       textColor: 'black',
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '18px',
+      fontSize: '22px',
       onClick: () => {
         const parent = this.parent as FriarBuck
         parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {
@@ -251,7 +254,7 @@ export class StockDrilldown extends SubScreen {
       height: 40,
       textColor: 'black',
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '18px',
+      fontSize: '22px',
       onClick: () => {
         const parent = this.parent as FriarBuck
         parent.renderSubscreen(FB_ScreenTypes.TRADE_STOCK, {

@@ -28,7 +28,7 @@ export const HealthStatList = (healthStats, width, height) => {
               <p
                 style={{
                   fontWeight: 'bold',
-                  fontSize: '25px',
+                  fontSize: '30px',
                   flex: 1,
                   marginTop: '15px',
                   marginBottom: '15px',
@@ -39,7 +39,7 @@ export const HealthStatList = (healthStats, width, height) => {
               <p
                 style={{
                   fontWeight: 'bold',
-                  fontSize: '25px',
+                  fontSize: '30px',
                   alignItems: 'flex-end',
                   marginTop: '15px',
                   marginBottom: '15px',
@@ -51,12 +51,12 @@ export const HealthStatList = (healthStats, width, height) => {
             {healthStat.subLines.map((line) => {
               return (
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <p style={{ fontSize: '20px', flex: 1, marginTop: '10px', marginBottom: '10px' }}>
+                  <p style={{ fontSize: '25px', flex: 1, marginTop: '10px', marginBottom: '10px' }}>
                     {line.label}
                   </p>
                   <p
                     style={{
-                      fontSize: '20px',
+                      fontSize: '25px',
                       alignItems: 'flex-end',
                       marginTop: '10px',
                       marginBottom: '10px',

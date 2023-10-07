@@ -36,7 +36,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
             >
               <p
                 style={{
-                  fontSize: '20px',
+                  fontSize: '28px',
                   color: 'black',
                   margin: '0px',
                   marginBottom: '10px',
@@ -46,7 +46,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
               </p>
               <p
                 style={{
-                  fontSize: '15px',
+                  fontSize: '22px',
                   color: '#555',
                   margin: '0px',
                 }}
@@ -66,7 +66,7 @@ export const NotificationList = (notificationList, width, height, onClick, onDis
                 onDismiss(index)
               }}
             >
-              <p style={{ fontSize: '12px', color: '#222', margin: '0px' }}>Dismiss</p>
+              <p style={{ fontSize: '22px', color: '#222', margin: '0px' }}>Dismiss</p>
             </div>
           </div>
         )

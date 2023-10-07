@@ -30,15 +30,15 @@ export const OnScreenNotif = (notification, onClick, onDismiss) => {
             onClick()
           }}
         >
-          <p style={{ marginBottom: '5px', marginTop: '0px', fontSize: '20px' }}>
+          <p style={{ marginBottom: '5px', marginTop: '0px', fontSize: '28px' }}>
             {notification.appName}
           </p>
-          <p style={{ margin: '0px' }}>{notification.message}</p>
+          <p style={{ margin: '0px', fontSize: '18px' }}>{notification.message}</p>
         </div>
         <div
           style={{
             display: 'flex',
-            borderLeft: '2px solid #777777',
+            borderLeft: '2px solid #999999',
             paddingLeft: '10px',
             userSelect: 'none',
             cursor: 'pointer',
@@ -47,7 +47,11 @@ export const OnScreenNotif = (notification, onClick, onDismiss) => {
             onDismiss()
           }}
         >
-          <p style={{ margin: '0px', alignSelf: 'center', justifySelf: 'center' }}>Dismiss</p>
+          <p
+            style={{ margin: '0px', alignSelf: 'center', justifySelf: 'center', fontSize: '18px' }}
+          >
+            Dismiss
+          </p>
         </div>
       </div>
     </div>

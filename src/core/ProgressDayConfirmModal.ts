@@ -17,7 +17,7 @@ export class ProgressDayConfirmModal {
       .setStrokeStyle(1, 0x000000)
     this.confirmProgressDayText = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'Progress to the next day?', {
-        fontSize: '24px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -42,7 +42,7 @@ export class ProgressDayConfirmModal {
       text: 'Yes',
       strokeColor: 0x000000,
       strokeWidth: 1,
-      fontSize: '15px',
+      fontSize: '22px',
       fontFamily: Constants.FONT_REGULAR,
     })
 
@@ -59,7 +59,7 @@ export class ProgressDayConfirmModal {
       text: 'No',
       strokeColor: 0x000000,
       strokeWidth: 1,
-      fontSize: '15px',
+      fontSize: '22px',
       fontFamily: Constants.FONT_REGULAR,
     })
     this.setVisible(false)

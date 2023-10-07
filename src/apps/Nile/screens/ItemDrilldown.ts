@@ -29,7 +29,7 @@ export class ItemDrilldown extends SubScreen {
       .setOrigin(0)
     this.itemName = this.scene.add
       .text(15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -38,7 +38,7 @@ export class ItemDrilldown extends SubScreen {
       .setWordWrapWidth(Constants.WINDOW_WIDTH * 0.65, true)
     this.itemPrice = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -46,7 +46,7 @@ export class ItemDrilldown extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.effectText = this.scene.add
       .text(15, this.itemName.y + this.itemName.displayHeight + 15, '', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: '#888888',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -55,7 +55,7 @@ export class ItemDrilldown extends SubScreen {
 
     this.itemDescription = this.scene.add
       .text(15, this.effectText.y + this.effectText.displayHeight + 15, '', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: '#444444',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -72,7 +72,7 @@ export class ItemDrilldown extends SubScreen {
       text: 'Add to cart',
       backgroundColor: 0xffffff,
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '20px',
+      fontSize: '22px',
       strokeWidth: 1,
       strokeColor: 0x000000,
       onClick: () => {

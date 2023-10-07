@@ -32,7 +32,7 @@ export const VideoList = (id, videos, currDay, height, width, onClick) => {
           >
             <p
               style={{
-                fontSize: '25px',
+                fontSize: '30px',
                 color: 'black',
                 marginTop: '0px',
                 marginBottom: '10px',
@@ -40,36 +40,36 @@ export const VideoList = (id, videos, currDay, height, width, onClick) => {
             >
               {video.videoName}
             </p>
-            <div style={{ display: 'flex', color: 'black', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', color: '#333333', flexDirection: 'row' }}>
               <p
                 style={{
-                  fontSize: '12px',
+                  fontSize: '22px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
                 }}
               >
-                Created: Day {video.creationDate}
+                Created:Day {video.creationDate}
               </p>
               <p
                 style={{
-                  fontSize: '12px',
+                  fontSize: '22px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
                 }}
               >
-                Views: {video.totalViews}
+                Views:{video.totalViews}
               </p>
               <p
                 style={{
-                  fontSize: '12px',
+                  fontSize: '22px',
                   marginTop: '0px',
                   marginBottom: '0px',
                   marginRight: '10px',
                 }}
               >
-                Today's Earnings: $
+                Today's Earnings:$
                 {video.revenueEarnedPerDay[currDay]
                   ? video.revenueEarnedPerDay[currDay].toFixed(2)
                   : 0}

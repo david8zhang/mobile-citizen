@@ -40,7 +40,7 @@ export class PortfolioScreen extends SubScreen {
   setupHeader() {
     this.headerText = this.scene.add
       .text(20, Constants.TOP_BAR_HEIGHT + 20, 'Investing', {
-        fontSize: '25px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -48,7 +48,7 @@ export class PortfolioScreen extends SubScreen {
       .setOrigin(0)
     this.portfolioValue = this.scene.add
       .text(20, this.headerText.y + this.headerText.displayHeight + 15, '', {
-        fontSize: '30px',
+        fontSize: '50px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -59,7 +59,7 @@ export class PortfolioScreen extends SubScreen {
   setupGrowthLabels() {
     this.dailyGrowthLabel = this.scene.add
       .text(20, this.portfolioValue.y + this.portfolioValue.displayHeight + 15, 'Daily growth: ', {
-        fontSize: '15px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -71,7 +71,7 @@ export class PortfolioScreen extends SubScreen {
         this.dailyGrowthLabel.y,
         'Total growth: ',
         {
-          fontSize: '15px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }

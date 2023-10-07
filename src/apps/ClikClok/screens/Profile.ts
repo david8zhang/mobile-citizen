@@ -51,7 +51,7 @@ export class Profile extends SubScreen {
         this.profilePic.y + this.profilePic.displayHeight + 30,
         'My Profile',
         {
-          fontSize: '25px',
+          fontSize: '40px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -68,7 +68,7 @@ export class Profile extends SubScreen {
         this.profileNameLabel.y + this.profileNameLabel.displayHeight + 30,
         '',
         {
-          fontSize: '25px',
+          fontSize: '35px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -80,7 +80,7 @@ export class Profile extends SubScreen {
         this.totalFollowersValue.y + this.totalFollowersValue.displayHeight + 5,
         'Followers',
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: '#777777',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -94,7 +94,7 @@ export class Profile extends SubScreen {
         this.profileNameLabel.y + this.profileNameLabel.displayHeight + 30,
         '',
         {
-          fontSize: '25px',
+          fontSize: '35px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -107,7 +107,7 @@ export class Profile extends SubScreen {
         this.totalViewsValue.y + this.totalViewsValue.displayHeight + 5,
         'Total Views',
         {
-          fontSize: '20px',
+          fontSize: '28px',
           color: '#777777',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -125,7 +125,7 @@ export class Profile extends SubScreen {
       .setOrigin(0)
     this.todaysVideosLabel = this.scene.add
       .text(15, yPos + 25, "Today's Videos", {
-        fontSize: '20px',
+        fontSize: '28px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -137,7 +137,7 @@ export class Profile extends SubScreen {
         this.todaysVideosLabel.y + 100,
         'No videos created today yet',
         {
-          fontSize: '20px',
+          fontSize: '35px',
           color: '#aaaaaa',
           fontFamily: Constants.FONT_REGULAR,
         }

@@ -34,7 +34,7 @@ export class AppIconBox {
       })
     this.appText = this.scene.add
       .text(config.position.x, config.position.y + this.sprite.displayHeight + 30, config.name, {
-        fontSize: '13px',
+        fontSize: '22px',
         color: 'white',
         align: 'center',
         fontFamily: Constants.FONT_REGULAR,

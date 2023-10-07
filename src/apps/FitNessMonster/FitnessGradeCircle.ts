@@ -26,7 +26,7 @@ export class FitnessGradeCircle {
 
     this.fitnessGradeLabel = this.scene.add
       .text(Constants.WINDOW_WIDTH / 2, this.fitnessGradeCircle.y - 25, config.fitnessGrade, {
-        fontSize: '80px',
+        fontSize: '90px',
         color: 'black',
         fontFamily: Constants.FONT_BOLD,
       })
@@ -38,7 +38,7 @@ export class FitnessGradeCircle {
     )
     this.fitnessGradePoints = this.scene.add
       .text(0, 0, `${config.fitnessPoints}`, {
-        fontSize: '40px',
+        fontSize: '50px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

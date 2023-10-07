@@ -29,8 +29,9 @@ export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
             <img
               src={pendingOrder.storeItem.imageSrc}
               style={{
-                width: '130px',
-                height: '130px',
+                width: '100px',
+                height: '100px',
+                background: 'white',
                 padding: '20px',
                 boxSizing: 'border-box',
                 border: '1px solid black',
@@ -47,9 +48,9 @@ export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
             >
               <p
                 style={{
-                  marginBottom: '15px',
+                  marginBottom: '5px',
                   marginTop: '0px',
-                  fontSize: '25px',
+                  fontSize: '28px',
                   maxHeight: '40px',
                 }}
               >
@@ -57,20 +58,28 @@ export const PendingOrderList = (pendingOrders, width, height, onClaimItem) => {
               </p>
               <p
                 style={{
-                  marginTop: '10px',
+                  marginTop: '5px',
                   marginBottom: '10px',
-                  fontSize: '22px',
+                  fontSize: '25px',
                 }}
               >
                 ${pendingOrder.storeItem.price.toFixed(2)}
               </p>
               {pendingOrder.daysUntilDelivery > 0 ? (
-                <p style={{ marginTop: '5px', marginBottom: '0px' }}>
+                <p style={{ marginTop: '5px', marginBottom: '0px', fontSize: '22px' }}>
                   {pendingOrder.daysUntilDelivery} day(s) until delivery
                 </p>
               ) : (
                 <button
-                  style={{ width: '50%' }}
+                  style={{
+                    width: '100%',
+                    fontFamily: Constants.FONT_REGULAR,
+                    backgroundColor: 'white',
+                    border: '2px solid #555',
+                    borderRadius: '5px',
+                    fontSize: '22px',
+                    paddingBottom: '5px',
+                  }}
                   onClick={() => {
                     onClaimItem(pendingOrder)
                   }}

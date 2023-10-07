@@ -36,7 +36,7 @@ export class MenuItem extends SubScreen {
       .setOrigin(0)
     this.itemName = this.scene.add
       .text(15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -44,7 +44,7 @@ export class MenuItem extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.itemPrice = this.scene.add
       .text(Constants.WINDOW_WIDTH - 15, this.itemImage.y + this.itemImage.displayHeight + 15, '', {
-        fontSize: '30px',
+        fontSize: '35px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -52,7 +52,7 @@ export class MenuItem extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.fullnessBonus = this.scene.add
       .text(15, this.itemName.y + this.itemName.displayHeight + 15, '', {
-        fontSize: '18px',
+        fontSize: '22px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -64,7 +64,7 @@ export class MenuItem extends SubScreen {
         this.itemName.y + this.itemName.displayHeight + 15,
         '',
         {
-          fontSize: '18px',
+          fontSize: '22px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -73,19 +73,20 @@ export class MenuItem extends SubScreen {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
     this.itemDescription = this.scene.add
       .text(15, this.fitnessBonus.y + this.fitnessBonus.displayHeight + 15, '', {
-        fontSize: '18px',
+        fontSize: '28px',
         color: '#444444',
         fontFamily: Constants.FONT_REGULAR,
       })
       .setOrigin(0)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setWordWrapWidth(Constants.WINDOW_WIDTH - 15)
     this.chooseDeliveryOptionText = this.scene.add
       .text(
         15,
         this.itemDescription.y + this.itemDescription.displayHeight + 40,
         'Choose Delivery Option',
         {
-          fontSize: '20px',
+          fontSize: '25px',
           color: 'black',
           fontFamily: Constants.FONT_REGULAR,
         }
@@ -117,7 +118,7 @@ export class MenuItem extends SubScreen {
       text: 'Select a delivery option',
       backgroundColor: 0xffffff,
       fontFamily: Constants.FONT_REGULAR,
-      fontSize: '20px',
+      fontSize: '28px',
       strokeWidth: 1,
       strokeColor: 0x000000,
       onClick: () => {

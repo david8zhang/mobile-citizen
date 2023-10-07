@@ -80,9 +80,9 @@ export class TopBar {
   setupBankBalanceText() {
     const bankBalance = Save.getData(SaveKeys.BANK_BALANCE) as number
     this.bankBalanceValueText = this.scene.add
-      .text(this.fullnessLabel.x - 30, 5, `$${bankBalance.toFixed(2)}`, {
-        fontSize: '16px',
-        fontFamily: 'BalsamiqSans-Regular',
+      .text(this.fullnessLabel.x - 30, 1, `$${bankBalance.toFixed(2)}`, {
+        fontSize: '28px',
+        fontFamily: Constants.FONT_REGULAR,
         color: 'white',
         strokeThickness: 1,
       })
@@ -106,11 +106,11 @@ export class TopBar {
     this.energyValue = this.scene.add
       .text(
         this.bankBalanceLabel.x - this.bankBalanceLabel.displayWidth - 15,
-        5,
+        1,
         `${energyLevel}/${totalEnergyLevel}`,
         {
-          fontSize: '16px',
-          fontFamily: 'BalsamiqSans-Regular',
+          fontSize: '28px',
+          fontFamily: Constants.FONT_REGULAR,
           color: 'white',
           strokeThickness: 1,
         }
@@ -126,9 +126,9 @@ export class TopBar {
   setupNotifications() {
     const notifications = Save.getData(SaveKeys.NOTIFICATIONS) as Notification[]
     this.numNotificationsText = this.scene.add
-      .text(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5, `${notifications.length}`, {
-        fontSize: '16px',
-        fontFamily: 'BalsamiqSans-Regular',
+      .text(this.energyIcon.x - this.energyIcon.displayWidth - 15, 1, `${notifications.length}`, {
+        fontSize: '28px',
+        fontFamily: Constants.FONT_REGULAR,
         color: 'white',
         strokeThickness: 1,
       })
@@ -159,9 +159,9 @@ export class TopBar {
   setupCurrDateLabel() {
     const currDay = Save.getData(SaveKeys.CURR_DATE) as number
     this.currDateLabel = this.scene.add
-      .text(this.powerButton.x + 25, 5, `Day ${currDay}`, {
-        fontSize: '16px',
-        fontFamily: 'BalsamiqSans-Regular',
+      .text(this.powerButton.x + 25, 1, `Day ${currDay}`, {
+        fontSize: '28px',
+        fontFamily: Constants.FONT_REGULAR,
         color: 'white',
       })
       .setStroke('#ffffff', 1)
@@ -207,7 +207,7 @@ export class TopBar {
     this.energyValue.setText(`${energyLevel}/${totalEnergyLevel}`)
     this.energyValue.setPosition(
       this.bankBalanceLabel.x - this.bankBalanceLabel.displayWidth - 15,
-      5
+      1
     )
     this.energyIcon.setPosition(
       this.energyValue.x - this.energyValue.displayWidth - 5,
@@ -217,7 +217,7 @@ export class TopBar {
     this.currDateLabel.setText(`Day ${currDate}`)
     this.fullnessBar.setCurrValue(fullnessLevel)
     this.numNotificationsText.setText(`${notifications.length}`)
-    this.numNotificationsText.setPosition(this.energyIcon.x - this.energyIcon.displayWidth - 15, 5)
+    this.numNotificationsText.setPosition(this.energyIcon.x - this.energyIcon.displayWidth - 15, 1)
     this.envelopeButton.setPosition(
       this.numNotificationsText.x - this.numNotificationsText.displayWidth - 5,
       7

@@ -29,8 +29,9 @@ export const CartItemList = (cartItems, width, height, onRemoveItem) => {
             <img
               src={cartItem.imageSrc}
               style={{
-                width: '130px',
-                height: '130px',
+                width: '100px',
+                height: '100px',
+                background: 'white',
                 padding: '20px',
                 boxSizing: 'border-box',
                 border: '1px solid black',
@@ -47,9 +48,9 @@ export const CartItemList = (cartItems, width, height, onRemoveItem) => {
             >
               <p
                 style={{
-                  marginBottom: '15px',
+                  marginBottom: '5px',
                   marginTop: '0px',
-                  fontSize: '25px',
+                  fontSize: '28px',
                   maxHeight: '40px',
                 }}
               >
@@ -57,15 +58,23 @@ export const CartItemList = (cartItems, width, height, onRemoveItem) => {
               </p>
               <p
                 style={{
-                  marginTop: '10px',
+                  marginTop: '5px',
                   marginBottom: '10px',
-                  fontSize: '22px',
+                  fontSize: '25px',
                 }}
               >
                 ${cartItem.price.toFixed(2)}
               </p>
               <button
-                style={{ width: '50%' }}
+                style={{
+                  width: '50%',
+                  fontSize: '22px',
+                  fontFamily: Constants.FONT_REGULAR,
+                  paddingBottom: '5px',
+                  borderRadius: '5px',
+                  border: '2px solid #888',
+                  backgroundColor: 'white',
+                }}
                 onClick={() => {
                   onRemoveItem(cartItem)
                 }}

@@ -18,11 +18,10 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
       <p
         style={{
           color: 'black',
-          fontWeight: 'bold',
           fontFamily: Constants.FONT_BOLD,
-          fontSize: '20px',
+          fontSize: '35px',
           marginTop: '0px',
-          marginBottom: '0px',
+          marginBottom: '10px',
         }}
       >
         {headerText}
@@ -53,14 +52,14 @@ export const StockList = (id, stocks, headerText, width, height, onClick) => {
               onClick={() => onClick(stock)}
             >
               <div style={{ flex: 1 }}>
-                <p style={{ marginBottom: '5px', marginTop: '10px', fontSize: '25px' }}>
+                <p style={{ marginBottom: '5px', marginTop: '0px', fontSize: '32px' }}>
                   {stock.symbol}
                 </p>
-                <p style={{ marginBottom: '0px', marginTop: '0px', fontSize: '18px' }}>
+                <p style={{ marginBottom: '0px', marginTop: '0px', fontSize: '25px' }}>
                   {stock.name}
                 </p>
               </div>
-              <p style={{ fontSize: '25px', marginTop: '15px', marginBottom: '15px' }}>
+              <p style={{ fontSize: '30px', marginTop: '15px', marginBottom: '15px' }}>
                 ${stock.price.toFixed(2)}
               </p>
             </div>
