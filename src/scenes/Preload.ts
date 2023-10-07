@@ -41,8 +41,6 @@ export class Preload extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('bg', 'bg.jpeg')
-
     // Clik Clok
     this.load.image('arrow-up', 'clikclok/arrowUp.png')
     this.load.image('arrow-down', 'clikclok/arrowDown.png')

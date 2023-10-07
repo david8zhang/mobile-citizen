@@ -24,7 +24,7 @@ export class Navbar {
       .rectangle(
         Navbar.STROKE_WIDTH,
         Constants.TOP_BAR_HEIGHT,
-        Constants.WINDOW_WIDTH - Navbar.STROKE_WIDTH * 2,
+        Constants.WINDOW_WIDTH - Navbar.STROKE_WIDTH,
         config.height
       )
       .setFillStyle(config.fillColor !== undefined ? config.fillColor : 0xffffff)

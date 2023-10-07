@@ -35,6 +35,10 @@ export class ClikClok extends App {
         color: 'white',
         fontSize: '35px',
       },
+      strokeStyle: {
+        width: 1,
+        color: 0x000000,
+      },
       fillColor: 0x000000,
     })
     this.screenMappings = {
