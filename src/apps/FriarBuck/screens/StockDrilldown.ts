@@ -217,7 +217,7 @@ export class StockDrilldown extends SubScreen {
       .setOrigin(0)
     this.stockPrice = this.scene.add
       .text(20, this.stockName.y + this.stockName.displayHeight + 10, '', {
-        fontSize: '32px',
+        fontSize: '40px',
         color: 'black',
         fontFamily: Constants.FONT_REGULAR,
       })

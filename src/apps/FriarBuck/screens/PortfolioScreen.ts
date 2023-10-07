@@ -87,7 +87,7 @@ export class PortfolioScreen extends SubScreen {
         x: 15,
         y: this.dailyGrowthLabel.y + this.dailyGrowthLabel.displayHeight + 15,
       },
-      width: Constants.WINDOW_WIDTH - 15,
+      width: Constants.WINDOW_WIDTH - 30,
       height: 175,
     })
   }
@@ -228,7 +228,7 @@ export class PortfolioScreen extends SubScreen {
         x: 15,
         y: this.dailyGrowthLabel.y + this.dailyGrowthLabel.displayHeight + 15,
       },
-      width: Constants.WINDOW_WIDTH - 15,
+      width: Constants.WINDOW_WIDTH - 30,
       height: 175,
     })
   }
