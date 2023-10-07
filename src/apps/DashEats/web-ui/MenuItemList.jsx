@@ -24,8 +24,6 @@ export const MenuItemList = (menuItems, width, height, onClick) => {
               padding: '20px',
               marginBottom: '10px',
               cursor: 'pointer',
-              borderRadius: '15px',
-              boxShadow: '2px 2px 8px 0px #aaa',
             }}
             onClick={() => {
               onClick(menuItem)

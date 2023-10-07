@@ -23,7 +23,6 @@ export const DeliveryJobList = (deliveryJobs, width, height, onClick) => {
               cursor: 'pointer',
               backgroundColor: 'white',
               marginBottom: '10px',
-              borderRadius: '5px',
             }}
             onClick={() => {
               onClick(job)
