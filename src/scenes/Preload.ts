@@ -53,6 +53,9 @@ export class Preload extends Phaser.Scene {
     this.load.image('car-red-horizontal', 'dasheats/cars/dasheats_car_red-horizontal.png')
     this.load.image('car-red-up', 'dasheats/cars/dasheats_car_red-up.png')
     this.load.image('car-red-down', 'dasheats/cars/dasheats_car_red-down.png')
+    this.load.image('pizza', 'dasheats/menu-items/pizza.png')
+    this.load.image('burger', 'dasheats/menu-items/burger.png')
+    this.load.image('burrito', 'dasheats/menu-items/burrito.png')
 
     this.loadTilemaps()
     this.loadIcons()

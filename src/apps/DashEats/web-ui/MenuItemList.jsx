@@ -37,11 +37,7 @@ export const MenuItemList = (menuItems, width, height, onClick) => {
                 justifyContent: 'center',
               }}
             >
-              <img
-                src='/icons/burger-solid.svg'
-                alt='none'
-                style={{ height: '65px', width: '65px' }}
-              />
+              <img src={menuItem.imgSrc} alt='none' style={{ height: '80px', width: '80px' }} />
             </div>
             <div
               style={{

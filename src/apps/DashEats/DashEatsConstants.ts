@@ -6,6 +6,7 @@ export interface MenuItemType {
   fullnessBonus: number
   fitnessBonus: number
   price: number
+  imgSrc: string
 }
 
 export class DashEatsConstants {
