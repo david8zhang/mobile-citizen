@@ -45,9 +45,4 @@ export const APP_CONFIGS = [
     route: AppRoute.FRIAR_BUCK,
     spriteTexture: 'chart-line-solid',
   },
-  {
-    name: 'SportiCash',
-    route: AppRoute.SPORTI_CASH,
-    spriteTexture: 'football-solid',
-  },
 ]
