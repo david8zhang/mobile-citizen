@@ -1,14 +1,15 @@
 import { SubScreen } from '~/core/SubScreen'
 import { Home } from '~/scenes/Home'
 import { DashEats } from '../DashEats'
-import { Constants, Direction } from '~/utils/Constants'
+import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
-import { START_POSITIONS, StartPosition } from '../DashEatsConstants'
+import { DeliveryJob } from '../DashEatsConstants'
 
 export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
   private carSprite!: Phaser.Physics.Arcade.Sprite
   private moveController!: MoveController
+  private deliveryJob!: DeliveryJob
   public static SCALE = 4
 
   constructor(scene: Home, parent: DashEats) {
@@ -40,31 +41,18 @@ export class DeliveryGame extends SubScreen {
     this.scene.updateCallbacks.push(() => {
       this.moveController.update()
     })
+  }
 
-    const randomStartPosition = Phaser.Utils.Array.GetRandom(START_POSITIONS) as StartPosition
-
-    const tile = this.tileMap.getTileAt(randomStartPosition.x, randomStartPosition.y, false, 'Road')
+  updateCarPositionBasedOnJob() {
+    console.log(this.deliveryJob)
+    const tile = this.tileMap.getTileAt(
+      this.deliveryJob.startPosition.x,
+      this.deliveryJob.startPosition.y,
+      false,
+      'Road'
+    )
     if (tile) {
       this.carSprite.setPosition(tile.pixelX * DeliveryGame.SCALE, tile.pixelY * DeliveryGame.SCALE)
-      switch (randomStartPosition.facing) {
-        case Direction.UP:
-          this.carSprite.setFlipX(false)
-          this.carSprite.setTexture(carTextures.up)
-          break
-        case Direction.DOWN:
-          this.carSprite.setFlipX(false)
-          this.carSprite.setTexture(carTextures.down)
-          break
-        case Direction.LEFT:
-        case Direction.RIGHT:
-          this.carSprite.setFlipX(randomStartPosition.facing == Direction.LEFT)
-          this.carSprite.setTexture(carTextures.horizontal)
-          break
-      }
-      this.carSprite.setBodySize(
-        this.carSprite.displayWidth / DeliveryGame.SCALE,
-        this.carSprite.displayHeight / DeliveryGame.SCALE
-      )
     }
   }
 
@@ -98,10 +86,12 @@ export class DeliveryGame extends SubScreen {
     return layer
   }
 
-  public onRender(data?: any): void {
+  public onRender(data: DeliveryJob): void {
+    this.deliveryJob = data
     const parent = this.parent as DashEats
     parent.bottomNav.setVisible(false)
     this.scene.cameras.main.startFollow(this.carSprite, true)
+    this.updateCarPositionBasedOnJob()
   }
 
   public setVisible(isVisible: boolean): void {

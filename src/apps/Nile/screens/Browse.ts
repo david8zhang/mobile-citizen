@@ -59,7 +59,7 @@ export class Browse extends SubScreen {
     const storeItemList = StoreList(
       this.chunkItems(),
       Constants.WINDOW_WIDTH,
-      560,
+      550,
       (item: StoreItem) => {
         const parent = this.parent as Nile
         parent.renderSubscreen(NileScreenTypes.ITEM_DRILLDOWN, item)

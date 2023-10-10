@@ -60,7 +60,6 @@ export class Preload extends Phaser.Scene {
   }
 
   loadTilemaps() {
-    this.load.tilemapTiledJSON('sample-map', 'dasheats/sample-map.json')
     this.load.tilemapTiledJSON('dasheats-city', 'dasheats/dasheats-city.json')
     this.load.image('tilemap_packed', 'dasheats/tilemap_packed.png')
   }

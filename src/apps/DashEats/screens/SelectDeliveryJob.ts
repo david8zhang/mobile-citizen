@@ -4,7 +4,7 @@ import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 import { DeliveryJobList } from '../web-ui/DeliveryJobList'
-import { DELIVERY_RESTAURANTS } from '~/content/DashEats/DeliveryRestaurants'
+import { DELIVERY_RESTAURANT_LOCATIONS } from '~/content/DashEats/DeliveryRestaurants'
 import { DeliveryJob, DeliveryJobDistance, DeliveryJobEarnings } from '../DashEatsConstants'
 import { DE_ScreenTypes } from '../DEScreenTypes'
 
@@ -33,10 +33,15 @@ export class SelectDeliveryJob extends SubScreen {
   setupDeliveryJobList() {
     const deliveryJobs = this.generateDeliveryJobs()
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
-    const menuItemList = DeliveryJobList(deliveryJobs, Constants.WINDOW_WIDTH, 565, (data) => {
-      const parent = this.parent as DashEats
-      parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME)
-    })
+    const menuItemList = DeliveryJobList(
+      deliveryJobs,
+      Constants.WINDOW_WIDTH,
+      565,
+      (deliveryJob: DeliveryJob) => {
+        const parent = this.parent as DashEats
+        parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME, deliveryJob)
+      }
+    )
     this.deliveryJobDom = this.scene.add
       .dom(0, yPos, menuItemList)
       .setOrigin(0)
@@ -48,13 +53,14 @@ export class SelectDeliveryJob extends SubScreen {
     const randomNumJobs = Phaser.Math.Between(3, 6)
     const jobs: DeliveryJob[] = []
     for (let i = 1; i <= randomNumJobs; i++) {
-      const randomRestaurantName = Phaser.Utils.Array.GetRandom(DELIVERY_RESTAURANTS)
+      const randomRestaurant = Phaser.Utils.Array.GetRandom(DELIVERY_RESTAURANT_LOCATIONS)
       const randomDistance = Phaser.Utils.Array.GetRandom(Object.values(DeliveryJobDistance))
       const randomEarningsPotential = Phaser.Utils.Array.GetRandom(
         Object.values(DeliveryJobEarnings)
       )
       jobs.push({
-        restaurantName: randomRestaurantName,
+        restaurantName: randomRestaurant.name,
+        startPosition: randomRestaurant.position,
         distance: randomDistance,
         energyCost: -30,
         earningsPotential: randomEarningsPotential,

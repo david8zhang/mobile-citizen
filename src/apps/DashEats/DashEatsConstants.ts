@@ -20,6 +20,10 @@ export interface DeliveryJob {
   energyCost: number
   distance: DeliveryJobDistance
   earningsPotential: DeliveryJobEarnings
+  startPosition: {
+    x: number
+    y: number
+  }
 }
 
 export enum DeliveryJobDistance {
@@ -39,14 +43,3 @@ export interface StartPosition {
   y: number
   facing: Direction
 }
-
-export const START_POSITIONS: StartPosition[] = [
-  { x: 0, y: 12, facing: Direction.RIGHT },
-  { x: 0, y: 28, facing: Direction.RIGHT },
-  { x: 10, y: 39, facing: Direction.UP },
-  { x: 10, y: 0, facing: Direction.DOWN },
-  { x: 22, y: 0, facing: Direction.DOWN },
-  { x: 32, y: 0, facing: Direction.DOWN },
-  { x: 39, y: 19, facing: Direction.LEFT },
-  { x: 39, y: 38, facing: Direction.LEFT },
-]
