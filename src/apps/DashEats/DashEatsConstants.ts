@@ -1,3 +1,4 @@
+import { Location } from '~/content/DashEats/DeliveryRestaurants'
 import { Direction } from '~/utils/Constants'
 
 export interface MenuItemType {
@@ -17,6 +18,7 @@ export class DashEatsConstants {
 
 export interface DeliveryJob {
   restaurantName: string
+  destination: Location
   energyCost: number
   distance: DeliveryJobDistance
   earningsPotential: DeliveryJobEarnings

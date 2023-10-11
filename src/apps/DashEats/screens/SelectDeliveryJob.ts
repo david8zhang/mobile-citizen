@@ -4,9 +4,14 @@ import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { Utils } from '~/utils/Utils'
 import { DeliveryJobList } from '../web-ui/DeliveryJobList'
-import { DELIVERY_RESTAURANT_LOCATIONS } from '~/content/DashEats/DeliveryRestaurants'
+import {
+  DELIVERY_DESTINATIONS,
+  DELIVERY_RESTAURANT_LOCATIONS,
+  Location,
+} from '~/content/DashEats/DeliveryRestaurants'
 import { DeliveryJob, DeliveryJobDistance, DeliveryJobEarnings } from '../DashEatsConstants'
 import { DE_ScreenTypes } from '../DEScreenTypes'
+import { EarningPotential } from '~/apps/ClikClok/ClikClokConstants'
 
 export class SelectDeliveryJob extends SubScreen {
   private headerText!: Phaser.GameObjects.Text
@@ -49,21 +54,78 @@ export class SelectDeliveryJob extends SubScreen {
     Utils.setupDragToScroll('delivery-job-list')
   }
 
+  isWithinDistanceThreshold(distanceType: DeliveryJobDistance, distance: number) {
+    switch (distanceType) {
+      case DeliveryJobDistance.SHORT: {
+        return distance <= 15
+      }
+      case DeliveryJobDistance.MEDIUM: {
+        return distance <= 50
+      }
+      default:
+        return true
+    }
+  }
+
+  getDestinationWithinDistanceThreshold(
+    startPosition: { x: number; y: number },
+    distanceType: DeliveryJobDistance
+  ) {
+    const validDestinations: any[] = []
+    DELIVERY_DESTINATIONS.map((destination) => {
+      const distance = Phaser.Math.Distance.Snake(
+        startPosition.x,
+        startPosition.y,
+        destination.position.x,
+        destination.position.y
+      )
+      if (this.isWithinDistanceThreshold(distanceType, distance)) {
+        validDestinations.push({
+          ...destination,
+          distance,
+        })
+      }
+    })
+    return Phaser.Utils.Array.GetRandom(validDestinations)
+  }
+
+  // Base earnings are directly based on distance
+  getEarningsPotential(distanceType: DeliveryJobDistance) {
+    switch (distanceType) {
+      case DeliveryJobDistance.SHORT: {
+        return DeliveryJobEarnings.LOW
+      }
+      case DeliveryJobDistance.MEDIUM: {
+        return DeliveryJobEarnings.MEDIUM
+      }
+      default:
+        return DeliveryJobEarnings.HIGH
+    }
+  }
+
   generateDeliveryJobs() {
     const randomNumJobs = Phaser.Math.Between(3, 6)
     const jobs: DeliveryJob[] = []
     for (let i = 1; i <= randomNumJobs; i++) {
-      const randomRestaurant = Phaser.Utils.Array.GetRandom(DELIVERY_RESTAURANT_LOCATIONS)
-      const randomDistance = Phaser.Utils.Array.GetRandom(Object.values(DeliveryJobDistance))
-      const randomEarningsPotential = Phaser.Utils.Array.GetRandom(
-        Object.values(DeliveryJobEarnings)
-      )
+      const randomRestaurant = Phaser.Utils.Array.GetRandom(
+        DELIVERY_RESTAURANT_LOCATIONS
+      ) as Location
+      const randomDistance = Phaser.Utils.Array.GetRandom(
+        Object.values(DeliveryJobDistance)
+      ) as DeliveryJobDistance
+      const destination = this.getDestinationWithinDistanceThreshold(
+        randomRestaurant.position,
+        randomDistance
+      ) as Location
+      const earningsPotential = this.getEarningsPotential(randomDistance)
+
       jobs.push({
         restaurantName: randomRestaurant.name,
         startPosition: randomRestaurant.position,
+        destination,
         distance: randomDistance,
         energyCost: -30,
-        earningsPotential: randomEarningsPotential,
+        earningsPotential,
       })
     }
     return jobs
