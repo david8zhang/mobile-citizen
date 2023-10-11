@@ -4,6 +4,8 @@ import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
 import { DeliveryJob } from '../DashEatsConstants'
+import { Utils } from '~/utils/Utils'
+import { GameUI } from '~/scenes/GameUI'
 
 export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
@@ -92,6 +94,14 @@ export class DeliveryGame extends SubScreen {
     parent.bottomNav.setVisible(false)
     this.scene.cameras.main.startFollow(this.carSprite, true)
     this.updateCarPositionBasedOnJob()
+
+    GameUI.instance.dashEatsDestinationName.setVisible(true)
+    GameUI.instance.dashEatsDestinationName.setText(data.destination.name)
+    Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsDestinationName)
+    GameUI.instance.dashEatsDestinationName.setPosition(
+      GameUI.instance.dashEatsDestinationName.x,
+      Constants.WINDOW_HEIGHT - GameUI.instance.dashEatsDestinationName.displayHeight - 15
+    )
   }
 
   public setVisible(isVisible: boolean): void {

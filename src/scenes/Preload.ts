@@ -66,5 +66,6 @@ export class Preload extends Phaser.Scene {
 
   create() {
     this.scene.start('home')
+    this.scene.start('game-ui')
   }
 }
