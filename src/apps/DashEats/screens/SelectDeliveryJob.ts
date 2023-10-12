@@ -11,7 +11,6 @@ import {
 } from '~/content/DashEats/DeliveryRestaurants'
 import { DeliveryJob, DeliveryJobDistance, DeliveryJobEarnings } from '../DashEatsConstants'
 import { DE_ScreenTypes } from '../DEScreenTypes'
-import { EarningPotential } from '~/apps/ClikClok/ClikClokConstants'
 
 export class SelectDeliveryJob extends SubScreen {
   private headerText!: Phaser.GameObjects.Text
@@ -37,6 +36,7 @@ export class SelectDeliveryJob extends SubScreen {
 
   setupDeliveryJobList() {
     const deliveryJobs = this.generateDeliveryJobs()
+    console.log(deliveryJobs)
     const yPos = this.headerText.y + this.headerText.displayHeight + 30
     const menuItemList = DeliveryJobList(
       deliveryJobs,
@@ -57,10 +57,10 @@ export class SelectDeliveryJob extends SubScreen {
   isWithinDistanceThreshold(distanceType: DeliveryJobDistance, distance: number) {
     switch (distanceType) {
       case DeliveryJobDistance.SHORT: {
-        return distance <= 15
+        return distance <= 50
       }
       case DeliveryJobDistance.MEDIUM: {
-        return distance <= 50
+        return distance <= 100
       }
       default:
         return true

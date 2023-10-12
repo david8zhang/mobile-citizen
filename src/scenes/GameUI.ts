@@ -4,6 +4,7 @@ export class GameUI extends Phaser.Scene {
   private static _instance: GameUI
 
   public dashEatsDestinationName!: Phaser.GameObjects.Text
+  public directionArrow!: Phaser.GameObjects.Sprite
 
   constructor() {
     super('game-ui')
@@ -12,6 +13,13 @@ export class GameUI extends Phaser.Scene {
 
   public static get instance() {
     return GameUI._instance
+  }
+
+  initDirectionArrow() {
+    this.directionArrow = this.add
+      .sprite(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'arrow-right')
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+    this.directionArrow.setVisible(false)
   }
 
   initDestinationName() {
@@ -27,5 +35,6 @@ export class GameUI extends Phaser.Scene {
 
   create() {
     this.initDestinationName()
+    this.initDirectionArrow()
   }
 }

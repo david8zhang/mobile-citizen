@@ -26,7 +26,7 @@ export class DeliveryGame extends SubScreen {
     this.carSprite = this.scene.physics.add
       .sprite(0, 0, 'car-red-horizontal')
       .setDepth(Constants.SORT_LAYERS.MODAL)
-      .setOrigin(0)
+      .setOrigin(0.5, 0)
       .setScale(4)
     const carTextures = {
       horizontal: 'car-red-horizontal',
@@ -42,11 +42,33 @@ export class DeliveryGame extends SubScreen {
     })
     this.scene.updateCallbacks.push(() => {
       this.moveController.update()
+      this.updateDirectionArrow()
     })
   }
 
+  updateDirectionArrow() {
+    if (this.deliveryJob) {
+      const { destination } = this.deliveryJob
+      const tile = this.tileMap.getTileAt(
+        destination.position.x,
+        destination.position.y,
+        false,
+        'Road'
+      )
+      if (tile) {
+        tile.setAlpha(0.5)
+        const angleToDestination = Phaser.Math.Angle.Between(
+          this.carSprite.x,
+          this.carSprite.y,
+          tile.pixelX * DeliveryGame.SCALE,
+          tile.pixelY * DeliveryGame.SCALE
+        )
+        GameUI.instance.directionArrow.setRotation(angleToDestination)
+      }
+    }
+  }
+
   updateCarPositionBasedOnJob() {
-    console.log(this.deliveryJob)
     const tile = this.tileMap.getTileAt(
       this.deliveryJob.startPosition.x,
       this.deliveryJob.startPosition.y,
@@ -95,6 +117,7 @@ export class DeliveryGame extends SubScreen {
     this.scene.cameras.main.startFollow(this.carSprite, true)
     this.updateCarPositionBasedOnJob()
 
+    GameUI.instance.directionArrow.setVisible(true)
     GameUI.instance.dashEatsDestinationName.setVisible(true)
     GameUI.instance.dashEatsDestinationName.setText(data.destination.name)
     Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsDestinationName)
