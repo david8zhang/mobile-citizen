@@ -12,6 +12,11 @@ export class DeliveryGame extends SubScreen {
   private carSprite!: Phaser.Physics.Arcade.Sprite
   private moveController!: MoveController
   private deliveryJob!: DeliveryJob
+  private line!: Phaser.Geom.Line
+  private rectangle!: Phaser.Geom.Rectangle
+  private graphics: Phaser.GameObjects.Graphics
+  private directionArrow!: Phaser.GameObjects.Sprite
+
   public static SCALE = 4
 
   constructor(scene: Home, parent: DashEats) {
@@ -19,9 +24,26 @@ export class DeliveryGame extends SubScreen {
     this.initTilemap()
     this.initCar()
     this.setupColliders()
+    this.initDirectionArrow()
     this.setVisible(false)
+    this.graphics = this.scene.add.graphics()
+    this.graphics.lineStyle(1, 0xff0000)
+    this.graphics.setDepth(Constants.SORT_LAYERS.APP_UI + 100)
+    this.line = new Phaser.Geom.Line(this.carSprite.x, this.carSprite.y, 0, 0)
+    this.rectangle = new Phaser.Geom.Rectangle(
+      0,
+      0,
+      Constants.WINDOW_WIDTH,
+      Constants.WINDOW_HEIGHT
+    )
   }
 
+  initDirectionArrow() {
+    this.directionArrow = this.scene.add
+      .sprite(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'arrow-right')
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(1, 0.5)
+  }
   initCar() {
     this.carSprite = this.scene.physics.add
       .sprite(0, 0, 'car-red-horizontal')
@@ -57,13 +79,28 @@ export class DeliveryGame extends SubScreen {
       )
       if (tile) {
         tile.setAlpha(0.5)
+        const tileWorldX = tile.pixelX * DeliveryGame.SCALE
+        const tileWorldY = tile.pixelY * DeliveryGame.SCALE
         const angleToDestination = Phaser.Math.Angle.Between(
           this.carSprite.x,
           this.carSprite.y,
-          tile.pixelX * DeliveryGame.SCALE,
-          tile.pixelY * DeliveryGame.SCALE
+          tileWorldX,
+          tileWorldY
         )
-        GameUI.instance.directionArrow.setRotation(angleToDestination)
+        this.directionArrow.setRotation(angleToDestination)
+        this.line.setTo(this.carSprite.x, this.carSprite.y, tileWorldX, tileWorldY)
+        this.rectangle.setPosition(
+          this.scene.cameras.main.worldView.x,
+          this.scene.cameras.main.worldView.y
+        )
+        const intersectingPoint = Phaser.Geom.Intersects.GetLineToRectangle(
+          this.line,
+          this.rectangle
+        )
+        if (intersectingPoint.length > 0) {
+          const point = intersectingPoint[0]
+          this.directionArrow.setPosition(point.x, point.y)
+        }
       }
     }
   }
@@ -117,7 +154,6 @@ export class DeliveryGame extends SubScreen {
     this.scene.cameras.main.startFollow(this.carSprite, true)
     this.updateCarPositionBasedOnJob()
 
-    GameUI.instance.directionArrow.setVisible(true)
     GameUI.instance.dashEatsDestinationName.setVisible(true)
     GameUI.instance.dashEatsDestinationName.setText(data.destination.name)
     Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsDestinationName)
@@ -132,5 +168,6 @@ export class DeliveryGame extends SubScreen {
     this.tileMap.layers.forEach((layer) => {
       layer.tilemapLayer.setVisible(isVisible)
     })
+    this.directionArrow.setVisible(isVisible)
   }
 }
