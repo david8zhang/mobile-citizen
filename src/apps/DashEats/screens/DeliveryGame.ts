@@ -3,9 +3,19 @@ import { Home } from '~/scenes/Home'
 import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
-import { DeliveryJob } from '../DashEatsConstants'
+import {
+  DashEatsConstants,
+  DeliveryJob,
+  DeliveryJobDistance,
+  DeliveryJobEarnings,
+} from '../DashEatsConstants'
 import { Utils } from '~/utils/Utils'
 import { GameUI } from '~/scenes/GameUI'
+import {
+  DELIVERY_DESTINATIONS,
+  DELIVERY_RESTAURANT_LOCATIONS,
+  Location,
+} from '~/content/DashEats/DeliveryRestaurants'
 
 export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
@@ -15,7 +25,10 @@ export class DeliveryGame extends SubScreen {
   private line!: Phaser.Geom.Line
   private rectangle!: Phaser.Geom.Rectangle
   private graphics: Phaser.GameObjects.Graphics
+  private goalCircle!: Phaser.Geom.Circle
   private directionArrow!: Phaser.GameObjects.Sprite
+  private deliveryTimer!: Phaser.Time.TimerEvent
+  private timeLimitSeconds: number = 0
 
   public static SCALE = 4
 
@@ -27,9 +40,10 @@ export class DeliveryGame extends SubScreen {
     this.initDirectionArrow()
     this.setVisible(false)
     this.graphics = this.scene.add.graphics()
-    this.graphics.lineStyle(1, 0xff0000)
+    this.graphics.lineStyle(2, 0x00ff00)
     this.graphics.setDepth(Constants.SORT_LAYERS.APP_UI + 100)
     this.line = new Phaser.Geom.Line(this.carSprite.x, this.carSprite.y, 0, 0)
+    this.goalCircle = new Phaser.Geom.Circle(0, 0, 50)
     this.rectangle = new Phaser.Geom.Rectangle(
       0,
       0,
@@ -65,6 +79,14 @@ export class DeliveryGame extends SubScreen {
     this.scene.updateCallbacks.push(() => {
       this.moveController.update()
       this.updateDirectionArrow()
+      if (this.goalCircle.contains(this.carSprite.x, this.carSprite.y)) {
+        if (this.deliveryTimer) {
+          this.graphics.clear()
+          this.deliveryTimer.destroy()
+          GameUI.instance.dashEatsTimer.setVisible(false)
+          this.setupDeliveryJob()
+        }
+      }
     })
   }
 
@@ -77,43 +99,36 @@ export class DeliveryGame extends SubScreen {
         false,
         'Road'
       )
+
       if (tile) {
-        tile.setAlpha(0.5)
         const tileWorldX = tile.pixelX * DeliveryGame.SCALE
         const tileWorldY = tile.pixelY * DeliveryGame.SCALE
-        const angleToDestination = Phaser.Math.Angle.Between(
-          this.carSprite.x,
-          this.carSprite.y,
-          tileWorldX,
-          tileWorldY
-        )
-        this.directionArrow.setRotation(angleToDestination)
-        this.line.setTo(this.carSprite.x, this.carSprite.y, tileWorldX, tileWorldY)
-        this.rectangle.setPosition(
-          this.scene.cameras.main.worldView.x,
-          this.scene.cameras.main.worldView.y
-        )
-        const intersectingPoint = Phaser.Geom.Intersects.GetLineToRectangle(
-          this.line,
-          this.rectangle
-        )
-        if (intersectingPoint.length > 0) {
-          const point = intersectingPoint[0]
-          this.directionArrow.setPosition(point.x, point.y)
+        if (this.scene.cameras.main.worldView.contains(tileWorldX, tileWorldY)) {
+          this.directionArrow.setVisible(false)
+        } else {
+          this.directionArrow.setVisible(true)
+          const angleToDestination = Phaser.Math.Angle.Between(
+            this.carSprite.x,
+            this.carSprite.y,
+            tileWorldX,
+            tileWorldY
+          )
+          this.directionArrow.setRotation(angleToDestination)
+          this.line.setTo(this.carSprite.x, this.carSprite.y, tileWorldX, tileWorldY)
+          this.rectangle.setPosition(
+            this.scene.cameras.main.worldView.x,
+            this.scene.cameras.main.worldView.y
+          )
+          const intersectingPoint = Phaser.Geom.Intersects.GetLineToRectangle(
+            this.line,
+            this.rectangle
+          )
+          if (intersectingPoint.length > 0) {
+            const point = intersectingPoint[0]
+            this.directionArrow.setPosition(point.x, point.y)
+          }
         }
       }
-    }
-  }
-
-  updateCarPositionBasedOnJob() {
-    const tile = this.tileMap.getTileAt(
-      this.deliveryJob.startPosition.x,
-      this.deliveryJob.startPosition.y,
-      false,
-      'Road'
-    )
-    if (tile) {
-      this.carSprite.setPosition(tile.pixelX * DeliveryGame.SCALE, tile.pixelY * DeliveryGame.SCALE)
     }
   }
 
@@ -147,13 +162,137 @@ export class DeliveryGame extends SubScreen {
     return layer
   }
 
-  public onRender(data: DeliveryJob): void {
-    this.deliveryJob = data
+  isWithinDistanceThreshold(distanceType: DeliveryJobDistance, distance: number) {
+    switch (distanceType) {
+      case DeliveryJobDistance.SHORT: {
+        return distance <= 50
+      }
+      case DeliveryJobDistance.MEDIUM: {
+        return distance <= 100
+      }
+      default:
+        return true
+    }
+  }
+
+  getDestinationWithinDistanceThreshold(
+    startPosition: { x: number; y: number },
+    distanceType: DeliveryJobDistance
+  ) {
+    const validDestinations: any[] = []
+    DELIVERY_DESTINATIONS.map((destination) => {
+      const distance = Phaser.Math.Distance.Snake(
+        startPosition.x,
+        startPosition.y,
+        destination.position.x,
+        destination.position.y
+      )
+      if (this.isWithinDistanceThreshold(distanceType, distance)) {
+        validDestinations.push({
+          ...destination,
+          distance,
+        })
+      }
+    })
+    return Phaser.Utils.Array.GetRandom(validDestinations)
+  }
+
+  generateDeliveryJob() {
+    const randomRestaurant = Phaser.Utils.Array.GetRandom(DELIVERY_RESTAURANT_LOCATIONS) as Location
+    const randomDistance = Phaser.Utils.Array.GetRandom(
+      Object.values(DeliveryJobDistance)
+    ) as DeliveryJobDistance
+    const destination = this.getDestinationWithinDistanceThreshold(
+      randomRestaurant.position,
+      randomDistance
+    ) as Location
+    const earningsPotential = this.getEarningsPotential(randomDistance)
+    return {
+      restaurantName: randomRestaurant.name,
+      startPosition: randomRestaurant.position,
+      destination,
+      distance: randomDistance,
+      energyCost: -30,
+      earningsPotential,
+    }
+  }
+
+  // Base earnings are directly based on distance
+  getEarningsPotential(distanceType: DeliveryJobDistance) {
+    switch (distanceType) {
+      case DeliveryJobDistance.SHORT: {
+        return DeliveryJobEarnings.LOW
+      }
+      case DeliveryJobDistance.MEDIUM: {
+        return DeliveryJobEarnings.MEDIUM
+      }
+      default:
+        return DeliveryJobEarnings.HIGH
+    }
+  }
+
+  setupGoalCircle(deliveryJob: DeliveryJob) {
+    const { destination } = deliveryJob
+    const tile = this.tileMap.getTileAt(
+      destination.position.x,
+      destination.position.y,
+      false,
+      'Road'
+    )
+    if (tile) {
+      const tileWorldX = tile.pixelX * DeliveryGame.SCALE
+      const tileWorldY = tile.pixelY * DeliveryGame.SCALE
+      this.goalCircle.setPosition(tileWorldX, tileWorldY)
+      this.graphics.fillStyle(0x00ff00, 0.5)
+      this.graphics.fillCircleShape(this.goalCircle)
+    }
+  }
+
+  public onRender(): void {
     const parent = this.parent as DashEats
     parent.bottomNav.setVisible(false)
     this.scene.cameras.main.startFollow(this.carSprite, true)
-    this.updateCarPositionBasedOnJob()
+    this.setupDeliveryJob()
+    const tile = this.tileMap.getTileAt(
+      this.deliveryJob.startPosition.x,
+      this.deliveryJob.startPosition.y,
+      false,
+      'Road'
+    )
+    if (tile) {
+      this.carSprite.setPosition(tile.pixelX * DeliveryGame.SCALE, tile.pixelY * DeliveryGame.SCALE)
+    }
+  }
 
+  setupDeliveryJob() {
+    this.deliveryJob = this.generateDeliveryJob()
+    this.setupGoalCircle(this.deliveryJob)
+    this.displayDestinationName(this.deliveryJob)
+    this.setupTimer(this.deliveryJob)
+  }
+
+  setupTimer(data: DeliveryJob) {
+    this.timeLimitSeconds = DashEatsConstants.DISTANCE_TO_TIME_LIMIT[data.distance]
+    GameUI.instance.dashEatsTimer.setText(`${this.timeLimitSeconds}`)
+    Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsTimer)
+    GameUI.instance.dashEatsTimer.setVisible(true)
+    this.deliveryTimer = this.scene.time.addEvent({
+      delay: 1000,
+      repeat: this.timeLimitSeconds - 1,
+      callback: () => {
+        if (this.timeLimitSeconds === 0) {
+          this.deliveryTimer.destroy()
+        } else {
+          this.timeLimitSeconds--
+          GameUI.instance.dashEatsTimer.setText(`${this.timeLimitSeconds}`)
+          Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsTimer)
+          GameUI.instance.dashEatsTimer.setVisible(true)
+        }
+      },
+    })
+  }
+
+  displayDestinationName(data: DeliveryJob) {
     GameUI.instance.dashEatsDestinationName.setVisible(true)
     GameUI.instance.dashEatsDestinationName.setText(data.destination.name)
     Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsDestinationName)
