@@ -19,6 +19,7 @@ export class Button {
   private scene: Phaser.Scene
   private rectangle: Phaser.GameObjects.Rectangle
   public text: Phaser.GameObjects.Text
+  public clickCallbacks: Function[] = []
 
   constructor(config: ButtonConfig) {
     this.scene = config.scene
@@ -47,16 +48,19 @@ export class Button {
       })
       .on(Phaser.Input.Events.POINTER_DOWN_OUTSIDE, () => {
         config.onClick()
+        this.clickCallbacks.forEach((cb) => cb())
         this.rectangle.setAlpha(0.85)
         this.text.setAlpha(1)
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
         config.onClick()
+        this.clickCallbacks.forEach((cb) => cb())
         this.rectangle.setAlpha(0.85)
         this.text.setAlpha(1)
       })
       .on(Phaser.Input.Events.POINTER_UP_OUTSIDE, () => {
         config.onClick()
+        this.clickCallbacks.forEach((cb) => cb())
         this.rectangle.setAlpha(0.85)
         this.text.setAlpha(1)
       })

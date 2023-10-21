@@ -35,15 +35,10 @@ export class DashEatsConstants {
 }
 
 export interface DeliveryJob {
-  restaurantName: string
+  restaurant: Location
   destination: Location
-  energyCost: number
+  earnings: number
   distance: DeliveryJobDistance
-  earningsPotential: DeliveryJobEarnings
-  startPosition: {
-    x: number
-    y: number
-  }
 }
 
 export interface StartPosition {

@@ -9,6 +9,7 @@ import { Save, SaveKeys } from '~/utils/Save'
 import { OrderConfirm } from './screens/OrderConfirm'
 import { BottomNav } from '~/core/BottomNav'
 import { DeliveryGame } from './screens/DeliveryGame'
+import { DeliveryGameResults } from './screens/DeliveryGameResults'
 
 export class DashEats extends App {
   private screenMappings: {
@@ -25,6 +26,7 @@ export class DashEats extends App {
       [DE_ScreenTypes.CONFIRM_ORDER]: new OrderConfirm(this.scene, this),
       [DE_ScreenTypes.ORDER_PROGRESS]: new OrderProgress(this.scene, this),
       [DE_ScreenTypes.DELIVERY_GAME]: new DeliveryGame(this.scene, this),
+      [DE_ScreenTypes.DELIVERY_GAME_RESULTS]: new DeliveryGameResults(this.scene, this),
     }
     this.bottomNav = new BottomNav(this.scene, {
       options: [

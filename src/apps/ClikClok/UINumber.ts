@@ -1,12 +1,19 @@
 import { Constants } from '~/utils/Constants'
 
 export class UINumber {
-  static createNumber(str: string, scene: Phaser.Scene, x: number, y: number, color?: string) {
+  static createNumber(
+    str: string,
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    color?: string,
+    fontSize?: string
+  ) {
     const text = scene.add
       .text(x, y, str, {
         fontFamily: Constants.FONT_REGULAR,
-        fontSize: '20px',
-        color: color || 'red',
+        fontSize: fontSize ? fontSize : '20px',
+        color: color ? color : 'red',
       })
       .setOrigin(0.5)
       .setDepth(5000)

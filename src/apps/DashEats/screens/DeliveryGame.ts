@@ -3,12 +3,7 @@ import { Home } from '~/scenes/Home'
 import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
-import {
-  DashEatsConstants,
-  DeliveryJob,
-  DeliveryJobDistance,
-  DeliveryJobEarnings,
-} from '../DashEatsConstants'
+import { DeliveryJob, DeliveryJobDistance } from '../DashEatsConstants'
 import { Utils } from '~/utils/Utils'
 import { GameUI } from '~/scenes/GameUI'
 import {
@@ -16,19 +11,35 @@ import {
   DELIVERY_RESTAURANT_LOCATIONS,
   Location,
 } from '~/content/DashEats/DeliveryRestaurants'
+import { UINumber } from '~/apps/ClikClok/UINumber'
+import { DE_ScreenTypes } from '../DEScreenTypes'
+
+export enum DeliveryPhase {
+  PICKING_UP_ORDER = 'PICKING_UP_ORDER',
+  DELIVERING = 'DELIVERING',
+}
 
 export class DeliveryGame extends SubScreen {
   private tileMap!: Phaser.Tilemaps.Tilemap
   private carSprite!: Phaser.Physics.Arcade.Sprite
   private moveController!: MoveController
-  private deliveryJob!: DeliveryJob
+  private deliveryJob: DeliveryJob | null = null
   private line!: Phaser.Geom.Line
   private rectangle!: Phaser.Geom.Rectangle
   private graphics: Phaser.GameObjects.Graphics
   private goalCircle!: Phaser.Geom.Circle
   private directionArrow!: Phaser.GameObjects.Sprite
   private deliveryTimer!: Phaser.Time.TimerEvent
+
+  // Overlay
+  public overlayText!: Phaser.GameObjects.Text
+  public overlayRect!: Phaser.GameObjects.Rectangle
+
   private timeLimitSeconds: number = 0
+  private totalEarnings: number = 0
+  private numDeliveriesCompleted: number = 0
+  private currentDeliveryPhase: DeliveryPhase = DeliveryPhase.PICKING_UP_ORDER
+  private outOfTime: boolean = false
 
   public static SCALE = 4
 
@@ -77,29 +88,84 @@ export class DeliveryGame extends SubScreen {
       textures: carTextures,
     })
     this.scene.updateCallbacks.push(() => {
-      this.moveController.update()
-      this.updateDirectionArrow()
-      if (this.goalCircle.contains(this.carSprite.x, this.carSprite.y)) {
-        if (this.deliveryTimer) {
-          this.graphics.clear()
-          this.deliveryTimer.destroy()
-          GameUI.instance.dashEatsTimer.setVisible(false)
-          this.setupDeliveryJob()
+      if (!this.outOfTime) {
+        this.moveController.update()
+        this.updateDirectionArrow()
+        if (this.goalCircle.contains(this.carSprite.x, this.carSprite.y)) {
+          if (this.deliveryTimer) {
+            if (this.currentDeliveryPhase === DeliveryPhase.DELIVERING) {
+              this.completeDelivery()
+            } else {
+              this.completePickup()
+            }
+          }
         }
       }
     })
   }
 
+  completePickup() {
+    this.graphics.clear()
+    this.deliveryTimer.destroy()
+    this.currentDeliveryPhase = DeliveryPhase.DELIVERING
+    this.moveGoalCircleToLocation(this.deliveryJob!.destination.position, 0x00ff00)
+    this.displayDestinationName(this.deliveryJob!.destination.name)
+    const newTimeLimitSeconds = Math.min(
+      60,
+      this.timeLimitSeconds + this.getTimeRecovery(this.deliveryJob!.distance)
+    )
+    this.setTimer(newTimeLimitSeconds)
+  }
+
+  completeDelivery() {
+    this.graphics.clear()
+    this.deliveryTimer.destroy()
+    UINumber.createNumber(
+      `+$${this.deliveryJob!.earnings.toFixed(2)}`,
+      this.scene,
+      this.carSprite.x,
+      this.carSprite.y,
+      'white',
+      '25px'
+    )
+    this.totalEarnings += this.deliveryJob!.earnings
+    this.updateTotalEarnings()
+
+    // Generate a new delivery job
+    const oldDeliveryJob = this.deliveryJob
+    const newDeliveryJob = this.generateDeliveryJob()
+    this.moveGoalCircleToLocation(newDeliveryJob.restaurant.position, 0x0000ff)
+    this.displayDestinationName(newDeliveryJob.restaurant.name)
+    this.currentDeliveryPhase = DeliveryPhase.PICKING_UP_ORDER
+
+    // Update timer
+    const newTimeLimitSeconds = Math.min(
+      60,
+      this.timeLimitSeconds + this.getTimeRecovery(oldDeliveryJob!.distance)
+    )
+    this.setTimer(newTimeLimitSeconds)
+    this.deliveryJob = newDeliveryJob
+  }
+
+  finishGame() {
+    const parent = this.parent as DashEats
+    parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME_RESULTS, {
+      totalEarnings: this.totalEarnings,
+      numDeliveriesCompleted: this.numDeliveriesCompleted,
+    })
+    this.directionArrow.setVisible(false)
+    this.scene.cameras.main.stopFollow()
+    this.scene.cameras.main.centerOn(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2)
+    GameUI.instance.hideDashEatsUI()
+  }
+
   updateDirectionArrow() {
     if (this.deliveryJob) {
-      const { destination } = this.deliveryJob
-      const tile = this.tileMap.getTileAt(
-        destination.position.x,
-        destination.position.y,
-        false,
-        'Road'
-      )
-
+      let position: { x: number; y: number } = this.deliveryJob.destination.position
+      if (this.currentDeliveryPhase === DeliveryPhase.PICKING_UP_ORDER) {
+        position = this.deliveryJob.restaurant.position
+      }
+      const tile = this.tileMap.getTileAt(position.x, position.y, false, 'Road')
       if (tile) {
         const tileWorldX = tile.pixelX * DeliveryGame.SCALE
         const tileWorldY = tile.pixelY * DeliveryGame.SCALE
@@ -197,7 +263,7 @@ export class DeliveryGame extends SubScreen {
     return Phaser.Utils.Array.GetRandom(validDestinations)
   }
 
-  generateDeliveryJob() {
+  generateDeliveryJob(): DeliveryJob {
     const randomRestaurant = Phaser.Utils.Array.GetRandom(DELIVERY_RESTAURANT_LOCATIONS) as Location
     const randomDistance = Phaser.Utils.Array.GetRandom(
       Object.values(DeliveryJobDistance)
@@ -206,82 +272,96 @@ export class DeliveryGame extends SubScreen {
       randomRestaurant.position,
       randomDistance
     ) as Location
-    const earningsPotential = this.getEarningsPotential(randomDistance)
+    const earnings = this.getEarningsForJob(randomDistance)
     return {
-      restaurantName: randomRestaurant.name,
-      startPosition: randomRestaurant.position,
+      restaurant: randomRestaurant,
+      earnings,
       destination,
       distance: randomDistance,
-      energyCost: -30,
-      earningsPotential,
     }
   }
 
-  // Base earnings are directly based on distance
-  getEarningsPotential(distanceType: DeliveryJobDistance) {
-    switch (distanceType) {
+  // Time recovery is based on distance travelled
+  getTimeRecovery(distance: DeliveryJobDistance) {
+    switch (distance) {
       case DeliveryJobDistance.SHORT: {
-        return DeliveryJobEarnings.LOW
+        return 5
       }
       case DeliveryJobDistance.MEDIUM: {
-        return DeliveryJobEarnings.MEDIUM
+        return 10
       }
       default:
-        return DeliveryJobEarnings.HIGH
+        return 15
     }
   }
 
-  setupGoalCircle(deliveryJob: DeliveryJob) {
-    const { destination } = deliveryJob
-    const tile = this.tileMap.getTileAt(
-      destination.position.x,
-      destination.position.y,
-      false,
-      'Road'
-    )
+  // Job earnings are based on distance
+  getEarningsForJob(distanceType: DeliveryJobDistance) {
+    switch (distanceType) {
+      case DeliveryJobDistance.SHORT: {
+        return 1
+      }
+      case DeliveryJobDistance.MEDIUM: {
+        return 2
+      }
+      default:
+        return 4
+    }
+  }
+
+  moveGoalCircleToLocation(location: { x: number; y: number }, fillColor: number) {
+    const tile = this.tileMap.getTileAt(location.x, location.y, false, 'Road')
     if (tile) {
       const tileWorldX = tile.pixelX * DeliveryGame.SCALE
       const tileWorldY = tile.pixelY * DeliveryGame.SCALE
       this.goalCircle.setPosition(tileWorldX, tileWorldY)
-      this.graphics.fillStyle(0x00ff00, 0.5)
+      this.graphics.fillStyle(fillColor, 0.5)
       this.graphics.fillCircleShape(this.goalCircle)
     }
   }
 
   public onRender(): void {
+    if (GameUI.instance.continueButton.clickCallbacks.length == 0) {
+      GameUI.instance.continueButton.clickCallbacks.push(() => {
+        this.finishGame()
+      })
+    }
+    this.outOfTime = false
     const parent = this.parent as DashEats
     parent.bottomNav.setVisible(false)
     this.scene.cameras.main.startFollow(this.carSprite, true)
-    this.setupDeliveryJob()
-    const tile = this.tileMap.getTileAt(
-      this.deliveryJob.startPosition.x,
-      this.deliveryJob.startPosition.y,
-      false,
-      'Road'
-    )
+    this.createInitialDeliveryJob()
+    const { restaurant } = this.deliveryJob!
+    const tile = this.tileMap.getTileAt(restaurant.position.x, restaurant.position.y, false, 'Road')
     if (tile) {
       this.carSprite.setPosition(tile.pixelX * DeliveryGame.SCALE, tile.pixelY * DeliveryGame.SCALE)
     }
+    this.currentDeliveryPhase = DeliveryPhase.DELIVERING
   }
 
-  setupDeliveryJob() {
+  createInitialDeliveryJob() {
     this.deliveryJob = this.generateDeliveryJob()
-    this.setupGoalCircle(this.deliveryJob)
-    this.displayDestinationName(this.deliveryJob)
-    this.setupTimer(this.deliveryJob)
+    const { destination } = this.deliveryJob
+    this.moveGoalCircleToLocation(destination.position, 0x00ff00)
+    this.displayDestinationName(this.deliveryJob.destination.name)
+    this.updateTotalEarnings()
+    // this.timeLimitSeconds = DashEatsConstants.DISTANCE_TO_TIME_LIMIT[this.deliveryJob.distance]
+    this.timeLimitSeconds = 5
+    this.setTimer(this.timeLimitSeconds)
   }
 
-  setupTimer(data: DeliveryJob) {
-    this.timeLimitSeconds = DashEatsConstants.DISTANCE_TO_TIME_LIMIT[data.distance]
+  setTimer(timeLimit: number) {
+    this.timeLimitSeconds = timeLimit
     GameUI.instance.dashEatsTimer.setText(`${this.timeLimitSeconds}`)
     Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsTimer)
     GameUI.instance.dashEatsTimer.setVisible(true)
     this.deliveryTimer = this.scene.time.addEvent({
       delay: 1000,
-      repeat: this.timeLimitSeconds - 1,
+      repeat: this.timeLimitSeconds,
       callback: () => {
         if (this.timeLimitSeconds === 0) {
           this.deliveryTimer.destroy()
+          this.handleOutOfTime()
         } else {
           this.timeLimitSeconds--
           GameUI.instance.dashEatsTimer.setText(`${this.timeLimitSeconds}`)
@@ -292,14 +372,26 @@ export class DeliveryGame extends SubScreen {
     })
   }
 
-  displayDestinationName(data: DeliveryJob) {
+  handleOutOfTime() {
+    this.outOfTime = true
+    this.carSprite.setVelocity(0)
+    GameUI.instance.continueButton.setVisible(true)
+    GameUI.instance.displayDashEatsOverlayText("Time's Up!")
+  }
+
+  displayDestinationName(name: string) {
     GameUI.instance.dashEatsDestinationName.setVisible(true)
-    GameUI.instance.dashEatsDestinationName.setText(data.destination.name)
+    GameUI.instance.dashEatsDestinationName.setText(name)
     Utils.centerText(Constants.WINDOW_WIDTH / 2, GameUI.instance.dashEatsDestinationName)
     GameUI.instance.dashEatsDestinationName.setPosition(
       GameUI.instance.dashEatsDestinationName.x,
       Constants.WINDOW_HEIGHT - GameUI.instance.dashEatsDestinationName.displayHeight - 15
     )
+  }
+
+  updateTotalEarnings() {
+    GameUI.instance.dashEatsTotalEarnings.setVisible(true)
+    GameUI.instance.dashEatsTotalEarnings.setText(`Earned: $${this.totalEarnings.toFixed(2)}`)
   }
 
   public setVisible(isVisible: boolean): void {
