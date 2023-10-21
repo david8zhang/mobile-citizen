@@ -3,7 +3,7 @@ import { Home } from '~/scenes/Home'
 import { DashEats } from '../DashEats'
 import { Constants } from '~/utils/Constants'
 import { MoveController } from '~/core/MoveController'
-import { DeliveryJob, DeliveryJobDistance } from '../DashEatsConstants'
+import { DashEatsConstants, DeliveryJob, DeliveryJobDistance } from '../DashEatsConstants'
 import { Utils } from '~/utils/Utils'
 import { GameUI } from '~/scenes/GameUI'
 import {
@@ -37,7 +37,7 @@ export class DeliveryGame extends SubScreen {
 
   private timeLimitSeconds: number = 0
   private totalEarnings: number = 0
-  private numDeliveriesCompleted: number = 0
+  private deliveriesCompleted: number = 0
   private currentDeliveryPhase: DeliveryPhase = DeliveryPhase.PICKING_UP_ORDER
   private outOfTime: boolean = false
 
@@ -129,20 +129,18 @@ export class DeliveryGame extends SubScreen {
       '25px'
     )
     this.totalEarnings += this.deliveryJob!.earnings
+    this.deliveriesCompleted++
     this.updateTotalEarnings()
+    this.updateDeliveriesCompleted()
 
     // Generate a new delivery job
-    const oldDeliveryJob = this.deliveryJob
     const newDeliveryJob = this.generateDeliveryJob()
     this.moveGoalCircleToLocation(newDeliveryJob.restaurant.position, 0x0000ff)
     this.displayDestinationName(newDeliveryJob.restaurant.name)
     this.currentDeliveryPhase = DeliveryPhase.PICKING_UP_ORDER
 
     // Update timer
-    const newTimeLimitSeconds = Math.min(
-      60,
-      this.timeLimitSeconds + this.getTimeRecovery(oldDeliveryJob!.distance)
-    )
+    const newTimeLimitSeconds = Math.min(60, this.timeLimitSeconds + 5)
     this.setTimer(newTimeLimitSeconds)
     this.deliveryJob = newDeliveryJob
   }
@@ -151,11 +149,13 @@ export class DeliveryGame extends SubScreen {
     const parent = this.parent as DashEats
     parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME_RESULTS, {
       totalEarnings: this.totalEarnings,
-      numDeliveriesCompleted: this.numDeliveriesCompleted,
+      deliveriesCompleted: this.deliveriesCompleted,
     })
     this.directionArrow.setVisible(false)
+    parent.bottomNav.setVisible(true)
     this.scene.cameras.main.stopFollow()
     this.scene.cameras.main.centerOn(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2)
+    this.graphics.clear()
     GameUI.instance.hideDashEatsUI()
   }
 
@@ -321,6 +321,8 @@ export class DeliveryGame extends SubScreen {
   }
 
   public onRender(): void {
+    this.totalEarnings = 0
+    this.deliveriesCompleted = 0
     if (GameUI.instance.continueButton.clickCallbacks.length == 0) {
       GameUI.instance.continueButton.clickCallbacks.push(() => {
         this.finishGame()
@@ -345,8 +347,9 @@ export class DeliveryGame extends SubScreen {
     this.moveGoalCircleToLocation(destination.position, 0x00ff00)
     this.displayDestinationName(this.deliveryJob.destination.name)
     this.updateTotalEarnings()
-    // this.timeLimitSeconds = DashEatsConstants.DISTANCE_TO_TIME_LIMIT[this.deliveryJob.distance]
-    this.timeLimitSeconds = 5
+    this.updateDeliveriesCompleted()
+
+    this.timeLimitSeconds = DashEatsConstants.DISTANCE_TO_TIME_LIMIT[this.deliveryJob.distance]
     this.setTimer(this.timeLimitSeconds)
   }
 
@@ -392,6 +395,11 @@ export class DeliveryGame extends SubScreen {
   updateTotalEarnings() {
     GameUI.instance.dashEatsTotalEarnings.setVisible(true)
     GameUI.instance.dashEatsTotalEarnings.setText(`Earned: $${this.totalEarnings.toFixed(2)}`)
+  }
+
+  updateDeliveriesCompleted() {
+    GameUI.instance.dashEatsDeliveriesCompleted.setVisible(true)
+    GameUI.instance.dashEatsDeliveriesCompleted.setText(`Deliveries: ${this.deliveriesCompleted}`)
   }
 
   public setVisible(isVisible: boolean): void {

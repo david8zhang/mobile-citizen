@@ -10,6 +10,7 @@ export class GameUI extends Phaser.Scene {
   public dashEatsOverlayText!: Phaser.GameObjects.Text
   public dashEatsOverlayRect!: Phaser.GameObjects.Rectangle
   public dashEatsTotalEarnings!: Phaser.GameObjects.Text
+  public dashEatsDeliveriesCompleted!: Phaser.GameObjects.Text
   public continueButton!: Button
 
   constructor() {
@@ -26,6 +27,7 @@ export class GameUI extends Phaser.Scene {
     this.initDashEatsTimer()
     this.initDashEatsTotalEarnings()
     this.initDashEatsOverlay()
+    this.initDashEatsDeliveriesCompleted()
     this.initContinueButton()
   }
 
@@ -57,7 +59,7 @@ export class GameUI extends Phaser.Scene {
   initDashEatsTotalEarnings() {
     this.dashEatsTotalEarnings = this.add
       .text(15, 15, 'Earned: $1.00', {
-        fontSize: '25px',
+        fontSize: '28px',
         fontFamily: Constants.FONT_REGULAR,
         color: 'white',
       })
@@ -81,6 +83,18 @@ export class GameUI extends Phaser.Scene {
       })
       .setStroke('black', 8)
       .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setVisible(false)
+  }
+
+  initDashEatsDeliveriesCompleted() {
+    this.dashEatsDeliveriesCompleted = this.add
+      .text(Constants.WINDOW_WIDTH - 15, 15, '', {
+        fontSize: '28px',
+        fontFamily: Constants.FONT_REGULAR,
+      })
+      .setDepth(Constants.SORT_LAYERS.APP_UI)
+      .setOrigin(1, 0)
+      .setStroke('black', 5)
       .setVisible(false)
   }
 
@@ -116,6 +130,7 @@ export class GameUI extends Phaser.Scene {
     this.dashEatsOverlayText.setVisible(false)
     this.dashEatsTimer.setVisible(false)
     this.dashEatsTotalEarnings.setVisible(false)
+    this.dashEatsDeliveriesCompleted.setVisible(false)
     this.continueButton.setVisible(false)
   }
 }
