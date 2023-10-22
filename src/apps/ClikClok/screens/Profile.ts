@@ -158,6 +158,7 @@ export class Profile extends SubScreen {
       }
     )
     if (videosCreatedToday.length > 0) {
+      this.todaysVideosLabel.setVisible(true)
       this.todaysVideosPlaceholderText.setVisible(false)
       const currDayKey = Utils.getCurrDayKey()
       const videoList = VideoList(
@@ -177,6 +178,7 @@ export class Profile extends SubScreen {
         .setDepth(Constants.SORT_LAYERS.APP_UI)
       Utils.setupDragToScroll('today-video-list')
     } else {
+      this.todaysVideosLabel.setVisible(false)
       this.todaysVideosPlaceholderText.setVisible(true)
     }
   }
@@ -189,8 +191,8 @@ export class Profile extends SubScreen {
     this.totalViewsLabel.setVisible(isVisible)
     this.totalViewsValue.setVisible(isVisible)
     this.todaysVideoDividerLine.setVisible(isVisible)
-    this.todaysVideosLabel.setVisible(isVisible)
     if (!isVisible) {
+      this.todaysVideosLabel.setVisible(isVisible)
       this.todaysVideosPlaceholderText.setVisible(isVisible)
     }
     if (this.todaysVideosList) {

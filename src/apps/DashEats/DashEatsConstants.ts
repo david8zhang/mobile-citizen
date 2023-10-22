@@ -26,11 +26,12 @@ export class DashEatsConstants {
   public static SPEEDY_DELIVERY_EXTRA_COST = 3
   public static STANDARD_DELIVERY_TIME = 30000
   public static SPEEDY_DELIVERY_TIME = 15000
+  public static DELIVERY_GAME_ENERGY_COST = 60
 
   public static DISTANCE_TO_TIME_LIMIT = {
     [DeliveryJobDistance.SHORT]: 15,
-    [DeliveryJobDistance.MEDIUM]: 30,
-    [DeliveryJobDistance.LONG]: 45,
+    [DeliveryJobDistance.MEDIUM]: 25,
+    [DeliveryJobDistance.LONG]: 35,
   }
 }
 

@@ -172,6 +172,12 @@ export class Utils {
     }
   }
 
+  public static updateEnergy(scene: Home, energyCost: number) {
+    const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL)
+    Save.setData(SaveKeys.ENERGY_LEVEL, Math.max(0, energyLevel - energyCost))
+    scene.updateTopBarStats()
+  }
+
   public static getPrevDayKey() {
     return `Day${Save.getData(SaveKeys.CURR_DATE) - 1}`
   }

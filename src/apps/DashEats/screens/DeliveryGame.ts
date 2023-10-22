@@ -13,6 +13,7 @@ import {
 } from '~/content/DashEats/DeliveryRestaurants'
 import { UINumber } from '~/apps/ClikClok/UINumber'
 import { DE_ScreenTypes } from '../DEScreenTypes'
+import { Save, SaveKeys } from '~/utils/Save'
 
 export enum DeliveryPhase {
   PICKING_UP_ORDER = 'PICKING_UP_ORDER',
@@ -146,6 +147,7 @@ export class DeliveryGame extends SubScreen {
   }
 
   finishGame() {
+    Utils.updateEnergy(this.scene, DashEatsConstants.DELIVERY_GAME_ENERGY_COST)
     const parent = this.parent as DashEats
     parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME_RESULTS, {
       totalEarnings: this.totalEarnings,
@@ -321,6 +323,7 @@ export class DeliveryGame extends SubScreen {
   }
 
   public onRender(): void {
+    this.outOfTime = false
     this.totalEarnings = 0
     this.deliveriesCompleted = 0
     if (GameUI.instance.continueButton.clickCallbacks.length == 0) {
@@ -328,7 +331,6 @@ export class DeliveryGame extends SubScreen {
         this.finishGame()
       })
     }
-    this.outOfTime = false
     const parent = this.parent as DashEats
     parent.bottomNav.setVisible(false)
     this.scene.cameras.main.startFollow(this.carSprite, true)
