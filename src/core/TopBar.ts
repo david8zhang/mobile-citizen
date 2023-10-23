@@ -4,6 +4,15 @@ import { UIValueBar } from './UIValueBar'
 import { Save, SaveKeys } from '~/utils/Save'
 import { Utils } from '~/utils/Utils'
 
+export enum TopBarStatType {
+  FULLNESS = 'FULLNESS',
+  BANK = 'BANK',
+  ENERGY = 'ENERGY',
+  NOTIFICATIONS = 'NOTIFICATIONS',
+  DATE = 'DATE',
+  POWER = 'POWER',
+}
+
 export enum Grade {
   S = 'S',
   A = 'A',
@@ -17,14 +26,9 @@ export class TopBar {
   private scene: Home
   public bgRect: Phaser.GameObjects.Rectangle
 
-  private knowledgeLabel!: Phaser.GameObjects.Sprite
-  private knowledgeValueText!: Phaser.GameObjects.Text
-
   private bankBalanceLabel!: Phaser.GameObjects.Sprite
   private bankBalanceValueText!: Phaser.GameObjects.Text
 
-  private fitnessLabel!: Phaser.GameObjects.Sprite
-  private fitnessValueText!: Phaser.GameObjects.Text
   private fullnessLabel!: Phaser.GameObjects.Sprite
   private fullnessBar!: UIValueBar
   private energyIcon!: Phaser.GameObjects.Sprite
@@ -35,6 +39,7 @@ export class TopBar {
   private numNotificationsText!: Phaser.GameObjects.Text
   private envelopeButton!: Phaser.GameObjects.Sprite
   private preventActions: boolean = false // Prevent actions (during activities like workouts or recording videos)
+  private tutorialMode: boolean = false
 
   constructor(scene: Home) {
     this.scene = scene
@@ -48,6 +53,25 @@ export class TopBar {
     this.setupPowerButton()
     this.setupCurrDateLabel()
     this.setupNotifications()
+  }
+
+  setTutorialMode(tutorialMode: boolean) {
+    if (tutorialMode) {
+      this.setVisible(false)
+    }
+  }
+
+  setVisible(isVisible: boolean) {
+    this.fullnessBar.setVisible(isVisible)
+    this.fullnessLabel.setVisible(isVisible)
+    this.bankBalanceLabel.setVisible(isVisible)
+    this.bankBalanceValueText.setVisible(isVisible)
+    this.energyIcon.setVisible(isVisible)
+    this.energyValue.setVisible(isVisible)
+    this.powerButton.setVisible(isVisible)
+    this.currDateLabel.setVisible(isVisible)
+    this.numNotificationsText.setVisible(isVisible)
+    this.envelopeButton.setVisible(isVisible)
   }
 
   setupFullnessText() {

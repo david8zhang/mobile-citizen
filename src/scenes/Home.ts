@@ -44,6 +44,7 @@ export class Home extends Phaser.Scene {
     super('home')
   }
   create() {
+    this.add.image(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'background')
     this.checkGameOver()
     Utils.initializeSaveData()
     this.cameras.main.setBackgroundColor(0x001524)

@@ -40,6 +40,9 @@ export class Preload extends Phaser.Scene {
     this.load.image('car-solid', 'icons/car-solid.svg')
     this.load.image('arrow-left-solid', 'icons/arrow-left-solid.svg')
     this.load.image('circle-info-solid', 'icons/circle-info-solid.svg')
+    this.load.image('lock-solid', 'icons/lock-solid.svg')
+    this.load.image('lock-open-solid', 'icons/lock-open-solid.svg')
+    this.load.image('background', 'background.png')
 
     // App icons
     this.load.image('bank', 'icons/apps/bank.png')
