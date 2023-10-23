@@ -149,6 +149,7 @@ export class DeliveryGame extends SubScreen {
   finishGame() {
     Utils.updateEnergy(this.scene, DashEatsConstants.DELIVERY_GAME_ENERGY_COST)
     const parent = this.parent as DashEats
+    this.scene.setPreventAction(false)
     parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME_RESULTS, {
       totalEarnings: this.totalEarnings,
       deliveriesCompleted: this.deliveriesCompleted,

@@ -22,7 +22,6 @@ export class AppIconBox {
     this.sprite = this.scene.add
       .sprite(config.position.x + 10, config.position.y + 10, config.spriteTexture)
       .setDisplaySize(config.width - 20, config.height - 20)
-      .setTintFill(0xffffff)
       .setOrigin(0)
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {

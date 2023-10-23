@@ -38,6 +38,18 @@ export class Preload extends Phaser.Scene {
     this.load.image('football-solid', 'icons/football-solid.svg')
     this.load.image('newspaper-solid', 'icons/newspaper-solid.svg')
     this.load.image('car-solid', 'icons/car-solid.svg')
+    this.load.image('arrow-left-solid', 'icons/arrow-left-solid.svg')
+    this.load.image('circle-info-solid', 'icons/circle-info-solid.svg')
+
+    // App icons
+    this.load.image('bank', 'icons/apps/bank.png')
+    this.load.image('clikclok', 'icons/apps/clikclok.png')
+    this.load.image('dasheats', 'icons/apps/dasheats.png')
+    this.load.image('fitness-monster', 'icons/apps/fitness-monster.png')
+    this.load.image('friar-buck', 'icons/apps/friar-buck.png')
+    this.load.image('myhealth', 'icons/apps/myhealth.png')
+    this.load.image('nile', 'icons/apps/nile.png')
+    this.load.image('email', 'icons/apps/email.png')
   }
 
   preload() {
@@ -65,7 +77,6 @@ export class Preload extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('home')
-    this.scene.start('game-ui')
+    this.scene.start('start')
   }
 }

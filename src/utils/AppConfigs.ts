@@ -7,42 +7,48 @@ export enum AppRoute {
   NILE = 'NILE',
   FRIAR_BUCK = 'FRIAR_BUCK',
   SPORTI_CASH = 'SPORTI_CASH',
+  EMAIL = 'EMAIL',
 }
 
 export const APP_CONFIGS = [
   {
+    name: 'Email',
+    route: AppRoute.EMAIL,
+    spriteTexture: 'email',
+  },
+  {
     name: 'Bank',
     route: AppRoute.BANK,
-    spriteTexture: 'building-columns-solid',
+    spriteTexture: 'bank',
   },
   {
     name: 'ClikClok',
     route: AppRoute.CLIK_CLOK,
-    spriteTexture: 'video-solid',
+    spriteTexture: 'clikclok',
   },
   {
     name: 'DashEats',
     route: AppRoute.DASH_EATS,
-    spriteTexture: 'pizza-slice-solid',
+    spriteTexture: 'dasheats',
   },
   {
     name: 'Fitness Monster',
     route: AppRoute.FIT_NESS_MONSTER,
-    spriteTexture: 'dumbbell-solid',
+    spriteTexture: 'fitness-monster',
   },
   {
     name: 'My Health',
     route: AppRoute.MY_HEALTH,
-    spriteTexture: 'heart-pulse-solid',
+    spriteTexture: 'myhealth',
   },
   {
     name: 'Nile',
     route: AppRoute.NILE,
-    spriteTexture: 'cart-shopping-solid',
+    spriteTexture: 'nile',
   },
   {
     name: 'Friar Buck',
     route: AppRoute.FRIAR_BUCK,
-    spriteTexture: 'chart-line-solid',
+    spriteTexture: 'friar-buck',
   },
 ]

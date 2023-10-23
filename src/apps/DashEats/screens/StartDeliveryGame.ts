@@ -50,6 +50,7 @@ export class StartDeliveryGame extends SubScreen {
       onClick: () => {
         const parent = this.parent as DashEats
         parent.renderSubscreen(DE_ScreenTypes.DELIVERY_GAME)
+        this.scene.setPreventAction(true)
       },
       x: Constants.WINDOW_WIDTH / 2,
       y: this.energyCostText.y + this.energyCostText.displayHeight + 50,
