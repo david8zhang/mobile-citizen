@@ -7,7 +7,8 @@ export class UINumber {
     x: number,
     y: number,
     color?: string,
-    fontSize?: string
+    fontSize?: string,
+    completeCb?: Function
   ) {
     const text = scene.add
       .text(x, y, str, {
@@ -29,6 +30,9 @@ export class UINumber {
       y: y - 50,
       onComplete: () => {
         text.destroy()
+        if (completeCb) {
+          completeCb()
+        }
       },
     })
   }

@@ -69,7 +69,7 @@ export class StartDeliveryGame extends SubScreen {
 
   public onRender(data?: any): void {
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
-    if (energyLevel <= DashEatsConstants.DELIVERY_GAME_ENERGY_COST) {
+    if (energyLevel < DashEatsConstants.DELIVERY_GAME_ENERGY_COST) {
       this.startDeliveryButton.setVisible(false)
       this.startDeliveryText.setText(`Not enough energy for delivery!`)
       Utils.centerText(Constants.WINDOW_WIDTH / 2, this.startDeliveryText)

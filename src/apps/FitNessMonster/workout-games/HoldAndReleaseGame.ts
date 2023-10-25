@@ -43,12 +43,6 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
     energyCost: number
   }
 
-  private static REP_QUALITY_COLOR = {
-    [RepQuality.GOOD]: 0x2ecc71,
-    [RepQuality.AVERAGE]: 0xf1c40f,
-    [RepQuality.BAD]: 0xc0392b,
-  }
-
   private isShowing: boolean = false
 
   constructor(scene: Home, parent: FitNessMonster) {
@@ -62,8 +56,8 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
 
   setupSubtitleText() {
     this.subtitleText = this.scene.add
-      .text(0, 0, 'Hold key and release!', {
-        fontSize: '22px',
+      .text(0, 0, 'Hold "A" key and release!', {
+        fontSize: '28px',
         color: '#555555',
         fontFamily: Constants.FONT_REGULAR,
       })
@@ -129,7 +123,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
         this.progressBar.y,
         (config.repRanges.AVERAGE / 100) * progressBarWidth,
         25,
-        HoldAndReleaseGame.REP_QUALITY_COLOR[RepQuality.AVERAGE]
+        FitNessMonsterConstants.REP_QUALITY_COLOR[RepQuality.AVERAGE]
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0.5, 0)
@@ -139,7 +133,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
         this.progressBar.y,
         (config.repRanges.GOOD / 100) * progressBarWidth,
         25,
-        HoldAndReleaseGame.REP_QUALITY_COLOR[RepQuality.GOOD]
+        FitNessMonsterConstants.REP_QUALITY_COLOR[RepQuality.GOOD]
       )
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0.5, 0)
@@ -171,10 +165,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
         fontFamily: Constants.FONT_REGULAR,
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
-    this.headerText.setPosition(
-      Constants.WINDOW_WIDTH / 2 - this.headerText.displayWidth / 2,
-      this.headerText.y
-    )
+    Utils.centerText(Constants.WINDOW_WIDTH / 2, this.headerText)
   }
 
   positionElements() {
@@ -262,7 +253,7 @@ export class HoldAndReleaseGame extends WorkoutMinigame {
           this.progressBar.y,
           width * (currValue / 100),
           25,
-          HoldAndReleaseGame.REP_QUALITY_COLOR[repQuality]
+          FitNessMonsterConstants.REP_QUALITY_COLOR[repQuality]
         )
         .setDepth(Constants.SORT_LAYERS.APP_UI + 100)
         .setOrigin(0)

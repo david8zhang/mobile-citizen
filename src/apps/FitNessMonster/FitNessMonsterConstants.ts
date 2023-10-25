@@ -35,6 +35,12 @@ export enum WorkoutGrade {
 }
 
 export class FitNessMonsterConstants {
+  public static REP_QUALITY_COLOR = {
+    [RepQuality.GOOD]: 0x2ecc71,
+    [RepQuality.AVERAGE]: 0xf1c40f,
+    [RepQuality.BAD]: 0xc0392b,
+  }
+
   public static REP_QUALITY_TO_SCORE_AMT = {
     [RepQuality.GOOD]: 100,
     [RepQuality.AVERAGE]: 70,
@@ -56,33 +62,33 @@ export class FitNessMonsterConstants {
       fullnessCost: 20,
       fitnessLevelToGainMappings: {
         [Grade.F]: {
-          energyCost: 40,
-          fitnessGain: 10,
+          energyCost: 25,
+          fitnessGain: 50,
           requiredCompletionValue: 5,
         },
         [Grade.D]: {
-          energyCost: 35,
-          fitnessGain: 15,
+          energyCost: 20,
+          fitnessGain: 65,
           requiredCompletionValue: 10,
         },
         [Grade.C]: {
-          energyCost: 30,
-          fitnessGain: 20,
+          energyCost: 15,
+          fitnessGain: 75,
           requiredCompletionValue: 15,
         },
         [Grade.B]: {
-          energyCost: 25,
-          fitnessGain: 25,
+          energyCost: 10,
+          fitnessGain: 100,
           requiredCompletionValue: 20,
         },
         [Grade.A]: {
-          energyCost: 20,
-          fitnessGain: 30,
+          energyCost: 5,
+          fitnessGain: 150,
           requiredCompletionValue: 25,
         },
         [Grade.S]: {
-          energyCost: 15,
-          fitnessGain: 35,
+          energyCost: 2,
+          fitnessGain: 200,
           requiredCompletionValue: 30,
         },
       },
@@ -94,8 +100,9 @@ export class FitNessMonsterConstants {
         repRanges: {
           [RepQuality.GOOD]: 4, // Rectangle width in pixels
           [RepQuality.AVERAGE]: 20,
+          [RepQuality.BAD]: 50,
         },
-        barPosY: Constants.WINDOW_HEIGHT / 2 + 100,
+        barPosY: Constants.WINDOW_HEIGHT / 2,
       },
     },
     {
@@ -104,37 +111,39 @@ export class FitNessMonsterConstants {
       fitnessLevelToGainMappings: {
         [Grade.F]: {
           energyCost: 40,
-          fitnessGain: 30,
-          requiredCompletionValue: 60, // seconds,
+          fitnessGain: 75,
+          requiredCompletionValue: 15, // seconds,
         },
         [Grade.D]: {
-          energyCost: 35,
-          fitnessGain: 25,
-          requiredCompletionValue: 90,
+          energyCost: 30,
+          fitnessGain: 100,
+          requiredCompletionValue: 20,
         },
         [Grade.C]: {
-          energyCost: 30,
-          fitnessGain: 20,
-          requiredCompletionValue: 120,
+          energyCost: 25,
+          fitnessGain: 125,
+          requiredCompletionValue: 25,
         },
         [Grade.B]: {
-          energyCost: 25,
-          fitnessGain: 15,
-          requiredCompletionValue: 150,
+          energyCost: 15,
+          fitnessGain: 150,
+          requiredCompletionValue: 30,
         },
         [Grade.A]: {
-          energyCost: 20,
-          fitnessGain: 12,
-          requiredCompletionValue: 180,
+          energyCost: 10,
+          fitnessGain: 200,
+          requiredCompletionValue: 35,
         },
         [Grade.S]: {
-          energyCost: 15,
-          fitnessGain: 10,
-          requiredCompletionValue: 210,
+          energyCost: 5,
+          fitnessGain: 300,
+          requiredCompletionValue: 40,
         },
       },
       workoutGameType: WorkoutGameTypes.TAP_TIMING,
-      minigameConfig: {},
+      minigameConfig: {
+        headerText: 'Jogging',
+      },
     },
   ]
 

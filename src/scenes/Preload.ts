@@ -70,6 +70,9 @@ export class Preload extends Phaser.Scene {
     this.load.image('burger', 'dasheats/menu-items/burger.png')
     this.load.image('burrito', 'dasheats/menu-items/burrito.png')
 
+    // Fitness-Monster
+    this.load.image('a-key', 'fitness-monster/a-key.png')
+
     this.loadTilemaps()
     this.loadIcons()
   }

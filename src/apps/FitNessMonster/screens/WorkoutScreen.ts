@@ -5,6 +5,7 @@ import { Workout } from '../FitNessMonsterConstants'
 import { WorkoutGameTypes } from '../WorkoutGameTypes'
 import { HoldAndReleaseGame } from '../workout-games/HoldAndReleaseGame'
 import { WorkoutMinigame } from '../workout-games/WorkoutMinigame'
+import { TapTimingGame } from '../workout-games/TapTimingGame'
 
 export class WorkoutScreen extends SubScreen {
   private workoutGame!: Workout
@@ -17,6 +18,7 @@ export class WorkoutScreen extends SubScreen {
     super(scene, parent)
     this.workoutGameMapping = {
       [WorkoutGameTypes.HOLD_AND_RELEASE]: new HoldAndReleaseGame(scene, parent),
+      [WorkoutGameTypes.TAP_TIMING]: new TapTimingGame(scene, parent),
     }
   }
 
