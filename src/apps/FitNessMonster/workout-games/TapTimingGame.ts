@@ -237,6 +237,8 @@ export class TapTimingGame extends WorkoutMinigame {
     this.timeRemainingSeconds =
       workout.fitnessLevelToGainMappings[fitnessGrade].requiredCompletionValue
 
+    console.log(this.timeRemainingSeconds)
+
     // Set up timer
     this.scene.time.addEvent({
       repeat: this.timeRemainingSeconds,
@@ -266,6 +268,8 @@ export class TapTimingGame extends WorkoutMinigame {
       averageScore,
     }
     this.isShowing = false
+    this.workoutCompleted = false
+    this.maxPossibleScore = 0
     this.parent.renderSubscreen(FNM_ScreenTypes.COMPLETED_WORKOUT, workoutCompletedData)
   }
 }

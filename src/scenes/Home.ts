@@ -104,8 +104,13 @@ export class Home extends Phaser.Scene {
     const fitnessGrade = Utils.getFitnessGrade()
     const totalEnergyForFitnessGrade = Utils.getMaxEnergyForFitness(fitnessGrade)
     const fullness = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+    const rechargeAmount = Utils.getEnergyRechargeForFitness(fitnessGrade) * fullness
+
     const currEnergy = Save.getData(SaveKeys.ENERGY_LEVEL) as number
-    Save.setData(SaveKeys.ENERGY_LEVEL, Math.min(currEnergy + fullness, totalEnergyForFitnessGrade))
+    Save.setData(
+      SaveKeys.ENERGY_LEVEL,
+      Math.min(currEnergy + rechargeAmount, totalEnergyForFitnessGrade)
+    )
   }
 
   handleFullnessDecrease() {

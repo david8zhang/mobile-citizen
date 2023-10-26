@@ -31,11 +31,12 @@ export class StartDeliveryGame extends SubScreen {
       .setAlign('center')
     Utils.centerText(Constants.WINDOW_WIDTH / 2, this.startDeliveryText)
 
+    const energyCost = this.getDeliveryGameEnergyCost()
     this.energyCostText = this.scene.add
       .text(
         Constants.WINDOW_WIDTH / 2,
         this.startDeliveryText.y + this.startDeliveryText.displayHeight + 15,
-        `Energy Cost: ${DashEatsConstants.DELIVERY_GAME_ENERGY_COST}`,
+        `Energy Cost: ${energyCost}`,
         {
           fontSize: '28px',
           fontFamily: Constants.FONT_REGULAR,
@@ -67,9 +68,17 @@ export class StartDeliveryGame extends SubScreen {
     this.setVisible(false)
   }
 
+  public getDeliveryGameEnergyCost() {
+    const fitnessGrade = Utils.getFitnessGrade()
+    const energyCost = Utils.getEnergyCostForFitness(fitnessGrade)
+    return (1 + energyCost) * DashEatsConstants.DELIVERY_GAME_ENERGY_COST
+  }
+
   public onRender(data?: any): void {
+    const deliveryGameEnergyCost = this.getDeliveryGameEnergyCost()
+    this.energyCostText.setText(`Energy Cost: ${deliveryGameEnergyCost}`)
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL) as number
-    if (energyLevel < DashEatsConstants.DELIVERY_GAME_ENERGY_COST) {
+    if (energyLevel < deliveryGameEnergyCost) {
       this.startDeliveryButton.setVisible(false)
       this.startDeliveryText.setText(`Not enough energy for delivery!`)
       Utils.centerText(Constants.WINDOW_WIDTH / 2, this.startDeliveryText)

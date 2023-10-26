@@ -48,7 +48,9 @@ export abstract class App {
       },
     })
   }
+
   public abstract setVisible(isVisible: boolean): void
+
   public onHide(onComplete?: Function): void {
     this.setVisible(false)
     this.bgRect.setVisible(true)

@@ -90,6 +90,8 @@ export class MyHealth extends App {
 
   getEnergyStatsSection() {
     const fitnessGrade = Utils.getFitnessGrade()
+    const fullnessLevel = Save.getData(SaveKeys.FULLNESS_LEVEL) as number
+    const rechargeAmount = Utils.getEnergyRechargeForFitness(fitnessGrade) * fullnessLevel
     const currEnergy = Save.getData(SaveKeys.ENERGY_LEVEL) as number
     const maxEnergy = Utils.getMaxEnergyForFitness(fitnessGrade)
     const maxEnergyForNextGrade = Utils.getMaxEnergyForFitness(Utils.getNextGrade(fitnessGrade))
@@ -102,6 +104,10 @@ export class MyHealth extends App {
         {
           label: 'Max Energy for Next Grade',
           value: maxEnergyForNextGrade,
+        },
+        {
+          label: 'Energy Recharge On New Day',
+          value: rechargeAmount,
         },
       ],
     }

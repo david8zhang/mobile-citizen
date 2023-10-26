@@ -272,6 +272,29 @@ export class Utils {
     }
   }
 
+  public static getEnergyRechargeForFitness(grade: Grade) {
+    switch (grade) {
+      case Grade.S: {
+        return 3
+      }
+      case Grade.A: {
+        return 2
+      }
+      case Grade.B: {
+        return 1.5
+      }
+      case Grade.C: {
+        return 1
+      }
+      case Grade.D: {
+        return 0.75
+      }
+      case Grade.F: {
+        return 0.5
+      }
+    }
+  }
+
   public static setupDragToScroll(divId: string) {
     const ele = document.getElementById(divId)!
     ele.style.cursor = 'grab'

@@ -53,11 +53,24 @@ export class SelectSound extends SubScreen {
     }
   }
 
+  updateSongEnergyCostBasedOnFitness() {
+    const fitnessGrade = Utils.getFitnessGrade()
+    return SOUNDS_LIST.map((songConfig: SongConfig) => {
+      return {
+        ...songConfig,
+        energyCost: Math.round(
+          (1 + Utils.getEnergyCostForFitness(fitnessGrade)) * songConfig.energyCost
+        ),
+      }
+    })
+  }
+
   setupSoundsList() {
     const yPos = this.selectSoundLabel.y
     const energyLevel = Save.getData(SaveKeys.ENERGY_LEVEL)
+    const songsWithUpdatedEnergyCost = this.updateSongEnergyCostBasedOnFitness()
     const soundsList = SoundList(
-      SOUNDS_LIST,
+      songsWithUpdatedEnergyCost,
       520,
       Constants.WINDOW_WIDTH,
       (data) => {

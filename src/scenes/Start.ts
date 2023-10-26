@@ -7,8 +7,6 @@ export class Start extends Phaser.Scene {
 
   create() {
     this.add.image(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 'background')
-    const graphics = this.add.graphics()
-
     const lockIcon = this.add
       .sprite(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_WIDTH / 4, 'lock-solid')
       .setOrigin(0.5, 1)
@@ -74,27 +72,10 @@ export class Start extends Phaser.Scene {
       lockIcon.setTexture('lock-solid')
 
       if (pointer.worldY < dragEndYPos) {
+        // this.scene.start('test')
         this.scene.start('home')
         this.scene.start('game-ui')
       }
     })
-
-    // this.button = new Button({
-    //   scene: this,
-    //   width: 150,
-    //   height: 40,
-    //   text: 'Start',
-    //   fontSize: '28px',
-    //   fontFamily: Constants.FONT_REGULAR,
-    //   x: Constants.WINDOW_WIDTH / 2,
-    //   y: titleText.y + titleText.displayHeight + 50,
-    //   strokeColor: 0x000000,
-    //   strokeWidth: 1,
-    //   backgroundColor: 0xffffff,
-    //   onClick: () => {
-    //     this.scene.start('home')
-    //     this.scene.start('game-ui')
-    //   },
-    // })
   }
 }
