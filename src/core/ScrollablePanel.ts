@@ -29,7 +29,7 @@ export class ScrollablePanel {
   private elements: ScrollableListElement[] = []
   private layer: Phaser.GameObjects.Layer
   private listBounds: Phaser.Geom.Rectangle
-  private isDragging: boolean = false
+  public isDragging: boolean = false
 
   constructor(scene: Scene, config: ScrollablePanelConfig) {
     this.scene = scene
@@ -75,7 +75,7 @@ export class ScrollablePanel {
         if (prevWorldY == -1) {
           prevWorldY = pointer.worldY
         } else {
-          const newConfig = { ...config, scrollSpeed: config.scrollSpeed * 0.1 }
+          const newConfig = { ...config, scrollSpeed: config.scrollSpeed * 0.5 }
           if (pointer.worldY > prevWorldY) {
             this.handleScroll(newConfig, ScrollDirection.DOWN)
           } else if (pointer.worldY < prevWorldY) {

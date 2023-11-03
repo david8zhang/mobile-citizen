@@ -72,7 +72,6 @@ export class Start extends Phaser.Scene {
       lockIcon.setTexture('lock-solid')
 
       if (pointer.worldY < dragEndYPos) {
-        // this.scene.start('test')
         this.scene.start('home')
         this.scene.start('game-ui')
       }

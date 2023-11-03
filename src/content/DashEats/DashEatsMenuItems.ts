@@ -3,19 +3,19 @@ import { MenuItemType } from '~/apps/DashEats/DashEatsConstants'
 export const DASH_EATS_MENU_ITEMS: MenuItemType[] = [
   {
     name: 'Hamburger',
-    description: 'Time for hamburger',
+    description: 'Or "Steamed Hams" for all the upstate New-Yorkers out there.',
     price: 3,
     fullnessBonus: 20,
     fitnessBonus: -20,
-    imgSrc: '/dasheats/menu-items/burger.png',
+    imgSrc: 'burger',
   },
   {
     name: 'Pizza',
-    description: 'Krusty Krab Pizza for you and me',
+    description: 'Pizza Time! Perfect for when the moon hits your eye',
     price: 4,
     fullnessBonus: 15,
     fitnessBonus: -15,
-    imgSrc: '/dasheats/menu-items/pizza.png',
+    imgSrc: 'pizza',
   },
   {
     name: 'Bean Burrito',
@@ -23,6 +23,6 @@ export const DASH_EATS_MENU_ITEMS: MenuItemType[] = [
     price: 5,
     fullnessBonus: 10,
     fitnessBonus: -10,
-    imgSrc: '/dasheats/menu-items/burrito.png',
+    imgSrc: 'burrito',
   },
 ]

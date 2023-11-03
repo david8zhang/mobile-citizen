@@ -20,6 +20,8 @@ export class CC_BottomNav {
 
   private static BUTTON_WIDTH = 40
   public static BOTTOM_BAR_HEIGHT = 60
+  private isEarningsClicked: boolean = false
+  private isProfileClicked: boolean = false
 
   constructor(scene: Home, config: CC_BottomNavConfig) {
     this.scene = scene
@@ -46,13 +48,17 @@ export class CC_BottomNav {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.isEarningsClicked = true
         this.earningsIcon.setAlpha(0.5)
         this.earningsText.setAlpha(0.5)
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.earningsIcon.setAlpha(1)
-        this.earningsText.setAlpha(1)
-        this.onRoute(CC_ScreenTypes.EARNINGS)
+        if (this.isEarningsClicked) {
+          this.earningsIcon.setAlpha(1)
+          this.earningsText.setAlpha(1)
+          this.onRoute(CC_ScreenTypes.EARNINGS)
+        }
+        this.isEarningsClicked = false
       })
     this.earningsText = this.scene.add
       .text(
@@ -83,23 +89,33 @@ export class CC_BottomNav {
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.isProfileClicked = true
         this.profileIcon.setAlpha(0.5)
         this.profileText.setAlpha(0.5)
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.profileIcon.setAlpha(1)
-        this.profileText.setAlpha(1)
-        this.onRoute(CC_ScreenTypes.PROFILE)
+        if (this.isProfileClicked) {
+          this.profileIcon.setAlpha(1)
+          this.profileText.setAlpha(1)
+          this.onRoute(CC_ScreenTypes.PROFILE)
+        }
+        this.isProfileClicked = false
       })
       .on(Phaser.Input.Events.POINTER_UP_OUTSIDE, () => {
-        this.profileIcon.setAlpha(1)
-        this.profileText.setAlpha(1)
-        this.onRoute(CC_ScreenTypes.PROFILE)
+        if (this.isProfileClicked) {
+          this.profileIcon.setAlpha(1)
+          this.profileText.setAlpha(1)
+          this.onRoute(CC_ScreenTypes.PROFILE)
+        }
+        this.isProfileClicked = false
       })
       .on(Phaser.Input.Events.POINTER_DOWN_OUTSIDE, () => {
-        this.profileIcon.setAlpha(1)
-        this.profileText.setAlpha(1)
-        this.onRoute(CC_ScreenTypes.PROFILE)
+        if (this.isProfileClicked) {
+          this.profileIcon.setAlpha(1)
+          this.profileText.setAlpha(1)
+          this.onRoute(CC_ScreenTypes.PROFILE)
+        }
+        this.isProfileClicked = false
       })
     this.profileText = this.scene.add
       .text(

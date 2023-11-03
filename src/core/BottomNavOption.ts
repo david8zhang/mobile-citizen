@@ -18,6 +18,7 @@ export class BottomNavOption {
   private bgRect: Phaser.GameObjects.Rectangle
   private sprite: Phaser.GameObjects.Sprite
   private navOptionText: Phaser.GameObjects.Text
+  private isClicked: boolean = false
 
   constructor(scene: Home, config: BottomNavOptionConfig) {
     this.scene = scene
@@ -41,12 +42,16 @@ export class BottomNavOption {
         this.bgRect.setAlpha(0.5)
         this.sprite.setAlpha(0.5)
         this.navOptionText.setAlpha(0.5)
+        this.isClicked = true
       })
       .on(Phaser.Input.Events.POINTER_UP, () => {
-        this.bgRect.setAlpha(1)
-        this.sprite.setAlpha(1)
-        this.navOptionText.setAlpha(1)
-        config.onClick()
+        if (this.isClicked) {
+          this.bgRect.setAlpha(1)
+          this.sprite.setAlpha(1)
+          this.navOptionText.setAlpha(1)
+          config.onClick()
+        }
+        this.isClicked = false
       })
       .setDepth(Constants.SORT_LAYERS.APP_UI)
       .setOrigin(0)
